@@ -65,7 +65,6 @@
     .btn:active { transform: scale(0.97); }
     .btn:disabled { background: #475569; cursor: not-allowed; opacity: 0.6; box-shadow: none; }
     
-    /* Updated Modern Bottom Navigation Bar (Larger Buttons) */
     .navbar {
       position: fixed; 
       bottom: 0; left: 0; right: 0;
@@ -104,7 +103,6 @@
     .tab-content.active { display: block; }
     input, select { width: 100%; padding: 14px; margin-top: 10px; border-radius: 10px; border: 1px solid var(--border-color); background: #0f172a; color: white; box-sizing: border-box; font-size: 15px; }
 
-    /* Mandatory Join Modal Screen Overlay */
     #join-modal {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -186,7 +184,7 @@
       <div class="card">
         <h3>Invite Friends</h3>
         <p style="color: var(--text-dim); font-size: 14px; margin-bottom: 15px;">Earn 50 bonus coins for every friend who joins using your link!</p>
-        <button class="btn" style="background: #22c55e;" onclick="window.shareReferral()">Invite Friends</button>
+        <button class="btn" style="background: #22c55e; margin-bottom: 10px;" onclick="window.shareReferral()">Share Referral Link</button>
       </div>
     </div>
 
@@ -223,7 +221,7 @@
 
   </div>
 
-  <!-- Bottom Navigation Bar (Updated UI) -->
+  <!-- Bottom Navigation Bar -->
   <div class="navbar">
     <div class="nav-item active" onclick="window.switchTab('dashboard', this)">
       <span style="font-size: 18px;">🏠</span>
@@ -265,19 +263,18 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    const tg = window.Telegram.WebApp;
-    tg.expand();
+    const tg = window.Telegram?.WebApp;
+    if (tg) tg.expand();
 
-    const user = tg.initDataUnsafe?.user || { id: 12345678, first_name: "Demo User" };
-    const startParam = tg.initDataUnsafe?.start_param; // Track referral parameter
+    const user = tg?.initDataUnsafe?.user || { id: 12345678, first_name: "Demo User" };
+    const startParam = tg?.initDataUnsafe?.start_param;
 
-    // Configuration Options
-    const BOT_USERNAME = "socialpulse_bots"; 
-    const APP_SHORT_NAME = "app"; // BotFather-এ দেওয়া Short Name
-    const CHANNEL_USERNAME = "@socialpulse_bots"; // আপনার চ্যানেলের ইউজারনেম
+    const BOT_USERNAME = "Social_Pulse_earnBot"; 
+    const CHANNEL_USERNAME = "@socialpulseaig"; 
+    const BOT_TOKEN = "8731863495:AAEy2Z-QyUzpUqfaJH3EUpO7bPBJ_ol4Yq0"; 
 
-    document.getElementById('user-name').innerText = user.first_name;
-    document.getElementById('user-avatar').innerText = user.first_name.charAt(0);
+    document.getElementById('user-name').innerText = user.first_name || "User";
+    document.getElementById('user-avatar').innerText = (user.first_name || "U").charAt(0);
     document.getElementById('stat-uid').innerText = user.id;
 
     const userRef = ref(db, 'users/' + user.id);
@@ -286,7 +283,7 @@
       try {
         const snap = await get(userRef);
         if (!snap.exists()) {
-          // New User Setup
+          // Create new user entry
           await set(userRef, {
             coins: 0,
             adsWatched: 0,
@@ -295,8 +292,8 @@
             createdAt: new Date().toISOString()
           });
 
-          // Process Referral Bonus if joined via referral link
-          if (startParam && startParam != user.id) {
+          // Handle Referral Logic for Referrer
+          if (startParam && String(startParam) !== String(user.id)) {
             const referrerRef = ref(db, 'users/' + startParam);
             const refSnap = await get(referrerRef);
             if (refSnap.exists()) {
@@ -334,7 +331,12 @@
     }
 
     window.joinChannel = function() {
-      tg.openTelegramLink(`https://t.me/${CHANNEL_USERNAME.replace('@','')}`);
+      const cleanChannel = CHANNEL_USERNAME.replace('@','');
+      if (tg && tg.openTelegramLink) {
+        tg.openTelegramLink(`https://t.me/${cleanChannel}`);
+      } else {
+        window.open(`https://t.me/${cleanChannel}`, '_blank');
+      }
     };
 
     window.verifyJoin = async function() {
@@ -342,19 +344,18 @@
       verifyBtn.innerText = "Verifying...";
       verifyBtn.disabled = true;
 
-      // Note: Make sure your bot is an ADMIN in your Telegram channel to check membership!
       try {
-        const res = await fetch(`https://api.telegram.org/bot7594966601:AAEbJg0n7s0W9E8yK3x4T9/getChatMember?chat_id=${CHANNEL_USERNAME}&user_id=${user.id}`);
+        const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getChatMember?chat_id=${CHANNEL_USERNAME}&user_id=${user.id}`);
         const data = await res.json();
         
         if (data.ok && ['member', 'administrator', 'creator'].includes(data.result?.status)) {
           document.getElementById('join-modal').style.display = 'none';
         } else {
-          alert("Verification Failed! Please join the channel first.");
+          alert("Verification Failed! You have not joined the channel yet.");
         }
       } catch (err) {
-        // Fallback for demo testing
-        document.getElementById('join-modal').style.display = 'none';
+        console.error("API Verification Error:", err);
+        alert("Verification Failed! Please try again.");
       } finally {
         verifyBtn.innerText = "2. I Have Joined (Verify)";
         verifyBtn.disabled = false;
@@ -420,11 +421,16 @@
       }
     };
 
+    // Updated Mini App Referral Sharing Link (using short name 'open')
     window.shareReferral = function() {
-      const directAppUrl = `https://t.me/${BOT_USERNAME}/${APP_SHORT_NAME}?startapp=${user.id}`;
-      const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(directAppUrl)}&text=${encodeURIComponent("Join this mini app and earn money daily!")}`;
+      const referralLink = `https://t.me/${BOT_USERNAME}/open?startapp=${user.id}`;
+      const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent("Join this mini app and earn money daily!")}`;
       
-      tg.openTelegramLink(shareUrl);
+      if (tg && tg.openTelegramLink) {
+        tg.openTelegramLink(shareUrl);
+      } else {
+        window.open(shareUrl, '_blank');
+      }
     };
 
     window.switchTab = function(tabName, element) {
