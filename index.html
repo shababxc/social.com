@@ -382,7 +382,7 @@
         const currentData = snap.val() || { coins: 0, adsWatched: 0 };
         
         await update(userRef, {
-          coins: (currentData.coins || 0) + 10,
+          coins: (currentData.coins || 0) + 100,
           adsWatched: (currentData.adsWatched || 0) + 1
         });
 
