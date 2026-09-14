@@ -30,6 +30,7 @@
       margin: 0;
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-weight: 700;
     }
 
     html, body {
@@ -74,7 +75,7 @@
       align-items: center;
       justify-content: center;
       color: #fff;
-      font-weight: bold;
+      font-weight: 800;
       overflow: hidden;
     }
 
@@ -85,7 +86,7 @@
     }
 
     .user-name {
-      font-weight: bold;
+      font-weight: 800;
       color: #fff;
       font-size: 16px;
       text-shadow: 0 1px 3px rgba(0,0,0,0.2);
@@ -108,11 +109,19 @@
       justify-content: center;
       cursor: pointer;
       font-size: 14px;
+      font-weight: 800;
     }
 
     /* Main Container with Fixed & Scrollable regions */
     .container {
       padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .view-section {
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -158,7 +167,7 @@
 
     .coin-amount {
       font-size: 26px;
-      font-weight: 800;
+      font-weight: 900;
       color: #fff;
       text-shadow: 0 2px 4px rgba(0,0,0,0.15);
     }
@@ -168,7 +177,7 @@
       padding: 6px 14px;
       border-radius: 14px;
       color: #0f172a;
-      font-weight: bold;
+      font-weight: 800;
       font-size: 13px;
       display: flex;
       align-items: center;
@@ -179,7 +188,7 @@
       text-align: center;
       color: rgba(255, 255, 255, 0.95);
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 800;
       margin: 8px 0 16px 0;
     }
 
@@ -218,7 +227,7 @@
 
     .ad-card-premium .action-title {
       color: #0f172a !important;
-      font-weight: 800;
+      font-weight: 900;
     }
 
     .ad-card-premium .action-reward {
@@ -240,13 +249,13 @@
 
     .action-title {
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 800;
       color: #0f172a;
     }
 
     .action-reward {
       font-size: 11px;
-      font-weight: 800;
+      font-weight: 900;
       color: #2563eb;
       background: rgba(59, 130, 246, 0.15);
       padding: 2px 8px;
@@ -270,12 +279,13 @@
 
     .level-title {
       font-size: 18px;
-      font-weight: 800;
+      font-weight: 900;
       color: #0f172a;
     }
 
     .stat-desc {
       font-size: 11px;
+      font-weight: 700;
       color: var(--text-muted);
       margin: 4px 0 10px 0;
     }
@@ -292,14 +302,14 @@
       border: none;
       padding: 4px 14px;
       border-radius: 12px;
-      font-weight: bold;
+      font-weight: 800;
       font-size: 12px;
       cursor: pointer;
     }
 
     .daily-counter {
       font-size: 26px;
-      font-weight: 800;
+      font-weight: 900;
       color: #0f172a;
       text-align: right;
     }
@@ -322,7 +332,8 @@
 
     .bounty-title {
       font-size: 18px;
-      font-weight: 800;
+      font-weight: 900;
+      color: #fff;
     }
 
     .post-btn {
@@ -331,7 +342,7 @@
       border: none;
       padding: 6px 14px;
       border-radius: 10px;
-      font-weight: bold;
+      font-weight: 800;
       font-size: 13px;
       cursor: pointer;
     }
@@ -352,9 +363,9 @@
 
     .no-tasks-text {
       text-align: center;
-      color: rgba(255, 255, 255, 0.85);
+      color: rgba(255, 255, 255, 0.95);
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 800;
       padding: 20px 0;
     }
 
@@ -382,7 +393,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
+      font-weight: 800;
       color: #475569;
       overflow: hidden;
       border: 1px solid #cbd5e1;
@@ -396,6 +407,7 @@
 
     .task-details h4 {
       font-size: 14px;
+      font-weight: 800;
       color: #0f172a;
       margin-bottom: 3px;
     }
@@ -407,16 +419,76 @@
       padding: 2px 8px;
       border-radius: 8px;
       display: inline-block;
-      font-weight: 600;
+      font-weight: 800;
     }
 
     .task-reward {
       background: rgba(59, 130, 246, 0.15);
       color: #2563eb;
       font-size: 13px;
-      font-weight: bold;
+      font-weight: 900;
       padding: 6px 12px;
       border-radius: 20px;
+    }
+
+    /* Team View Styling */
+    .team-content-area {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-bottom: 90px;
+    }
+
+    .team-content-area::-webkit-scrollbar {
+      display: none;
+    }
+
+    .team-card {
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    }
+
+    .team-card-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .team-icon-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(59, 130, 246, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .team-card-info h4 {
+      font-size: 15px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+
+    .team-bonus-tag {
+      color: #2563eb;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .team-card-count {
+      font-size: 20px;
+      font-weight: 900;
+      color: #0f172a;
     }
 
     /* Bottom Nav */
@@ -439,11 +511,12 @@
       gap: 3px;
       color: #64748b;
       font-size: 12px;
+      font-weight: 800;
       text-decoration: none;
-      font-weight: 600;
+      cursor: pointer;
     }
 
-    .nav-link.active { color: #000; }
+    .nav-link.active { color: #0f172a; }
 
     /* Modals Overlay */
     .modal-overlay {
@@ -461,6 +534,8 @@
       background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
       width: 90%;
       max-width: 360px;
+      max-height: 85vh;
+      overflow-y: auto;
       border-radius: 24px;
       padding: 24px;
       color: #fff;
@@ -479,6 +554,7 @@
       align-items: center;
       gap: 6px;
       font-size: 20px;
+      font-weight: 900;
     }
 
     .close-modal {
@@ -487,6 +563,7 @@
       background: none;
       border: none;
       color: #fff;
+      font-weight: 900;
     }
 
     /* Form Fields */
@@ -498,7 +575,7 @@
     .form-group label {
       display: block;
       font-size: 12px;
-      font-weight: bold;
+      font-weight: 800;
       margin-bottom: 6px;
       color: #f1f5f9;
     }
@@ -511,6 +588,7 @@
       background: rgba(255, 255, 255, 0.9);
       color: #0f172a;
       font-size: 14px;
+      font-weight: 800;
       outline: none;
     }
 
@@ -545,6 +623,7 @@
       padding: 4px 14px;
       border-radius: 12px;
       font-size: 13px;
+      font-weight: 800;
       margin-top: 6px;
     }
 
@@ -554,6 +633,7 @@
       padding: 10px 14px;
       border-radius: 12px;
       font-size: 12px;
+      font-weight: 800;
       text-align: center;
       margin-bottom: 15px;
     }
@@ -565,7 +645,7 @@
       color: #fff;
       padding: 12px;
       border-radius: 12px;
-      font-weight: bold;
+      font-weight: 900;
       margin-bottom: 15px;
       cursor: pointer;
     }
@@ -577,10 +657,128 @@
       border: none;
       padding: 14px;
       border-radius: 14px;
-      font-weight: bold;
+      font-weight: 900;
       font-size: 15px;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    /* Settings Modal Specific Styles */
+    .settings-profile-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 14px;
+      border-radius: 16px;
+      margin-bottom: 16px;
+    }
+
+    .settings-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #fff;
+      color: #0284c7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      overflow: hidden;
+      font-size: 18px;
+    }
+
+    .settings-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .settings-user-info h4 {
+      font-size: 15px;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+
+    .id-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #e0f2fe;
+    }
+
+    .copy-id-btn {
+      background: rgba(255,255,255,0.25);
+      border: none;
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .settings-menu-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .settings-item {
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 12px 14px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .settings-item-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .menu-svg-icon {
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .settings-item select {
+      background: rgba(0,0,0,0.25);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.4);
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .privacy-text-box {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.5;
+      max-height: 220px;
+      overflow-y: auto;
+      margin-bottom: 14px;
+      color: #f8fafc;
     }
   </style>
 </head>
@@ -595,84 +793,141 @@
       </div>
       <div class="header-icons">
         <button class="icon-btn">?</button>
-        <button class="icon-btn">⚙️</button>
+        <button class="icon-btn" onclick="openSettingsModal()">⚙️</button>
       </div>
     </div>
 
     <div class="container">
       
-      <!-- Fixed Section (Header, Balance, Action Cards) -->
-      <div class="fixed-top-section">
-        <!-- Balance Card -->
-        <div class="balance-card" onclick="openWithdrawModal()">
-          <div class="coin-display">
-            <div class="golden-coin">🪙</div>
-            <span class="coin-amount" id="main-coins">0</span>
-          </div>
-          <div class="rate-badge">
-            ≈ <span id="main-ton">0.00</span> TON ⇄
-          </div>
-        </div>
-
-        <!-- Conversion Formula Text -->
-        <div class="rate-subtitle">
-          10,000 🪙 = 1 TON
-        </div>
-
-        <!-- Monetag Ad & Daily Check-in Side-by-Side Section -->
-        <div class="quick-actions">
-          <!-- WATCH AD BUTTON -->
-          <div class="action-card ad-card-premium" onclick="watchMonetagAd()">
-            <div class="action-icon">
-              <svg class="ads-svg-logo" viewBox="0 0 220 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Outer Crescent Arc -->
-                <path d="M 105,10 C 50,10 10,45 10,80 C 10,115 50,118 105,118 C 118,118 130,114 140,108 C 112,112 35,108 30,78 C 25,48 78,16 115,12 Z" fill="#000000"/>
-                <!-- Inner Thin Crescent Arc -->
-                <path d="M 98,24 C 65,24 34,45 34,74 C 34,88 42,98 52,104 C 44,95 42,82 46,68 C 52,50 72,30 98,24 Z" fill="#000000"/>
-                <!-- Text ADS -->
-                <text x="55" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-style="italic" font-size="44" fill="#000000" letter-spacing="1">ADS</text>
-              </svg>
+      <!-- ================= HOME TAB VIEW ================= -->
+      <div id="home-view" class="view-section">
+        <!-- Fixed Section (Header, Balance, Action Cards) -->
+        <div class="fixed-top-section">
+          <!-- Balance Card -->
+          <div class="balance-card" onclick="openWithdrawModal()">
+            <div class="coin-display">
+              <div class="golden-coin">🪙</div>
+              <span class="coin-amount" id="main-coins">0</span>
             </div>
-            <div class="action-title">Watch Ad</div>
-            <div class="action-reward">+ 🪙 50000</div>
-          </div>
-
-          <div class="action-card" onclick="dailyCheckIn()">
-            <div class="action-icon">📅</div>
-            <div class="action-title">Daily Check-in</div>
-            <div class="action-reward" id="checkin-btn-text">+ 🪙 100</div>
-          </div>
-        </div>
-
-        <!-- Level & Daily Task Counter Grid -->
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="level-title">Lv.1 »</div>
-            <div class="stat-desc">Invite 3 users to upgrade to Lv.2</div>
-            <div class="progress-bar-container">
-              <span style="font-size: 11px; font-weight: bold;" id="invite-count">0/3</span>
-              <button class="invite-btn" onclick="inviteFriends()">invite</button>
+            <div class="rate-badge">
+              ≈ <span id="main-ton">0.00</span> TON ⇄
             </div>
           </div>
 
-          <div class="stat-card">
-            <div class="daily-counter" id="daily-task-count">0/5</div>
-            <div style="font-size: 13px; font-weight: bold; color: #0f172a; margin-top: 4px;">Daily Task Progress</div>
-            <div class="stat-desc" style="margin-bottom: 0;">Resets daily at 00:00</div>
+          <!-- Conversion Formula Text -->
+          <div class="rate-subtitle">
+            10,000 🪙 = 1 TON
+          </div>
+
+          <!-- Monetag Ad & Daily Check-in Side-by-Side Section -->
+          <div class="quick-actions">
+            <!-- WATCH AD BUTTON -->
+            <div class="action-card ad-card-premium" onclick="watchMonetagAd()">
+              <div class="action-icon">
+                <svg class="ads-svg-logo" viewBox="0 0 220 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M 105,10 C 50,10 10,45 10,80 C 10,115 50,118 105,118 C 118,118 130,114 140,108 C 112,112 35,108 30,78 C 25,48 78,16 115,12 Z" fill="#000000"/>
+                  <path d="M 98,24 C 65,24 34,45 34,74 C 34,88 42,98 52,104 C 44,95 42,82 46,68 C 52,50 72,30 98,24 Z" fill="#000000"/>
+                  <text x="55" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-style="italic" font-size="44" fill="#000000" letter-spacing="1">ADS</text>
+                </svg>
+              </div>
+              <div class="action-title">Watch Ad</div>
+              <div class="action-reward">+ 🪙 50000</div>
+            </div>
+
+            <div class="action-card" onclick="dailyCheckIn()">
+              <div class="action-icon">📅</div>
+              <div class="action-title">Daily Check-in</div>
+              <div class="action-reward" id="checkin-btn-text">+ 🪙 100</div>
+            </div>
+          </div>
+
+          <!-- Level & Daily Task Counter Grid -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="level-title">Lv.1 »</div>
+              <div class="stat-desc">Invite 3 users to upgrade to Lv.2</div>
+              <div class="progress-bar-container">
+                <span style="font-size: 11px; font-weight: 800;" id="invite-count">0/3</span>
+                <button class="invite-btn" onclick="inviteFriends()">Invite</button>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="daily-counter" id="daily-task-count">0/5</div>
+              <div style="font-size: 13px; font-weight: 900; color: #0f172a; margin-top: 4px;">Daily Task Progress</div>
+              <div class="stat-desc" style="margin-bottom: 0;">Resets daily at 00:00</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bounty Task Section -->
+        <div class="bounty-container">
+          <div class="bounty-header">
+            <span class="bounty-title">Bounty Task</span>
+            <button class="post-btn" onclick="openPostTaskModal()">POST +</button>
+          </div>
+
+          <!-- Task Items List -->
+          <div class="task-list" id="task-list">
+            <div class="no-tasks-text">Loading bounty tasks...</div>
           </div>
         </div>
       </div>
 
-      <!-- Bounty Task Section -->
-      <div class="bounty-container">
-        <div class="bounty-header">
-          <span class="bounty-title">Bounty Task</span>
-          <button class="post-btn" onclick="openPostTaskModal()">POST +</button>
+      <!-- ================= TEAM TAB VIEW (3-Level Referral System) ================= -->
+      <div id="team-view" class="view-section" style="display: none;">
+        <div style="text-align: center; font-size: 20px; font-weight: 900; color: #fff; margin: 15px 0;">
+          Create team, Earn more!
         </div>
 
-        <!-- Task Items List -->
-        <div class="task-list" id="task-list">
-          <div class="no-tasks-text">Loading bounty tasks...</div>
+        <div class="team-content-area">
+          <!-- Level 1 Members Card -->
+          <div class="team-card">
+            <div class="team-card-left">
+              <div class="team-icon-circle">👤</div>
+              <div class="team-card-info">
+                <h4>Members you invited</h4>
+                <div class="team-bonus-tag">Lv.1 : Get 5% task bonus</div>
+              </div>
+            </div>
+            <div class="team-card-count" id="lv1-members-count">0</div>
+          </div>
+
+          <!-- Level 2 Members Card -->
+          <div class="team-card">
+            <div class="team-card-left">
+              <div class="team-icon-circle">👥</div>
+              <div class="team-card-info">
+                <h4>Invited by Lv.1 members</h4>
+                <div class="team-bonus-tag">Lv.2 : Get 3% task bonus</div>
+              </div>
+            </div>
+            <div class="team-card-count" id="lv2-members-count">0</div>
+          </div>
+
+          <!-- Level 3 Members Card -->
+          <div class="team-card">
+            <div class="team-card-left">
+              <div class="team-icon-circle">👨‍👩‍👧‍👦</div>
+              <div class="team-card-info">
+                <h4>Invited by Lv.2 members</h4>
+                <div class="team-bonus-tag">Lv.3 : Get 1% task bonus</div>
+              </div>
+            </div>
+            <div class="team-card-count" id="lv3-members-count">0</div>
+          </div>
+
+          <!-- Team Total Earnings Summary Box -->
+          <div style="background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255,255,255,0.4); border-radius: 16px; padding: 14px; text-align: center; color: #fff; margin-top: 10px;">
+            <div style="font-size: 13px; font-weight: 800; opacity: 0.9;">Total Team Commission Earned</div>
+            <div style="font-size: 22px; font-weight: 900; margin-top: 4px;">🪙 <span id="team-commission-total">0</span></div>
+          </div>
+        </div>
+
+        <div style="padding-bottom: 90px; margin-top: auto;">
+          <button class="withdraw-submit-btn" style="background: #ffffff; color: #0284c7;" onclick="inviteFriends()">
+            Invite Members 👤
+          </button>
         </div>
       </div>
 
@@ -681,8 +936,8 @@
 
   <!-- Bottom Nav -->
   <div class="bottom-nav">
-    <a href="#" class="nav-link active">🎓 <span>Home</span></a>
-    <a href="#" class="nav-link">👥 <span>Team</span></a>
+    <a href="#" class="nav-link active" onclick="switchTab('home', event)">🎓 <span>Home</span></a>
+    <a href="#" class="nav-link" onclick="switchTab('team', event)">👥 <span>Team</span></a>
   </div>
 
   <!-- Post Task Modal Overlay -->
@@ -706,7 +961,7 @@
       <div class="form-group">
         <label>Impressions: <span id="impression-count-display">50</span></label>
         <div class="range-slider-container">
-          <input type="range" id="impression-slider" class="range-slider" min="10" max="5000" value="50" step="10" oninput="updateTaskCost()">
+          <input type="range" id="impression-slider" class="range-slider" min="10" max="5000" value="50" step="10" onclick="updateTaskCost()" oninput="updateTaskCost()">
         </div>
       </div>
 
@@ -727,7 +982,7 @@
       </div>
 
       <div class="modal-balance-view">
-        <h1 style="font-size: 34px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+        <h1 style="font-size: 34px; font-weight: 900; display: flex; align-items: center; justify-content: center; gap: 8px;">
           <span class="golden-coin" style="width: 30px; height: 30px; font-size: 14px;">🪙</span>
           <span id="modal-coin-val">0</span>
         </h1>
@@ -745,6 +1000,112 @@
       <button class="withdraw-submit-btn" onclick="processWithdrawal()">
         Withdraw
       </button>
+    </div>
+  </div>
+
+  <!-- Settings Modal Overlay -->
+  <div id="settings-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>⚙️ Settings</h3>
+        <button class="close-modal" onclick="closeSettingsModal()">✕</button>
+      </div>
+
+      <!-- User Profile & ID Section -->
+      <div class="settings-profile-card">
+        <div class="settings-avatar" id="settings-avatar">U</div>
+        <div class="settings-user-info">
+          <h4 id="settings-user-name">User</h4>
+          <div class="id-row">
+            <span>ID: <strong id="settings-user-id">guest_user</strong></span>
+            <button class="copy-id-btn" onclick="copyTelegramId()">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 Core Systems (Language, Official Telegram Channel with Exact Circular SVG, X Social Link with Exact Circular SVG, Privacy Policy) -->
+      <div class="settings-menu-list">
+        <!-- 1. Language Selection -->
+        <div class="settings-item">
+          <div class="settings-item-left">
+            <span class="menu-svg-icon">🌐</span>
+            <span>Language</span>
+          </div>
+          <select id="language-select">
+            <option value="en" selected>English (UK)</option>
+            <option value="pt">Português</option>
+            <option value="uk">Українська</option>
+            <option value="ru">Русский</option>
+            <option value="hi">हिन्दी</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+            <option value="id">Bahasa Indonesia</option>
+            <option value="bn">বাংলা</option>
+            <option value="ko">한국어</option>
+            <option value="tw">繁體中文</option>
+            <option value="cn">简体中文</option>
+          </select>
+        </div>
+
+        <!-- 2. Official Telegram Channel (Exact Circular Telegram Official SVG Logo) -->
+        <a href="https://t.me/mediaboostAi" target="_blank" class="settings-item">
+          <div class="settings-item-left">
+            <span class="menu-svg-icon">
+              <svg width="22" height="22" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="50" fill="#24A1DE"/>
+                <path d="M72.5 30.5L28.8 48.4C25.7 49.7 25.7 51.5 28.3 52.3L39.5 55.8L65.5 39.4C66.7 38.6 67.8 39.1 66.9 39.9L45.8 59.1L45.1 70.1C46.1 70.1 46.5 69.6 47.1 69.1L52.1 64.2L62.5 71.9C64.4 72.9 65.8 71.9 66.3 69.6L73.1 37.6C73.8 34.7 71.9 33.4 70.2 34.2Z" fill="white"/>
+              </svg>
+            </span>
+            <span>Official Channel</span>
+          </div>
+          <span>↗</span>
+        </a>
+
+        <!-- 3. Go to X (Exact Circular X / Twitter Official SVG Logo) -->
+        <a href="https://x.com" target="_blank" class="settings-item">
+          <div class="settings-item-left">
+            <span class="menu-svg-icon">
+              <svg width="22" height="22" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="50" fill="#000000"/>
+                <path d="M68.5 28H76.2L59.4 47.2L79.3 73.8H63.8L51.6 57.8L37.6 73.8H29.8L47.5 53.6L28.3 28H44.3L55.4 42.7L68.5 28ZM65.8 69.2H70.1L42.2 32.4H37.6L65.8 69.2Z" fill="white"/>
+              </svg>
+            </span>
+            <span>Go to X</span>
+          </div>
+          <span>↗</span>
+        </a>
+
+        <!-- 4. Privacy Policy Button -->
+        <div class="settings-item" onclick="openPrivacyPolicyModal()">
+          <div class="settings-item-left">
+            <span class="menu-svg-icon">🔒</span>
+            <span>Privacy Policy</span>
+          </div>
+          <span>›</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Privacy Policy Modal Overlay -->
+  <div id="privacy-policy-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>🔒 Privacy Policy</h3>
+        <button class="close-modal" onclick="closePrivacyPolicyModal()">✕</button>
+      </div>
+      <div class="privacy-text-box">
+        <p><strong>1. Introduction</strong><br>Welcome to our Telegram Mini App. We respect your privacy and are committed to protecting any data associated with your Telegram account (such as your User ID, name, and profile picture).</p>
+        <br>
+        <p><strong>2. Information Collection</strong><br>We collect basic Telegram profile details provided via Telegram WebApp API to identify your account, track your task completions, and store your coin balance safely in our database.</p>
+        <br>
+        <p><strong>3. Use of Data</strong><br>Your data is used solely to provide app functionality, manage rewards, and process your withdrawals. We do not sell or share your personal information with third parties.</p>
+        <br>
+        <p><strong>4. Third-Party Services</strong><br>We integrate services like Firebase for data synchronization and Monetag for ad-supported rewards. These services may collect standard anonymous analytics.</p>
+        <br>
+        <p><strong>5. Contact Us</strong><br>For any inquiries regarding privacy, please reach out to our official channel: <strong>https://t.me/mediaboostAi</strong>.</p>
+      </div>
+      <button class="withdraw-submit-btn" onclick="closePrivacyPolicyModal()">Got It</button>
     </div>
   </div>
 
@@ -769,11 +1130,12 @@
     let userId = "guest_user";
     let userName = "User";
     let userPhotoUrl = "";
+    let referrerId = null;
 
     if (tg) {
       tg.expand();
       if (tg.initDataUnsafe?.user) {
-        userId = tg.initDataUnsafe.user.id;
+        userId = String(tg.initDataUnsafe.user.id);
         userName = tg.initDataUnsafe.user.first_name || "User";
         userPhotoUrl = tg.initDataUnsafe.user.photo_url || "";
         
@@ -786,6 +1148,10 @@
           avatarEl.innerText = userName.charAt(0).toUpperCase();
         }
       }
+
+      if (tg.initDataUnsafe?.start_param) {
+        referrerId = String(tg.initDataUnsafe.start_param);
+      }
     }
 
     // 3. Application State Variables
@@ -796,11 +1162,37 @@
     let userCompletedTasks = {}; 
     let rawBountyTasks = {};
 
+    let teamData = {
+      lv1: [],
+      lv2: [],
+      lv3: [],
+      totalCommission: 0
+    };
+
     function getNextWithdrawTarget() {
       return (completedWithdrawals + 1) * 10000;
     }
 
-    // 4. Update UI
+    function switchTab(tabName, event) {
+      if (event) event.preventDefault();
+      const homeView = document.getElementById('home-view');
+      const teamView = document.getElementById('team-view');
+      const navLinks = document.querySelectorAll('.bottom-nav .nav-link');
+
+      navLinks.forEach(el => el.classList.remove('active'));
+
+      if (tabName === 'home') {
+        homeView.style.display = 'flex';
+        teamView.style.display = 'none';
+        navLinks[0].classList.add('active');
+      } else if (tabName === 'team') {
+        homeView.style.display = 'none';
+        teamView.style.display = 'flex';
+        navLinks[1].classList.add('active');
+        updateTeamUI();
+      }
+    }
+
     function updateUI() {
       const tonVal = (userCoins / 10000).toFixed(2);
       
@@ -809,6 +1201,7 @@
       document.getElementById('modal-coin-val').innerText = userCoins.toLocaleString();
       document.getElementById('modal-ton-val').innerText = tonVal;
       document.getElementById('daily-task-count').innerText = `${dailyTasksCompleted}/5`;
+      document.getElementById('invite-count').innerText = `${teamData.lv1.length}/3`;
 
       const nextTarget = getNextWithdrawTarget();
       const currentStage = completedWithdrawals + 1;
@@ -823,19 +1216,79 @@
       }
     }
 
-    // 5. Promise-driven Monetag Client-side Verification System
+    function updateTeamUI() {
+      document.getElementById('lv1-members-count').innerText = teamData.lv1.length;
+      document.getElementById('lv2-members-count').innerText = teamData.lv2.length;
+      document.getElementById('lv3-members-count').innerText = teamData.lv3.length;
+      document.getElementById('team-commission-total').innerText = (teamData.totalCommission || 0).toLocaleString();
+    }
+
+    function distributeReferralBonus(earnedCoins) {
+      if (!referrerId || referrerId === userId) return;
+
+      const dbRef = firebase.database();
+
+      dbRef.ref('users/' + referrerId).once('value').then(snap1 => {
+        const lv1User = snap1.val();
+        if (lv1User) {
+          const lv1Bonus = Math.floor(earnedCoins * 0.05);
+          dbRef.ref('users/' + referrerId).update({
+            coins: (lv1User.coins || 0) + lv1Bonus,
+            team: {
+              ...lv1User.team,
+              totalCommission: (lv1User.team?.totalCommission || 0) + lv1Bonus
+            }
+          });
+
+          const lv2ReferrerId = lv1User.referrerId;
+          if (lv2ReferrerId) {
+            dbRef.ref('users/' + lv2ReferrerId).once('value').then(snap2 => {
+              const lv2User = snap2.val();
+              if (lv2User) {
+                const lv2Bonus = Math.floor(earnedCoins * 0.03);
+                dbRef.ref('users/' + lv2ReferrerId).update({
+                  coins: (lv2User.coins || 0) + lv2Bonus,
+                  team: {
+                    ...lv2User.team,
+                    totalCommission: (lv2User.team?.totalCommission || 0) + lv2Bonus
+                  }
+                });
+
+                const lv3ReferrerId = lv2User.referrerId;
+                if (lv3ReferrerId) {
+                  dbRef.ref('users/' + lv3ReferrerId).once('value').then(snap3 => {
+                    const lv3User = snap3.val();
+                    if (lv3User) {
+                      const lv3Bonus = Math.floor(earnedCoins * 0.01);
+                      dbRef.ref('users/' + lv3ReferrerId).update({
+                        coins: (lv3User.coins || 0) + lv3Bonus,
+                        team: {
+                          ...lv3User.team,
+                          totalCommission: (lv3User.team?.totalCommission || 0) + lv3Bonus
+                        }
+                      });
+                    }
+                  });
+                }
+              }
+            });
+          }
+        }
+      });
+    }
+
     function watchMonetagAd() {
       if (typeof show_11759773 === 'function') {
         show_11759773()
           .then(() => {
-            // Reward 50,000 coins upon completing full ad
-            userCoins += 50000;
+            const earned = 50000;
+            userCoins += earned;
             updateUI();
             saveUserDataToFirebase();
+            distributeReferralBonus(earned);
             alert("Success! You watched the full ad and earned 50,000 Coins! 🪙");
           })
           .catch(() => {
-            // Short alert if ad is closed prematurely
             alert("You must watch the full ad to earn 50,000 coins!");
           });
       } else {
@@ -843,7 +1296,6 @@
       }
     }
 
-    // 6. Daily Check-in
     function dailyCheckIn() {
       const today = new Date().toISOString().split('T')[0];
       
@@ -852,15 +1304,16 @@
         return;
       }
 
-      userCoins += 100;
+      const earned = 100;
+      userCoins += earned;
       lastCheckInDate = today;
       
       updateUI();
       saveUserDataToFirebase();
+      distributeReferralBonus(earned);
       alert("Daily Check-in Successful! You received 100 Coins! 🪙");
     }
 
-    // 7. Post Task Modal & Logic
     function openPostTaskModal() {
       updateTaskCost();
       document.getElementById('post-task-modal').style.display = 'flex';
@@ -923,7 +1376,6 @@
       });
     }
 
-    // 8. Fetch & Render Bounty Tasks System
     function loadBountyTasksFromFirebase() {
       firebase.database().ref('bounty_tasks').on('value', (snapshot) => {
         rawBountyTasks = snapshot.val() || {};
@@ -986,8 +1438,9 @@
         window.open(task.url, '_blank');
       }
 
+      const earned = task.reward || 100;
       userCompletedTasks[task.id] = true;
-      userCoins += (task.reward || 100);
+      userCoins += earned;
       
       if (dailyTasksCompleted < 5) {
         dailyTasksCompleted++;
@@ -995,11 +1448,11 @@
       
       updateUI();
       saveUserDataToFirebase();
+      distributeReferralBonus(earned);
       renderBountyTasks();
-      alert(`Task completed! +${task.reward || 100} Coins`);
+      alert(`Task completed! +${earned} Coins`);
     }
 
-    // 9. Modal Controls & Withdrawal
     function openWithdrawModal() {
       updateUI();
       document.getElementById('withdraw-modal').style.display = 'flex';
@@ -1032,20 +1485,101 @@
 
     function inviteFriends() {
       if (tg) {
-        tg.openTelegramLink(`https://t.me/share/url?url=https://t.me/YourBot?start=${userId}`);
+        const botUsername = "YourBotUsername";
+        tg.openTelegramLink(`https://t.me/share/url?url=https://t.me/${botUsername}?start=${userId}`);
       }
     }
 
-    // 10. Firebase Sync
+    function openSettingsModal() {
+      document.getElementById('settings-user-name').innerText = userName;
+      document.getElementById('settings-user-id').innerText = userId;
+      
+      const avatarEl = document.getElementById('settings-avatar');
+      if (userPhotoUrl) {
+        avatarEl.innerHTML = `<img src="${userPhotoUrl}" alt="${userName}">`;
+      } else {
+        avatarEl.innerText = userName.charAt(0).toUpperCase();
+      }
+
+      document.getElementById('settings-modal').style.display = 'flex';
+    }
+
+    function closeSettingsModal() {
+      document.getElementById('settings-modal').style.display = 'none';
+    }
+
+    function copyTelegramId() {
+      navigator.clipboard.writeText(String(userId)).then(() => {
+        alert("Telegram ID copied: " + userId);
+      }).catch(() => {
+        alert("ID: " + userId);
+      });
+    }
+
+    function openPrivacyPolicyModal() {
+      document.getElementById('privacy-policy-modal').style.display = 'flex';
+    }
+
+    function closePrivacyPolicyModal() {
+      document.getElementById('privacy-policy-modal').style.display = 'none';
+    }
+
+    function registerReferralRelationship() {
+      if (!referrerId || referrerId === userId) return;
+
+      const userRef = firebase.database().ref('users/' + userId);
+      userRef.once('value').then(snapshot => {
+        const existingData = snapshot.val();
+        if (!existingData || !existingData.referrerId) {
+          userRef.update({ referrerId: referrerId });
+
+          firebase.database().ref('users/' + referrerId).once('value').then(refSnap => {
+            const refUser = refSnap.val() || {};
+            const lv1List = refUser.team?.lv1 || [];
+            if (!lv1List.includes(userId)) {
+              lv1List.push(userId);
+              firebase.database().ref('users/' + referrerId + '/team/lv1').set(lv1List);
+            }
+
+            const lv2RefId = refUser.referrerId;
+            if (lv2RefId) {
+              firebase.database().ref('users/' + lv2RefId).once('value').then(ref2Snap => {
+                const ref2User = ref2Snap.val() || {};
+                const lv2List = ref2User.team?.lv2 || [];
+                if (!lv2List.includes(userId)) {
+                  lv2List.push(userId);
+                  firebase.database().ref('users/' + lv2RefId + '/team/lv2').set(lv2List);
+                }
+
+                const lv3RefId = ref2User.referrerId;
+                if (lv3RefId) {
+                  firebase.database().ref('users/' + lv3RefId).once('value').then(ref3Snap => {
+                    const ref3User = ref3Snap.val() || {};
+                    const lv3List = ref3User.team?.lv3 || [];
+                    if (!lv3List.includes(userId)) {
+                      lv3List.push(userId);
+                      firebase.database().ref('users/' + lv3RefId + '/team/lv3').set(lv3List);
+                    }
+                  });
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+
     function saveUserDataToFirebase() {
       if (firebase.apps.length && userId) {
-        firebase.database().ref('users/' + userId).set({
+        firebase.database().ref('users/' + userId).update({
           coins: userCoins,
           withdrawals: completedWithdrawals,
           dailyTasks: dailyTasksCompleted,
           lastCheckIn: lastCheckInDate,
           photoUrl: userPhotoUrl,
-          completedTasks: userCompletedTasks
+          completedTasks: userCompletedTasks,
+          team: teamData,
+          referrerId: referrerId
         });
       }
     }
@@ -1060,14 +1594,23 @@
             dailyTasksCompleted = data.dailyTasks || 0;
             lastCheckInDate = data.lastCheckIn || "";
             userCompletedTasks = data.completedTasks || {};
+            referrerId = data.referrerId || referrerId;
+            if (data.team) {
+              teamData.lv1 = data.team.lv1 || [];
+              teamData.lv2 = data.team.lv2 || [];
+              teamData.lv3 = data.team.lv3 || [];
+              teamData.totalCommission = data.team.totalCommission || 0;
+            }
             updateUI();
+            updateTeamUI();
             renderBountyTasks();
+          } else {
+            registerReferralRelationship();
           }
         });
       }
     }
 
-    // Initialize Execution
     updateUI();
     loadUserDataFromFirebase();
     loadBountyTasksFromFirebase();
