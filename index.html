@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Telegram Mini App</title>
   
   <!-- Telegram WebApp SDK -->
@@ -32,12 +32,20 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
-    body {
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
       background: var(--bg-gradient);
-      min-height: 100vh;
       color: var(--text-dark);
-      padding-bottom: 80px;
       user-select: none;
+    }
+
+    .app-wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 100%;
     }
 
     /* Top User Header */
@@ -46,6 +54,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 15px 20px;
+      flex-shrink: 0;
     }
 
     .user-profile {
@@ -66,6 +75,13 @@
       justify-content: center;
       color: #fff;
       font-weight: bold;
+      overflow: hidden;
+    }
+
+    .avatar-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .user-name {
@@ -94,8 +110,17 @@
       font-size: 14px;
     }
 
+    /* Main Container with Fixed & Scrollable regions */
     .container {
       padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .fixed-top-section {
+      flex-shrink: 0;
     }
 
     /* Balance Card */
@@ -178,15 +203,40 @@
       text-align: center;
       box-shadow: 0 4px 15px rgba(0,0,0,0.06);
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .action-card:active {
       transform: scale(0.97);
     }
 
+    /* UPDATED WATCH AD BUTTON STYLING */
+    .ad-card-premium {
+      background: #ffffff !important;
+      border: 1px solid rgba(255, 255, 255, 0.8) !important;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .ad-card-premium .action-title {
+      color: #0f172a !important;
+      font-weight: 800;
+    }
+
+    .ad-card-premium .action-reward {
+      background: rgba(59, 130, 246, 0.15) !important;
+      color: #2563eb !important;
+    }
+
     .action-icon {
       font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ads-svg-logo {
+      width: 50px;
+      height: 28px;
     }
 
     .action-title {
@@ -208,7 +258,7 @@
     .stats-grid {
       display: flex;
       gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .stat-card {
@@ -255,12 +305,20 @@
       text-align: right;
     }
 
-    /* Bounty Task Header & List */
+    /* Bounty Task Header & Scrollable List Area */
+    .bounty-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
     .bounty-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 12px;
+      flex-shrink: 0;
     }
 
     .bounty-title {
@@ -279,11 +337,19 @@
       cursor: pointer;
     }
 
+    /* ONLY THIS LIST SCROLLS */
     .task-list {
+      flex: 1;
+      overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      min-height: 100px;
+      padding-bottom: 90px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .task-list::-webkit-scrollbar {
+      display: none;
     }
 
     .no-tasks-text {
@@ -320,6 +386,14 @@
       justify-content: center;
       font-weight: bold;
       color: #475569;
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
+    }
+
+    .task-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .task-details h4 {
@@ -357,6 +431,7 @@
       padding: 10px 0;
       border-top: 1px solid rgba(0,0,0,0.05);
       backdrop-filter: blur(10px);
+      z-index: 10;
     }
 
     .nav-link {
@@ -509,84 +584,117 @@
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
+    
+    /* Verification Loader Styling */
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid #ffffff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 15px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Top User Header -->
-  <div class="top-bar">
-    <div class="user-profile">
-      <div class="avatar-img" id="user-avatar">U</div>
-      <span class="user-name" id="user-name">Hi, User</span>
-    </div>
-    <div class="header-icons">
-      <button class="icon-btn">?</button>
-      <button class="icon-btn">⚙️</button>
-    </div>
-  </div>
-
-  <div class="container">
-    
-    <!-- Balance Card -->
-    <div class="balance-card" onclick="openWithdrawModal()">
-      <div class="coin-display">
-        <div class="golden-coin">🪙</div>
-        <span class="coin-amount" id="main-coins">0</span>
+  <div class="app-wrapper">
+    <!-- Top User Header -->
+    <div class="top-bar">
+      <div class="user-profile">
+        <div class="avatar-img" id="user-avatar">U</div>
+        <span class="user-name" id="user-name">Hi, User</span>
       </div>
-      <div class="rate-badge">
-        ≈ <span id="main-ton">0.00</span> TON ⇄
+      <div class="header-icons">
+        <button class="icon-btn">?</button>
+        <button class="icon-btn">⚙️</button>
       </div>
     </div>
 
-    <!-- Conversion Formula Text -->
-    <div class="rate-subtitle">
-      10,000 🪙 = 1 TON
-    </div>
+    <div class="container">
+      
+      <!-- Fixed Section (Header, Balance, 4 Action Cards) -->
+      <div class="fixed-top-section">
+        <!-- Balance Card -->
+        <div class="balance-card" onclick="openWithdrawModal()">
+          <div class="coin-display">
+            <div class="golden-coin">🪙</div>
+            <span class="coin-amount" id="main-coins">0</span>
+          </div>
+          <div class="rate-badge">
+            ≈ <span id="main-ton">0.00</span> TON ⇄
+          </div>
+        </div>
 
-    <!-- Monetag Ad & Daily Check-in Side-by-Side Section -->
-    <div class="quick-actions">
-      <div class="action-card" onclick="watchMonetagAd()">
-        <div class="action-icon">🎬</div>
-        <div class="action-title">Watch Ad</div>
-        <div class="action-reward">+ 🪙 50000</div>
-      </div>
+        <!-- Conversion Formula Text -->
+        <div class="rate-subtitle">
+          10,000 🪙 = 1 TON
+        </div>
 
-      <div class="action-card" onclick="dailyCheckIn()">
-        <div class="action-icon">📅</div>
-        <div class="action-title">Daily Check-in</div>
-        <div class="action-reward" id="checkin-btn-text">+ 🪙 100</div>
-      </div>
-    </div>
+        <!-- Monetag Ad & Daily Check-in Side-by-Side Section -->
+        <div class="quick-actions">
+          <!-- WATCH AD BUTTON WITH EXACT ADS RING LOGO -->
+          <div class="action-card ad-card-premium" onclick="watchMonetagAd()">
+            <div class="action-icon">
+              <svg class="ads-svg-logo" viewBox="0 0 220 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Outer Crescent Arc -->
+                <path d="M 105,10 C 50,10 10,45 10,80 C 10,115 50,118 105,118 C 118,118 130,114 140,108 C 112,112 35,108 30,78 C 25,48 78,16 115,12 Z" fill="#000000"/>
+                <!-- Inner Thin Crescent Arc -->
+                <path d="M 98,24 C 65,24 34,45 34,74 C 34,88 42,98 52,104 C 44,95 42,82 46,68 C 52,50 72,30 98,24 Z" fill="#000000"/>
+                <!-- Text ADS -->
+                <text x="55" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-style="italic" font-size="44" fill="#000000" letter-spacing="1">ADS</text>
+              </svg>
+            </div>
+            <div class="action-title">Watch Ad</div>
+            <div class="action-reward">+ 🪙 50000</div>
+          </div>
 
-    <!-- Level & Daily Task Counter Grid -->
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="level-title">Lv.1 »</div>
-        <div class="stat-desc">Invite 3 users to upgrade to Lv.2</div>
-        <div class="progress-bar-container">
-          <span style="font-size: 11px; font-weight: bold;" id="invite-count">0/3</span>
-          <button class="invite-btn" onclick="inviteFriends()">invite</button>
+          <div class="action-card" onclick="dailyCheckIn()">
+            <div class="action-icon">📅</div>
+            <div class="action-title">Daily Check-in</div>
+            <div class="action-reward" id="checkin-btn-text">+ 🪙 100</div>
+          </div>
+        </div>
+
+        <!-- Level & Daily Task Counter Grid -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="level-title">Lv.1 »</div>
+            <div class="stat-desc">Invite 3 users to upgrade to Lv.2</div>
+            <div class="progress-bar-container">
+              <span style="font-size: 11px; font-weight: bold;" id="invite-count">0/3</span>
+              <button class="invite-btn" onclick="inviteFriends()">invite</button>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="daily-counter" id="daily-task-count">0/5</div>
+            <div style="font-size: 13px; font-weight: bold; color: #0f172a; margin-top: 4px;">Daily Task Progress</div>
+            <div class="stat-desc" style="margin-bottom: 0;">Resets daily at 00:00</div>
+          </div>
         </div>
       </div>
 
-      <div class="stat-card">
-        <div class="daily-counter" id="daily-task-count">0/5</div>
-        <div style="font-size: 13px; font-weight: bold; color: #0f172a; margin-top: 4px;">Daily Task Progress</div>
-        <div class="stat-desc" style="margin-bottom: 0;">Resets daily at 00:00</div>
+      <!-- Bounty Task Section (Header Fixed, Task List Scrollable) -->
+      <div class="bounty-container">
+        <div class="bounty-header">
+          <span class="bounty-title">Bounty Task</span>
+          <button class="post-btn" onclick="openPostTaskModal()">POST +</button>
+        </div>
+
+        <!-- Task Items List (Dynamically loaded & Scrollable) -->
+        <div class="task-list" id="task-list">
+          <div class="no-tasks-text">Loading bounty tasks...</div>
+        </div>
       </div>
-    </div>
 
-    <!-- Bounty Task Header -->
-    <div class="bounty-header">
-      <span class="bounty-title">Bounty Task</span>
-      <button class="post-btn" onclick="openPostTaskModal()">POST +</button>
     </div>
-
-    <!-- Task Items List (Dynamically loaded from Firebase) -->
-    <div class="task-list" id="task-list">
-      <div class="no-tasks-text">Loading bounty tasks...</div>
-    </div>
-
   </div>
 
   <!-- Bottom Nav -->
@@ -595,7 +703,7 @@
     <a href="#" class="nav-link">👥 <span>Team</span></a>
   </div>
 
-  <!-- Post Task Modal Overlay (Screenshots Design) -->
+  <!-- Post Task Modal Overlay -->
   <div id="post-task-modal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
@@ -658,6 +766,15 @@
     </div>
   </div>
 
+  <!-- Verification Progress Modal Overlay -->
+  <div id="ad-verify-modal" class="modal-overlay">
+    <div class="modal-box" style="text-align: center;">
+      <h3>⏳ Verifying Ad...</h3>
+      <div class="spinner"></div>
+      <p style="font-size: 13px; color: #f1f5f9;">Please wait 2 seconds while we verify your ad view.</p>
+    </div>
+  </div>
+
   <script>
     // 1. Firebase Configuration
     const firebaseConfig = {
@@ -674,18 +791,27 @@
       firebase.initializeApp(firebaseConfig);
     }
 
-    // 2. Telegram WebApp Integration
+    // 2. Telegram WebApp Integration & Profile Retrieval
     const tg = window.Telegram?.WebApp;
     let userId = "guest_user";
     let userName = "User";
+    let userPhotoUrl = "";
 
     if (tg) {
       tg.expand();
       if (tg.initDataUnsafe?.user) {
         userId = tg.initDataUnsafe.user.id;
         userName = tg.initDataUnsafe.user.first_name || "User";
+        userPhotoUrl = tg.initDataUnsafe.user.photo_url || "";
+        
         document.getElementById('user-name').innerText = `Hi, ${userName}`;
-        document.getElementById('user-avatar').innerText = userName.charAt(0).toUpperCase();
+        
+        const avatarEl = document.getElementById('user-avatar');
+        if (userPhotoUrl) {
+          avatarEl.innerHTML = `<img src="${userPhotoUrl}" alt="${userName}">`;
+        } else {
+          avatarEl.innerText = userName.charAt(0).toUpperCase();
+        }
       }
     }
 
@@ -694,6 +820,30 @@
     let completedWithdrawals = 0;
     let dailyTasksCompleted = 0;
     let lastCheckInDate = "";
+    let userCompletedTasks = {}; 
+    let rawBountyTasks = {};
+
+    // Ad Tracking Variables
+    let isAdActive = false;
+    let adBlurTime = 0;
+    let validAdClick = false;
+
+    // Detect when user leaves app to click ad page
+    window.addEventListener('blur', () => {
+      if (isAdActive) {
+        adBlurTime = Date.now();
+      }
+    });
+
+    // Detect when user returns back to Mini App
+    window.addEventListener('focus', () => {
+      if (isAdActive && adBlurTime > 0) {
+        const timeSpentAway = (Date.now() - adBlurTime) / 1000;
+        if (timeSpentAway >= 2) {
+          validAdClick = true;
+        }
+      }
+    });
 
     function getNextWithdrawTarget() {
       return (completedWithdrawals + 1) * 10000;
@@ -722,26 +872,49 @@
       }
     }
 
-    // 5. Monetag Ad Trigger
+    // 5. Strict Monetag Ad Trigger & Mandatory Verification
     function watchMonetagAd() {
       if (typeof show_11759773 === 'function') {
+        isAdActive = true;
+        validAdClick = false;
+        adBlurTime = 0;
+
         show_11759773().then(() => {
-          rewardUserForAd();
+          handleAdVerification();
         }).catch((err) => {
           console.error("Monetag Ad Error:", err);
-          alert("Ad failed to play. Please try again later.");
+          isAdActive = false;
+          alert("Ad failed to load. Please try again.");
         });
       } else {
-        alert("Ad is loading... Please try again in a few seconds.");
+        alert("Ad system is loading. Please try again in a few seconds.");
       }
     }
 
-    function rewardUserForAd() {
-      userCoins += 50000;
-      if (dailyTasksCompleted < 5) dailyTasksCompleted++;
-      updateUI();
-      saveUserDataToFirebase();
-      alert("Ad completed! You earned 50000 Coins! 🪙");
+    function handleAdVerification() {
+      // Small timeout to process focus event state
+      setTimeout(() => {
+        isAdActive = false;
+
+        // International English Warning if ad was not clicked or stayed less than 2 seconds
+        if (!validAdClick) {
+          alert("⚠️ Warning: You must click the ad banner and view the destination page for at least 2 seconds to claim your reward!");
+          return;
+        }
+
+        // Display 2-Second Verification Modal
+        const verifyModal = document.getElementById('ad-verify-modal');
+        verifyModal.style.display = 'flex';
+
+        setTimeout(() => {
+          verifyModal.style.display = 'none';
+          userCoins += 50000;
+          updateUI();
+          saveUserDataToFirebase();
+          alert("Ad Verified Successfully! You earned 50,000 Coins! 🪙");
+        }, 2000);
+
+      }, 400);
     }
 
     // 6. Daily Check-in
@@ -755,7 +928,6 @@
 
       userCoins += 100;
       lastCheckInDate = today;
-      if (dailyTasksCompleted < 5) dailyTasksCompleted++;
       
       updateUI();
       saveUserDataToFirebase();
@@ -775,7 +947,6 @@
     function updateTaskCost() {
       const impressions = parseInt(document.getElementById('impression-slider').value);
       document.getElementById('impression-count-display').innerText = impressions;
-      // 100 coins cost per impression
       const cost = impressions * 100;
       document.getElementById('total-task-cost').innerText = cost.toLocaleString();
     }
@@ -801,7 +972,6 @@
         return;
       }
 
-      // Deduct coins & save task to Firebase
       userCoins -= cost;
       updateUI();
       saveUserDataToFirebase();
@@ -814,6 +984,7 @@
         impressions: impressions,
         reward: 100,
         createdBy: userId,
+        creatorPhotoUrl: userPhotoUrl,
         createdAt: Date.now()
       }).then(() => {
         alert("Task posted successfully!");
@@ -826,55 +997,79 @@
       });
     }
 
-    // 8. Fetch Bounty Tasks Dynamic System
+    // 8. Fetch & Render Bounty Tasks System
     function loadBountyTasksFromFirebase() {
-      const taskListDiv = document.getElementById('task-list');
-
       firebase.database().ref('bounty_tasks').on('value', (snapshot) => {
-        taskListDiv.innerHTML = '';
-        const data = snapshot.val();
+        rawBountyTasks = snapshot.val() || {};
+        renderBountyTasks();
+      });
+    }
 
-        if (!data) {
-          taskListDiv.innerHTML = '<div class="no-tasks-text">No active bounty tasks available right now. Post one above!</div>';
-          return;
-        }
+    function renderBountyTasks() {
+      const taskListDiv = document.getElementById('task-list');
+      taskListDiv.innerHTML = '';
 
-        const tasks = Object.values(data);
-        tasks.reverse(); // Show latest tasks first
+      if (!rawBountyTasks || Object.keys(rawBountyTasks).length === 0) {
+        taskListDiv.innerHTML = '<div class="no-tasks-text">No active bounty tasks available right now. Post one above!</div>';
+        return;
+      }
 
-        tasks.forEach(task => {
-          const item = document.createElement('div');
-          item.className = 'task-item';
-          item.onclick = () => executeTask(task);
+      const tasks = Object.values(rawBountyTasks);
+      tasks.reverse();
 
-          item.innerHTML = `
-            <div class="task-left">
-              <div class="task-avatar">${task.name.charAt(0).toUpperCase()}</div>
-              <div class="task-details">
-                <h4>${task.name}</h4>
-                <span class="task-pill">Link Task</span>
-              </div>
+      const availableTasks = tasks.filter(task => !userCompletedTasks[task.id]);
+
+      if (availableTasks.length === 0) {
+        taskListDiv.innerHTML = '<div class="no-tasks-text">You have completed all available tasks!</div>';
+        return;
+      }
+
+      availableTasks.forEach(task => {
+        const item = document.createElement('div');
+        item.className = 'task-item';
+        item.onclick = () => executeTask(task);
+
+        const avatarHTML = task.creatorPhotoUrl 
+          ? `<img src="${task.creatorPhotoUrl}" alt="Avatar">`
+          : (task.name ? task.name.charAt(0).toUpperCase() : 'T');
+
+        item.innerHTML = `
+          <div class="task-left">
+            <div class="task-avatar">${avatarHTML}</div>
+            <div class="task-details">
+              <h4>${task.name}</h4>
+              <span class="task-pill">Link Task</span>
             </div>
-            <div class="task-reward">🪙 ${task.reward || 100}</div>
-          `;
+          </div>
+          <div class="task-reward">🪙 ${task.reward || 100}</div>
+        `;
 
-          taskListDiv.appendChild(item);
-        });
+        taskListDiv.appendChild(item);
       });
     }
 
     function executeTask(task) {
+      if (userCompletedTasks[task.id]) {
+        alert("You have already completed this task!");
+        return;
+      }
+
       if (tg && tg.openLink) {
         tg.openLink(task.url);
       } else {
         window.open(task.url, '_blank');
       }
 
+      userCompletedTasks[task.id] = true;
       userCoins += (task.reward || 100);
-      if (dailyTasksCompleted < 5) dailyTasksCompleted++;
+      
+      if (dailyTasksCompleted < 5) {
+        dailyTasksCompleted++;
+      }
       
       updateUI();
       saveUserDataToFirebase();
+      renderBountyTasks();
       alert(`Task completed! +${task.reward || 100} Coins`);
     }
 
@@ -922,7 +1117,9 @@
           coins: userCoins,
           withdrawals: completedWithdrawals,
           dailyTasks: dailyTasksCompleted,
-          lastCheckIn: lastCheckInDate
+          lastCheckIn: lastCheckInDate,
+          photoUrl: userPhotoUrl,
+          completedTasks: userCompletedTasks
         });
       }
     }
@@ -936,7 +1133,9 @@
             completedWithdrawals = data.withdrawals || 0;
             dailyTasksCompleted = data.dailyTasks || 0;
             lastCheckInDate = data.lastCheckIn || "";
+            userCompletedTasks = data.completedTasks || {};
             updateUI();
+            renderBountyTasks();
           }
         });
       }
