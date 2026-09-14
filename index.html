@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Telegram Mini App</title>
   
+  <!-- FontAwesome CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <!-- Telegram WebApp SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   
@@ -30,7 +33,6 @@
       margin: 0;
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      font-weight: 700;
     }
 
     html, body {
@@ -75,7 +77,7 @@
       align-items: center;
       justify-content: center;
       color: #fff;
-      font-weight: 800;
+      font-weight: bold;
       overflow: hidden;
     }
 
@@ -86,7 +88,7 @@
     }
 
     .user-name {
-      font-weight: 800;
+      font-weight: bold;
       color: #fff;
       font-size: 16px;
       text-shadow: 0 1px 3px rgba(0,0,0,0.2);
@@ -109,19 +111,11 @@
       justify-content: center;
       cursor: pointer;
       font-size: 14px;
-      font-weight: 800;
     }
 
     /* Main Container with Fixed & Scrollable regions */
     .container {
       padding: 0 16px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      overflow: hidden;
-    }
-
-    .view-section {
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -152,22 +146,18 @@
       gap: 10px;
     }
 
-    .golden-coin {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
-      border: 2px solid #fff;
-      border-radius: 50%;
+    .blue-coin-icon {
+      width: 38px;
+      height: 38px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2), inset 0 2px 4px rgba(255,255,255,0.6);
-      font-size: 18px;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     }
 
     .coin-amount {
       font-size: 26px;
-      font-weight: 900;
+      font-weight: 800;
       color: #fff;
       text-shadow: 0 2px 4px rgba(0,0,0,0.15);
     }
@@ -177,7 +167,7 @@
       padding: 6px 14px;
       border-radius: 14px;
       color: #0f172a;
-      font-weight: 800;
+      font-weight: bold;
       font-size: 13px;
       display: flex;
       align-items: center;
@@ -188,7 +178,7 @@
       text-align: center;
       color: rgba(255, 255, 255, 0.95);
       font-size: 13px;
-      font-weight: 800;
+      font-weight: 600;
       margin: 8px 0 16px 0;
     }
 
@@ -227,7 +217,7 @@
 
     .ad-card-premium .action-title {
       color: #0f172a !important;
-      font-weight: 900;
+      font-weight: 800;
     }
 
     .ad-card-premium .action-reward {
@@ -249,17 +239,20 @@
 
     .action-title {
       font-size: 13px;
-      font-weight: 800;
+      font-weight: 700;
       color: #0f172a;
     }
 
     .action-reward {
       font-size: 11px;
-      font-weight: 900;
+      font-weight: 800;
       color: #2563eb;
       background: rgba(59, 130, 246, 0.15);
       padding: 2px 8px;
       border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
     /* Level & Daily Task Counter Grid */
@@ -279,13 +272,12 @@
 
     .level-title {
       font-size: 18px;
-      font-weight: 900;
+      font-weight: 800;
       color: #0f172a;
     }
 
     .stat-desc {
       font-size: 11px;
-      font-weight: 700;
       color: var(--text-muted);
       margin: 4px 0 10px 0;
     }
@@ -302,14 +294,14 @@
       border: none;
       padding: 4px 14px;
       border-radius: 12px;
-      font-weight: 800;
+      font-weight: bold;
       font-size: 12px;
       cursor: pointer;
     }
 
     .daily-counter {
       font-size: 26px;
-      font-weight: 900;
+      font-weight: 800;
       color: #0f172a;
       text-align: right;
     }
@@ -332,8 +324,7 @@
 
     .bounty-title {
       font-size: 18px;
-      font-weight: 900;
-      color: #fff;
+      font-weight: 800;
     }
 
     .post-btn {
@@ -342,7 +333,7 @@
       border: none;
       padding: 6px 14px;
       border-radius: 10px;
-      font-weight: 800;
+      font-weight: bold;
       font-size: 13px;
       cursor: pointer;
     }
@@ -363,9 +354,9 @@
 
     .no-tasks-text {
       text-align: center;
-      color: rgba(255, 255, 255, 0.95);
+      color: rgba(255, 255, 255, 0.85);
       font-size: 13px;
-      font-weight: 800;
+      font-weight: 600;
       padding: 20px 0;
     }
 
@@ -376,13 +367,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      cursor: pointer;
     }
 
     .task-left {
       display: flex;
       align-items: center;
       gap: 12px;
+      flex: 1;
     }
 
     .task-avatar {
@@ -393,10 +384,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
+      font-weight: bold;
       color: #475569;
       overflow: hidden;
       border: 1px solid #cbd5e1;
+      flex-shrink: 0;
     }
 
     .task-avatar img {
@@ -407,7 +399,6 @@
 
     .task-details h4 {
       font-size: 14px;
-      font-weight: 800;
       color: #0f172a;
       margin-bottom: 3px;
     }
@@ -419,76 +410,31 @@
       padding: 2px 8px;
       border-radius: 8px;
       display: inline-block;
-      font-weight: 800;
+      font-weight: 600;
     }
 
-    .task-reward {
+    .task-action-btn {
       background: rgba(59, 130, 246, 0.15);
       color: #2563eb;
       font-size: 13px;
-      font-weight: 900;
-      padding: 6px 12px;
+      font-weight: bold;
+      padding: 7px 14px;
       border-radius: 20px;
-    }
-
-    /* Team View Styling */
-    .team-content-area {
-      flex: 1;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      padding-bottom: 90px;
-    }
-
-    .team-content-area::-webkit-scrollbar {
-      display: none;
-    }
-
-    .team-card {
-      background: rgba(255, 255, 255, 0.92);
-      border-radius: 18px;
-      padding: 16px;
+      border: none;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+      gap: 4px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
     }
 
-    .team-card-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
+    .task-action-btn.claim-btn {
+      background: #2563eb;
+      color: #fff;
     }
 
-    .team-icon-circle {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(59, 130, 246, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-    }
-
-    .team-card-info h4 {
-      font-size: 15px;
-      font-weight: 800;
-      color: #0f172a;
-      margin-bottom: 4px;
-    }
-
-    .team-bonus-tag {
-      color: #2563eb;
-      font-weight: 800;
-      font-size: 13px;
-    }
-
-    .team-card-count {
-      font-size: 20px;
-      font-weight: 900;
-      color: #0f172a;
+    .task-action-btn:active {
+      transform: scale(0.96);
     }
 
     /* Bottom Nav */
@@ -508,15 +454,25 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 3px;
-      color: #64748b;
+      gap: 4px;
+      color: rgba(0, 0, 0, 0.35);
       font-size: 12px;
-      font-weight: 800;
       text-decoration: none;
+      font-weight: 600;
       cursor: pointer;
+      transition: all 0.2s ease;
+      opacity: 0.55;
     }
 
-    .nav-link.active { color: #0f172a; }
+    .nav-link.active {
+      color: #2563eb;
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    .nav-link i {
+      font-size: 20px;
+    }
 
     /* Modals Overlay */
     .modal-overlay {
@@ -554,7 +510,6 @@
       align-items: center;
       gap: 6px;
       font-size: 20px;
-      font-weight: 900;
     }
 
     .close-modal {
@@ -563,7 +518,6 @@
       background: none;
       border: none;
       color: #fff;
-      font-weight: 900;
     }
 
     /* Form Fields */
@@ -575,7 +529,7 @@
     .form-group label {
       display: block;
       font-size: 12px;
-      font-weight: 800;
+      font-weight: bold;
       margin-bottom: 6px;
       color: #f1f5f9;
     }
@@ -588,7 +542,6 @@
       background: rgba(255, 255, 255, 0.9);
       color: #0f172a;
       font-size: 14px;
-      font-weight: 800;
       outline: none;
     }
 
@@ -609,7 +562,7 @@
       height: 6px;
       border-radius: 5px;
       outline: none;
-      accent-color: #ffd700;
+      accent-color: #3b82f6;
     }
 
     .modal-balance-view {
@@ -623,7 +576,6 @@
       padding: 4px 14px;
       border-radius: 12px;
       font-size: 13px;
-      font-weight: 800;
       margin-top: 6px;
     }
 
@@ -633,7 +585,6 @@
       padding: 10px 14px;
       border-radius: 12px;
       font-size: 12px;
-      font-weight: 800;
       text-align: center;
       margin-bottom: 15px;
     }
@@ -645,7 +596,7 @@
       color: #fff;
       padding: 12px;
       border-radius: 12px;
-      font-weight: 900;
+      font-weight: bold;
       margin-bottom: 15px;
       cursor: pointer;
     }
@@ -657,7 +608,7 @@
       border: none;
       padding: 14px;
       border-radius: 14px;
-      font-weight: 900;
+      font-weight: bold;
       font-size: 15px;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -684,7 +635,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 900;
+      font-weight: bold;
       overflow: hidden;
       font-size: 18px;
     }
@@ -697,7 +648,6 @@
 
     .settings-user-info h4 {
       font-size: 15px;
-      font-weight: 900;
       margin-bottom: 4px;
     }
 
@@ -706,7 +656,6 @@
       align-items: center;
       gap: 6px;
       font-size: 12px;
-      font-weight: 800;
       color: #e0f2fe;
     }
 
@@ -717,7 +666,6 @@
       padding: 2px 8px;
       border-radius: 6px;
       font-size: 11px;
-      font-weight: 800;
       cursor: pointer;
     }
 
@@ -737,23 +685,9 @@
       justify-content: space-between;
       color: #fff;
       text-decoration: none;
-      font-weight: 800;
+      font-weight: 600;
       font-size: 14px;
       cursor: pointer;
-    }
-
-    .settings-item-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .menu-svg-icon {
-      width: 22px;
-      height: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .settings-item select {
@@ -763,7 +697,6 @@
       padding: 4px 8px;
       border-radius: 8px;
       font-size: 12px;
-      font-weight: 800;
       outline: none;
       cursor: pointer;
     }
@@ -773,7 +706,6 @@
       border-radius: 12px;
       padding: 12px;
       font-size: 12px;
-      font-weight: 700;
       line-height: 1.5;
       max-height: 220px;
       overflow-y: auto;
@@ -783,6 +715,29 @@
   </style>
 </head>
 <body>
+
+  <!-- Modified Angled 3D Blue Dollar Coin Template with extended top/bottom stroke -->
+  <template id="blue-coin-template">
+    <svg class="blue-coin-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer Angled 3D Coin Rim -->
+      <ellipse cx="50" cy="55" rx="44" ry="40" fill="url(#coinGradOuter)" stroke="#4ca3ff" stroke-width="2.5"/>
+      <ellipse cx="50" cy="52" rx="40" ry="36" fill="url(#coinGradFace)"/>
+      <ellipse cx="50" cy="52" rx="33" ry="29" stroke="#93c5fd" stroke-width="2" stroke-opacity="0.85"/>
+      <!-- Inner Embossed White Dollar ($) Symbol with extended vertical line -->
+      <path d="M50 26V74" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M58 37.5C58 34.5 54.5 32.5 50 32.5C45.5 32.5 42 34.8 42 37.7C42 41 45.8 42.2 50 43.2C54.2 44.2 58 45.5 58 49C58 52.2 54.5 54.5 50 54.5C45.5 54.5 42 52.5 42 49" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round"/>
+      <defs>
+        <linearGradient id="coinGradOuter" x1="10" y1="10" x2="90" y2="90" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#3b82f6"/>
+          <stop offset="1" stop-color="#1d4ed8"/>
+        </linearGradient>
+        <linearGradient id="coinGradFace" x1="20" y1="20" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#60a5fa"/>
+          <stop offset="1" stop-color="#2563eb"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </template>
 
   <div class="app-wrapper">
     <!-- Top User Header -->
@@ -799,135 +754,82 @@
 
     <div class="container">
       
-      <!-- ================= HOME TAB VIEW ================= -->
-      <div id="home-view" class="view-section">
-        <!-- Fixed Section (Header, Balance, Action Cards) -->
-        <div class="fixed-top-section">
-          <!-- Balance Card -->
-          <div class="balance-card" onclick="openWithdrawModal()">
-            <div class="coin-display">
-              <div class="golden-coin">🪙</div>
-              <span class="coin-amount" id="main-coins">0</span>
+      <!-- Fixed Section (Header, Balance, Action Cards) -->
+      <div class="fixed-top-section">
+        <!-- Balance Card -->
+        <div class="balance-card" onclick="openWithdrawModal()">
+          <div class="coin-display">
+            <div id="main-coin-svg-container"></div>
+            <span class="coin-amount" id="main-coins">0</span>
+          </div>
+          <div class="rate-badge">
+            ≈ <span id="main-ton">0.00</span> TON ⇄
+          </div>
+        </div>
+
+        <!-- Conversion Formula Text -->
+        <div class="rate-subtitle" data-i18n="conversionRate">
+          10,000 BTC = 1 TON
+        </div>
+
+        <!-- Monetag Ad & Daily Check-in Side-by-Side Section -->
+        <div class="quick-actions">
+          <!-- WATCH AD BUTTON -->
+          <div class="action-card ad-card-premium" onclick="watchMonetagAd()">
+            <div class="action-icon">
+              <svg class="ads-svg-logo" viewBox="0 0 220 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Outer Crescent Arc -->
+                <path d="M 105,10 C 50,10 10,45 10,80 C 10,115 50,118 105,118 C 118,118 130,114 140,108 C 112,112 35,108 30,78 C 25,48 78,16 115,12 Z" fill="#000000"/>
+                <!-- Inner Thin Crescent Arc -->
+                <path d="M 98,24 C 65,24 34,45 34,74 C 34,88 42,98 52,104 C 44,95 42,82 46,68 C 52,50 72,30 98,24 Z" fill="#000000"/>
+                <!-- Text ADS -->
+                <text x="55" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-style="italic" font-size="44" fill="#000000" letter-spacing="1">ADS</text>
+              </svg>
             </div>
-            <div class="rate-badge">
-              ≈ <span id="main-ton">0.00</span> TON ⇄
+            <div class="action-title" data-i18n="watchAd">Watch Ad</div>
+            <div class="action-reward">
+              <span class="mini-coin-slot-ad"></span> + 50,000
             </div>
           </div>
 
-          <!-- Conversion Formula Text -->
-          <div class="rate-subtitle">
-            10,000 🪙 = 1 TON
-          </div>
-
-          <!-- Monetag Ad & Daily Check-in Side-by-Side Section -->
-          <div class="quick-actions">
-            <!-- WATCH AD BUTTON -->
-            <div class="action-card ad-card-premium" onclick="watchMonetagAd()">
-              <div class="action-icon">
-                <svg class="ads-svg-logo" viewBox="0 0 220 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M 105,10 C 50,10 10,45 10,80 C 10,115 50,118 105,118 C 118,118 130,114 140,108 C 112,112 35,108 30,78 C 25,48 78,16 115,12 Z" fill="#000000"/>
-                  <path d="M 98,24 C 65,24 34,45 34,74 C 34,88 42,98 52,104 C 44,95 42,82 46,68 C 52,50 72,30 98,24 Z" fill="#000000"/>
-                  <text x="55" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-style="italic" font-size="44" fill="#000000" letter-spacing="1">ADS</text>
-                </svg>
-              </div>
-              <div class="action-title">Watch Ad</div>
-              <div class="action-reward">+ 🪙 50000</div>
-            </div>
-
-            <div class="action-card" onclick="dailyCheckIn()">
-              <div class="action-icon">📅</div>
-              <div class="action-title">Daily Check-in</div>
-              <div class="action-reward" id="checkin-btn-text">+ 🪙 100</div>
-            </div>
-          </div>
-
-          <!-- Level & Daily Task Counter Grid -->
-          <div class="stats-grid">
-            <div class="stat-card">
-              <div class="level-title">Lv.1 »</div>
-              <div class="stat-desc">Invite 3 users to upgrade to Lv.2</div>
-              <div class="progress-bar-container">
-                <span style="font-size: 11px; font-weight: 800;" id="invite-count">0/3</span>
-                <button class="invite-btn" onclick="inviteFriends()">Invite</button>
-              </div>
-            </div>
-
-            <div class="stat-card">
-              <div class="daily-counter" id="daily-task-count">0/5</div>
-              <div style="font-size: 13px; font-weight: 900; color: #0f172a; margin-top: 4px;">Daily Task Progress</div>
-              <div class="stat-desc" style="margin-bottom: 0;">Resets daily at 00:00</div>
+          <div class="action-card" onclick="dailyCheckIn()">
+            <div class="action-icon">📅</div>
+            <div class="action-title" data-i18n="dailyCheckIn">Daily Check-in</div>
+            <div class="action-reward">
+              <span class="mini-coin-slot-checkin"></span> + 100
             </div>
           </div>
         </div>
 
-        <!-- Bounty Task Section -->
-        <div class="bounty-container">
-          <div class="bounty-header">
-            <span class="bounty-title">Bounty Task</span>
-            <button class="post-btn" onclick="openPostTaskModal()">POST +</button>
+        <!-- Level & Daily Task Counter Grid -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="level-title">Lv.1 »</div>
+            <div class="stat-desc" data-i18n="levelDesc">Invite 3 users to upgrade to Lv.2</div>
+            <div class="progress-bar-container">
+              <span style="font-size: 11px; font-weight: bold;" id="invite-count">0/3</span>
+              <button class="invite-btn" onclick="inviteFriends()" data-i18n="inviteBtn">invite</button>
+            </div>
           </div>
 
-          <!-- Task Items List -->
-          <div class="task-list" id="task-list">
-            <div class="no-tasks-text">Loading bounty tasks...</div>
+          <div class="stat-card">
+            <div class="daily-counter" id="daily-task-count">0/5</div>
+            <div style="font-size: 13px; font-weight: bold; color: #0f172a; margin-top: 4px;" data-i18n="dailyTaskProgress">Daily Task Progress</div>
+            <div class="stat-desc" style="margin-bottom: 0;" data-i18n="resetsDaily">Resets daily at 00:00</div>
           </div>
         </div>
       </div>
 
-      <!-- ================= TEAM TAB VIEW (3-Level Referral System) ================= -->
-      <div id="team-view" class="view-section" style="display: none;">
-        <div style="text-align: center; font-size: 20px; font-weight: 900; color: #fff; margin: 15px 0;">
-          Create team, Earn more!
+      <!-- Bounty Task Section -->
+      <div class="bounty-container">
+        <div class="bounty-header">
+          <span class="bounty-title" data-i18n="bountyTaskTitle">Bounty Task</span>
+          <button class="post-btn" onclick="openPostTaskModal()" data-i18n="postBtn">POST +</button>
         </div>
 
-        <div class="team-content-area">
-          <!-- Level 1 Members Card -->
-          <div class="team-card">
-            <div class="team-card-left">
-              <div class="team-icon-circle">👤</div>
-              <div class="team-card-info">
-                <h4>Members you invited</h4>
-                <div class="team-bonus-tag">Lv.1 : Get 5% task bonus</div>
-              </div>
-            </div>
-            <div class="team-card-count" id="lv1-members-count">0</div>
-          </div>
-
-          <!-- Level 2 Members Card -->
-          <div class="team-card">
-            <div class="team-card-left">
-              <div class="team-icon-circle">👥</div>
-              <div class="team-card-info">
-                <h4>Invited by Lv.1 members</h4>
-                <div class="team-bonus-tag">Lv.2 : Get 3% task bonus</div>
-              </div>
-            </div>
-            <div class="team-card-count" id="lv2-members-count">0</div>
-          </div>
-
-          <!-- Level 3 Members Card -->
-          <div class="team-card">
-            <div class="team-card-left">
-              <div class="team-icon-circle">👨‍👩‍👧‍👦</div>
-              <div class="team-card-info">
-                <h4>Invited by Lv.2 members</h4>
-                <div class="team-bonus-tag">Lv.3 : Get 1% task bonus</div>
-              </div>
-            </div>
-            <div class="team-card-count" id="lv3-members-count">0</div>
-          </div>
-
-          <!-- Team Total Earnings Summary Box -->
-          <div style="background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255,255,255,0.4); border-radius: 16px; padding: 14px; text-align: center; color: #fff; margin-top: 10px;">
-            <div style="font-size: 13px; font-weight: 800; opacity: 0.9;">Total Team Commission Earned</div>
-            <div style="font-size: 22px; font-weight: 900; margin-top: 4px;">🪙 <span id="team-commission-total">0</span></div>
-          </div>
-        </div>
-
-        <div style="padding-bottom: 90px; margin-top: auto;">
-          <button class="withdraw-submit-btn" style="background: #ffffff; color: #0284c7;" onclick="inviteFriends()">
-            Invite Members 👤
-          </button>
+        <!-- Task Items List -->
+        <div class="task-list" id="task-list">
+          <div class="no-tasks-text" data-i18n="loadingTasks">Loading bounty tasks...</div>
         </div>
       </div>
 
@@ -936,30 +838,42 @@
 
   <!-- Bottom Nav -->
   <div class="bottom-nav">
-    <a href="#" class="nav-link active" onclick="switchTab('home', event)">🎓 <span>Home</span></a>
-    <a href="#" class="nav-link" onclick="switchTab('team', event)">👥 <span>Team</span></a>
+    <div class="nav-link active" id="nav-home" onclick="switchNav('home')">
+      <i class="fas fa-home"></i>
+      <span data-i18n="navHome">Home</span>
+    </div>
+
+    <div class="nav-link" id="nav-team" onclick="switchNav('team')">
+      <svg class="nav-icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:26px; height:22px; fill:currentColor;">
+        <circle cx="9" cy="8" r="3.5" fill="currentColor"/>
+        <path d="M4 18.5C4 15.7 6.2 13.5 9 13.5C11.8 13.5 14 15.7 14 18.5V20.5H4V18.5Z" fill="currentColor"/>
+        <circle cx="16.5" cy="9.5" r="2.5" fill="currentColor"/>
+        <path d="M14.5 15.5C15.2 15 16.1 14.8 17 14.8C18.4 14.8 19.7 15.4 20.6 16.4C20.8 16.7 20.9 17.1 20.9 17.5V19.5H14.5V15.5Z" fill="currentColor"/>
+      </svg>
+      <span data-i18n="navTeam">Team</span>
+    </div>
   </div>
 
   <!-- Post Task Modal Overlay -->
   <div id="post-task-modal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
-        <h3>⭐ Post Task</h3>
+        <h3 data-i18n="postTaskHeader">⭐ Post Task</h3>
         <button class="close-modal" onclick="closePostTaskModal()">✕</button>
       </div>
 
       <div class="form-group">
-        <label>Task name</label>
+        <label data-i18n="taskNameLabel">Task name</label>
         <input type="text" id="post-task-name" class="form-input" placeholder="e.g. JOIN our channel">
       </div>
 
       <div class="form-group">
-        <label>Task address</label>
+        <label data-i18n="taskUrlLabel">Task address</label>
         <input type="url" id="post-task-url" class="form-input" placeholder="Please input task url">
       </div>
 
       <div class="form-group">
-        <label>Impressions: <span id="impression-count-display">50</span></label>
+        <label><span data-i18n="impressionsLabel">Impressions</span>: <span id="impression-count-display">50</span></label>
         <div class="range-slider-container">
           <input type="range" id="impression-slider" class="range-slider" min="10" max="5000" value="50" step="10" onclick="updateTaskCost()" oninput="updateTaskCost()">
         </div>
@@ -967,7 +881,7 @@
 
       <div style="margin-top: 20px;">
         <button class="withdraw-submit-btn" onclick="submitNewTask()">
-          Post Task (<span id="total-task-cost">5,000</span> 🪙)
+          <span data-i18n="postTaskBtnText">Post Task</span> (<span id="total-task-cost">5,000</span> <span class="mini-coin-slot-post"></span>)
         </button>
       </div>
     </div>
@@ -977,27 +891,27 @@
   <div id="withdraw-modal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
-        <h3>Balance</h3>
+        <h3 data-i18n="balanceHeader">Balance</h3>
         <button class="close-modal" onclick="closeWithdrawModal()">✕</button>
       </div>
 
       <div class="modal-balance-view">
-        <h1 style="font-size: 34px; font-weight: 900; display: flex; align-items: center; justify-content: center; gap: 8px;">
-          <span class="golden-coin" style="width: 30px; height: 30px; font-size: 14px;">🪙</span>
+        <h1 style="font-size: 34px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <span class="modal-coin-slot"></span>
           <span id="modal-coin-val">0</span>
         </h1>
         <div class="modal-usd-badge">≈ <span id="modal-ton-val">0.00</span> TON</div>
       </div>
 
       <div class="withdraw-info-card" id="withdraw-target-text">
-        Withdrawal Target: 10,000 Coins
+        Withdrawal Target: 10,000 BTC
       </div>
 
-      <button class="wallet-connect-btn" onclick="connectWallet()">
+      <button class="wallet-connect-btn" onclick="connectWallet()" data-i18n="connectWalletBtn">
         🔗 Connect Wallet
       </button>
 
-      <button class="withdraw-submit-btn" onclick="processWithdrawal()">
+      <button class="withdraw-submit-btn" onclick="processWithdrawal()" data-i18n="withdrawBtnText">
         Withdraw
       </button>
     </div>
@@ -1007,32 +921,27 @@
   <div id="settings-modal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
-        <h3>⚙️ Settings</h3>
+        <h3 data-i18n="settingsHeader">⚙️ Settings</h3>
         <button class="close-modal" onclick="closeSettingsModal()">✕</button>
       </div>
 
-      <!-- User Profile & ID Section -->
       <div class="settings-profile-card">
         <div class="settings-avatar" id="settings-avatar">U</div>
         <div class="settings-user-info">
           <h4 id="settings-user-name">User</h4>
           <div class="id-row">
             <span>ID: <strong id="settings-user-id">guest_user</strong></span>
-            <button class="copy-id-btn" onclick="copyTelegramId()">Copy</button>
+            <button class="copy-id-btn" onclick="copyTelegramId()" data-i18n="copyBtn">Copy</button>
           </div>
         </div>
       </div>
 
-      <!-- 4 Core Systems (Language, Official Telegram Channel with Exact Circular SVG, X Social Link with Exact Circular SVG, Privacy Policy) -->
       <div class="settings-menu-list">
-        <!-- 1. Language Selection -->
         <div class="settings-item">
-          <div class="settings-item-left">
-            <span class="menu-svg-icon">🌐</span>
-            <span>Language</span>
-          </div>
+          <span>🌐 Language</span>
           <select id="language-select">
-            <option value="en" selected>English (UK)</option>
+            <option value="en" selected>UK English</option>
+            <option value="bn">বাংলা (Bengali)</option>
             <option value="pt">Português</option>
             <option value="uk">Українська</option>
             <option value="ru">Русский</option>
@@ -1040,47 +949,24 @@
             <option value="fr">Français</option>
             <option value="es">Español</option>
             <option value="id">Bahasa Indonesia</option>
-            <option value="bn">বাংলা</option>
             <option value="ko">한국어</option>
             <option value="tw">繁體中文</option>
             <option value="cn">简体中文</option>
           </select>
         </div>
 
-        <!-- 2. Official Telegram Channel (Exact Circular Telegram Official SVG Logo) -->
         <a href="https://t.me/mediaboostAi" target="_blank" class="settings-item">
-          <div class="settings-item-left">
-            <span class="menu-svg-icon">
-              <svg width="22" height="22" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="50" fill="#24A1DE"/>
-                <path d="M72.5 30.5L28.8 48.4C25.7 49.7 25.7 51.5 28.3 52.3L39.5 55.8L65.5 39.4C66.7 38.6 67.8 39.1 66.9 39.9L45.8 59.1L45.1 70.1C46.1 70.1 46.5 69.6 47.1 69.1L52.1 64.2L62.5 71.9C64.4 72.9 65.8 71.9 66.3 69.6L73.1 37.6C73.8 34.7 71.9 33.4 70.2 34.2Z" fill="white"/>
-              </svg>
-            </span>
-            <span>Official Channel</span>
-          </div>
+          <span data-i18n="officialChannel">📢 Official Channel</span>
           <span>↗</span>
         </a>
 
-        <!-- 3. Go to X (Exact Circular X / Twitter Official SVG Logo) -->
         <a href="https://x.com" target="_blank" class="settings-item">
-          <div class="settings-item-left">
-            <span class="menu-svg-icon">
-              <svg width="22" height="22" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="50" fill="#000000"/>
-                <path d="M68.5 28H76.2L59.4 47.2L79.3 73.8H63.8L51.6 57.8L37.6 73.8H29.8L47.5 53.6L28.3 28H44.3L55.4 42.7L68.5 28ZM65.8 69.2H70.1L42.2 32.4H37.6L65.8 69.2Z" fill="white"/>
-              </svg>
-            </span>
-            <span>Go to X</span>
-          </div>
+          <span data-i18n="goToX">🐦 Go to X</span>
           <span>↗</span>
         </a>
 
-        <!-- 4. Privacy Policy Button -->
         <div class="settings-item" onclick="openPrivacyPolicyModal()">
-          <div class="settings-item-left">
-            <span class="menu-svg-icon">🔒</span>
-            <span>Privacy Policy</span>
-          </div>
+          <span data-i18n="privacyPolicy">🔒 Privacy Policy</span>
           <span>›</span>
         </div>
       </div>
@@ -1091,26 +977,70 @@
   <div id="privacy-policy-modal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
-        <h3>🔒 Privacy Policy</h3>
+        <h3 data-i18n="privacyPolicyHeader">🔒 Privacy Policy</h3>
         <button class="close-modal" onclick="closePrivacyPolicyModal()">✕</button>
       </div>
       <div class="privacy-text-box">
-        <p><strong>1. Introduction</strong><br>Welcome to our Telegram Mini App. We respect your privacy and are committed to protecting any data associated with your Telegram account (such as your User ID, name, and profile picture).</p>
+        <p><strong data-i18n="pp1Title">1. Introduction</strong><br><span data-i18n="pp1Text">Welcome to our Telegram Mini App. We respect your privacy and are committed to protecting any data associated with your Telegram account (such as your User ID, name, and profile picture).</span></p>
         <br>
-        <p><strong>2. Information Collection</strong><br>We collect basic Telegram profile details provided via Telegram WebApp API to identify your account, track your task completions, and store your coin balance safely in our database.</p>
+        <p><strong data-i18n="pp2Title">2. Information Collection</strong><br><span data-i18n="pp2Text">We collect basic Telegram profile details provided via Telegram WebApp API to identify your account, track your task completions, and store your coin balance safely in our database.</span></p>
         <br>
-        <p><strong>3. Use of Data</strong><br>Your data is used solely to provide app functionality, manage rewards, and process your withdrawals. We do not sell or share your personal information with third parties.</p>
+        <p><strong data-i18n="pp3Title">3. Use of Data</strong><br><span data-i18n="pp3Text">Your data is used solely to provide app functionality, manage rewards, and process your withdrawals. We do not sell or share your personal information with third parties.</span></p>
         <br>
-        <p><strong>4. Third-Party Services</strong><br>We integrate services like Firebase for data synchronization and Monetag for ad-supported rewards. These services may collect standard anonymous analytics.</p>
+        <p><strong data-i18n="pp4Title">4. Third-Party Services</strong><br><span data-i18n="pp4Text">We integrate services like Firebase for data synchronization and Monetag for ad-supported rewards. These services may collect standard anonymous analytics.</span></p>
         <br>
-        <p><strong>5. Contact Us</strong><br>For any inquiries regarding privacy, please reach out to our official channel: <strong>https://t.me/mediaboostAi</strong>.</p>
+        <p><strong data-i18n="pp5Title">5. Contact Us</strong><br><span data-i18n="pp5Text">For any inquiries regarding privacy, please reach out to our official channel:</span> <strong>https://t.me/mediaboostAi</strong>.</p>
       </div>
-      <button class="withdraw-submit-btn" onclick="closePrivacyPolicyModal()">Got It</button>
+      <button class="withdraw-submit-btn" onclick="closePrivacyPolicyModal()" data-i18n="gotItBtn">Got It</button>
     </div>
   </div>
 
   <script>
-    // 1. Firebase Configuration
+    function getBlueCoinSVG(size = 36) {
+      const template = document.getElementById('blue-coin-template');
+      const clone = template.content.cloneNode(true);
+      const svg = clone.querySelector('svg');
+      svg.style.width = size + 'px';
+      svg.style.height = size + 'px';
+      return svg;
+    }
+
+    function renderBlueCoins() {
+      const mainContainer = document.getElementById('main-coin-svg-container');
+      if (mainContainer) {
+        mainContainer.innerHTML = '';
+        mainContainer.appendChild(getBlueCoinSVG(38));
+      }
+
+      const modalCoinSlot = document.querySelector('.modal-coin-slot');
+      if (modalCoinSlot) {
+        modalCoinSlot.innerHTML = '';
+        modalCoinSlot.appendChild(getBlueCoinSVG(32));
+      }
+
+      document.querySelectorAll('.mini-coin-slot-ad').forEach(el => {
+        el.innerHTML = '';
+        el.appendChild(getBlueCoinSVG(14));
+      });
+      document.querySelectorAll('.mini-coin-slot-checkin').forEach(el => {
+        el.innerHTML = '';
+        el.appendChild(getBlueCoinSVG(14));
+      });
+      document.querySelectorAll('.mini-coin-slot-post').forEach(el => {
+        el.innerHTML = '';
+        el.appendChild(getBlueCoinSVG(14));
+      });
+    }
+
+    function switchNav(tabName) {
+      document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+      if (tabName === 'home') {
+        document.getElementById('nav-home').classList.add('active');
+      } else if (tabName === 'team') {
+        document.getElementById('nav-team').classList.add('active');
+      }
+    }
+
     const firebaseConfig = {
       apiKey: "AIzaSyCizaCuNkTOsdyeLErVsUzjTj6P0Du6zZw",
       authDomain: "social-media-fe850.firebaseapp.com",
@@ -1125,17 +1055,15 @@
       firebase.initializeApp(firebaseConfig);
     }
 
-    // 2. Telegram WebApp Integration & Profile Retrieval
     const tg = window.Telegram?.WebApp;
     let userId = "guest_user";
     let userName = "User";
     let userPhotoUrl = "";
-    let referrerId = null;
 
     if (tg) {
       tg.expand();
       if (tg.initDataUnsafe?.user) {
-        userId = String(tg.initDataUnsafe.user.id);
+        userId = tg.initDataUnsafe.user.id;
         userName = tg.initDataUnsafe.user.first_name || "User";
         userPhotoUrl = tg.initDataUnsafe.user.photo_url || "";
         
@@ -1148,49 +1076,18 @@
           avatarEl.innerText = userName.charAt(0).toUpperCase();
         }
       }
-
-      if (tg.initDataUnsafe?.start_param) {
-        referrerId = String(tg.initDataUnsafe.start_param);
-      }
     }
 
-    // 3. Application State Variables
     let userCoins = 0;
     let completedWithdrawals = 0;
     let dailyTasksCompleted = 0;
     let lastCheckInDate = "";
     let userCompletedTasks = {}; 
+    let userClickedTasks = {}; 
     let rawBountyTasks = {};
-
-    let teamData = {
-      lv1: [],
-      lv2: [],
-      lv3: [],
-      totalCommission: 0
-    };
 
     function getNextWithdrawTarget() {
       return (completedWithdrawals + 1) * 10000;
-    }
-
-    function switchTab(tabName, event) {
-      if (event) event.preventDefault();
-      const homeView = document.getElementById('home-view');
-      const teamView = document.getElementById('team-view');
-      const navLinks = document.querySelectorAll('.bottom-nav .nav-link');
-
-      navLinks.forEach(el => el.classList.remove('active'));
-
-      if (tabName === 'home') {
-        homeView.style.display = 'flex';
-        teamView.style.display = 'none';
-        navLinks[0].classList.add('active');
-      } else if (tabName === 'team') {
-        homeView.style.display = 'none';
-        teamView.style.display = 'flex';
-        navLinks[1].classList.add('active');
-        updateTeamUI();
-      }
     }
 
     function updateUI() {
@@ -1201,95 +1098,33 @@
       document.getElementById('modal-coin-val').innerText = userCoins.toLocaleString();
       document.getElementById('modal-ton-val').innerText = tonVal;
       document.getElementById('daily-task-count').innerText = `${dailyTasksCompleted}/5`;
-      document.getElementById('invite-count').innerText = `${teamData.lv1.length}/3`;
 
       const nextTarget = getNextWithdrawTarget();
       const currentStage = completedWithdrawals + 1;
-      document.getElementById('withdraw-target-text').innerText = 
-        `Withdrawal Target #${currentStage}: ${nextTarget.toLocaleString()} Coins`;
+      const targetText = translations[currentLang]?.withdrawTargetText || 'Withdrawal Target #{stage}: {target} BTC';
+      document.getElementById('withdraw-target-text').innerText = targetText
+        .replace('{stage}', currentStage)
+        .replace('{target}', nextTarget.toLocaleString());
 
       const today = new Date().toISOString().split('T')[0];
-      if (lastCheckInDate === today) {
-        document.getElementById('checkin-btn-text').innerText = "Claimed ✓";
-      } else {
-        document.getElementById('checkin-btn-text').innerText = "+ 🪙 100";
+      const checkinEl = document.getElementById('checkin-btn-text');
+      if (checkinEl) {
+        checkinEl.innerText = lastCheckInDate === today ? (translations[currentLang]?.claimed || "Claimed ✓") : "+ 100";
       }
-    }
-
-    function updateTeamUI() {
-      document.getElementById('lv1-members-count').innerText = teamData.lv1.length;
-      document.getElementById('lv2-members-count').innerText = teamData.lv2.length;
-      document.getElementById('lv3-members-count').innerText = teamData.lv3.length;
-      document.getElementById('team-commission-total').innerText = (teamData.totalCommission || 0).toLocaleString();
-    }
-
-    function distributeReferralBonus(earnedCoins) {
-      if (!referrerId || referrerId === userId) return;
-
-      const dbRef = firebase.database();
-
-      dbRef.ref('users/' + referrerId).once('value').then(snap1 => {
-        const lv1User = snap1.val();
-        if (lv1User) {
-          const lv1Bonus = Math.floor(earnedCoins * 0.05);
-          dbRef.ref('users/' + referrerId).update({
-            coins: (lv1User.coins || 0) + lv1Bonus,
-            team: {
-              ...lv1User.team,
-              totalCommission: (lv1User.team?.totalCommission || 0) + lv1Bonus
-            }
-          });
-
-          const lv2ReferrerId = lv1User.referrerId;
-          if (lv2ReferrerId) {
-            dbRef.ref('users/' + lv2ReferrerId).once('value').then(snap2 => {
-              const lv2User = snap2.val();
-              if (lv2User) {
-                const lv2Bonus = Math.floor(earnedCoins * 0.03);
-                dbRef.ref('users/' + lv2ReferrerId).update({
-                  coins: (lv2User.coins || 0) + lv2Bonus,
-                  team: {
-                    ...lv2User.team,
-                    totalCommission: (lv2User.team?.totalCommission || 0) + lv2Bonus
-                  }
-                });
-
-                const lv3ReferrerId = lv2User.referrerId;
-                if (lv3ReferrerId) {
-                  dbRef.ref('users/' + lv3ReferrerId).once('value').then(snap3 => {
-                    const lv3User = snap3.val();
-                    if (lv3User) {
-                      const lv3Bonus = Math.floor(earnedCoins * 0.01);
-                      dbRef.ref('users/' + lv3ReferrerId).update({
-                        coins: (lv3User.coins || 0) + lv3Bonus,
-                        team: {
-                          ...lv3User.team,
-                          totalCommission: (lv3User.team?.totalCommission || 0) + lv3Bonus
-                        }
-                      });
-                    }
-                  });
-                }
-              }
-            });
-          }
-        }
-      });
+      renderBlueCoins();
     }
 
     function watchMonetagAd() {
       if (typeof show_11759773 === 'function') {
         show_11759773()
           .then(() => {
-            const earned = 50000;
-            userCoins += earned;
+            userCoins += 50000;
             updateUI();
             saveUserDataToFirebase();
-            distributeReferralBonus(earned);
-            alert("Success! You watched the full ad and earned 50,000 Coins! 🪙");
+            alert("Success! You watched the full ad and earned 50,000 Points!");
           })
           .catch(() => {
-            alert("You must watch the full ad to earn 50,000 coins!");
+            alert("You must watch the full ad to earn 50,000 Points!");
           });
       } else {
         alert("Ad Network loading. Please try again in 5 seconds.");
@@ -1304,14 +1139,12 @@
         return;
       }
 
-      const earned = 100;
-      userCoins += earned;
+      userCoins += 100;
       lastCheckInDate = today;
       
       updateUI();
       saveUserDataToFirebase();
-      distributeReferralBonus(earned);
-      alert("Daily Check-in Successful! You received 100 Coins! 🪙");
+      alert("Daily Check-in Successful! You received 100 Points!");
     }
 
     function openPostTaskModal() {
@@ -1347,7 +1180,7 @@
       }
 
       if (userCoins < cost) {
-        alert(`Insufficient coins! You need ${cost.toLocaleString()} Coins to post this task.`);
+        alert(`Insufficient balance! You need ${cost.toLocaleString()} Points to post this task.`);
         return;
       }
 
@@ -1388,7 +1221,7 @@
       taskListDiv.innerHTML = '';
 
       if (!rawBountyTasks || Object.keys(rawBountyTasks).length === 0) {
-        taskListDiv.innerHTML = '<div class="no-tasks-text">No active bounty tasks available right now. Post one above!</div>';
+        taskListDiv.innerHTML = `<div class="no-tasks-text">${translations[currentLang]?.noTasks || 'No active bounty tasks available right now. Post one above!'}</div>`;
         return;
       }
 
@@ -1398,59 +1231,77 @@
       const availableTasks = tasks.filter(task => !userCompletedTasks[task.id]);
 
       if (availableTasks.length === 0) {
-        taskListDiv.innerHTML = '<div class="no-tasks-text">You have completed all available tasks!</div>';
+        taskListDiv.innerHTML = `<div class="no-tasks-text">${translations[currentLang]?.allTasksCompleted || 'You have completed all available tasks!'}</div>`;
         return;
       }
 
       availableTasks.forEach(task => {
         const item = document.createElement('div');
         item.className = 'task-item';
-        item.onclick = () => executeTask(task);
 
         const avatarHTML = task.creatorPhotoUrl 
           ? `<img src="${task.creatorPhotoUrl}" alt="Avatar">`
           : (task.name ? task.name.charAt(0).toUpperCase() : 'T');
+
+        const tempContainer = document.createElement('span');
+        const miniSvg = getBlueCoinSVG(14);
+        tempContainer.appendChild(miniSvg);
+        const iconHtmlStr = tempContainer.innerHTML;
+
+        const isClicked = userClickedTasks[task.id];
+        const rewardAmount = task.reward || 100;
+
+        let rightActionHTML = '';
+        if (isClicked) {
+          rightActionHTML = `<button class="task-action-btn claim-btn" onclick="claimBountyTask('${task.id}', ${rewardAmount}, this)">Claim</button>`;
+        } else {
+          rightActionHTML = `<button class="task-action-btn" onclick="startBountyTask('${task.id}', '${task.url}')">${iconHtmlStr} ${rewardAmount}</button>`;
+        }
 
         item.innerHTML = `
           <div class="task-left">
             <div class="task-avatar">${avatarHTML}</div>
             <div class="task-details">
               <h4>${task.name}</h4>
-              <span class="task-pill">Link Task</span>
+              <span class="task-pill">${translations[currentLang]?.linkTask || 'Link Task'}</span>
             </div>
           </div>
-          <div class="task-reward">🪙 ${task.reward || 100}</div>
+          <div>${rightActionHTML}</div>
         `;
 
         taskListDiv.appendChild(item);
       });
     }
 
-    function executeTask(task) {
-      if (userCompletedTasks[task.id]) {
-        alert("You have already completed this task!");
-        return;
-      }
-
+    function startBountyTask(taskId, url) {
+      userClickedTasks[taskId] = true;
       if (tg && tg.openLink) {
-        tg.openLink(task.url);
+        tg.openLink(url);
       } else {
-        window.open(task.url, '_blank');
+        window.open(url, '_blank');
       }
-
-      const earned = task.reward || 100;
-      userCompletedTasks[task.id] = true;
-      userCoins += earned;
-      
-      if (dailyTasksCompleted < 5) {
-        dailyTasksCompleted++;
-      }
-      
-      updateUI();
-      saveUserDataToFirebase();
-      distributeReferralBonus(earned);
       renderBountyTasks();
-      alert(`Task completed! +${earned} Coins`);
+    }
+
+    function claimBountyTask(taskId, rewardAmount, btnElement) {
+      if (userCompletedTasks[taskId]) return;
+
+      btnElement.innerText = "Verifying...";
+      btnElement.disabled = true;
+
+      setTimeout(() => {
+        userCompletedTasks[taskId] = true;
+        userCoins += rewardAmount;
+        
+        if (dailyTasksCompleted < 5) {
+          dailyTasksCompleted++;
+        }
+        
+        updateUI();
+        saveUserDataToFirebase();
+        renderBountyTasks();
+        alert(`Task completed! +${rewardAmount} Points`);
+      }, 2000);
     }
 
     function openWithdrawModal() {
@@ -1471,9 +1322,9 @@
       const stage = completedWithdrawals + 1;
 
       if (userCoins < targetCoins) {
-        alert(`Insufficient coins!\nAt least ${targetCoins.toLocaleString()} coins are required for withdrawal #${stage}.`);
+        alert(`Insufficient balance!\nAt least ${targetCoins.toLocaleString()} Points are required for withdrawal #${stage}.`);
       } else {
-        alert(`Congratulations! Withdrawal #${stage} requested successfully (${targetCoins.toLocaleString()} Coins).`);
+        alert(`Congratulations! Withdrawal #${stage} requested successfully (${targetCoins.toLocaleString()} Points).`);
         userCoins -= targetCoins;
         completedWithdrawals += 1;
         
@@ -1485,8 +1336,7 @@
 
     function inviteFriends() {
       if (tg) {
-        const botUsername = "YourBotUsername";
-        tg.openTelegramLink(`https://t.me/share/url?url=https://t.me/${botUsername}?start=${userId}`);
+        tg.openTelegramLink(`https://t.me/share/url?url=https://t.me/YourBot?start=${userId}`);
       }
     }
 
@@ -1524,62 +1374,174 @@
       document.getElementById('privacy-policy-modal').style.display = 'none';
     }
 
-    function registerReferralRelationship() {
-      if (!referrerId || referrerId === userId) return;
+    let currentLang = 'en';
 
-      const userRef = firebase.database().ref('users/' + userId);
-      userRef.once('value').then(snapshot => {
-        const existingData = snapshot.val();
-        if (!existingData || !existingData.referrerId) {
-          userRef.update({ referrerId: referrerId });
+    const translations = {
+      en: {
+        conversionRate: "10,000 BTC = 1 TON",
+        watchAd: "Watch Ad",
+        dailyCheckIn: "Daily Check-in",
+        levelDesc: "Invite 3 users to upgrade to Lv.2",
+        inviteBtn: "invite",
+        dailyTaskProgress: "Daily Task Progress",
+        resetsDaily: "Resets daily at 00:00",
+        bountyTaskTitle: "Bounty Task",
+        postBtn: "POST +",
+        loadingTasks: "Loading bounty tasks...",
+        navHome: "Home",
+        navTeam: "Team",
+        postTaskHeader: "⭐ Post Task",
+        taskNameLabel: "Task name",
+        taskUrlLabel: "Task address",
+        impressionsLabel: "Impressions",
+        postTaskBtnText: "Post Task",
+        balanceHeader: "Balance",
+        connectWalletBtn: "🔗 Connect Wallet",
+        withdrawBtnText: "Withdraw",
+        settingsHeader: "⚙️ Settings",
+        copyBtn: "Copy",
+        officialChannel: "📢 Official Channel",
+        goToX: "🐦 Go to X",
+        privacyPolicy: "🔒 Privacy Policy",
+        privacyPolicyHeader: "🔒 Privacy Policy",
+        gotItBtn: "Got It",
+        linkTask: "Link Task",
+        noTasks: "No active bounty tasks available right now. Post one above!",
+        allTasksCompleted: "You have completed all available tasks!",
+        withdrawTargetText: "Withdrawal Target #{stage}: {target} BTC",
+        claimed: "Claimed ✓"
+      },
+      bn: {
+        conversionRate: "১০,০০০ BTC = ১ TON",
+        watchAd: "বিজ্ঞাপন দেখুন",
+        dailyCheckIn: "দೈನিক চেক-ইন",
+        levelDesc: "Lv.2 এ যেতে ৩ জন বন্ধুকে আমন্ত্রণ জানান",
+        inviteBtn: "আমন্ত্রণ",
+        dailyTaskProgress: "দৈনিক টাস্ক প্রগতি",
+        resetsDaily: "প্রতিদিন ০০:০০ টায় রিসেট হয়",
+        bountyTaskTitle: "বাউন্টি টাস্ক",
+        postBtn: "পোস্ট +",
+        loadingTasks: "বাউন্টি টাস্ক লোড হচ্ছে...",
+        navHome: "হোম",
+        navTeam: "টিম",
+        postTaskHeader: "⭐ টাস্ক পোস্ট করুন",
+        taskNameLabel: "টাস্কের নাম",
+        taskUrlLabel: "টাস্কের ঠিকানা",
+        impressionsLabel: "ইমপ্রেশন",
+        postTaskBtnText: "টাস্ক পোস্ট করুন",
+        balanceHeader: "ব্যালেন্স",
+        connectWalletBtn: "🔗 ওয়ালেট যুক্ত করুন",
+        withdrawBtnText: "উইথড্র",
+        settingsHeader: "⚙️ সেটিংস",
+        copyBtn: "কপি",
+        officialChannel: "📢 অফিসিয়াল চ্যানেল",
+        goToX: "🐦 X-এ যান",
+        privacyPolicy: "🔒 প্রাইভেসি পলিসি",
+        privacyPolicyHeader: "🔒 প্রাইভেসি পলিসি",
+        gotItBtn: "বুঝেছি",
+        linkTask: "লিংক টাস্ক",
+        noTasks: "বর্তমানে কোনো সক্রিয় বাউন্টি টাস্ক নেই। উপরে একটি পোস্ট করুন!",
+        allTasksCompleted: "আপনি সব উপলব্ধ টাস্ক সম্পন্ন করেছেন!",
+        withdrawTargetText: "উইথড্র লক্ষ্য #{stage}: {target} BTC",
+        claimed: "দাবি করা হয়েছে ✓"
+      },
+      pt: {
+        conversionRate: "10.000 BTC = 1 TON",
+        watchAd: "Assistir Anúncio",
+        dailyCheckIn: "Check-in Diário",
+        levelDesc: "Convide 3 usuários para subir para o Nv.2",
+        inviteBtn: "convidar",
+        dailyTaskProgress: "Progresso das Tarefas",
+        resetsDaily: "Reseta diariamente às 00:00",
+        bountyTaskTitle: "Tarefas Bônus",
+        postBtn: "POSTAR +",
+        loadingTasks: "Carregando tarefas...",
+        navHome: "Início",
+        navTeam: "Equipe",
+        postTaskHeader: "⭐ Postar Tarefa",
+        taskNameLabel: "Nome da Tarefa",
+        taskUrlLabel: "Endereço da Tarefa",
+        impressionsLabel: "Impressões",
+        postTaskBtnText: "Postar Tarefa",
+        balanceHeader: "Saldo",
+        connectWalletBtn: "🔗 Conectar Carteira",
+        withdrawBtnText: "Sacar",
+        settingsHeader: "⚙️ Configurações",
+        copyBtn: "Copiar",
+        officialChannel: "📢 Canal Oficial",
+        goToX: "🐦 Ir para X",
+        privacyPolicy: "🔒 Política de Privacidade",
+        privacyPolicyHeader: "🔒 Política de Privacidade",
+        gotItBtn: "Entendido",
+        linkTask: "Tarefa de Link",
+        noTasks: "Nenhuma tarefa ativa no momento.",
+        allTasksCompleted: "Você concluiu todas as tarefas!",
+        withdrawTargetText: "Meta de Saque #{stage}: {target} BTC",
+        claimed: "Resgatado ✓"
+      },
+      ru: {
+        conversionRate: "10 000 BTC = 1 TON",
+        watchAd: "Смотреть рекламу",
+        dailyCheckIn: "Ежедневный вход",
+        levelDesc: "Пригласите 3 друзей до Lv.2",
+        inviteBtn: "Пригласить",
+        dailyTaskProgress: "Прогресс задач",
+        resetsDaily: "Сброс ежедневно в 00:00",
+        bountyTaskTitle: "Задания",
+        postBtn: "ПОСТ +",
+        loadingTasks: "Загрузка заданий...",
+        navHome: "Главная",
+        navTeam: "Команда",
+        postTaskHeader: "⭐ Создать задание",
+        taskNameLabel: "Название задания",
+        taskUrlLabel: "Ссылка на задание",
+        impressionsLabel: "Показы",
+        postTaskBtnText: "Опубликовать",
+        balanceHeader: "Баланс",
+        connectWalletBtn: "🔗 Подключить кошелек",
+        withdrawBtnText: "Вывод",
+        settingsHeader: "⚙️ Настройки",
+        copyBtn: "Копировать",
+        officialChannel: "📢 Официальный канал",
+        goToX: "🐦 Перейти в X",
+        privacyPolicy: "🔒 Политикой конфиденциальности",
+        privacyPolicyHeader: "🔒 Политикой конфиденциальности",
+        gotItBtn: "Понятно",
+        linkTask: "Ссылка",
+        noTasks: "Нет активных заданий.",
+        allTasksCompleted: "Все задания выполнены!",
+        withdrawTargetText: "Цель вывода #{stage}: {target} BTC",
+        claimed: "Получено ✓"
+      }
+    };
 
-          firebase.database().ref('users/' + referrerId).once('value').then(refSnap => {
-            const refUser = refSnap.val() || {};
-            const lv1List = refUser.team?.lv1 || [];
-            if (!lv1List.includes(userId)) {
-              lv1List.push(userId);
-              firebase.database().ref('users/' + referrerId + '/team/lv1').set(lv1List);
-            }
-
-            const lv2RefId = refUser.referrerId;
-            if (lv2RefId) {
-              firebase.database().ref('users/' + lv2RefId).once('value').then(ref2Snap => {
-                const ref2User = ref2Snap.val() || {};
-                const lv2List = ref2User.team?.lv2 || [];
-                if (!lv2List.includes(userId)) {
-                  lv2List.push(userId);
-                  firebase.database().ref('users/' + lv2RefId + '/team/lv2').set(lv2List);
-                }
-
-                const lv3RefId = ref2User.referrerId;
-                if (lv3RefId) {
-                  firebase.database().ref('users/' + lv3RefId).once('value').then(ref3Snap => {
-                    const ref3User = ref3Snap.val() || {};
-                    const lv3List = ref3User.team?.lv3 || [];
-                    if (!lv3List.includes(userId)) {
-                      lv3List.push(userId);
-                      firebase.database().ref('users/' + lv3RefId + '/team/lv3').set(lv3List);
-                    }
-                  });
-                }
-              });
-            }
-          });
+    function applyLanguage(langCode) {
+      currentLang = langCode in translations ? langCode : 'en';
+      const dict = translations[currentLang];
+      
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+          el.innerText = dict[key];
         }
       });
+      updateUI();
+      renderBountyTasks();
     }
+
+    document.getElementById('language-select').addEventListener('change', (e) => {
+      applyLanguage(e.target.value);
+    });
 
     function saveUserDataToFirebase() {
       if (firebase.apps.length && userId) {
-        firebase.database().ref('users/' + userId).update({
+        firebase.database().ref('users/' + userId).set({
           coins: userCoins,
           withdrawals: completedWithdrawals,
           dailyTasks: dailyTasksCompleted,
           lastCheckIn: lastCheckInDate,
           photoUrl: userPhotoUrl,
-          completedTasks: userCompletedTasks,
-          team: teamData,
-          referrerId: referrerId
+          completedTasks: userCompletedTasks
         });
       }
     }
@@ -1594,23 +1556,14 @@
             dailyTasksCompleted = data.dailyTasks || 0;
             lastCheckInDate = data.lastCheckIn || "";
             userCompletedTasks = data.completedTasks || {};
-            referrerId = data.referrerId || referrerId;
-            if (data.team) {
-              teamData.lv1 = data.team.lv1 || [];
-              teamData.lv2 = data.team.lv2 || [];
-              teamData.lv3 = data.team.lv3 || [];
-              teamData.totalCommission = data.team.totalCommission || 0;
-            }
             updateUI();
-            updateTeamUI();
             renderBountyTasks();
-          } else {
-            registerReferralRelationship();
           }
         });
       }
     }
 
+    renderBlueCoins();
     updateUI();
     loadUserDataFromFirebase();
     loadBountyTasksFromFirebase();
