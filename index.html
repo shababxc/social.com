@@ -154,9 +154,6 @@
       box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
     }
 
-    /* ==========================================
-       নতুন যুক্ত করা CSS (Grid Buttons & Modal)
-       ========================================== */
     .action-buttons-grid {
       display: flex;
       gap: 12px;
@@ -201,6 +198,30 @@
       align-items: center;
       gap: 4px;
       box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+    }
+
+    /* Task Item Styling */
+    .task-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .task-info h4 { margin: 0 0 4px 0; font-size: 15px; color: #fff; }
+    .task-info p { margin: 0; font-size: 12px; color: var(--text-dim); }
+    .task-reward-btn {
+      background: #10b981;
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 12px;
+      cursor: pointer;
     }
 
     .modal-overlay {
@@ -302,7 +323,7 @@
         <p style="margin: 0; color: #22c55e; font-weight: bold; font-size: 16px;">Value: $<span id="dash-usd">0.00</span></p>
       </div>
 
-      <!-- ডানে এবং বামে পাশাপাশি ২টা বাটন -->
+      <!-- Action Grid -->
       <div class="action-buttons-grid">
         <button class="action-btn" onclick="window.scrollToDailyReward()">
           <span class="btn-icon">📅</span>
@@ -316,7 +337,7 @@
           <span class="btn-icon">🎬</span>
           <div class="btn-text">
             <strong>Watch & Earn</strong>
-            <small>$0.5 per ad</small>
+            <small>100 Coins / ad</small>
           </div>
         </button>
       </div>
@@ -341,12 +362,16 @@
         </button>
       </div>
 
-      <!-- Bounty Task Header (POST + Button সহ) -->
+      <!-- Bounty Task Header & Task Container -->
       <div class="task-header">
-        <h3 class="task-title-text">Bounty Task</h3>
+        <h3 class="task-title-text">Bounty Tasks</h3>
         <button class="post-task-btn" onclick="window.openPostModal()">
           <span>POST</span> <span>+</span>
         </button>
+      </div>
+
+      <div id="tasks-container">
+        <!-- Dynamically loaded task list will appear here -->
       </div>
 
     </div>
@@ -445,34 +470,10 @@
     </div>
   </div>
 
-  <!-- Bottom Navigation Bar -->
-  <div class="navbar">
-    <div class="nav-item active" onclick="window.switchTab('dashboard', this)">
-      <span style="font-size: 18px;">🏠</span>
-      <span>Dashboard</span>
-    </div>
-    <div class="nav-item" onclick="window.switchTab('ads', this)">
-      <span style="font-size: 18px;">📺</span>
-      <span>Ads</span>
-    </div>
-    <div class="nav-item" onclick="window.switchTab('referral', this)">
-      <span style="font-size: 18px;">👥</span>
-      <span>Refer</span>
-    </div>
-    <div class="nav-item" onclick="window.switchTab('wallet', this)">
-      <span style="font-size: 18px;">💳</span>
-      <span>Wallet</span>
-    </div>
-    <div class="nav-item" onclick="window.switchTab('stats', this)">
-      <span style="font-size: 18px;">📊</span>
-      <span>Stats</span>
-    </div>
-  </div>
-
-  <!-- Firebase Realtime Database SDK & Main Logic -->
+  <!-- Firebase Realtime Database SDK & Logic -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getDatabase, ref, get, set, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    import { getDatabase, ref, get, set, update, onValue, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCizaCuNkTOsdyeLErVsUzjTj6P0Du6zZw",
@@ -497,7 +498,6 @@
     const CHANNEL_USERNAME = "@rumaisaxx";
     const BOT_TOKEN = "8731863495:AAEy2Z-QyUzpUqfaJH3EUpO7bPBJ_ol4Yq0"; 
 
-    // Coin Value Multiplier (100 coins = $0.5 => 1 coin = $0.005)
     const COIN_VALUE_USD = 0.005;
 
     document.getElementById('user-name').innerText = user.first_name || "User";
@@ -505,12 +505,12 @@
     document.getElementById('stat-uid').innerText = user.id;
 
     const userRef = ref(db, 'users/' + user.id);
+    const tasksRef = ref(db, 'tasks');
 
     async function loadUserData() {
       try {
         const snap = await get(userRef);
         if (!snap.exists()) {
-          // Create new user entry
           await set(userRef, {
             coins: 0,
             adsWatched: 0,
@@ -518,7 +518,8 @@
             referredBy: startParam || null,
             createdAt: new Date().toISOString(),
             lastClaimDate: null,
-            consecutiveDays: 0
+            consecutiveDays: 0,
+            completedTasks: {}
           });
 
           if (startParam && String(startParam) !== String(user.id)) {
@@ -535,6 +536,7 @@
         }
         await updateUI();
         checkDailyRewardStatus();
+        listenToTasks();
       } catch (err) {
         console.error("Firebase Initialization Error:", err);
       }
@@ -546,7 +548,6 @@
         if (snap.exists()) {
           const data = snap.val();
           const coins = data.coins || 0;
-          
           const usd = (coins * COIN_VALUE_USD).toFixed(2);
 
           document.getElementById('coin-balance').innerText = coins;
@@ -560,9 +561,7 @@
       }
     }
 
-    // ==========================================
     // Daily Check-In Logic
-    // ==========================================
     async function checkDailyRewardStatus() {
       const snap = await get(userRef);
       if (!snap.exists()) return;
@@ -705,6 +704,80 @@
       }
     }
 
+    // Bounty Task Rendering & Realtime Updates
+    function listenToTasks() {
+      onValue(tasksRef, async (snapshot) => {
+        const container = document.getElementById('tasks-container');
+        container.innerHTML = '';
+
+        if (!snapshot.exists()) {
+          container.innerHTML = '<p style="color: var(--text-dim); text-align: center; font-size: 13px;">No tasks available right now.</p>';
+          return;
+        }
+
+        const userSnap = await get(userRef);
+        const completedMap = userSnap.val()?.completedTasks || {};
+        const tasksData = snapshot.val();
+
+        Object.keys(tasksData).forEach((key) => {
+          const item = tasksData[key];
+          if (item.remainingImp <= 0) return;
+
+          const isDone = completedMap[key] === true;
+
+          const card = document.createElement('div');
+          card.className = 'task-card';
+          card.innerHTML = `
+            <div class="task-info">
+              <h4>${item.title}</h4>
+              <p>Reward: +50 Coins (${item.remainingImp} left)</p>
+            </div>
+            <button class="task-reward-btn" style="${isDone ? 'background:#475569;' : ''}" ${isDone ? 'disabled' : ''} onclick="window.completeBountyTask('${key}', '${item.url}')">
+              ${isDone ? 'Completed' : 'Start Task'}
+            </button>
+          `;
+          container.appendChild(card);
+        });
+      });
+    }
+
+    window.completeBountyTask = async function(taskId, taskUrl) {
+      if (tg && tg.openTelegramLink && taskUrl.includes("t.me")) {
+        tg.openTelegramLink(taskUrl);
+      } else {
+        window.open(taskUrl, '_blank');
+      }
+
+      setTimeout(async () => {
+        try {
+          const taskRef = ref(db, 'tasks/' + taskId);
+          const taskSnap = await get(taskRef);
+          
+          if (taskSnap.exists()) {
+            const taskData = taskSnap.val();
+            if (taskData.remainingImp > 0) {
+              const uSnap = await get(userRef);
+              const uData = uSnap.val();
+
+              await update(userRef, {
+                coins: (uData.coins || 0) + 50,
+                [`completedTasks/${taskId}`]: true
+              });
+
+              await update(taskRef, {
+                remainingImp: taskData.remainingImp - 1
+              });
+
+              alert("Task verification complete! You received 50 Coins.");
+              updateUI();
+            }
+          }
+        } catch (err) {
+          console.error("Task Completion Error:", err);
+        }
+      }, 3000);
+    };
+
     window.requestWithdrawal = async function() {
       try {
         const snap = await get(userRef);
@@ -727,7 +800,24 @@
           return;
         }
 
+        const withdrawsRef = push(ref(db, 'withdrawals'));
+        await set(withdrawsRef, {
+          userId: user.id,
+          userName: user.first_name || "User",
+          method: method,
+          address: address,
+          amountCoins: 400,
+          amountUSD: 2.00,
+          status: 'pending',
+          createdAt: new Date().toISOString()
+        });
+
+        await update(userRef, {
+          coins: coins - 400
+        });
+
         alert("Withdrawal request submitted successfully!");
+        updateUI();
       } catch (err) {
         console.error("Withdrawal error:", err);
       }
@@ -764,9 +854,7 @@
       }
     };
 
-    // ==========================================
     // Post Task Modal Logic
-    // ==========================================
     const PER_IMP_TON = 0.001;
     const PER_IMP_STARS = 3;
 
@@ -784,10 +872,10 @@
       document.getElementById('cost-stars').innerText = (val * PER_IMP_STARS);
     };
 
-    window.payWithTon = function() {
-      const title = document.getElementById('task-title').value;
-      const url = document.getElementById('task-url').value;
-      const impressions = document.getElementById('imp-slider').value;
+    window.payWithTon = async function() {
+      const title = document.getElementById('task-title').value.trim();
+      const url = document.getElementById('task-url').value.trim();
+      const impressions = parseInt(document.getElementById('imp-slider').value);
       const cost = (impressions * PER_IMP_TON).toFixed(3);
 
       if (!title || !url) {
@@ -795,14 +883,26 @@
         return;
       }
 
-      alert(`Task Posted! Payment: ${cost} TON`);
+      const newTaskRef = push(ref(db, 'tasks'));
+      await set(newTaskRef, {
+        title: title,
+        url: url,
+        totalImp: impressions,
+        remainingImp: impressions,
+        paymentType: 'TON',
+        cost: cost,
+        createdBy: user.id,
+        createdAt: new Date().toISOString()
+      });
+
+      alert(`Task Posted Successfully! Paid: ${cost} TON`);
       window.closePostModal();
     };
 
-    window.payWithStars = function() {
-      const title = document.getElementById('task-title').value;
-      const url = document.getElementById('task-url').value;
-      const impressions = document.getElementById('imp-slider').value;
+    window.payWithStars = async function() {
+      const title = document.getElementById('task-title').value.trim();
+      const url = document.getElementById('task-url').value.trim();
+      const impressions = parseInt(document.getElementById('imp-slider').value);
       const cost = impressions * PER_IMP_STARS;
 
       if (!title || !url) {
@@ -810,7 +910,19 @@
         return;
       }
 
-      alert(`Task Posted! Payment: ${cost} Stars`);
+      const newTaskRef = push(ref(db, 'tasks'));
+      await set(newTaskRef, {
+        title: title,
+        url: url,
+        totalImp: impressions,
+        remainingImp: impressions,
+        paymentType: 'STARS',
+        cost: cost,
+        createdBy: user.id,
+        createdAt: new Date().toISOString()
+      });
+
+      alert(`Task Posted Successfully! Paid: ${cost} Stars`);
       window.closePostModal();
     };
 
