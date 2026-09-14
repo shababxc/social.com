@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +12,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   
-  <!-- Your Exact Monetag SDK -->
+  <!-- Monetag SDK -->
   <script src='//libtl.com/sdk.js' data-zone='11759773' data-sdk='show_11759773'></script>
   
   <style>
@@ -118,7 +118,6 @@
       gap: 10px;
     }
 
-    /* Stylized Golden Coin */
     .golden-coin {
       width: 36px;
       height: 36px;
@@ -159,7 +158,7 @@
       margin: 8px 0 16px 0;
     }
 
-    /* Quick Action Grid (Monetag Ad & Daily Check-in Side-by-Side) */
+    /* Quick Action Grid */
     .quick-actions {
       display: flex;
       gap: 10px;
@@ -284,6 +283,15 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      min-height: 100px;
+    }
+
+    .no-tasks-text {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 20px 0;
     }
 
     .task-item {
@@ -364,7 +372,7 @@
 
     .nav-link.active { color: #000; }
 
-    /* Withdrawal Popup Modal */
+    /* Modals Overlay */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -379,10 +387,11 @@
     .modal-box {
       background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
       width: 90%;
-      max-width: 350px;
+      max-width: 360px;
       border-radius: 24px;
       padding: 24px;
       color: #fff;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
 
     .modal-header {
@@ -392,12 +401,64 @@
       margin-bottom: 16px;
     }
 
+    .modal-header h3 {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 20px;
+    }
+
     .close-modal {
       font-size: 22px;
       cursor: pointer;
       background: none;
       border: none;
       color: #fff;
+    }
+
+    /* Form Fields for Post Task Modal */
+    .form-group {
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: #f1f5f9;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.4);
+      background: rgba(255, 255, 255, 0.9);
+      color: #0f172a;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: #fff;
+      background: #fff;
+    }
+
+    .range-slider-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .range-slider {
+      flex: 1;
+      height: 6px;
+      border-radius: 5px;
+      outline: none;
+      accent-color: #ffd700;
     }
 
     .modal-balance-view {
@@ -444,8 +505,9 @@
       padding: 14px;
       border-radius: 14px;
       font-weight: bold;
-      font-size: 16px;
+      font-size: 15px;
       cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
   </style>
 </head>
@@ -483,14 +545,12 @@
 
     <!-- Monetag Ad & Daily Check-in Side-by-Side Section -->
     <div class="quick-actions">
-      <!-- Monetag Ad Button -->
       <div class="action-card" onclick="watchMonetagAd()">
         <div class="action-icon">🎬</div>
         <div class="action-title">Watch Ad</div>
         <div class="action-reward">+ 🪙 200</div>
       </div>
 
-      <!-- Daily Checking Button -->
       <div class="action-card" onclick="dailyCheckIn()">
         <div class="action-icon">📅</div>
         <div class="action-title">Daily Check-in</div>
@@ -519,45 +579,12 @@
     <!-- Bounty Task Header -->
     <div class="bounty-header">
       <span class="bounty-title">Bounty Task</span>
-      <button class="post-btn">POST +</button>
+      <button class="post-btn" onclick="openPostTaskModal()">POST +</button>
     </div>
 
-    <!-- Task Items List -->
-    <div class="task-list">
-      
-      <div class="task-item" onclick="completeTask(200)">
-        <div class="task-left">
-          <div class="task-avatar">DA</div>
-          <div class="task-details">
-            <h4>JOIN our channel</h4>
-            <span class="task-pill">Link Task</span>
-          </div>
-        </div>
-        <div class="task-reward">🪙 200</div>
-      </div>
-
-      <div class="task-item" onclick="completeTask(100)">
-        <div class="task-left">
-          <div class="task-avatar">🤖</div>
-          <div class="task-details">
-            <h4>JOIN atf</h4>
-            <span class="task-pill">Telegram Bot</span>
-          </div>
-        </div>
-        <div class="task-reward">🪙 100</div>
-      </div>
-
-      <div class="task-item" onclick="completeTask(100)">
-        <div class="task-left">
-          <div class="task-avatar">🐱</div>
-          <div class="task-details">
-            <h4>Start TONERO App</h4>
-            <span class="task-pill">Telegram Bot</span>
-          </div>
-        </div>
-        <div class="task-reward">🪙 100</div>
-      </div>
-
+    <!-- Task Items List (Dynamically loaded from Firebase) -->
+    <div class="task-list" id="task-list">
+      <div class="no-tasks-text">Loading bounty tasks...</div>
     </div>
 
   </div>
@@ -566,6 +593,39 @@
   <div class="bottom-nav">
     <a href="#" class="nav-link active">🎓 <span>Home</span></a>
     <a href="#" class="nav-link">👥 <span>Team</span></a>
+  </div>
+
+  <!-- Post Task Modal Overlay (Screenshots Design) -->
+  <div id="post-task-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>⭐ Post Task</h3>
+        <button class="close-modal" onclick="closePostTaskModal()">✕</button>
+      </div>
+
+      <div class="form-group">
+        <label>Task name</label>
+        <input type="text" id="post-task-name" class="form-input" placeholder="e.g. JOIN our channel">
+      </div>
+
+      <div class="form-group">
+        <label>Task address</label>
+        <input type="url" id="post-task-url" class="form-input" placeholder="Please input task url">
+      </div>
+
+      <div class="form-group">
+        <label>Impressions: <span id="impression-count-display">50</span></label>
+        <div class="range-slider-container">
+          <input type="range" id="impression-slider" class="range-slider" min="10" max="500" value="50" step="10" oninput="updateTaskCost()">
+        </div>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <button class="withdraw-submit-btn" onclick="submitNewTask()">
+          Post Task (<span id="total-task-cost">5,000</span> 🪙)
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- Withdrawal Modal Overlay -->
@@ -585,7 +645,7 @@
       </div>
 
       <div class="withdraw-info-card" id="withdraw-target-text">
-        উইথড্রল টার্গেট: ১০,০০০ কয়েন
+        Withdrawal Target: 10,000 Coins
       </div>
 
       <button class="wallet-connect-btn" onclick="connectWallet()">
@@ -599,7 +659,7 @@
   </div>
 
   <script>
-    // 1. Your Exact Firebase Configuration
+    // 1. Firebase Configuration
     const firebaseConfig = {
       apiKey: "AIzaSyCizaCuNkTOsdyeLErVsUzjTj6P0Du6zZw",
       authDomain: "social-media-fe850.firebaseapp.com",
@@ -610,7 +670,6 @@
       appId: "1:264506398502:web:56d2722066cb55ec8353e7"
     };
 
-    // Initialize Firebase
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
@@ -636,12 +695,11 @@
     let dailyTasksCompleted = 0;
     let lastCheckInDate = "";
 
-    // 4. Calculate Tiered Withdrawal Limit (10,000 -> 20,000 -> 30,000...)
     function getNextWithdrawTarget() {
       return (completedWithdrawals + 1) * 10000;
     }
 
-    // 5. Update Interface Elements
+    // 4. Update UI
     function updateUI() {
       const tonVal = (userCoins / 10000).toFixed(2);
       
@@ -654,9 +712,8 @@
       const nextTarget = getNextWithdrawTarget();
       const currentStage = completedWithdrawals + 1;
       document.getElementById('withdraw-target-text').innerText = 
-        `উইথড্রল #${currentStage} টার্গেট: ${nextTarget.toLocaleString()} কয়েন`;
+        `Withdrawal Target #${currentStage}: ${nextTarget.toLocaleString()} Coins`;
 
-      // Check daily check-in button state
       const today = new Date().toISOString().split('T')[0];
       if (lastCheckInDate === today) {
         document.getElementById('checkin-btn-text').innerText = "Claimed ✓";
@@ -665,7 +722,7 @@
       }
     }
 
-    // 6. Monetag Ad Trigger (Using show_11759773 from your SDK)
+    // 5. Monetag Ad Trigger
     function watchMonetagAd() {
       if (typeof show_11759773 === 'function') {
         show_11759773().then(() => {
@@ -687,12 +744,12 @@
       alert("Ad completed! You earned 200 Coins! 🪙");
     }
 
-    // 7. Daily Check-in Function
+    // 6. Daily Check-in
     function dailyCheckIn() {
       const today = new Date().toISOString().split('T')[0];
       
       if (lastCheckInDate === today) {
-        alert("আপনি আজকের ডেইল বোনাস ইতিমধ্যেই নিয়ে নিয়েছেন!");
+        alert("You have already claimed today's daily bonus!");
         return;
       }
 
@@ -705,16 +762,123 @@
       alert("Daily Check-in Successful! You received 100 Coins! 🪙");
     }
 
-    // 8. Task Completion
-    function completeTask(reward) {
-      userCoins += reward;
-      if (dailyTasksCompleted < 5) dailyTasksCompleted++;
-      updateUI();
-      saveUserDataToFirebase();
-      alert(`Task completed! +${reward} Coins`);
+    // 7. Post Task Modal & Logic
+    function openPostTaskModal() {
+      updateTaskCost();
+      document.getElementById('post-task-modal').style.display = 'flex';
     }
 
-    // 9. Modal Control
+    function closePostTaskModal() {
+      document.getElementById('post-task-modal').style.display = 'none';
+    }
+
+    function updateTaskCost() {
+      const impressions = parseInt(document.getElementById('impression-slider').value);
+      document.getElementById('impression-count-display').innerText = impressions;
+      // 100 coins cost per impression
+      const cost = impressions * 100;
+      document.getElementById('total-task-cost').innerText = cost.toLocaleString();
+    }
+
+    function submitNewTask() {
+      const taskName = document.getElementById('post-task-name').value.trim();
+      const taskUrl = document.getElementById('post-task-url').value.trim();
+      const impressions = parseInt(document.getElementById('impression-slider').value);
+      const cost = impressions * 100;
+
+      if (!taskName) {
+        alert("Please enter a valid task name.");
+        return;
+      }
+
+      if (!taskUrl || (!taskUrl.startsWith('http://') && !taskUrl.startsWith('https://'))) {
+        alert("Please enter a valid URL (e.g., https://t.me/...)");
+        return;
+      }
+
+      if (userCoins < cost) {
+        alert(`Insufficient coins! You need ${cost.toLocaleString()} Coins to post this task.`);
+        return;
+      }
+
+      // Deduct coins & save task to Firebase
+      userCoins -= cost;
+      updateUI();
+      saveUserDataToFirebase();
+
+      const newTaskRef = firebase.database().ref('bounty_tasks').push();
+      newTaskRef.set({
+        id: newTaskRef.key,
+        name: taskName,
+        url: taskUrl,
+        impressions: impressions,
+        reward: 100,
+        createdBy: userId,
+        createdAt: Date.now()
+      }).then(() => {
+        alert("Task posted successfully!");
+        document.getElementById('post-task-name').value = '';
+        document.getElementById('post-task-url').value = '';
+        closePostTaskModal();
+      }).catch((err) => {
+        console.error("Task post error:", err);
+        alert("Failed to post task. Please try again.");
+      });
+    }
+
+    // 8. Fetch Bounty Tasks Dynamic System
+    function loadBountyTasksFromFirebase() {
+      const taskListDiv = document.getElementById('task-list');
+
+      firebase.database().ref('bounty_tasks').on('value', (snapshot) => {
+        taskListDiv.innerHTML = '';
+        const data = snapshot.val();
+
+        if (!data) {
+          taskListDiv.innerHTML = '<div class="no-tasks-text">No active bounty tasks available right now. Post one above!</div>';
+          return;
+        }
+
+        const tasks = Object.values(data);
+        tasks.reverse(); // Show latest tasks first
+
+        tasks.forEach(task => {
+          const item = document.createElement('div');
+          item.className = 'task-item';
+          item.onclick = () => executeTask(task);
+
+          item.innerHTML = `
+            <div class="task-left">
+              <div class="task-avatar">${task.name.charAt(0).toUpperCase()}</div>
+              <div class="task-details">
+                <h4>${task.name}</h4>
+                <span class="task-pill">Link Task</span>
+              </div>
+            </div>
+            <div class="task-reward">🪙 ${task.reward || 100}</div>
+          `;
+
+          taskListDiv.appendChild(item);
+        });
+      });
+    }
+
+    function executeTask(task) {
+      if (tg && tg.openLink) {
+        tg.openLink(task.url);
+      } else {
+        window.open(task.url, '_blank');
+      }
+
+      userCoins += (task.reward || 100);
+      if (dailyTasksCompleted < 5) dailyTasksCompleted++;
+      
+      updateUI();
+      saveUserDataToFirebase();
+      alert(`Task completed! +${task.reward || 100} Coins`);
+    }
+
+    // 9. Modal Controls & Withdrawal
     function openWithdrawModal() {
       updateUI();
       document.getElementById('withdraw-modal').style.display = 'flex';
@@ -725,18 +889,17 @@
     }
 
     function connectWallet() {
-      alert("TON Connect Wallet Integration");
+      alert("TON Connect Wallet Integration Coming Soon!");
     }
 
-    // 10. Withdrawal Process
     function processWithdrawal() {
       const targetCoins = getNextWithdrawTarget();
       const stage = completedWithdrawals + 1;
 
       if (userCoins < targetCoins) {
-        alert(`পর্যাপ্ত কয়েন নেই!\n#${stage} উইথড্র দেওয়ার জন্য কমপক্ষে ${targetCoins.toLocaleString()} কয়েন প্রয়োজন।`);
+        alert(`Insufficient coins!\nAt least ${targetCoins.toLocaleString()} coins are required for withdrawal #${stage}.`);
       } else {
-        alert(`অভিনন্দন! #${stage} উইথড্রল আবেদন সফল হয়েছে (${targetCoins.toLocaleString()} কয়েন)।`);
+        alert(`Congratulations! Withdrawal #${stage} requested successfully (${targetCoins.toLocaleString()} Coins).`);
         userCoins -= targetCoins;
         completedWithdrawals += 1;
         
@@ -752,7 +915,7 @@
       }
     }
 
-    // 11. Firebase Realtime Database Sync
+    // 10. Firebase Sync
     function saveUserDataToFirebase() {
       if (firebase.apps.length && userId) {
         firebase.database().ref('users/' + userId).set({
@@ -779,9 +942,10 @@
       }
     }
 
-    // Initial Load
+    // Initialize Execution
     updateUI();
     loadUserDataFromFirebase();
+    loadBountyTasksFromFirebase();
   </script>
 </body>
 </html>
