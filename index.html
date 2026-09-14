@@ -122,6 +122,37 @@
       width: 100%;
       max-width: 360px;
     }
+
+    .daily-reward-box {
+      background: #1e293b;
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 15px;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .daily-reward-days {
+      display: flex;
+      justify-content: space-between;
+      margin: 15px 0;
+    }
+    .day-circle {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: #334155;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      color: var(--text-dim);
+    }
+    .day-circle.active {
+      background: #f59e0b;
+      color: white;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+    }
   </style>
 </head>
 <body>
@@ -159,12 +190,32 @@
       <div class="card" style="text-align: center;">
         <h3 style="margin: 0; color: var(--text-dim);">Total Balance</h3>
         <h1 style="font-size: 42px; margin: 12px 0; color: #f59e0b;"><span id="dash-coins">0</span> Coins</h1>
-        <p style="margin: 0; color: #22c55e; font-weight: bold; font-size: 16px;">Value: $<span id="dash-usd">0.000</span></p>
+        <p style="margin: 0; color: #22c55e; font-weight: bold; font-size: 16px;">Value: $<span id="dash-usd">0.00</span></p>
+      </div>
+
+      <!-- Daily Reward Section -->
+      <div class="daily-reward-box">
+        <h3 style="margin: 0 0 10px 0; color: white; font-size: 16px;">Daily Check-In</h3>
+        <p style="color: var(--text-dim); font-size: 13px; margin: 0;">Claim daily coins. Complete 7 days check-in to unlock withdrawal! Day 7 gives 700 coins!</p>
+        
+        <div class="daily-reward-days" id="reward-days-container">
+          <div class="day-circle" id="day-1">1</div>
+          <div class="day-circle" id="day-2">2</div>
+          <div class="day-circle" id="day-3">3</div>
+          <div class="day-circle" id="day-4">4</div>
+          <div class="day-circle" id="day-5">5</div>
+          <div class="day-circle" id="day-6">6</div>
+          <div class="day-circle" id="day-7">7</div>
+        </div>
+        
+        <button id="daily-claim-btn" class="btn" style="padding: 10px; font-size: 14px; background: #f59e0b;" onclick="window.claimDailyReward()">
+          Claim Reward
+        </button>
       </div>
 
       <div class="card">
         <h3>Watch & Earn</h3>
-        <p style="color: var(--text-dim); font-size: 14px; margin-bottom: 15px;">Watch full ads to earn 100 coins ($0.5) per view.</p>
+        <p style="color: var(--text-dim); font-size: 14px; margin-bottom: 15px;">Watch full ads to earn 100 coins (50 Cents) per view.</p>
         <button class="btn" onclick="window.watchAd()">Watch Ad (+100 Coins)</button>
       </div>
     </div>
@@ -192,7 +243,8 @@
     <div id="tab-wallet" class="tab-content">
       <div class="card">
         <h3>Withdraw Funds</h3>
-        <p style="font-size: 14px; color: var(--text-dim);">Minimum Withdrawal: <strong style="color: white;">$2.00 (20,000 Coins)</strong></p>
+        <p style="font-size: 14px; color: var(--text-dim);">Minimum Withdrawal: <strong style="color: white;">$2.00 (400 Coins)</strong></p>
+        <p style="font-size: 13px; color: #f59e0b; margin-top: 4px;">Requirement: Must complete 7-day Daily Check-In streak before withdrawing.</p>
         
         <label style="font-size: 13px; color: var(--text-dim);">Select Payment Method:</label>
         <select id="paymentMethod" onchange="window.updatePlaceholder()">
@@ -216,6 +268,7 @@
         <p style="color: var(--text-dim);">User ID: <span id="stat-uid" style="color: white;">-</span></p>
         <p style="color: var(--text-dim);">Total Ads Watched: <span id="stat-ads" style="color: white;">0</span></p>
         <p style="color: var(--text-dim);">Total Referrals: <span id="stat-ref" style="color: white;">0</span></p>
+        <p style="color: var(--text-dim);">Check-In Streak: <span id="stat-streak" style="color: #f59e0b;">0</span> / 7 Days</p>
       </div>
     </div>
 
@@ -270,8 +323,11 @@
     const startParam = tg?.initDataUnsafe?.start_param;
 
     const BOT_USERNAME = "Social_Pulse_earnBot"; 
-    const CHANNEL_USERNAME = "@rumaisaxx"; // চ্যানেল ইউজারনেমটি আপডেট করা হয়েছে
+    const CHANNEL_USERNAME = "@rumaisaxx";
     const BOT_TOKEN = "8731863495:AAEy2Z-QyUzpUqfaJH3EUpO7bPBJ_ol4Yq0"; 
+
+    // Coin Value Multiplier (100 coins = $0.5 => 1 coin = $0.005)
+    const COIN_VALUE_USD = 0.005;
 
     document.getElementById('user-name').innerText = user.first_name || "User";
     document.getElementById('user-avatar').innerText = (user.first_name || "U").charAt(0);
@@ -289,10 +345,12 @@
             adsWatched: 0,
             referrals: 0,
             referredBy: startParam || null,
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
+            lastClaimDate: null,
+            consecutiveDays: 0,
+            hasCompleted7Days: false
           });
 
-          // Handle Referral Logic for Referrer
           if (startParam && String(startParam) !== String(user.id)) {
             const referrerRef = ref(db, 'users/' + startParam);
             const refSnap = await get(referrerRef);
@@ -306,6 +364,7 @@
           }
         }
         await updateUI();
+        checkDailyRewardStatus();
       } catch (err) {
         console.error("Firebase Initialization Error:", err);
       }
@@ -317,18 +376,108 @@
         if (snap.exists()) {
           const data = snap.val();
           const coins = data.coins || 0;
-          const usd = (coins * 0.0001).toFixed(3);
+          
+          // Calculate USD based on new multiplier
+          const usd = (coins * COIN_VALUE_USD).toFixed(2);
 
           document.getElementById('coin-balance').innerText = coins;
           document.getElementById('dash-coins').innerText = coins;
           document.getElementById('dash-usd').innerText = usd;
           document.getElementById('stat-ads').innerText = data.adsWatched || 0;
           document.getElementById('stat-ref').innerText = data.referrals || 0;
+          document.getElementById('stat-streak').innerText = data.consecutiveDays || 0;
         }
       } catch (err) {
         console.error("UI Update Error:", err);
       }
     }
+
+    // ==========================================
+    // Daily Check-In Logic
+    // ==========================================
+    async function checkDailyRewardStatus() {
+      const snap = await get(userRef);
+      if (!snap.exists()) return;
+
+      const data = snap.val();
+      const lastClaim = data.lastClaimDate;
+      let streak = data.consecutiveDays || 0;
+
+      const today = new Date().toISOString().split('T')[0];
+      const btn = document.getElementById('daily-claim-btn');
+
+      // Update UI circles based on streak
+      for (let i = 1; i <= 7; i++) {
+        const circle = document.getElementById(`day-${i}`);
+        if (i <= streak) {
+          circle.classList.add('active');
+        } else {
+          circle.classList.remove('active');
+        }
+      }
+
+      if (lastClaim === today) {
+        btn.innerText = "Claimed for Today";
+        btn.disabled = true;
+      } else {
+        btn.innerText = `Claim Day ${streak < 7 ? streak + 1 : 1} Reward`;
+        btn.disabled = false;
+      }
+    }
+
+    window.claimDailyReward = async function() {
+      try {
+        const snap = await get(userRef);
+        if (!snap.exists()) return;
+
+        let data = snap.val();
+        let lastClaim = data.lastClaimDate;
+        let streak = data.consecutiveDays || 0;
+        let coins = data.coins || 0;
+        let hasCompleted7Days = data.hasCompleted7Days || false;
+
+        const todayDate = new Date();
+        const todayStr = todayDate.toISOString().split('T')[0];
+
+        // Check if already claimed today
+        if (lastClaim === todayStr) {
+          alert("You already claimed your reward today!");
+          return;
+        }
+
+        // Calculate if streak is broken (missed a day)
+        if (lastClaim) {
+          const lastClaimDate = new Date(lastClaim);
+          const diffTime = Math.abs(todayDate - lastClaimDate);
+          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+          if (diffDays > 1 || streak >= 7) {
+            streak = 0; // Reset streak if missed a day OR completed 7 days
+          }
+        }
+
+        streak += 1;
+        const rewardCoins = streak * 100; // Day 1 = 100, Day 2 = 200 ... Day 7 = 700
+
+        if (streak >= 7) {
+          hasCompleted7Days = true;
+        }
+
+        await update(userRef, {
+          coins: coins + rewardCoins,
+          lastClaimDate: todayStr,
+          consecutiveDays: streak,
+          hasCompleted7Days: hasCompleted7Days
+        });
+
+        alert(`🎉 Day ${streak} Check-in successful! You earned ${rewardCoins} Coins.`);
+        updateUI();
+        checkDailyRewardStatus();
+
+      } catch (err) {
+        console.error("Daily Claim Error:", err);
+      }
+    };
 
     window.joinChannel = function() {
       const cleanChannel = CHANNEL_USERNAME.replace('@','');
@@ -369,7 +518,7 @@
             rewardUser();
           })
           .catch(() => {
-            alert("You must watch the full ad to earn 10 coins!");
+            alert("You must watch the full ad to earn 100 coins!");
           });
       } else {
         alert("Ad Network loading. Please try again in 5 seconds.");
@@ -396,12 +545,22 @@
     window.requestWithdrawal = async function() {
       try {
         const snap = await get(userRef);
-        const coins = snap.val()?.coins || 0;
+        const data = snap.val() || {};
+        const coins = data.coins || 0;
+        const consecutiveDays = data.consecutiveDays || 0;
+        const hasCompleted7Days = data.hasCompleted7Days || false;
         const method = document.getElementById('paymentMethod').value;
         const address = document.getElementById('walletAddress').value.trim();
 
-        if (coins < 20000) {
-          alert("Insufficient balance! Minimum withdrawal is 20,000 Coins ($2.00).");
+        // Warning message if user tries to withdraw before completing 7 days check-in
+        if (!hasCompleted7Days && consecutiveDays < 7) {
+          alert("⚠️ Warning: You have not completed the required 1 to 7 days Daily Check-In streak yet! Please complete your 7-day check-in before requesting a withdrawal.");
+          return;
+        }
+
+        // 400 Coins = $2.00 (since 100 coins = $0.5)
+        if (coins < 400) {
+          alert("Insufficient balance! Minimum withdrawal is 400 Coins ($2.00).");
           return;
         }
 
@@ -421,7 +580,6 @@
       }
     };
 
-    // Updated Mini App Referral Sharing Link (using short name 'open')
     window.shareReferral = function() {
       const referralLink = `https://t.me/${BOT_USERNAME}/open?startapp=${user.id}`;
       const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent("Join this mini app and earn money daily!")}`;
