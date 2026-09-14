@@ -153,6 +153,115 @@
       color: white;
       box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
     }
+
+    /* ==========================================
+       নতুন যুক্ত করা CSS (Grid Buttons & Modal)
+       ========================================== */
+    .action-buttons-grid {
+      display: flex;
+      gap: 12px;
+      margin: 15px 0;
+    }
+    .action-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--border-color);
+      background: var(--card-bg);
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .action-btn:active { transform: scale(0.96); }
+    .btn-icon { font-size: 24px; }
+    .btn-text { text-align: left; }
+    .btn-text strong { display: block; font-size: 13px; color: #f8fafc; }
+    .btn-text small { font-size: 11px; color: var(--text-dim); }
+
+    .task-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 25px 0 15px 0;
+    }
+    .task-title-text { margin: 0; font-size: 18px; color: #fff; }
+    .post-task-btn {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(5px);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-card {
+      background: #1e293b;
+      width: 90%;
+      max-width: 380px;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      color: #fff;
+      border: 1px solid var(--border-color);
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+    .modal-header h3 { margin: 0; font-size: 18px; }
+    .close-btn { font-size: 24px; cursor: pointer; color: var(--text-dim); }
+    .form-group { margin-bottom: 15px; }
+    .form-group label, .slider-label { display: block; font-size: 12px; color: var(--text-dim); margin-bottom: 6px; }
+    .slider-label { display: flex; justify-content: space-between; }
+    .form-group input[type="text"], .form-group input[type="url"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      background: #0f172a;
+      color: #fff;
+      box-sizing: border-box;
+      outline: none;
+      margin-top: 0;
+    }
+    .form-group input[type="range"] { width: 100%; accent-color: #3b82f6; margin-top: 5px; }
+    .pay-buttons-container { display: flex; gap: 10px; margin-top: 20px; }
+    .pay-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 12px;
+      border: none;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .ton-btn { background: #0088cc; }
+    .stars-btn { background: #eab308; color: #000; }
+    .price-tag { font-size: 11px; opacity: 0.9; margin-top: 2px; }
   </style>
 </head>
 <body>
@@ -193,10 +302,29 @@
         <p style="margin: 0; color: #22c55e; font-weight: bold; font-size: 16px;">Value: $<span id="dash-usd">0.00</span></p>
       </div>
 
+      <!-- ডানে এবং বামে পাশাপাশি ২টা বাটন -->
+      <div class="action-buttons-grid">
+        <button class="action-btn" onclick="window.scrollToDailyReward()">
+          <span class="btn-icon">📅</span>
+          <div class="btn-text">
+            <strong>Daily Check-in</strong>
+            <small>Claim Bonus</small>
+          </div>
+        </button>
+        
+        <button class="action-btn" onclick="window.watchAd()">
+          <span class="btn-icon">🎬</span>
+          <div class="btn-text">
+            <strong>Watch & Earn</strong>
+            <small>$0.5 per ad</small>
+          </div>
+        </button>
+      </div>
+
       <!-- Daily Reward Section -->
-      <div class="daily-reward-box">
+      <div class="daily-reward-box" id="daily-checkin-section">
         <h3 style="margin: 0 0 10px 0; color: white; font-size: 16px;">Daily Check-In</h3>
-        <p style="color: var(--text-dim); font-size: 13px; margin: 0;">Claim daily coins. Complete 7 days check-in to unlock withdrawal! Day 7 gives 700 coins!</p>
+        <p style="color: var(--text-dim); font-size: 13px; margin: 0;">Claim daily coins. Day 7 gives 700 coins!</p>
         
         <div class="daily-reward-days" id="reward-days-container">
           <div class="day-circle" id="day-1">1</div>
@@ -213,11 +341,14 @@
         </button>
       </div>
 
-      <div class="card">
-        <h3>Watch & Earn</h3>
-        <p style="color: var(--text-dim); font-size: 14px; margin-bottom: 15px;">Watch full ads to earn 100 coins ($0.5) per view.</p>
-        <button class="btn" onclick="window.watchAd()">Watch Ad (+100 Coins)</button>
+      <!-- Bounty Task Header (POST + Button সহ) -->
+      <div class="task-header">
+        <h3 class="task-title-text">Bounty Task</h3>
+        <button class="post-task-btn" onclick="window.openPostModal()">
+          <span>POST</span> <span>+</span>
+        </button>
       </div>
+
     </div>
 
     <!-- Tab 2: Ads -->
@@ -244,7 +375,6 @@
       <div class="card">
         <h3>Withdraw Funds</h3>
         <p style="font-size: 14px; color: var(--text-dim);">Minimum Withdrawal: <strong style="color: white;">$2.00 (400 Coins)</strong></p>
-        <p style="font-size: 13px; color: #f59e0b; margin-top: 4px;">Requirement: Must complete 7-day Daily Check-In streak before withdrawing.</p>
         
         <label style="font-size: 13px; color: var(--text-dim);">Select Payment Method:</label>
         <select id="paymentMethod" onchange="window.updatePlaceholder()">
@@ -268,10 +398,51 @@
         <p style="color: var(--text-dim);">User ID: <span id="stat-uid" style="color: white;">-</span></p>
         <p style="color: var(--text-dim);">Total Ads Watched: <span id="stat-ads" style="color: white;">0</span></p>
         <p style="color: var(--text-dim);">Total Referrals: <span id="stat-ref" style="color: white;">0</span></p>
-        <p style="color: var(--text-dim);">Check-In Streak: <span id="stat-streak" style="color: #f59e0b;">0</span> / 7 Days</p>
       </div>
     </div>
 
+  </div>
+
+  <!-- POST Task Modal Popup -->
+  <div id="post-task-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Post Task</h3>
+        <span class="close-btn" onclick="window.closePostModal()">&times;</span>
+      </div>
+      
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Task Name</label>
+          <input type="text" id="task-title" placeholder="e.g. JOIN our channel">
+        </div>
+        
+        <div class="form-group">
+          <label>Task Address</label>
+          <input type="url" id="task-url" placeholder="Please input task url">
+        </div>
+        
+        <div class="form-group">
+          <div class="slider-label">
+            <span>Impressions</span>
+            <b id="imp-count">100</b>
+          </div>
+          <input type="range" id="imp-slider" min="100" max="10000" step="100" value="100" oninput="window.updateTaskCost(this.value)">
+        </div>
+
+        <div class="pay-buttons-container">
+          <button class="pay-btn ton-btn" onclick="window.payWithTon()">
+            <span>Post Task</span>
+            <div class="price-tag">≈ <span id="cost-ton">0.100</span> TON</div>
+          </button>
+          
+          <button class="pay-btn stars-btn" onclick="window.payWithStars()">
+            <span>Post Task</span>
+            <div class="price-tag"><span id="cost-stars">300</span> ⭐</div>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Bottom Navigation Bar -->
@@ -347,8 +518,7 @@
             referredBy: startParam || null,
             createdAt: new Date().toISOString(),
             lastClaimDate: null,
-            consecutiveDays: 0,
-            hasCompleted7Days: false
+            consecutiveDays: 0
           });
 
           if (startParam && String(startParam) !== String(user.id)) {
@@ -377,7 +547,6 @@
           const data = snap.val();
           const coins = data.coins || 0;
           
-          // Calculate USD based on new multiplier
           const usd = (coins * COIN_VALUE_USD).toFixed(2);
 
           document.getElementById('coin-balance').innerText = coins;
@@ -385,7 +554,6 @@
           document.getElementById('dash-usd').innerText = usd;
           document.getElementById('stat-ads').innerText = data.adsWatched || 0;
           document.getElementById('stat-ref').innerText = data.referrals || 0;
-          document.getElementById('stat-streak').innerText = data.consecutiveDays || 0;
         }
       } catch (err) {
         console.error("UI Update Error:", err);
@@ -406,7 +574,6 @@
       const today = new Date().toISOString().split('T')[0];
       const btn = document.getElementById('daily-claim-btn');
 
-      // Update UI circles based on streak
       for (let i = 1; i <= 7; i++) {
         const circle = document.getElementById(`day-${i}`);
         if (i <= streak) {
@@ -425,6 +592,10 @@
       }
     }
 
+    window.scrollToDailyReward = function() {
+      document.getElementById('daily-checkin-section').scrollIntoView({ behavior: 'smooth' });
+    };
+
     window.claimDailyReward = async function() {
       try {
         const snap = await get(userRef);
@@ -434,40 +605,32 @@
         let lastClaim = data.lastClaimDate;
         let streak = data.consecutiveDays || 0;
         let coins = data.coins || 0;
-        let hasCompleted7Days = data.hasCompleted7Days || false;
 
         const todayDate = new Date();
         const todayStr = todayDate.toISOString().split('T')[0];
 
-        // Check if already claimed today
         if (lastClaim === todayStr) {
           alert("You already claimed your reward today!");
           return;
         }
 
-        // Calculate if streak is broken (missed a day)
         if (lastClaim) {
           const lastClaimDate = new Date(lastClaim);
           const diffTime = Math.abs(todayDate - lastClaimDate);
           const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
           if (diffDays > 1 || streak >= 7) {
-            streak = 0; // Reset streak if missed a day OR completed 7 days
+            streak = 0;
           }
         }
 
         streak += 1;
-        const rewardCoins = streak * 100; // Day 1 = 100, Day 2 = 200 ... Day 7 = 700
-
-        if (streak >= 7) {
-          hasCompleted7Days = true;
-        }
+        const rewardCoins = streak * 100;
 
         await update(userRef, {
           coins: coins + rewardCoins,
           lastClaimDate: todayStr,
-          consecutiveDays: streak,
-          hasCompleted7Days: hasCompleted7Days
+          consecutiveDays: streak
         });
 
         alert(`🎉 Day ${streak} Check-in successful! You earned ${rewardCoins} Coins.`);
@@ -545,20 +708,10 @@
     window.requestWithdrawal = async function() {
       try {
         const snap = await get(userRef);
-        const data = snap.val() || {};
-        const coins = data.coins || 0;
-        const consecutiveDays = data.consecutiveDays || 0;
-        const hasCompleted7Days = data.hasCompleted7Days || false;
+        const coins = snap.val()?.coins || 0;
         const method = document.getElementById('paymentMethod').value;
         const address = document.getElementById('walletAddress').value.trim();
 
-        // Warning message if user tries to withdraw before completing 7 days check-in
-        if (!hasCompleted7Days && consecutiveDays < 7) {
-          alert("⚠️ Warning: You have not completed the required 1 to 7 days Daily Check-In streak yet! Please complete your 7-day check-in before requesting a withdrawal.");
-          return;
-        }
-
-        // 400 Coins = $2.00 (since 100 coins = $0.5)
         if (coins < 400) {
           alert("Insufficient balance! Minimum withdrawal is 400 Coins ($2.00).");
           return;
@@ -609,6 +762,56 @@
       } else {
         input.placeholder = "Ex: 123456789 (Binance UID)";
       }
+    };
+
+    // ==========================================
+    // Post Task Modal Logic
+    // ==========================================
+    const PER_IMP_TON = 0.001;
+    const PER_IMP_STARS = 3;
+
+    window.openPostModal = function() {
+      document.getElementById('post-task-modal').style.display = 'flex';
+    };
+
+    window.closePostModal = function() {
+      document.getElementById('post-task-modal').style.display = 'none';
+    };
+
+    window.updateTaskCost = function(val) {
+      document.getElementById('imp-count').innerText = val;
+      document.getElementById('cost-ton').innerText = (val * PER_IMP_TON).toFixed(3);
+      document.getElementById('cost-stars').innerText = (val * PER_IMP_STARS);
+    };
+
+    window.payWithTon = function() {
+      const title = document.getElementById('task-title').value;
+      const url = document.getElementById('task-url').value;
+      const impressions = document.getElementById('imp-slider').value;
+      const cost = (impressions * PER_IMP_TON).toFixed(3);
+
+      if (!title || !url) {
+        alert('Please enter both Task Name and URL');
+        return;
+      }
+
+      alert(`Task Posted! Payment: ${cost} TON`);
+      window.closePostModal();
+    };
+
+    window.payWithStars = function() {
+      const title = document.getElementById('task-title').value;
+      const url = document.getElementById('task-url').value;
+      const impressions = document.getElementById('imp-slider').value;
+      const cost = impressions * PER_IMP_STARS;
+
+      if (!title || !url) {
+        alert('Please enter both Task Name and URL');
+        return;
+      }
+
+      alert(`Task Posted! Payment: ${cost} Stars`);
+      window.closePostModal();
     };
 
     loadUserData();
