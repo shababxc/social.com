@@ -26,6 +26,9 @@
       --text-dark: #0f172a;
       --text-muted: #475569;
       --accent-blue: #3b82f6;
+      --primary-blue: #3b82f6;
+      --light-blue: #eff6ff;
+      --border-blue: #60a5fa;
     }
 
     * {
@@ -167,7 +170,7 @@
       padding: 4px 10px;
       border-radius: 12px;
       color: #0f172a;
-      font-weight: normal; /* Boldness removed */
+      font-weight: normal;
       font-size: 12px;
       display: flex;
       align-items: center;
@@ -178,7 +181,7 @@
       text-align: center;
       color: rgba(255, 255, 255, 0.95);
       font-size: 11px;
-      font-weight: normal; /* Normal font format */
+      font-weight: normal;
       margin: 4px 0 8px 0;
       display: flex;
       align-items: center;
@@ -187,7 +190,7 @@
     }
 
     .gram-label {
-      font-weight: 400 !important; /* Soft light visible normal font */
+      font-weight: 400 !important;
       opacity: 0.9;
     }
 
@@ -432,24 +435,26 @@
     .task-action-btn {
       background: rgba(59, 130, 246, 0.15);
       color: #2563eb;
-      font-size: 12px;
+      font-size: 12.73px; 
       font-weight: bold;
-      padding: 6px 14px;
+      padding: 6.36px 14.85px; 
       border-radius: 16px;
       border: none;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 4.2px; 
       cursor: pointer;
+      transform: scale(1.05); 
     }
 
     .task-action-btn.claim-btn {
       background: #2563eb;
       color: #fff;
+      transform: scale(1.05);
     }
 
     .task-action-btn:active {
-      transform: scale(0.96);
+      transform: scale(1.0);
     }
 
     /* TEAM PAGE */
@@ -560,7 +565,7 @@
     .modal-box {
       background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
       width: 90%;
-      max-width: 360px;
+      max-width: 380px;
       max-height: 85vh;
       overflow-y: auto;
       border-radius: 20px;
@@ -583,6 +588,32 @@
       font-size: 18px;
     }
 
+    .header-title-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .live-badge {
+      background: #000;
+      color: #fff;
+      font-size: 11px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .live-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #22c55e;
+      border-radius: 50%;
+    }
+
     .close-modal {
       font-size: 20px;
       cursor: pointer;
@@ -599,13 +630,13 @@
 
     .form-group label {
       display: block;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: bold;
       margin-bottom: 4px;
       color: #f1f5f9;
     }
 
-    .form-input {
+    .form-input, select.form-input, textarea.form-input {
       width: 100%;
       padding: 10px 12px;
       border-radius: 10px;
@@ -616,6 +647,11 @@
       outline: none;
     }
 
+    textarea.form-input {
+      height: 75px;
+      resize: none;
+    }
+
     .range-slider-container {
       display: flex;
       align-items: center;
@@ -624,11 +660,78 @@
     }
 
     .range-slider {
-      flex: 1;
-      height: 6px;
+      width: 100%;
+      -webkit-appearance: none;
+      height: 8px;
       border-radius: 5px;
+      background: #06b6d4;
       outline: none;
-      accent-color: #3b82f6;
+      margin-top: 4px;
+    }
+
+    .range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      cursor: pointer;
+    }
+
+    /* Dual Action Buttons Grid */
+    .buttons-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .btn-action {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 9px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-points {
+      background: var(--primary-blue);
+      color: white;
+      border: none;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    .btn-points:hover {
+      background: #2563eb;
+    }
+
+    .btn-stars {
+      background: #fff;
+      color: var(--primary-blue);
+      border: 1.5px solid var(--border-blue);
+    }
+    .btn-stars:hover {
+      background: var(--light-blue);
+    }
+
+    .btn-content {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13.5px;
+    }
+
+    .strike-through {
+      text-decoration: line-through;
+      opacity: 0.6;
+      font-weight: normal;
+      font-size: 11px;
     }
 
     .modal-balance-view {
@@ -643,7 +746,7 @@
       border-radius: 10px;
       font-size: 12px;
       margin-top: 4px;
-      font-weight: normal; /* Boldness removed */
+      font-weight: normal;
     }
 
     .withdraw-info-card {
@@ -890,7 +993,6 @@
 
           <!-- Daily Check-in -->
           <div class="action-card" onclick="dailyCheckIn()">
-            <!-- UPDATED CALENDAR ICON WITH ADS MATCHING SKY BLUE GRADIENT -->
             <div class="action-icon">
               <svg class="calendar-svg-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M19 4H5C3.89543 4 3 4.89543 3 6V8H21V6C21 4.89543 20.1046 4 19 4Z" fill="url(#calHeaderGrad)"/>
@@ -967,7 +1069,7 @@
           </div>
           <div class="team-info">
             <h4 data-i18n="teamLv1Title">Members you invited</h4>
-            <p data-i18n="teamLv1Desc">Lv1:Get 5% task bouns</p>
+            <p data-i18n="teamLv1Desc">Lv1: Get 5% task bonus</p>
           </div>
         </div>
 
@@ -978,7 +1080,7 @@
           </div>
           <div class="team-info">
             <h4 data-i18n="teamLv2Title">Invited by Lv.1 members</h4>
-            <p data-i18n="teamLv2Desc">Lv.2:Get 3% task bouns</p>
+            <p data-i18n="teamLv2Desc">Lv.2: Get 3% task bonus</p>
           </div>
         </div>
 
@@ -989,7 +1091,7 @@
           </div>
           <div class="team-info">
             <h4 data-i18n="teamLv3Title">Invited by Lv.2 members</h4>
-            <p data-i18n="teamLv3Desc">Lv.3:Get 1% task bouns</p>
+            <p data-i18n="teamLv3Desc">Lv.3: Get 1% task bonus</p>
           </div>
         </div>
 
@@ -1024,30 +1126,50 @@
   <div id="post-task-modal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
-        <h3 data-i18n="postTaskHeader">⭐ Post Task</h3>
+        <div class="header-title-container">
+          <span class="live-badge">LIVE</span>
+          <h3 data-i18n="postTaskHeader">Post Task ⭐</h3>
+        </div>
         <button class="close-modal" onclick="closePostTaskModal()">✕</button>
       </div>
 
       <div class="form-group">
-        <label data-i18n="taskNameLabel">Task name</label>
-        <input type="text" id="post-task-name" class="form-input" placeholder="e.g. JOIN our channel">
+        <label id="lbl-task-name" data-i18n="taskNameLabel">🏷️ Task name</label>
+        <input type="text" id="post-task-name-input" class="form-input" placeholder="Enter task name" data-i18n-placeholder="placeholderTaskName">
       </div>
 
       <div class="form-group">
-        <label data-i18n="taskUrlLabel">Task address</label>
-        <input type="url" id="post-task-url" class="form-input" placeholder="Please input task url">
+        <label id="lbl-task-address" data-i18n="taskUrlLabel">💳 Task address</label>
+        <textarea id="post-task-url" class="form-input" placeholder="Please input task url" data-i18n-placeholder="placeholderUrl"></textarea>
       </div>
 
       <div class="form-group">
-        <label><span data-i18n="impressionsLabel">Impressions</span>: <span id="impression-count-display">50</span></label>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <label id="lbl-impressions" data-i18n="impressionsLabel">⣿ Impressions</label>
+          <span id="impression-val" style="font-weight: bold; font-size: 13px;">5000</span>
+        </div>
         <div class="range-slider-container">
-          <input type="range" id="impression-slider" class="range-slider" min="10" max="5000" value="50" step="10" onclick="updateTaskCost()" oninput="updateTaskCost()">
+          <input type="range" id="impressionSlider" class="range-slider" min="1000" max="10000" step="500" value="5000" oninput="updateCalculations(this.value)">
         </div>
       </div>
 
-      <div style="margin-top: 16px;">
-        <button class="withdraw-submit-btn" onclick="submitNewTask()">
-          <span data-i18n="postTaskBtnText">Post Task</span> (<span id="total-task-cost">5,000</span> <span class="mini-coin-slot-post"></span>)
+      <!-- Dynamic Dual Action Buttons Grid -->
+      <div class="buttons-container">
+        <!-- Button 1: App Points -->
+        <button class="btn-action btn-points" onclick="submitTask('points')">
+          <span id="btn-post-1" data-i18n="postTaskBtnText">Post Task</span>
+          <span class="btn-content">
+            ≈ <span id="pts-count">500K</span> Points
+          </span>
+        </button>
+
+        <!-- Button 2: Telegram Stars -->
+        <button class="btn-action btn-stars" onclick="submitTask('stars')">
+          <span id="btn-post-2" data-i18n="postTaskBtnText">Post Task</span>
+          <span class="btn-content">
+            ≈ <span id="star-count">6000</span> ⭐ 
+            <span class="strike-through" id="orig-star">≈30000</span>
+          </span>
         </button>
       </div>
     </div>
@@ -1106,7 +1228,9 @@
         <div class="settings-item">
           <span class="settings-item-label">🌐 Language</span>
           <select id="language-select">
-            <option value="en" selected>English</option>
+            <option value="en" selected>English (US)</option>
+            <option value="bn">বাংলা (Bengali)</option>
+            <option value="ur">اردو (Urdu)</option>
             <option value="es">Español</option>
             <option value="pt">Português</option>
             <option value="ru">Русский</option>
@@ -1207,10 +1331,6 @@
         el.appendChild(getGramStarCoinSVG(12));
       });
       document.querySelectorAll('.mini-coin-slot-ad').forEach(el => {
-        el.innerHTML = '';
-        el.appendChild(getGramStarCoinSVG(12));
-      });
-      document.querySelectorAll('.mini-coin-slot-post').forEach(el => {
         el.innerHTML = '';
         el.appendChild(getGramStarCoinSVG(12));
       });
@@ -1317,28 +1437,86 @@
       renderGoldCoins();
     }
 
-    function watchMonetagAd() {
-      if (typeof show_11759773 === 'function') {
-        show_11759773()
-          .then(() => {
-            userCoins += 50000;
-            updateUI();
-            saveUserDataToFirebase();
-            alert("Success! You watched the full ad and earned 50,000 Points!");
-          })
-          .catch(() => {
-            alert("You must watch the full ad to earn 50,000 Points!");
-          });
-      } else {
-        alert("Ad Network loading. Please try again in 5 seconds.");
+    // ==========================================
+    // Promise-Based Client-Side Monetag Verification System
+    // ==========================================
+    let isAdShowing = false;
+    let userInteractedWithAd = false;
+
+    // Track user focus/interaction when ad opens
+    window.addEventListener('blur', () => {
+      if (isAdShowing) {
+        userInteractedWithAd = true;
       }
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden && isAdShowing) {
+        userInteractedWithAd = true;
+      }
+    });
+
+    function triggerMonetagAdPromise(requiredDurationMs = 15000) {
+      return new Promise((resolve, reject) => {
+        if (typeof show_11759773 !== 'function') {
+          return reject("Ad SDK is loading or blocked by ad-blocker.");
+        }
+
+        isAdShowing = true;
+        userInteractedWithAd = false;
+        const startTime = Date.now();
+
+        // Show Monetag Ad
+        show_11759773()
+          .catch((err) => {
+            isAdShowing = false;
+            reject("Ad failed to show or was closed early.");
+          });
+
+        // Verification Timer
+        setTimeout(() => {
+          const elapsedTime = Date.now() - startTime;
+          isAdShowing = false;
+
+          // Validate minimum view time and client interaction
+          if (elapsedTime >= requiredDurationMs && userInteractedWithAd) {
+            resolve({
+              status: "success",
+              reward: 50000,
+              message: "Ad watch validated successfully!"
+            });
+          } else {
+            reject("Ad was skipped or insufficient watch interaction detected.");
+          }
+        }, requiredDurationMs);
+      });
+    }
+
+    function watchMonetagAd() {
+      if (isAdShowing) {
+        alert("An ad is already running. Please wait.");
+        return;
+      }
+
+      // Execute Promise Verification
+      triggerMonetagAdPromise(15000)
+        .then((response) => {
+          userCoins += response.reward;
+          updateUI();
+          saveUserDataToFirebase();
+          alert(`Success! You earned ${response.reward.toLocaleString()} Points!`);
+        })
+        .catch((errorMsg) => {
+          console.warn("Monetag Verification Failed:", errorMsg);
+          alert(`Reward Failed: ${errorMsg}`);
+        });
     }
 
     function dailyCheckIn() {
       const today = new Date().toISOString().split('T')[0];
       
       if (lastCheckInDate === today) {
-        alert("You have already claimed today's daily bonus!");
+        alert("You have already claimed today's bonus!");
         return;
       }
 
@@ -1347,11 +1525,11 @@
       
       updateUI();
       saveUserDataToFirebase();
-      alert("Daily Check-in Successful! You received 100 Points!");
+      alert("Daily check-in successful! You received 100 Points.");
     }
 
     function openPostTaskModal() {
-      updateTaskCost();
+      updateCalculations(document.getElementById('impressionSlider').value);
       document.getElementById('post-task-modal').style.display = 'flex';
     }
 
@@ -1359,18 +1537,23 @@
       document.getElementById('post-task-modal').style.display = 'none';
     }
 
-    function updateTaskCost() {
-      const impressions = parseInt(document.getElementById('impression-slider').value);
-      document.getElementById('impression-count-display').innerText = impressions;
-      const cost = impressions * 100;
-      document.getElementById('total-task-cost').innerText = cost.toLocaleString();
+    function updateCalculations(value) {
+      document.getElementById('impression-val').innerText = value;
+      
+      const points = value * 100;
+      const formattedPoints = points >= 1000 ? (points / 1000) + 'K' : points;
+      document.getElementById('pts-count').innerText = formattedPoints;
+
+      const stars = Math.round(value * 1.2);
+      const origStars = value * 6;
+      document.getElementById('star-count').innerText = stars.toLocaleString();
+      document.getElementById('orig-star').innerText = '≈' + origStars.toLocaleString();
     }
 
-    function submitNewTask() {
-      const taskName = document.getElementById('post-task-name').value.trim();
+    function submitTask(type) {
+      const taskName = document.getElementById('post-task-name-input').value.trim();
       const taskUrl = document.getElementById('post-task-url').value.trim();
-      const impressions = parseInt(document.getElementById('impression-slider').value);
-      const cost = impressions * 100;
+      const impressions = parseInt(document.getElementById('impressionSlider').value);
 
       if (!taskName) {
         alert("Please enter a valid task name.");
@@ -1382,28 +1565,44 @@
         return;
       }
 
-      if (userCoins < cost) {
-        alert(`Insufficient balance! You need ${cost.toLocaleString()} Points to post this task.`);
-        return;
+      if (type === 'points') {
+        const costPoints = impressions * 100;
+        if (userCoins < costPoints) {
+          alert(`Insufficient balance! You need ${costPoints.toLocaleString()} Points to post this task.`);
+          return;
+        }
+
+        userCoins -= costPoints;
+        updateUI();
+        saveUserDataToFirebase();
+        saveTaskToFirebase(taskName, taskUrl, impressions);
+      } else if (type === 'stars') {
+        const costStars = Math.round(impressions * 1.2);
+        
+        if (tg && tg.openInvoice) {
+          alert(`Initiating payment for ${costStars} Telegram Stars...`);
+          saveTaskToFirebase(taskName, taskUrl, impressions);
+        } else {
+          alert(`Telegram Stars payment demo: ${costStars} Stars requested.`);
+          saveTaskToFirebase(taskName, taskUrl, impressions);
+        }
       }
+    }
 
-      userCoins -= cost;
-      updateUI();
-      saveUserDataToFirebase();
-
+    function saveTaskToFirebase(taskName, taskUrl, impressions) {
       const newTaskRef = firebase.database().ref('bounty_tasks').push();
       newTaskRef.set({
         id: newTaskRef.key,
         name: taskName,
         url: taskUrl,
         impressions: impressions,
-        reward: 100,
+        reward: 200, // Fixed 200 Points per Task
         createdBy: userId,
         creatorPhotoUrl: userPhotoUrl,
         createdAt: Date.now()
       }).then(() => {
         alert("Task posted successfully!");
-        document.getElementById('post-task-name').value = '';
+        document.getElementById('post-task-name-input').value = '';
         document.getElementById('post-task-url').value = '';
         closePostTaskModal();
       }).catch((err) => {
@@ -1447,12 +1646,12 @@
           : (task.name ? task.name.charAt(0).toUpperCase() : 'T');
 
         const tempContainer = document.createElement('span');
-        const miniSvg = getGramStarCoinSVG(12);
+        const miniSvg = getGramStarCoinSVG(12.6);
         tempContainer.appendChild(miniSvg);
         const iconHtmlStr = tempContainer.innerHTML;
 
         const isClicked = userClickedTasks[task.id];
-        const rewardAmount = task.reward || 100;
+        const rewardAmount = task.reward || 200;
 
         let rightActionHTML = '';
         if (isClicked) {
@@ -1517,7 +1716,7 @@
     }
 
     function connectWallet() {
-      alert("TON/GRAM Connect Wallet Integration Coming Soon!");
+      alert("TON/GRAM Wallet integration coming soon!");
     }
 
     function processWithdrawal() {
@@ -1525,9 +1724,9 @@
       const stage = completedWithdrawals + 1;
 
       if (userCoins < targetCoins) {
-        alert(`Insufficient balance!\nAt least ${targetCoins.toLocaleString()} Points are required for withdrawal #${stage}.`);
+        alert(`Insufficient balance! At least ${targetCoins.toLocaleString()} Points are required for withdrawal #${stage}.`);
       } else {
-        alert(`Congratulations! Withdrawal #${stage} requested successfully (${targetCoins.toLocaleString()} Points).`);
+        alert(`Success! Withdrawal #${stage} requested for ${targetCoins.toLocaleString()} Points.`);
         userCoins -= targetCoins;
         completedWithdrawals += 1;
         
@@ -1582,7 +1781,6 @@
 
     let currentLang = 'en';
 
-    // International Multilingual Dictionary
     const translations = {
       en: {
         watchAd: "Watch Ad",
@@ -1596,10 +1794,12 @@
         loadingTasks: "Loading bounty tasks...",
         navHome: "Home",
         navTeam: "Team",
-        postTaskHeader: "⭐ Post Task",
-        taskNameLabel: "Task name",
-        taskUrlLabel: "Task address",
-        impressionsLabel: "Impressions",
+        postTaskHeader: "Post Task ⭐",
+        taskNameLabel: "🏷️ Task name",
+        taskUrlLabel: "💳 Task address",
+        placeholderTaskName: "Enter task name",
+        placeholderUrl: "Please input task url",
+        impressionsLabel: "⣿ Impressions",
         postTaskBtnText: "Post Task",
         balanceHeader: "Balance",
         connectWalletBtn: "🔗 Connect Wallet",
@@ -1637,588 +1837,60 @@
         pp5Title: "5. Contact Us",
         pp5Text: "For any inquiries regarding privacy, please reach out to our official channel:"
       },
-      es: {
-        watchAd: "Ver Anuncio",
-        dailyCheckIn: "Registro Diario",
-        levelDesc: "Invita a 3 usuarios para subir a Nivel 2",
-        inviteBtn: "invitar",
-        dailyTaskProgress: "Progreso Diario",
-        resetsDaily: "Se reinicia a las 00:00",
-        bountyTaskTitle: "Tareas Bounty",
-        postBtn: "PUBLICAR +",
-        loadingTasks: "Cargando tareas...",
-        navHome: "Inicio",
-        navTeam: "Equipo",
-        postTaskHeader: "⭐ Publicar Tarea",
-        taskNameLabel: "Nombre de la tarea",
-        taskUrlLabel: "URL de la tarea",
-        impressionsLabel: "Impresiones",
-        postTaskBtnText: "Publicar Tarea",
-        balanceHeader: "Saldo",
-        connectWalletBtn: "🔗 Conectar Billetera",
-        withdrawBtnText: "Retirar",
-        settingsHeader: "⚙️ Configuración",
-        copyBtn: "Copiar",
-        officialChannel: "Canal Oficial",
-        goToX: "Ir a X",
-        privacyPolicy: "Política de Privacidad",
-        privacyPolicyHeader: "Política de Privacidad",
-        gotItBtn: "Entendido",
-        linkTask: "Enlace",
-        noTasks: "No hay tareas activas disponibles.",
-        allTasksCompleted: "¡Has completado todas las tareas disponibles!",
-        withdrawTargetText: "Objetivo de Retiro #{stage}: {target} Monedas",
-        claimed: "Reclamado ✓",
-        claimBtnText: "Reclamar",
-        verifyingText: "Verificando...",
-        teamHeader: "¡Crea un equipo y gana más!",
-        teamLv1Title: "Miembros invitados por ti",
-        teamLv1Desc: "Nv1: Obtén 5% de bono",
-        teamLv2Title: "Invitados por miembros Nv.1",
-        teamLv2Desc: "Nv.2: Obtén 3% de bono",
-        teamLv3Title: "Invitados por miembros Nv.2",
-        teamLv3Desc: "Nv.3: Obtén 1% de bono",
-        inviteMembersBtn: "Invitar Miembros",
-        pp1Title: "1. Introducción",
-        pp1Text: "Bienvenido a nuestra Telegram Mini App. Respetamos tu privacidad.",
-        pp2Title: "2. Recopilación de Información",
-        pp2Text: "Recopilamos datos básicos de Telegram para la funcionalidad de la app.",
-        pp3Title: "3. Uso de Datos",
-        pp3Text: "Tus datos se usan únicamente para gestionar recompensas y retiros.",
-        pp4Title: "4. Servicios de Terceros",
-        pp4Text: "Integramos Firebase y Monetag.",
-        pp5Title: "5. Contacto",
-        pp5Text: "Contacto para privacidad:"
-      },
-      pt: {
-        watchAd: "Assistir Anúncio",
-        dailyCheckIn: "Check-in Diário",
-        levelDesc: "Convide 3 usuários para o Nível 2",
-        inviteBtn: "convidar",
-        dailyTaskProgress: "Progresso Diário",
-        resetsDaily: "Reinicia diariamente às 00:00",
-        bountyTaskTitle: "Tarefas Bounty",
-        postBtn: "POSTAR +",
-        loadingTasks: "Carregando tarefas...",
-        navHome: "Início",
-        navTeam: "Equipe",
-        postTaskHeader: "⭐ Postar Tarefa",
-        taskNameLabel: "Nome da tarefa",
-        taskUrlLabel: "URL da tarefa",
-        impressionsLabel: "Impressões",
-        postTaskBtnText: "Postar Tarefa",
-        balanceHeader: "Saldo",
-        connectWalletBtn: "🔗 Conectar Carteira",
-        withdrawBtnText: "Sacar",
-        settingsHeader: "⚙️ Configurações",
-        copyBtn: "Copiar",
-        officialChannel: "Canal Oficial",
-        goToX: "Ir para o X",
-        privacyPolicy: "Política de Privacidade",
-        privacyPolicyHeader: "Política de Privacidade",
-        gotItBtn: "Entendido",
-        linkTask: "Link da Tarefa",
-        noTasks: "Nenhuma tarefa ativa no momento.",
-        allTasksCompleted: "Você concluiu todas as tarefas disponíveis!",
-        withdrawTargetText: "Meta de Saque #{stage}: {target} Moedas",
-        claimed: "Resgatado ✓",
-        claimBtnText: "Resgatar",
-        verifyingText: "Verificando...",
-        teamHeader: "Crie uma equipe, ganhe mais!",
-        teamLv1Title: "Membros convidados por você",
-        teamLv1Desc: "Nv1: Ganhe 5% de bônus",
-        teamLv2Title: "Convidados por membros Nv.1",
-        teamLv2Desc: "Nv.2: Ganhe 3% de bônus",
-        teamLv3Title: "Convidados por membros Nv.2",
-        teamLv3Desc: "Nv.3: Ganhe 1% de bônus",
-        inviteMembersBtn: "Convidar Membros",
-        pp1Title: "1. Introdução",
-        pp1Text: "Bem-vindo ao nosso Mini App do Telegram. Respeitamos sua privacidade.",
-        pp2Title: "2. Coleta de Informações",
-        pp2Text: "Coletamos detalhes básicos do Telegram para gerenciar seu saldo e recompensas.",
-        pp3Title: "3. Uso de Dados",
-        pp3Text: "Seus dados são usados exclusivamente para o funcionamento do aplicativo.",
-        pp4Title: "4. Serviços de Terceiros",
-        pp4Text: "Integramos serviços como Firebase e Monetag.",
-        pp5Title: "5. Contato",
-        pp5Text: "Para dúvidas sobre privacidade, entre em contato via nosso canal oficial:"
-      },
-      ru: {
-        watchAd: "Смотреть рекламу",
-        dailyCheckIn: "Ежедневный вход",
-        levelDesc: "Пригласите 3 пользователей для Lv.2",
-        inviteBtn: "пригласить",
-        dailyTaskProgress: "Прогресс заданий",
-        resetsDaily: "Сброс ежедневно в 00:00",
-        bountyTaskTitle: "Баунти задания",
-        postBtn: "СОЗДАТЬ +",
-        loadingTasks: "Загрузка заданий...",
-        navHome: "Главная",
-        navTeam: "Команда",
-        postTaskHeader: "⭐ Опубликовать задание",
-        taskNameLabel: "Название задания",
-        taskUrlLabel: "Ссылка задания",
-        impressionsLabel: "Показы",
-        postTaskBtnText: "Опубликовать",
-        balanceHeader: "Баланс",
-        connectWalletBtn: "🔗 Подключить кошелек",
-        withdrawBtnText: "Вывести",
-        settingsHeader: "⚙️ Настройки",
-        copyBtn: "Копировать",
-        officialChannel: "Официальный канал",
-        goToX: "Перейти в X",
-        privacyPolicy: "Политика конфиденциальности",
-        privacyPolicyHeader: "Политика конфиденциальности",
-        gotItBtn: "Понятно",
-        linkTask: "Ссылка",
-        noTasks: "Нет активных заданий. Создайте первое!",
-        allTasksCompleted: "Вы выполнили все доступные задания!",
-        withdrawTargetText: "Цель вывода #{stage}: {target} Монет",
-        claimed: "Получено ✓",
-        claimBtnText: "Забрать",
-        verifyingText: "Проверка...",
-        teamHeader: "Создавай команду, зарабатывай больше!",
-        teamLv1Title: "Приглашенные вами",
-        teamLv1Desc: "Lv1: 5% бонус за задания",
-        teamLv2Title: "Приглашенные Lv.1",
-        teamLv2Desc: "Lv.2: 3% бонус за задания",
-        teamLv3Title: "Приглашенные Lv.2",
-        teamLv3Desc: "Lv.3: 1% бонус за задания",
-        inviteMembersBtn: "Пригласить участников",
-        pp1Title: "1. Введение",
-        pp1Text: "Добро пожаловать. Мы уважаем вашу конфиденциальность и защищаем ваши данные.",
-        pp2Title: "2. Сбор информации",
-        pp2Text: "Мы используем базовые данные профиля Telegram для работы приложения.",
-        pp3Title: "3. Использование данных",
-        pp3Text: "Данные используются исключительно для обеспечения работы сервиса и вывода средств.",
-        pp4Title: "4. Сторонние сервисы",
-        pp4Text: "Мы используем Firebase и Monetag для работы приложения.",
-        pp5Title: "5. Контакты",
-        pp5Text: "По вопросам конфиденциальности свяжитесь с нашим каналом:"
-      },
-      fr: {
-        watchAd: "Regarder Pub",
-        dailyCheckIn: "Bonus Quotidien",
-        levelDesc: "Invitez 3 utilisateurs pour passer au Nivo 2",
-        inviteBtn: "inviter",
-        dailyTaskProgress: "Progrès Quotidien",
-        resetsDaily: "Réinitialisation à 00:00",
-        bountyTaskTitle: "Tâches Bounty",
-        postBtn: "POSTER +",
-        loadingTasks: "Chargement des tâches...",
-        navHome: "Accueil",
-        navTeam: "Équipe",
-        postTaskHeader: "⭐ Publier une tâche",
-        taskNameLabel: "Nom de la tâche",
-        taskUrlLabel: "URL de la tâche",
-        impressionsLabel: "Impressions",
-        postTaskBtnText: "Publier",
-        balanceHeader: "Solde",
-        connectWalletBtn: "🔗 Connecter Portefeuille",
-        withdrawBtnText: "Retirer",
-        settingsHeader: "⚙️ Paramètres",
-        copyBtn: "Copier",
-        officialChannel: "Chaîne Officielle",
-        goToX: "Aller sur X",
-        privacyPolicy: "Politique de Confidentialité",
-        privacyPolicyHeader: "Politique de Confidentialité",
-        gotItBtn: "Compris",
-        linkTask: "Lien",
-        noTasks: "Aucune tâche disponible.",
-        allTasksCompleted: "Toutes les tâches sont terminées !",
-        withdrawTargetText: "Objectif de Retrait #{stage}: {target} Pièces",
-        claimed: "Réclamé ✓",
-        claimBtnText: "Réclamer",
-        verifyingText: "Vérification...",
-        teamHeader: "Créez une équipe, gagnez plus !",
-        teamLv1Title: "Membres invités par vous",
-        teamLv1Desc: "Niv 1 : 5% de bonus",
-        teamLv2Title: "Invités par les membres Niv 1",
-        teamLv2Desc: "Niv 2 : 3% de bonus",
-        teamLv3Title: "Invités par les membres Niv 2",
-        teamLv3Desc: "Niv 3 : 1% de bonus",
-        inviteMembersBtn: "Inviter des membres",
-        pp1Title: "1. Introduction",
-        pp1Text: "Bienvenue dans notre Telegram Mini App. Nous respectons votre vie privée.",
-        pp2Title: "2. Collecte de données",
-        pp2Text: "Nous collectons des informations de base pour gérer votre solde.",
-        pp3Title: "3. Utilisation des données",
-        pp3Text: "Données utilisées uniquement pour le fonctionnement du service.",
-        pp4Title: "4. Services tiers",
-        pp4Text: "Intégration de Firebase et Monetag.",
-        pp5Title: "5. Contact",
-        pp5Text: "Pour toute question, contactez notre chaîne officielle :"
-      },
-      id: {
-        watchAd: "Tonton Iklan",
-        dailyCheckIn: "Absen Harian",
-        levelDesc: "Undang 3 pengguna untuk ke Lv.2",
-        inviteBtn: "undang",
-        dailyTaskProgress: "Progres Tugas Harian",
-        resetsDaily: "Reset setiap hari jam 00:00",
-        bountyTaskTitle: "Tugas Bounty",
-        postBtn: "POST +",
-        loadingTasks: "Memuat tugas...",
-        navHome: "Beranda",
-        navTeam: "Tim",
-        postTaskHeader: "⭐ Buat Tugas",
-        taskNameLabel: "Nama tugas",
-        taskUrlLabel: "URL tugas",
-        impressionsLabel: "Impresi",
-        postTaskBtnText: "Kirim Tugas",
-        balanceHeader: "Saldo",
-        connectWalletBtn: "🔗 Hubungkan Dompet",
-        withdrawBtnText: "Tarik Saldo",
-        settingsHeader: "⚙️ Pengaturan",
-        copyBtn: "Salin",
-        officialChannel: "Saluran Resmi",
-        goToX: "Buka X",
-        privacyPolicy: "Kebijakan Privasi",
-        privacyPolicyHeader: "Kebijakan Privasi",
-        gotItBtn: "Mengerti",
-        linkTask: "Tautan",
-        noTasks: "Tidak ada tugas aktif.",
-        allTasksCompleted: "Semua tugas telah selesai!",
-        withdrawTargetText: "Target Penarikan #{stage}: {target} Koin",
-        claimed: "Klaim ✓",
-        claimBtnText: "Klaim",
-        verifyingText: "Memverifikasi...",
-        teamHeader: "Buat tim, Dapatkan lebih banyak!",
-        teamLv1Title: "Anggota yang Anda undang",
-        teamLv1Desc: "Lv1: Bonus tugas 5%",
-        teamLv2Title: "Diundang oleh anggota Lv.1",
-        teamLv2Desc: "Lv.2: Bonus tugas 3%",
-        teamLv3Title: "Diundang oleh anggota Lv.2",
-        teamLv3Desc: "Lv.3: Bonus tugas 1%",
-        inviteMembersBtn: "Undang Anggota",
-        pp1Title: "1. Pendahuluan",
-        pp1Text: "Selamat datang di Telegram Mini App kami. Kami menghormati privasi Anda.",
-        pp2Title: "2. Pengumpulan Informasi",
-        pp2Text: "Kami mengumpulkan detail profil dasar Telegram untuk mengelola saldo Anda.",
-        pp3Title: "3. Penggunaan Data",
-        pp3Text: "Data hanya digunakan untuk fungsionalitas aplikasi dan penarikan.",
-        pp4Title: "4. Layanan Pihak Ketiga",
-        pp4Text: "Menggunakan Firebase dan Monetag.",
-        pp5Title: "5. Hubungi Kami",
-        pp5Text: "Pertanyaan privasi silakan hubungi saluran resmi:"
-      },
-      uk: {
-        watchAd: "Дивитись рекламу",
-        dailyCheckIn: "Щоденний вхід",
-        levelDesc: "Запросіть 3 користувачів для Lv.2",
-        inviteBtn: "запросити",
-        dailyTaskProgress: "Прогрес завдань",
-        resetsDaily: "Скинути щодня о 00:00",
-        bountyTaskTitle: "Баунті завдання",
-        postBtn: "СТВОРИТИ +",
-        loadingTasks: "Завантаження завдань...",
-        navHome: "Головна",
-        navTeam: "Команда",
-        postTaskHeader: "⭐ Опублікувати завдання",
-        taskNameLabel: "Назва завдання",
-        taskUrlLabel: "Посилання завдання",
-        impressionsLabel: "Покази",
-        postTaskBtnText: "Опублікувати",
-        balanceHeader: "Баланс",
-        connectWalletBtn: "🔗 Підключити гаманець",
-        withdrawBtnText: "Вивести",
-        settingsHeader: "⚙️ Налаштування",
-        copyBtn: "Копіювати",
-        officialChannel: "Офіційний канал",
-        goToX: "Перейти в X",
-        privacyPolicy: "Політика конфіденційності",
-        privacyPolicyHeader: "Політика конфіденційності",
-        gotItBtn: "Зрозуміло",
-        linkTask: "Посилання",
-        noTasks: "Немає активних завдань.",
-        allTasksCompleted: "Ви виконали всі завдання!",
-        withdrawTargetText: "Ціль виведення #{stage}: {target} Монет",
-        claimed: "Отримано ✓",
-        claimBtnText: "Забрати",
-        verifyingText: "Перевірка...",
-        teamHeader: "Створюй команду, заробляй більше!",
-        teamLv1Title: "Запрошені вами",
-        teamLv1Desc: "Lv1: 5% бонус",
-        teamLv2Title: "Запрошені Lv.1",
-        teamLv2Desc: "Lv.2: 3% бонус",
-        teamLv3Title: "Запрошені Lv.2",
-        teamLv3Desc: "Lv.3: 1% бонус",
-        inviteMembersBtn: "Запросити учасників",
-        pp1Title: "1. Вступ",
-        pp1Text: "Ласкаво просимо. Ми поважаємо вашу конфіденційність.",
-        pp2Title: "2. Збір інформації",
-        pp2Text: "Використовуємо дані Telegram для роботи програми.",
-        pp3Title: "3. Використання даних",
-        pp3Text: "Використовується виключно для виплат.",
-        pp4Title: "4. Сторонні сервіси",
-        pp4Text: "Firebase та Monetag.",
-        pp5Title: "5. Контакти",
-        pp5Text: "Канал для зв'язку:"
-      },
-      hi: {
-        watchAd: "विज्ञापन देखें",
-        dailyCheckIn: "दैनिक चेक-इन",
-        levelDesc: "Lv.2 पर जाने के लिए 3 उपयोगकर्ताओं को आमंत्रित करें",
-        inviteBtn: "आमंत्रित करें",
-        dailyTaskProgress: "दैनिक कार्य प्रगति",
-        resetsDaily: "हर रात 00:00 बजे रीसेट होता है",
-        bountyTaskTitle: "बाउंटी कार्य",
-        postBtn: "पोस्ट +",
-        loadingTasks: "कार्य लोड हो रहे हैं...",
-        navHome: "होम",
-        navTeam: "टीम",
-        postTaskHeader: "⭐ कार्य पोस्ट करें",
-        taskNameLabel: "कार्य का नाम",
-        taskUrlLabel: "कार्य लिंक",
-        impressionsLabel: "इंप्रेशन",
-        postTaskBtnText: "पोस्ट करें",
-        balanceHeader: "बैलेंस",
-        connectWalletBtn: "🔗 वॉलेट जोड़ें",
-        withdrawBtnText: "निकालें",
-        settingsHeader: "⚙️ सेटिंग्स",
-        copyBtn: "कॉपी",
-        officialChannel: "ऑफिशियल चैनल",
-        goToX: "X पर जाएं",
-        privacyPolicy: "गोपनीयता नीति",
-        privacyPolicyHeader: "गोपनीयता नीति",
-        gotItBtn: "समझ गया",
-        linkTask: "लिंक कार्य",
-        noTasks: "कोई सक्रिय कार्य उपलब्ध नहीं है।",
-        allTasksCompleted: "आपने सभी कार्य पूरे कर लिए हैं!",
-        withdrawTargetText: "निकासी का लक्ष्य #{stage}: {target} सिक्के",
-        claimed: "प्राप्त ✓",
-        claimBtnText: "दावा करें",
-        verifyingText: "सत्यापित हो रहा है...",
-        teamHeader: "टीम बनाएं, अधिक कमाएं!",
-        teamLv1Title: "आपके द्वारा आमंत्रित",
-        teamLv1Desc: "Lv1: 5% बोनस पाएं",
-        teamLv2Title: "Lv.1 द्वारा आमंत्रित",
-        teamLv2Desc: "Lv.2: 3% बोनस पाएं",
-        teamLv3Title: "Lv.2 द्वारा आमंत्रित",
-        teamLv3Desc: "Lv.3: 1% बोनस पाएं",
-        inviteMembersBtn: "सदस्यों को आमंत्रित करें",
-        pp1Title: "1. परिचय",
-        pp1Text: "हमारे टेलीग्राम मिनी ऐप में आपका स्वागत है।",
-        pp2Title: "2. जानकारी संग्रह",
-        pp2Text: "हम आपका बैलेंस मैनेज करने के लिए बुनियादी डेटा एकत्र करते हैं।",
-        pp3Title: "3. डेटा का उपयोग",
-        pp3Text: "डेटा केवल ऐप संचालन के लिए उपयोग किया जाता है।",
-        pp4Title: "4. थर्ड पार्टी सेवाएं",
-        pp4Text: "फायरबेस और मोनेटैग का उपयोग किया जाता है।",
-        pp5Title: "5. संपर्क करें",
-        pp5Text: "ऑफिशियल चैनल:"
-      },
-      ko: {
-        watchAd: "광고 시청",
-        dailyCheckIn: "출석 체크",
-        levelDesc: "Lv.2 업그레이드를 위해 3명 초대",
-        inviteBtn: "초대하기",
-        dailyTaskProgress: "일일 미션 진행률",
-        resetsDaily: "매일 00:00에 초기화",
-        bountyTaskTitle: "바운티 미션",
-        postBtn: "등록 +",
-        loadingTasks: "미션 불러오는 중...",
-        navHome: "홈",
-        navTeam: "팀",
-        postTaskHeader: "⭐ 미션 등록",
-        taskNameLabel: "미션 이름",
-        taskUrlLabel: "미션 링크",
-        impressionsLabel: "노출 수",
-        postTaskBtnText: "미션 등록하기",
-        balanceHeader: "잔액",
-        connectWalletBtn: "🔗 지갑 연결",
-        withdrawBtnText: "출금하기",
-        settingsHeader: "⚙️ 설정",
-        copyBtn: "복사",
-        officialChannel: "공식 채널",
-        goToX: "X 방문",
-        privacyPolicy: "개인정보 처리방침",
-        privacyPolicyHeader: "개인정보 처리방침",
-        gotItBtn: "확인",
-        linkTask: "링크 미션",
-        noTasks: "현재 진행 가능한 미션이 없습니다.",
-        allTasksCompleted: "모든 미션을 완료했습니다!",
-        withdrawTargetText: "출금 목표 #{stage}: {target} 코인",
-        claimed: "수령됨 ✓",
-        claimBtnText: "수령",
-        verifyingText: "확인 중...",
-        teamHeader: "팀을 만들고 더 많이 버세요!",
-        teamLv1Title: "직접 초대한 회원",
-        teamLv1Desc: "Lv1: 5% 미션 보너스",
-        teamLv2Title: "Lv.1 회원이 초대한 회원",
-        teamLv2Desc: "Lv.2: 3% 미션 보너스",
-        teamLv3Title: "Lv.2 회원이 초대한 회원",
-        teamLv3Desc: "Lv.3: 1% 미션 보너스",
-        inviteMembersBtn: "팀원 초대하기",
-        pp1Title: "1. 소개",
-        pp1Text: "텔레그램 미니 앱에 오신 것을 환영합니다.",
-        pp2Title: "2. 정보 수집",
-        pp2Text: "계정 관리 및 잔액 보존을 위해 기본 프로필 정보를 수집합니다.",
-        pp3Title: "3. 데이터 사용",
-        pp3Text: "수집된 정보는 서비스 제공을 위해서만 사용됩니다.",
-        pp4Title: "4. 제3자 서비스",
-        pp4Text: "Firebase 및 Monetag 서비스를 통합합니다.",
-        pp5Title: "5. 문의하기",
-        pp5Text: "공식 채널 문의:"
-      },
-      tw: {
-        watchAd: "觀看廣告",
-        dailyCheckIn: "每日簽到",
-        levelDesc: "邀請 3 位用戶升級至 Lv.2",
-        inviteBtn: "邀請",
-        dailyTaskProgress: "每日任務進度",
-        resetsDaily: "每日 00:00 重置",
-        bountyTaskTitle: "賞金任務",
-        postBtn: "發布 +",
-        loadingTasks: "載入任務中...",
-        navHome: "首頁",
-        navTeam: "團隊",
-        postTaskHeader: "⭐ 發布任務",
-        taskNameLabel: "任務名稱",
-        taskUrlLabel: "任務網址",
-        impressionsLabel: "展示次數",
-        postTaskBtnText: "發布任務",
-        balanceHeader: "餘額",
-        connectWalletBtn: "🔗 連結錢包",
-        withdrawBtnText: "提現",
-        settingsHeader: "⚙️ 設定",
-        copyBtn: "複製",
-        officialChannel: "官方頻道",
-        goToX: "前往 X",
-        privacyPolicy: "隱私政策",
-        privacyPolicyHeader: "隱私政策",
-        gotItBtn: "我知道了",
-        linkTask: "連結任務",
-        noTasks: "目前沒有可用的賞金任務。",
-        allTasksCompleted: "您已完成所有可用任務！",
-        withdrawTargetText: "提現目標 #{stage}: {target} 金幣",
-        claimed: "已領取 ✓",
-        claimBtnText: "領取",
-        verifyingText: "驗證中...",
-        teamHeader: "創建團隊，賺取更多！",
-        teamLv1Title: "您邀請的成員",
-        teamLv1Desc: "Lv1: 獲得 5% 任務獎勵",
-        teamLv2Title: "由 Lv.1 成員邀請",
-        teamLv2Desc: "Lv.2: 獲得 3% 任務獎勵",
-        teamLv3Title: "由 Lv.2 成員邀請",
-        teamLv3Desc: "Lv.3: 獲得 1% 任務獎勵",
-        inviteMembersBtn: "邀請成員",
-        pp1Title: "1. 簡介",
-        pp1Text: "歡迎使用我們的 Telegram Mini App。我們尊重您的隱私。",
-        pp2Title: "2. 資料收集",
-        pp2Text: "我們收集基本個人資料以管理您的餘額。",
-        pp3Title: "3. 資料使用",
-        pp3Text: "資料僅用於提供應用程式功能與提現。",
-        pp4Title: "4. 第三方服務",
-        pp4Text: "我們整合 Firebase 與 Monetag。",
-        pp5Title: "5. 聯絡我們",
-        pp5Text: "官方頻道："
-      },
-      cn: {
-        watchAd: "观看广告",
-        dailyCheckIn: "每日签到",
-        levelDesc: "邀请 3 位用户升级至 Lv.2",
-        inviteBtn: "邀请",
-        dailyTaskProgress: "每日任务进度",
-        resetsDaily: "每日 00:00 重置",
-        bountyTaskTitle: "赏金任务",
-        postBtn: "发布 +",
-        loadingTasks: "加载任务中...",
-        navHome: "首页",
-        navTeam: "团队",
-        postTaskHeader: "⭐ 发布任务",
-        taskNameLabel: "任务名称",
-        taskUrlLabel: "任务网址",
-        impressionsLabel: "展示次数",
-        postTaskBtnText: "发布任务",
-        balanceHeader: "余额",
-        connectWalletBtn: "🔗 链接钱包",
-        withdrawBtnText: "提现",
-        settingsHeader: "设置",
-        copyBtn: "复制",
-        officialChannel: "官方频道",
-        goToX: "前往 X",
-        privacyPolicy: "隐私政策",
-        privacyPolicyHeader: "隐私政策",
-        gotItBtn: "我知道了",
-        linkTask: "链接任务",
-        noTasks: "目前没有可用的赏金任务。",
-        allTasksCompleted: "您已完成所有可用任务！",
-        withdrawTargetText: "提现目标 #{stage}: {target} 金币",
-        claimed: "已领取 ✓",
-        claimBtnText: "领取",
-        verifyingText: "验证中...",
-        teamHeader: "创建团队，赚取更多！",
-        teamLv1Title: "您邀请的成员",
-        teamLv1Desc: "Lv1: 获得 5% 任务奖励",
-        teamLv2Title: "由 Lv.1 成员邀请",
-        teamLv2Desc: "Lv.2: 获得 3% 任务奖励",
-        teamLv3Title: "由 Lv.2 成员邀请",
-        teamLv3Desc: "Lv.3: 获得 1% 任务奖励",
-        inviteMembersBtn: "邀请成员",
-        pp1Title: "1. 简介",
-        pp1Text: "欢迎使用我们的 Telegram Mini App。我们尊重您的隐私。",
-        pp2Title: "2. 数据收集",
-        pp2Text: "我们收集基本个人资料以管理您的余额。",
-        pp3Title: "3. 数据使用",
-        pp3Text: "数据仅用于提供应用程序功能与提现。",
-        pp4Title: "4. 第三方服务",
-        pp4Text: "我们整合 Firebase 与 Monetag。",
-        pp5Title: "5. 联系我们",
-        pp5Text: "官方频道："
-      },
-      vi: {
-        watchAd: "Xem Quảng Cáo",
-        dailyCheckIn: "Điểm Danh Hàng Ngày",
-        levelDesc: "Mời 3 người dùng để nâng lên Cấp 2",
-        inviteBtn: "mời",
-        dailyTaskProgress: "Tiến Độ Nhiệm Vụ",
-        resetsDaily: "Đặt lại lúc 00:00 hàng ngày",
-        bountyTaskTitle: "Nhiệm Vụ Bounty",
-        postBtn: "ĐĂNG +",
-        loadingTasks: "Đang tải nhiệm vụ...",
-        navHome: "Trang chủ",
-        navTeam: "Đội ngũ",
-        postTaskHeader: "⭐ Đăng Nhiệm Vụ",
-        taskNameLabel: "Tên nhiệm vụ",
-        taskUrlLabel: "Đường dẫn nhiệm vụ",
-        impressionsLabel: "Lượt hiển thị",
-        postTaskBtnText: "Đăng Nhiệm Vụ",
-        balanceHeader: "Số dư",
-        connectWalletBtn: "🔗 Kết Nối Ví",
-        withdrawBtnText: "Rút Tiền",
-        settingsHeader: "⚙️ Cài đặt",
-        copyBtn: "Sao chép",
-        officialChannel: "Kênh Chính Thức",
-        goToX: "Truy cập X",
-        privacyPolicy: "Chính Sách Quyền Riêng Tư",
-        privacyPolicyHeader: "Chính Sách Quyền Riêng Tư",
-        gotItBtn: "Đã Hiểu",
-        linkTask: "Liên kết",
-        noTasks: "Hiện không có nhiệm vụ nào.",
-        allTasksCompleted: "Bạn đã hoàn thành tất cả nhiệm vụ!",
-        withdrawTargetText: "Mục Tiêu Rút #{stage}: {target} Xu",
-        claimed: "Đã Nhận ✓",
-        claimBtnText: "Nhận",
-        verifyingText: "Đang xác minh...",
-        teamHeader: "Tạo đội ngũ, Nhận nhiều hơn!",
-        teamLv1Title: "Thành viên bạn đã mời",
-        teamLv1Desc: "Cấp 1: Nhận 5% thưởng",
-        teamLv2Title: "Thành viên do Cấp 1 mời",
-        teamLv2Desc: "Cấp 2: Nhận 3% thưởng",
-        teamLv3Title: "Thành viên do Cấp 2 mời",
-        teamLv3Desc: "Cấp 3: Nhận 1% thưởng",
-        inviteMembersBtn: "Mời Thành Viên",
-        pp1Title: "1. Giới thiệu",
-        pp1Text: "Chào mừng bạn đến với Telegram Mini App của chúng tôi. Chúng tôi tôn trọng quyền riêng tư của bạn.",
-        pp2Title: "2. Thu thập thông tin",
-        pp2Text: "Chúng tôi thu thập các thông tin cơ bản để quản lý số dư của bạn.",
-        pp3Title: "3. Sử dụng dữ liệu",
-        pp3Text: "Dữ liệu chỉ được sử dụng để cung cấp chức năng ứng dụng.",
-        pp4Title: "4. Dịch vụ bên thứ ba",
-        pp4Text: "Chúng tôi tích hợp các dịch vụ Firebase và Monetag.",
-        pp5Title: "5. Liên hệ",
-        pp5Text: "Kênh hỗ trợ chính thức:"
+      bn: {
+        watchAd: "বিজ্ঞাপন দেখুন",
+        dailyCheckIn: "দৈনিক চেক-ইন",
+        levelDesc: "Lv.2 এ উন্নীত হতে ৩ জনকে আমন্ত্রণ জানান",
+        inviteBtn: "আমন্ত্রণ",
+        dailyTaskProgress: "দৈনিক টাস্ক অগ্রগতি",
+        resetsDaily: "প্রতিটি রাত ০০:০০ টায় রিসেট হয়",
+        bountyTaskTitle: "বাউন্টি টাস্ক",
+        postBtn: "পোস্ট +",
+        loadingTasks: "টাস্ক লোড হচ্ছে...",
+        navHome: "হোম",
+        navTeam: "টিম",
+        postTaskHeader: "পোস্ট টাস্ক ⭐",
+        taskNameLabel: "🏷️ টাস্কের নাম",
+        taskUrlLabel: "💳 টাস্ক লিংক / ঠিকানা",
+        placeholderTaskName: "টাস্কের নাম দিন",
+        placeholderUrl: "অনুগ্রহ করে টাস্ক লিংকটি দিন",
+        impressionsLabel: "⣿ ইম্প্রেশন সংখ্যা",
+        postTaskBtnText: "পোস্ট টাস্ক",
+        balanceHeader: "ব্যালেন্স",
+        connectWalletBtn: "🔗 ওয়ালেট কানেক্ট",
+        withdrawBtnText: "উইথড্র",
+        settingsHeader: "⚙️ সেটিংস",
+        copyBtn: "কপি",
+        officialChannel: "অফিসিয়াল চ্যানেল",
+        goToX: "X এ যান",
+        privacyPolicy: "প্রাইভেসি পলিসি",
+        privacyPolicyHeader: "প্রাইভেসি পলিসি",
+        gotItBtn: "বুঝেছি",
+        linkTask: "লিংক টাস্ক",
+        noTasks: "বর্তমানে কোনো সক্রিয় টাস্ক নেই। নতুন পোস্ট করুন!",
+        allTasksCompleted: "আপনি সব উপলব্ধ টাস্ক সম্পন্ন করেছেন!",
+        withdrawTargetText: "উইথড্র টার্গেট #{stage}: {target} পয়েন্ট",
+        claimed: "সম্পন্ন ✓",
+        claimBtnText: "দাবি করুন",
+        verifyingText: "যাচাই করা হচ্ছে...",
+        teamHeader: "টিম তৈরি করুন, বেশি আয় করুন!",
+        teamLv1Title: "আপনার আমন্ত্রিত সদস্য",
+        teamLv1Desc: "Lv1: ৫% টাস্ক বোনাস পান",
+        teamLv2Title: "Lv.1 সদস্যের আমন্ত্রিত",
+        teamLv2Desc: "Lv.2: ৩% টাস্ক বোনাস পান",
+        teamLv3Title: "Lv.2 সদস্যের আমন্ত্রিত",
+        teamLv3Desc: "Lv.3: ১% টাস্ক বোনাস পান",
+        inviteMembersBtn: "সদস্য আমন্ত্রণ করুন",
+        pp1Title: "১. ভূমিকা",
+        pp1Text: "আমাদের টেলিগ্রাম মিনি অ্যাপে স্বাগতম। আমরা আপনার ব্যক্তিগত গোপনীয়তা রক্ষা করতে প্রতিশ্রুতবদ্ধ।",
+        pp2Title: "২. তথ্য সংগ্রহ",
+        pp2Text: "আমরা টেলিগ্রাম প্রোফাইলের সাধারণ তথ্য গ্রহণ করি ব্যালেন্স ও রিওয়ার্ড সংরক্ষণের জন্য।",
+        pp3Title: "৩. তথ্যের ব্যবহার",
+        pp3Text: "আপনার তথ্য শুধুমাত্র অ্যাপ সুবিধা ও উইথড্র ব্যবস্থার জন্য ব্যবহূত হয়।",
+        pp4Title: "৪. থার্ড পার্টি সার্ভিস",
+        pp4Text: "আমরা ফায়ারবেস ও মোনেট্যাগ ইত্যাদি সেবাসমূহ ব্যবহার করি।",
+        pp5Title: "৫. যোগাযোগ",
+        pp5Text: "গোপনীয়তা সংক্রান্ত প্রশ্নের জন্য চ্যানেল:"
       }
     };
 
@@ -2232,6 +1904,16 @@
           el.innerText = dict[key];
         }
       });
+
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (dict[key]) {
+          el.placeholder = dict[key];
+        }
+      });
+
+      document.dir = (currentLang === 'ur') ? 'rtl' : 'ltr';
+
       updateUI();
       renderBountyTasks();
     }
