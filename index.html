@@ -113,7 +113,7 @@
       font-size: 14px;
     }
 
-    /* Main Container with Fixed & Scrollable regions */
+    /* Main Container */
     .container {
       padding: 0 16px;
       display: flex;
@@ -146,13 +146,13 @@
       gap: 10px;
     }
 
-    .gold-coin-icon {
+    .gram-star-icon {
       width: 38px;
       height: 38px;
       display: flex;
       align-items: center;
       justify-content: center;
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
     }
 
     .coin-amount {
@@ -316,7 +316,7 @@
       text-align: right;
     }
 
-    /* Bounty Task Header & Scrollable List Area */
+    /* Bounty Task Section */
     .bounty-container {
       flex: 1;
       display: flex;
@@ -445,6 +445,66 @@
 
     .task-action-btn:active {
       transform: scale(0.96);
+    }
+
+    /* TEAM PAGE */
+    .team-card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+      margin-bottom: 14px;
+    }
+
+    .team-avatar-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #e0f2fe 0%, #bae6fd 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0284c7;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .team-info h4 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    .team-info p {
+      font-size: 14px;
+      font-weight: 700;
+      color: #3b82f6;
+    }
+
+    .big-invite-btn {
+      background: #3b82f6;
+      color: #ffffff;
+      width: 100%;
+      padding: 16px;
+      border-radius: 18px;
+      font-size: 18px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+      margin-top: 15px;
+    }
+
+    .big-invite-btn:active {
+      transform: scale(0.98);
     }
 
     /* Bottom Nav */
@@ -726,21 +786,39 @@
 </head>
 <body>
 
-  <!-- Gold Coin Template with Number '1' -->
-  <template id="gold-coin-template">
-    <svg class="gold-coin-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="50" cy="50" r="45" fill="url(#goldGradOuter)" stroke="#f59e0b" stroke-width="4"/>
-      <circle cx="50" cy="50" r="37" fill="url(#goldGradFace)" stroke="#fde047" stroke-width="2.5"/>
-      <text x="50" y="65" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="46" fill="#78350f">1</text>
+  <!-- Cyan/Blue Star Circle Badge Coin Template with 3D Star effect -->
+  <template id="gram-star-coin-template">
+    <svg class="gram-star-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="48" fill="url(#blueGradOuter)"/>
+      <circle cx="50" cy="50" r="44" fill="url(#blueGradFace)"/>
+      
+      <!-- 3D Star Path (Slightly smaller size with 3D drop shadow) -->
+      <g filter="url(#star3dShadow)">
+        <path d="M50 24 L56.8 37.8 L72 40 L61 50.7 L63.6 65.8 L50 58.6 L36.4 65.8 L39 50.7 L28 40 L43.2 37.8 Z" fill="url(#starGradient)"/>
+      </g>
+      
       <defs>
-        <linearGradient id="goldGradOuter" x1="10" y1="10" x2="90" y2="90" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#fbbf24"/>
-          <stop offset="1" stop-color="#d97706"/>
+        <!-- Blue Badge Gradients -->
+        <linearGradient id="blueGradOuter" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#38BDF8"/>
+          <stop offset="1" stop-color="#0284C7"/>
         </linearGradient>
-        <linearGradient id="goldGradFace" x1="20" y1="20" x2="80" y2="80" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#fef08a"/>
-          <stop offset="1" stop-color="#f59e0b"/>
+        <linearGradient id="blueGradFace" x1="10" y1="10" x2="90" y2="90" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#22D3EE"/>
+          <stop offset="1" stop-color="#0284C7"/>
         </linearGradient>
+
+        <!-- 3D White/Silver Star Gradient -->
+        <linearGradient id="starGradient" x1="28" y1="24" x2="72" y2="65" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#FFFFFF"/>
+          <stop offset="0.7" stop-color="#F1F5F9"/>
+          <stop offset="1" stop-color="#CBD5E1"/>
+        </linearGradient>
+
+        <!-- 3D Drop Shadow for Star -->
+        <filter id="star3dShadow" x="0" y="0" width="100%" height="100%" filterUnits="userSpaceOnUse">
+          <feDropShadow dx="0" dy="3" stdDeviation="1.5" flood-color="#0369A1" flood-opacity="0.5"/>
+        </filter>
       </defs>
     </svg>
   </template>
@@ -758,9 +836,10 @@
       </div>
     </div>
 
-    <div class="container">
+    <!-- MAIN HOME PAGE -->
+    <div class="container" id="home-page">
       
-      <!-- Fixed Section (Header, Balance, Action Cards) -->
+      <!-- Fixed Section -->
       <div class="fixed-top-section">
         <!-- Balance Card -->
         <div class="balance-card" onclick="openWithdrawModal()">
@@ -769,24 +848,32 @@
             <span class="coin-amount" id="main-coins">0</span>
           </div>
           <div class="rate-badge">
-            ≈ <span id="main-ton">0.00</span> TON ⇄
+            ≈ <span id="main-gram">0.00</span> $GRAM ⇄
           </div>
         </div>
 
         <!-- Conversion Formula Text -->
         <div class="rate-subtitle">
-          10,000 <span class="mini-rate-coin-slot"></span> = 1 TON
+          10,000 <span class="mini-rate-coin-slot"></span> ≈ 1 GRAM
         </div>
 
-        <!-- Monetag Ad & Daily Check-in Side-by-Side Section -->
+        <!-- Monetag Ad & Daily Check-in Section -->
         <div class="quick-actions">
           <!-- WATCH AD BUTTON -->
           <div class="action-card ad-card-premium" onclick="watchMonetagAd()">
             <div class="action-icon">
               <svg class="ads-svg-logo" viewBox="0 0 220 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M 105,10 C 50,10 10,45 10,80 C 10,115 50,118 105,118 C 118,118 130,114 140,108 C 112,112 35,108 30,78 C 25,48 78,16 115,12 Z" fill="#000000"/>
-                <path d="M 98,24 C 65,24 34,45 34,74 C 34,88 42,98 52,104 C 44,95 42,82 46,68 C 52,50 72,30 98,24 Z" fill="#000000"/>
-                <text x="55" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-style="italic" font-size="44" fill="#000000" letter-spacing="1">ADS</text>
+                <!-- Outer Shape with Blue Gradient instead of Black -->
+                <path d="M 105,10 C 50,10 10,45 10,80 C 10,115 50,118 105,118 C 118,118 130,114 140,108 C 112,112 35,108 30,78 C 25,48 78,16 115,12 Z" fill="url(#adsBgGrad)"/>
+                <path d="M 98,24 C 65,24 34,45 34,74 C 34,88 42,98 52,104 C 44,95 42,82 46,68 C 52,50 72,30 98,24 Z" fill="url(#adsBgGrad)"/>
+                <text x="55" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-style="italic" font-size="44" fill="#0F172A" letter-spacing="1">ADS</text>
+                
+                <defs>
+                  <linearGradient id="adsBgGrad" x1="0" y1="0" x2="150" y2="120" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#38BDF8"/>
+                    <stop offset="1" stop-color="#0284C7"/>
+                  </linearGradient>
+                </defs>
               </svg>
             </div>
             <div class="action-title" data-i18n="watchAd">Watch Ad</div>
@@ -838,6 +925,54 @@
       </div>
 
     </div>
+
+    <!-- TEAM PAGE VIEW -->
+    <div class="container" id="team-page" style="display: none; padding-bottom: 90px; overflow-y: auto;">
+      <div style="text-align: center; margin: 25px 0 20px 0;">
+        <h2 style="color: #0f172a; font-size: 22px; font-weight: 800;">Create team, Earn more!</h2>
+      </div>
+
+      <div style="display: flex; flex-direction: column;">
+        <!-- Level 1 Card -->
+        <div class="team-card">
+          <div class="team-avatar-icon">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="team-info">
+            <h4>Members you invited</h4>
+            <p>Lv1:Get 5% task bouns</p>
+          </div>
+        </div>
+
+        <!-- Level 2 Card -->
+        <div class="team-card">
+          <div class="team-avatar-icon">
+            <i class="fas fa-user-friends"></i>
+          </div>
+          <div class="team-info">
+            <h4>Invited by Lv.1 members</h4>
+            <p>Lv.2:Get 3% task bouns</p>
+          </div>
+        </div>
+
+        <!-- Level 3 Card -->
+        <div class="team-card">
+          <div class="team-avatar-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="team-info">
+            <h4>Invited by Lv.2 members</h4>
+            <p>Lv.3:Get 1% task bouns</p>
+          </div>
+        </div>
+
+        <!-- Big Invite Button -->
+        <button class="big-invite-btn" onclick="inviteFriends()">
+          Invite Members <i class="fas fa-user-plus" style="font-size: 16px;"></i>
+        </button>
+      </div>
+    </div>
+
   </div>
 
   <!-- Bottom Nav -->
@@ -904,7 +1039,7 @@
           <span class="modal-coin-slot"></span>
           <span id="modal-coin-val">0</span>
         </h1>
-        <div class="modal-usd-badge">≈ <span id="modal-ton-val">0.00</span> TON</div>
+        <div class="modal-usd-badge">≈ <span id="modal-gram-val">0.00</span> GRAM</div>
       </div>
 
       <div class="withdraw-info-card" id="withdraw-target-text">
@@ -1000,8 +1135,8 @@
   </div>
 
   <script>
-    function getGoldCoinSVG(size = 36) {
-      const template = document.getElementById('gold-coin-template');
+    function getGramStarCoinSVG(size = 36) {
+      const template = document.getElementById('gram-star-coin-template');
       const clone = template.content.cloneNode(true);
       const svg = clone.querySelector('svg');
       svg.style.width = size + 'px';
@@ -1013,26 +1148,26 @@
       const mainContainer = document.getElementById('main-coin-svg-container');
       if (mainContainer) {
         mainContainer.innerHTML = '';
-        mainContainer.appendChild(getGoldCoinSVG(38));
+        mainContainer.appendChild(getGramStarCoinSVG(38));
       }
 
       const modalCoinSlot = document.querySelector('.modal-coin-slot');
       if (modalCoinSlot) {
         modalCoinSlot.innerHTML = '';
-        modalCoinSlot.appendChild(getGoldCoinSVG(32));
+        modalCoinSlot.appendChild(getGramStarCoinSVG(32));
       }
 
       document.querySelectorAll('.mini-rate-coin-slot').forEach(el => {
         el.innerHTML = '';
-        el.appendChild(getGoldCoinSVG(14));
+        el.appendChild(getGramStarCoinSVG(14));
       });
       document.querySelectorAll('.mini-coin-slot-ad').forEach(el => {
         el.innerHTML = '';
-        el.appendChild(getGoldCoinSVG(14));
+        el.appendChild(getGramStarCoinSVG(14));
       });
       document.querySelectorAll('.mini-coin-slot-post').forEach(el => {
         el.innerHTML = '';
-        el.appendChild(getGoldCoinSVG(14));
+        el.appendChild(getGramStarCoinSVG(14));
       });
 
       const today = new Date().toISOString().split('T')[0];
@@ -1045,7 +1180,7 @@
           checkinRewardEl.className = 'action-reward';
           const miniSlot = document.createElement('span');
           miniSlot.className = 'mini-coin-slot-checkin';
-          miniSlot.appendChild(getGoldCoinSVG(14));
+          miniSlot.appendChild(getGramStarCoinSVG(14));
           checkinRewardEl.innerHTML = '';
           checkinRewardEl.appendChild(miniSlot);
           checkinRewardEl.insertAdjacentHTML('beforeend', ' + 100');
@@ -1055,10 +1190,17 @@
 
     function switchNav(tabName) {
       document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+      const homePage = document.getElementById('home-page');
+      const teamPage = document.getElementById('team-page');
+
       if (tabName === 'home') {
         document.getElementById('nav-home').classList.add('active');
+        homePage.style.display = 'flex';
+        teamPage.style.display = 'none';
       } else if (tabName === 'team') {
         document.getElementById('nav-team').classList.add('active');
+        homePage.style.display = 'none';
+        teamPage.style.display = 'block';
       }
     }
 
@@ -1112,12 +1254,12 @@
     }
 
     function updateUI() {
-      const tonVal = (userCoins / 10000).toFixed(2);
+      const gramVal = (userCoins / 10000).toFixed(2);
       
       document.getElementById('main-coins').innerText = userCoins.toLocaleString();
-      document.getElementById('main-ton').innerText = tonVal;
+      document.getElementById('main-gram').innerText = gramVal;
       document.getElementById('modal-coin-val').innerText = userCoins.toLocaleString();
-      document.getElementById('modal-ton-val').innerText = tonVal;
+      document.getElementById('modal-gram-val').innerText = gramVal;
       document.getElementById('daily-task-count').innerText = `${dailyTasksCompleted}/5`;
 
       const nextTarget = getNextWithdrawTarget();
@@ -1260,7 +1402,7 @@
           : (task.name ? task.name.charAt(0).toUpperCase() : 'T');
 
         const tempContainer = document.createElement('span');
-        const miniSvg = getGoldCoinSVG(14);
+        const miniSvg = getGramStarCoinSVG(14);
         tempContainer.appendChild(miniSvg);
         const iconHtmlStr = tempContainer.innerHTML;
 
@@ -1330,7 +1472,7 @@
     }
 
     function connectWallet() {
-      alert("TON Connect Wallet Integration Coming Soon!");
+      alert("TON/GRAM Connect Wallet Integration Coming Soon!");
     }
 
     function processWithdrawal() {
@@ -1351,8 +1493,11 @@
     }
 
     function inviteFriends() {
-      if (tg) {
+      if (tg && tg.openTelegramLink) {
         tg.openTelegramLink(`https://t.me/share/url?url=https://t.me/YourBot?start=${userId}`);
+      } else {
+        navigator.clipboard.writeText(`https://t.me/YourBot?start=${userId}`);
+        alert("Referral link copied to clipboard!");
       }
     }
 
@@ -1428,7 +1573,7 @@
       },
       bn: {
         watchAd: "বিজ্ঞাপন দেখুন",
-        dailyCheckIn: "দೈನিক চেক-ইন",
+        dailyCheckIn: "দৈনিক চেক-ইন",
         levelDesc: "Lv.2 এ যেতে ৩ জন বন্ধুকে আমন্ত্রণ জানান",
         inviteBtn: "আমন্ত্রণ",
         dailyTaskProgress: "দৈনিক টাস্ক প্রগতি",
