@@ -435,26 +435,30 @@
     .task-action-btn {
       background: rgba(59, 130, 246, 0.15);
       color: #2563eb;
-      font-size: 12.73px; 
+      font-size: 13px;
       font-weight: bold;
-      padding: 6.36px 14.85px; 
-      border-radius: 16px;
+      padding: 8px 16px;
+      border-radius: 18px;
       border: none;
       display: flex;
       align-items: center;
-      gap: 4.2px; 
+      gap: 5px;
       cursor: pointer;
-      transform: scale(1.05); 
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.15);
     }
 
     .task-action-btn.claim-btn {
       background: #2563eb;
       color: #fff;
-      transform: scale(1.05);
     }
 
     .task-action-btn:active {
-      transform: scale(1.0);
+      transform: scale(0.96);
+    }
+    
+    .task-action-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
 
     /* TEAM PAGE */
@@ -785,7 +789,6 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
-    /* Settings Modal Specific Styles */
     .settings-profile-card {
       display: flex;
       align-items: center;
@@ -899,13 +902,11 @@
 </head>
 <body>
 
-  <!-- Cyan/Blue Star Circle Badge Coin Template -->
   <template id="gram-star-coin-template">
     <svg class="gram-star-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="50" cy="50" r="48" fill="url(#blueGradOuter)"/>
       <circle cx="50" cy="50" r="44" fill="url(#blueGradFace)"/>
       
-      <!-- 3D Star Path -->
       <g filter="url(#star3dShadow)">
         <path d="M50 24 L56.8 37.8 L72 40 L61 50.7 L63.6 65.8 L50 58.6 L36.4 65.8 L39 50.7 L28 40 L43.2 37.8 Z" fill="url(#starGradient)"/>
       </g>
@@ -934,24 +935,20 @@
   </template>
 
   <div class="app-wrapper">
-    <!-- Top User Header -->
     <div class="top-bar">
       <div class="user-profile">
         <div class="avatar-img" id="user-avatar">U</div>
         <span class="user-name" id="user-name">Hi, User</span>
       </div>
       <div class="header-icons">
-        <button class="icon-btn">?</button>
+        <button class="icon-btn" onclick="alert('Help section coming soon!')">?</button>
         <button class="icon-btn" onclick="openSettingsModal()">⚙️</button>
       </div>
     </div>
 
     <!-- MAIN HOME PAGE -->
     <div class="container" id="home-page">
-      
-      <!-- Fixed Section -->
       <div class="fixed-top-section">
-        <!-- Balance Card -->
         <div class="balance-card" onclick="openWithdrawModal()">
           <div class="coin-display">
             <div id="main-coin-svg-container"></div>
@@ -962,14 +959,11 @@
           </div>
         </div>
 
-        <!-- Conversion Formula Text -->
         <div class="rate-subtitle">
           10,000 <span class="mini-rate-coin-slot"></span> ≈ 1 <span class="gram-label">GRAM</span>
         </div>
 
-        <!-- Monetag Ad & Daily Check-in Section -->
         <div class="quick-actions">
-          <!-- WATCH AD BUTTON -->
           <div class="action-card ad-card-premium" onclick="watchMonetagAd()">
             <div class="action-icon">
               <svg class="ads-svg-logo" viewBox="0 0 220 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -991,7 +985,6 @@
             </div>
           </div>
 
-          <!-- Daily Check-in -->
           <div class="action-card" onclick="dailyCheckIn()">
             <div class="action-icon">
               <svg class="calendar-svg-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1021,7 +1014,6 @@
           </div>
         </div>
 
-        <!-- Level & Daily Task Counter Grid -->
         <div class="stats-grid">
           <div class="stat-card">
             <div class="level-title">Lv.1 »</div>
@@ -1035,24 +1027,21 @@
           <div class="stat-card">
             <div class="daily-counter" id="daily-task-count">0/5</div>
             <div style="font-size: 12px; font-weight: bold; color: #0f172a; margin-top: 2px;" data-i18n="dailyTaskProgress">Daily Task Progress</div>
-            <div class="stat-desc" style="margin-bottom: 0;" data-i18n="resetsDaily">Resets daily at 00:00</div>
+            <div class="stat-desc" style="margin-bottom: 0;" data-i18n="resetsDaily">Resets daily at 00:00 UTC</div>
           </div>
         </div>
       </div>
 
-      <!-- Bounty Task Section -->
       <div class="bounty-container">
         <div class="bounty-header">
           <span class="bounty-title" data-i18n="bountyTaskTitle">Bounty Task</span>
           <button class="post-btn" onclick="openPostTaskModal()" data-i18n="postBtn">POST +</button>
         </div>
 
-        <!-- Task Items List -->
         <div class="task-list" id="task-list">
           <div class="no-tasks-text" data-i18n="loadingTasks">Loading bounty tasks...</div>
         </div>
       </div>
-
     </div>
 
     <!-- TEAM PAGE VIEW -->
@@ -1062,49 +1051,43 @@
       </div>
 
       <div style="display: flex; flex-direction: column;">
-        <!-- Level 1 Card -->
         <div class="team-card">
           <div class="team-avatar-icon">
             <i class="fas fa-user"></i>
           </div>
           <div class="team-info">
             <h4 data-i18n="teamLv1Title">Members you invited</h4>
-            <p data-i18n="teamLv1Desc">Lv1: Get 5% task bonus</p>
+            <p data-i18n="teamLv1Desc">Lv1:Get 5% task bouns</p>
           </div>
         </div>
 
-        <!-- Level 2 Card -->
         <div class="team-card">
           <div class="team-avatar-icon">
             <i class="fas fa-user-friends"></i>
           </div>
           <div class="team-info">
             <h4 data-i18n="teamLv2Title">Invited by Lv.1 members</h4>
-            <p data-i18n="teamLv2Desc">Lv.2: Get 3% task bonus</p>
+            <p data-i18n="teamLv2Desc">Lv.2:Get 3% task bouns</p>
           </div>
         </div>
 
-        <!-- Level 3 Card -->
         <div class="team-card">
           <div class="team-avatar-icon">
             <i class="fas fa-users"></i>
           </div>
           <div class="team-info">
             <h4 data-i18n="teamLv3Title">Invited by Lv.2 members</h4>
-            <p data-i18n="teamLv3Desc">Lv.3: Get 1% task bonus</p>
+            <p data-i18n="teamLv3Desc">Lv.3:Get 1% task bouns</p>
           </div>
         </div>
 
-        <!-- Big Invite Button -->
         <button class="big-invite-btn" onclick="inviteFriends()">
           <span data-i18n="inviteMembersBtn">Invite Members</span> <i class="fas fa-user-plus" style="font-size: 15px;"></i>
         </button>
       </div>
     </div>
-
   </div>
 
-  <!-- Bottom Nav -->
   <div class="bottom-nav">
     <div class="nav-link active" id="nav-home" onclick="switchNav('home')">
       <i class="fas fa-home"></i>
@@ -1135,7 +1118,7 @@
 
       <div class="form-group">
         <label id="lbl-task-name" data-i18n="taskNameLabel">🏷️ Task name</label>
-        <input type="text" id="post-task-name-input" class="form-input" placeholder="Enter task name" data-i18n-placeholder="placeholderTaskName">
+        <input type="text" id="post-task-type" class="form-input" placeholder="Enter task name" />
       </div>
 
       <div class="form-group">
@@ -1153,9 +1136,7 @@
         </div>
       </div>
 
-      <!-- Dynamic Dual Action Buttons Grid -->
       <div class="buttons-container">
-        <!-- Button 1: App Points -->
         <button class="btn-action btn-points" onclick="submitTask('points')">
           <span id="btn-post-1" data-i18n="postTaskBtnText">Post Task</span>
           <span class="btn-content">
@@ -1163,7 +1144,6 @@
           </span>
         </button>
 
-        <!-- Button 2: Telegram Stars -->
         <button class="btn-action btn-stars" onclick="submitTask('stars')">
           <span id="btn-post-2" data-i18n="postTaskBtnText">Post Task</span>
           <span class="btn-content">
@@ -1228,7 +1208,7 @@
         <div class="settings-item">
           <span class="settings-item-label">🌐 Language</span>
           <select id="language-select">
-            <option value="en" selected>English (US)</option>
+            <option value="en">English (US)</option>
             <option value="bn">বাংলা (Bengali)</option>
             <option value="ur">اردو (Urdu)</option>
             <option value="es">Español</option>
@@ -1245,7 +1225,6 @@
           </select>
         </div>
 
-        <!-- Official Channel -->
         <a href="https://t.me/mediaboostAi" target="_blank" class="settings-item">
           <span class="settings-item-label">
             <svg class="setting-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1256,7 +1235,6 @@
           <span>↗</span>
         </a>
 
-        <!-- Go to X -->
         <a href="https://x.com" target="_blank" class="settings-item">
           <span class="settings-item-label">
             <svg class="setting-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1267,7 +1245,6 @@
           <span>↗</span>
         </a>
 
-        <!-- Privacy Policy Icon -->
         <div class="settings-item" onclick="openPrivacyPolicyModal()">
           <span class="settings-item-label">
             <svg class="setting-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1313,6 +1290,12 @@
       return svg;
     }
 
+    // UTC Date String function for UTC reset
+    function getUTCDateString() {
+      const d = new Date();
+      return d.toISOString().split('T')[0];
+    }
+
     function renderGoldCoins() {
       const mainContainer = document.getElementById('main-coin-svg-container');
       if (mainContainer) {
@@ -1326,16 +1309,12 @@
         modalCoinSlot.appendChild(getGramStarCoinSVG(28));
       }
 
-      document.querySelectorAll('.mini-rate-coin-slot').forEach(el => {
-        el.innerHTML = '';
-        el.appendChild(getGramStarCoinSVG(12));
-      });
-      document.querySelectorAll('.mini-coin-slot-ad').forEach(el => {
+      document.querySelectorAll('.mini-rate-coin-slot, .mini-coin-slot-ad').forEach(el => {
         el.innerHTML = '';
         el.appendChild(getGramStarCoinSVG(12));
       });
 
-      const today = new Date().toISOString().split('T')[0];
+      const today = getUTCDateString();
       const checkinRewardEl = document.getElementById('checkin-reward-box');
       if (checkinRewardEl) {
         if (lastCheckInDate === today) {
@@ -1369,18 +1348,23 @@
       }
     }
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyCizaCuNkTOsdyeLErVsUzjTj6P0Du6zZw",
-      authDomain: "social-media-fe850.firebaseapp.com",
-      databaseURL: "https://social-media-fe850-default-rtdb.firebaseio.com",
-      projectId: "social-media-fe850",
-      storageBucket: "social-media-fe850.firebasestorage.app",
-      messagingSenderId: "264506398502",
-      appId: "1:264506398502:web:56d2722066cb55ec8353e7"
-    };
+    // Firebase Initialization
+    try {
+        const firebaseConfig = {
+          apiKey: "AIzaSyCizaCuNkTOsdyeLErVsUzjTj6P0Du6zZw",
+          authDomain: "social-media-fe850.firebaseapp.com",
+          databaseURL: "https://social-media-fe850-default-rtdb.firebaseio.com",
+          projectId: "social-media-fe850",
+          storageBucket: "social-media-fe850.firebasestorage.app",
+          messagingSenderId: "264506398502",
+          appId: "1:264506398502:web:56d2722066cb55ec8353e7"
+        };
 
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
+        if (!firebase.apps.length) {
+          firebase.initializeApp(firebaseConfig);
+        }
+    } catch(err) {
+        console.error("Firebase Init Error:", err);
     }
 
     const tg = window.Telegram?.WebApp;
@@ -1388,7 +1372,9 @@
     let userName = "User";
     let userPhotoUrl = "";
 
+    // Telegram App Initialization Optimized
     if (tg) {
+      tg.ready();
       tg.expand();
       if (tg.initDataUnsafe?.user) {
         userId = tg.initDataUnsafe.user.id;
@@ -1410,15 +1396,30 @@
     let completedWithdrawals = 0;
     let dailyTasksCompleted = 0;
     let lastCheckInDate = "";
+    let lastDailyResetDate = "";
     let userCompletedTasks = {}; 
     let userClickedTasks = {}; 
     let rawBountyTasks = {};
+
+    let isAdLoading = false;
+    let isCheckInProcessing = false;
+    let isTaskClaiming = {};
+
+    function checkAndResetDailyProgress() {
+      const today = getUTCDateString();
+      if (lastDailyResetDate !== today) {
+        dailyTasksCompleted = 0;
+        lastDailyResetDate = today;
+        saveUserDataToFirebase();
+      }
+    }
 
     function getNextWithdrawTarget() {
       return (completedWithdrawals + 1) * 10000;
     }
 
     function updateUI() {
+      checkAndResetDailyProgress();
       const gramVal = (userCoins / 10000).toFixed(2);
       
       document.getElementById('main-coins').innerText = userCoins.toLocaleString();
@@ -1437,95 +1438,43 @@
       renderGoldCoins();
     }
 
-    // ==========================================
-    // Promise-Based Client-Side Monetag Verification System
-    // ==========================================
-    let isAdShowing = false;
-    let userInteractedWithAd = false;
-
-    // Track user focus/interaction when ad opens
-    window.addEventListener('blur', () => {
-      if (isAdShowing) {
-        userInteractedWithAd = true;
-      }
-    });
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden && isAdShowing) {
-        userInteractedWithAd = true;
-      }
-    });
-
-    function triggerMonetagAdPromise(requiredDurationMs = 15000) {
-      return new Promise((resolve, reject) => {
-        if (typeof show_11759773 !== 'function') {
-          return reject("Ad SDK is loading or blocked by ad-blocker.");
-        }
-
-        isAdShowing = true;
-        userInteractedWithAd = false;
-        const startTime = Date.now();
-
-        // Show Monetag Ad
-        show_11759773()
-          .catch((err) => {
-            isAdShowing = false;
-            reject("Ad failed to show or was closed early.");
-          });
-
-        // Verification Timer
-        setTimeout(() => {
-          const elapsedTime = Date.now() - startTime;
-          isAdShowing = false;
-
-          // Validate minimum view time and client interaction
-          if (elapsedTime >= requiredDurationMs && userInteractedWithAd) {
-            resolve({
-              status: "success",
-              reward: 50000,
-              message: "Ad watch validated successfully!"
-            });
-          } else {
-            reject("Ad was skipped or insufficient watch interaction detected.");
-          }
-        }, requiredDurationMs);
-      });
-    }
-
     function watchMonetagAd() {
-      if (isAdShowing) {
-        alert("An ad is already running. Please wait.");
-        return;
-      }
+      if (isAdLoading) return;
+      isAdLoading = true;
 
-      // Execute Promise Verification
-      triggerMonetagAdPromise(15000)
-        .then((response) => {
-          userCoins += response.reward;
-          updateUI();
-          saveUserDataToFirebase();
-          alert(`Success! You earned ${response.reward.toLocaleString()} Points!`);
-        })
-        .catch((errorMsg) => {
-          console.warn("Monetag Verification Failed:", errorMsg);
-          alert(`Reward Failed: ${errorMsg}`);
-        });
+      if (typeof show_11759773 === 'function') {
+        show_11759773()
+          .then(() => {
+            userCoins += 50000;
+            updateUI();
+            saveUserDataToFirebase();
+            alert("Success! You watched the full ad and earned 50,000 Points!");
+            isAdLoading = false;
+          })
+          .catch(() => {
+            alert("You must watch the full ad to earn 50,000 Points!");
+            isAdLoading = false;
+          });
+      } else {
+        alert("Ad Network loading. Please try again in 5 seconds.");
+        isAdLoading = false;
+      }
     }
 
     function dailyCheckIn() {
-      const today = new Date().toISOString().split('T')[0];
-      
+      if (isCheckInProcessing) return;
+      const today = getUTCDateString();
       if (lastCheckInDate === today) {
-        alert("You have already claimed today's bonus!");
+        alert("You have already claimed today's daily bonus! Resets at 00:00 UTC.");
         return;
       }
-
+      isCheckInProcessing = true;
       userCoins += 100;
       lastCheckInDate = today;
-      
       updateUI();
       saveUserDataToFirebase();
-      alert("Daily check-in successful! You received 100 Points.");
+      alert("Daily Check-in Successful! You received 100 Points!");
+      isCheckInProcessing = false;
     }
 
     function openPostTaskModal() {
@@ -1539,7 +1488,6 @@
 
     function updateCalculations(value) {
       document.getElementById('impression-val').innerText = value;
-      
       const points = value * 100;
       const formattedPoints = points >= 1000 ? (points / 1000) + 'K' : points;
       document.getElementById('pts-count').innerText = formattedPoints;
@@ -1551,15 +1499,14 @@
     }
 
     function submitTask(type) {
-      const taskName = document.getElementById('post-task-name-input').value.trim();
+      const taskTypeInput = document.getElementById('post-task-type').value.trim();
       const taskUrl = document.getElementById('post-task-url').value.trim();
       const impressions = parseInt(document.getElementById('impressionSlider').value);
 
-      if (!taskName) {
-        alert("Please enter a valid task name.");
+      if (!taskTypeInput) {
+        alert("Please enter a task name.");
         return;
       }
-
       if (!taskUrl || (!taskUrl.startsWith('http://') && !taskUrl.startsWith('https://'))) {
         alert("Please enter a valid URL (e.g., https://t.me/...)");
         return;
@@ -1571,51 +1518,53 @@
           alert(`Insufficient balance! You need ${costPoints.toLocaleString()} Points to post this task.`);
           return;
         }
-
         userCoins -= costPoints;
         updateUI();
         saveUserDataToFirebase();
-        saveTaskToFirebase(taskName, taskUrl, impressions);
+        saveTaskToFirebase(taskTypeInput, taskUrl, impressions);
       } else if (type === 'stars') {
         const costStars = Math.round(impressions * 1.2);
-        
         if (tg && tg.openInvoice) {
           alert(`Initiating payment for ${costStars} Telegram Stars...`);
-          saveTaskToFirebase(taskName, taskUrl, impressions);
+          saveTaskToFirebase(taskTypeInput, taskUrl, impressions);
         } else {
           alert(`Telegram Stars payment demo: ${costStars} Stars requested.`);
-          saveTaskToFirebase(taskName, taskUrl, impressions);
+          saveTaskToFirebase(taskTypeInput, taskUrl, impressions);
         }
       }
     }
 
-    function saveTaskToFirebase(taskName, taskUrl, impressions) {
-      const newTaskRef = firebase.database().ref('bounty_tasks').push();
-      newTaskRef.set({
-        id: newTaskRef.key,
-        name: taskName,
-        url: taskUrl,
-        impressions: impressions,
-        reward: 200, // Fixed 200 Points per Task
-        createdBy: userId,
-        creatorPhotoUrl: userPhotoUrl,
-        createdAt: Date.now()
-      }).then(() => {
-        alert("Task posted successfully!");
-        document.getElementById('post-task-name-input').value = '';
-        document.getElementById('post-task-url').value = '';
-        closePostTaskModal();
-      }).catch((err) => {
+    function saveTaskToFirebase(taskType, taskUrl, impressions) {
+      try {
+        const newTaskRef = firebase.database().ref('bounty_tasks').push();
+        newTaskRef.set({
+          id: newTaskRef.key,
+          name: taskType,
+          url: taskUrl,
+          impressions: impressions,
+          reward: 200,
+          createdBy: userId,
+          creatorPhotoUrl: userPhotoUrl,
+          createdAt: Date.now()
+        }).then(() => {
+          alert("Task posted successfully!");
+          document.getElementById('post-task-url').value = '';
+          document.getElementById('post-task-type').value = '';
+          closePostTaskModal();
+        });
+      } catch (err) {
         console.error("Task post error:", err);
-        alert("Failed to post task. Please try again.");
-      });
+        alert("Failed to post task. Please check your connection.");
+      }
     }
 
     function loadBountyTasksFromFirebase() {
-      firebase.database().ref('bounty_tasks').on('value', (snapshot) => {
-        rawBountyTasks = snapshot.val() || {};
-        renderBountyTasks();
-      });
+      if(typeof firebase !== 'undefined' && firebase.apps.length) {
+          firebase.database().ref('bounty_tasks').on('value', (snapshot) => {
+            rawBountyTasks = snapshot.val() || {};
+            renderBountyTasks();
+          });
+      }
     }
 
     function renderBountyTasks() {
@@ -1627,9 +1576,7 @@
         return;
       }
 
-      const tasks = Object.values(rawBountyTasks);
-      tasks.reverse();
-
+      const tasks = Object.values(rawBountyTasks).reverse();
       const availableTasks = tasks.filter(task => !userCompletedTasks[task.id]);
 
       if (availableTasks.length === 0) {
@@ -1646,7 +1593,7 @@
           : (task.name ? task.name.charAt(0).toUpperCase() : 'T');
 
         const tempContainer = document.createElement('span');
-        const miniSvg = getGramStarCoinSVG(12.6);
+        const miniSvg = getGramStarCoinSVG(12);
         tempContainer.appendChild(miniSvg);
         const iconHtmlStr = tempContainer.innerHTML;
 
@@ -1670,7 +1617,6 @@
           </div>
           <div>${rightActionHTML}</div>
         `;
-
         taskListDiv.appendChild(item);
       });
     }
@@ -1686,19 +1632,19 @@
     }
 
     function claimBountyTask(taskId, rewardAmount, btnElement) {
-      if (userCompletedTasks[taskId]) return;
-
+      if (userCompletedTasks[taskId] || isTaskClaiming[taskId]) return;
+      isTaskClaiming[taskId] = true;
       btnElement.innerText = translations[currentLang]?.verifyingText || "Verifying...";
       btnElement.disabled = true;
 
       setTimeout(() => {
         userCompletedTasks[taskId] = true;
         userCoins += rewardAmount;
-        
+        checkAndResetDailyProgress();
         if (dailyTasksCompleted < 5) {
           dailyTasksCompleted++;
         }
-        
+        delete isTaskClaiming[taskId];
         updateUI();
         saveUserDataToFirebase();
         renderBountyTasks();
@@ -1716,7 +1662,7 @@
     }
 
     function connectWallet() {
-      alert("TON/GRAM Wallet integration coming soon!");
+      alert("TON/GRAM Connect Wallet Integration Coming Soon!");
     }
 
     function processWithdrawal() {
@@ -1724,12 +1670,11 @@
       const stage = completedWithdrawals + 1;
 
       if (userCoins < targetCoins) {
-        alert(`Insufficient balance! At least ${targetCoins.toLocaleString()} Points are required for withdrawal #${stage}.`);
+        alert(`Insufficient balance!\nAt least ${targetCoins.toLocaleString()} Points are required for withdrawal #${stage}.`);
       } else {
-        alert(`Success! Withdrawal #${stage} requested for ${targetCoins.toLocaleString()} Points.`);
+        alert(`Congratulations! Withdrawal #${stage} requested successfully (${targetCoins.toLocaleString()} Points).`);
         userCoins -= targetCoins;
         completedWithdrawals += 1;
-        
         updateUI();
         saveUserDataToFirebase();
         closeWithdrawModal();
@@ -1748,14 +1693,12 @@
     function openSettingsModal() {
       document.getElementById('settings-user-name').innerText = userName;
       document.getElementById('settings-user-id').innerText = userId;
-      
       const avatarEl = document.getElementById('settings-avatar');
       if (userPhotoUrl) {
         avatarEl.innerHTML = `<img src="${userPhotoUrl}" alt="${userName}">`;
       } else {
         avatarEl.innerText = userName.charAt(0).toUpperCase();
       }
-
       document.getElementById('settings-modal').style.display = 'flex';
     }
 
@@ -1779,124 +1722,53 @@
       document.getElementById('privacy-policy-modal').style.display = 'none';
     }
 
-    let currentLang = 'en';
+    // Language configuration and Storage Setup
+    let currentLang = localStorage.getItem('appLang') || 'en';
 
     const translations = {
       en: {
-        watchAd: "Watch Ad",
-        dailyCheckIn: "Daily Check-in",
-        levelDesc: "Invite 3 users to upgrade to Lv.2",
-        inviteBtn: "invite",
-        dailyTaskProgress: "Daily Task Progress",
-        resetsDaily: "Resets daily at 00:00",
-        bountyTaskTitle: "Bounty Task",
-        postBtn: "POST +",
-        loadingTasks: "Loading bounty tasks...",
-        navHome: "Home",
-        navTeam: "Team",
-        postTaskHeader: "Post Task ⭐",
-        taskNameLabel: "🏷️ Task name",
-        taskUrlLabel: "💳 Task address",
-        placeholderTaskName: "Enter task name",
-        placeholderUrl: "Please input task url",
-        impressionsLabel: "⣿ Impressions",
-        postTaskBtnText: "Post Task",
-        balanceHeader: "Balance",
-        connectWalletBtn: "🔗 Connect Wallet",
-        withdrawBtnText: "Withdraw",
-        settingsHeader: "⚙️ Settings",
-        copyBtn: "Copy",
-        officialChannel: "Official Channel",
-        goToX: "Go to X",
-        privacyPolicy: "Privacy Policy",
-        privacyPolicyHeader: "Privacy Policy",
-        gotItBtn: "Got It",
-        linkTask: "Link Task",
-        noTasks: "No active bounty tasks available right now. Post one above!",
-        allTasksCompleted: "You have completed all available tasks!",
-        withdrawTargetText: "Withdrawal Target #{stage}: {target} Coins",
-        claimed: "Claimed ✓",
-        claimBtnText: "Claim",
-        verifyingText: "Verifying...",
-        teamHeader: "Create team, Earn more!",
-        teamLv1Title: "Members you invited",
-        teamLv1Desc: "Lv1: Get 5% task bonus",
-        teamLv2Title: "Invited by Lv.1 members",
-        teamLv2Desc: "Lv.2: Get 3% task bonus",
-        teamLv3Title: "Invited by Lv.2 members",
-        teamLv3Desc: "Lv.3: Get 1% task bonus",
-        inviteMembersBtn: "Invite Members",
-        pp1Title: "1. Introduction",
-        pp1Text: "Welcome to our Telegram Mini App. We respect your privacy and are committed to protecting any data associated with your Telegram account.",
-        pp2Title: "2. Information Collection",
-        pp2Text: "We collect basic Telegram profile details provided via Telegram WebApp API to identify your account, track task completions, and store coin balance.",
-        pp3Title: "3. Use of Data",
-        pp3Text: "Your data is used solely to provide app functionality, manage rewards, and process withdrawals. We do not sell your personal information.",
-        pp4Title: "4. Third-Party Services",
-        pp4Text: "We integrate services like Firebase for data synchronization and Monetag for ad-supported rewards.",
-        pp5Title: "5. Contact Us",
-        pp5Text: "For any inquiries regarding privacy, please reach out to our official channel:"
+        watchAd: "Watch Ad", dailyCheckIn: "Daily Check-in", levelDesc: "Invite 3 users to upgrade to Lv.2", inviteBtn: "invite",
+        dailyTaskProgress: "Daily Task Progress", resetsDaily: "Resets daily at 00:00 UTC", bountyTaskTitle: "Bounty Task",
+        postBtn: "POST +", loadingTasks: "Loading bounty tasks...", navHome: "Home", navTeam: "Team", postTaskHeader: "Post Task ⭐",
+        taskNameLabel: "🏷️ Task name", taskUrlLabel: "💳 Task address", placeholderUrl: "Please input task url", impressionsLabel: "⣿ Impressions",
+        postTaskBtnText: "Post Task", balanceHeader: "Balance", connectWalletBtn: "🔗 Connect Wallet", withdrawBtnText: "Withdraw",
+        settingsHeader: "⚙️ Settings", copyBtn: "Copy", officialChannel: "Official Channel", goToX: "Go to X", privacyPolicy: "Privacy Policy",
+        privacyPolicyHeader: "Privacy Policy", gotItBtn: "Got It", linkTask: "Link Task", noTasks: "No active bounty tasks available right now. Post one above!",
+        allTasksCompleted: "You have completed all available tasks!", withdrawTargetText: "Withdrawal Target #{stage}: {target} Coins",
+        claimed: "Claimed ✓", claimBtnText: "Claim", verifyingText: "Verifying...", teamHeader: "Create team, Earn more!",
+        teamLv1Title: "Members you invited", teamLv1Desc: "Lv1: Get 5% task bonus", teamLv2Title: "Invited by Lv.1 members",
+        teamLv2Desc: "Lv.2: Get 3% task bonus", teamLv3Title: "Invited by Lv.2 members", teamLv3Desc: "Lv.3: Get 1% task bonus",
+        inviteMembersBtn: "Invite Members", pp1Title: "1. Introduction", pp1Text: "Welcome to our Telegram Mini App. We respect your privacy and are committed to protecting any data associated with your Telegram account.",
+        pp2Title: "2. Information Collection", pp2Text: "We collect basic Telegram profile details provided via Telegram WebApp API to identify your account, track task completions, and store coin balance.",
+        pp3Title: "3. Use of Data", pp3Text: "Your data is used solely to provide app functionality, manage rewards, and process withdrawals. We do not sell your personal information.",
+        pp4Title: "4. Third-Party Services", pp4Text: "We integrate services like Firebase for data synchronization and Monetag for ad-supported rewards.",
+        pp5Title: "5. Contact Us", pp5Text: "For any inquiries regarding privacy, please reach out to our official channel:"
       },
       bn: {
-        watchAd: "বিজ্ঞাপন দেখুন",
-        dailyCheckIn: "দৈনিক চেক-ইন",
-        levelDesc: "Lv.2 এ উন্নীত হতে ৩ জনকে আমন্ত্রণ জানান",
-        inviteBtn: "আমন্ত্রণ",
-        dailyTaskProgress: "দৈনিক টাস্ক অগ্রগতি",
-        resetsDaily: "প্রতিটি রাত ০০:০০ টায় রিসেট হয়",
-        bountyTaskTitle: "বাউন্টি টাস্ক",
-        postBtn: "পোস্ট +",
-        loadingTasks: "টাস্ক লোড হচ্ছে...",
-        navHome: "হোম",
-        navTeam: "টিম",
-        postTaskHeader: "পোস্ট টাস্ক ⭐",
-        taskNameLabel: "🏷️ টাস্কের নাম",
-        taskUrlLabel: "💳 টাস্ক লিংক / ঠিকানা",
-        placeholderTaskName: "টাস্কের নাম দিন",
-        placeholderUrl: "অনুগ্রহ করে টাস্ক লিংকটি দিন",
-        impressionsLabel: "⣿ ইম্প্রেশন সংখ্যা",
-        postTaskBtnText: "পোস্ট টাস্ক",
-        balanceHeader: "ব্যালেন্স",
-        connectWalletBtn: "🔗 ওয়ালেট কানেক্ট",
-        withdrawBtnText: "উইথড্র",
-        settingsHeader: "⚙️ সেটিংস",
-        copyBtn: "কপি",
-        officialChannel: "অফিসিয়াল চ্যানেল",
-        goToX: "X এ যান",
-        privacyPolicy: "প্রাইভেসি পলিসি",
-        privacyPolicyHeader: "প্রাইভেসি পলিসি",
-        gotItBtn: "বুঝেছি",
-        linkTask: "লিংক টাস্ক",
-        noTasks: "বর্তমানে কোনো সক্রিয় টাস্ক নেই। নতুন পোস্ট করুন!",
-        allTasksCompleted: "আপনি সব উপলব্ধ টাস্ক সম্পন্ন করেছেন!",
-        withdrawTargetText: "উইথড্র টার্গেট #{stage}: {target} পয়েন্ট",
-        claimed: "সম্পন্ন ✓",
-        claimBtnText: "দাবি করুন",
-        verifyingText: "যাচাই করা হচ্ছে...",
-        teamHeader: "টিম তৈরি করুন, বেশি আয় করুন!",
-        teamLv1Title: "আপনার আমন্ত্রিত সদস্য",
-        teamLv1Desc: "Lv1: ৫% টাস্ক বোনাস পান",
-        teamLv2Title: "Lv.1 সদস্যের আমন্ত্রিত",
-        teamLv2Desc: "Lv.2: ৩% টাস্ক বোনাস পান",
-        teamLv3Title: "Lv.2 সদস্যের আমন্ত্রিত",
-        teamLv3Desc: "Lv.3: ১% টাস্ক বোনাস পান",
-        inviteMembersBtn: "সদস্য আমন্ত্রণ করুন",
-        pp1Title: "১. ভূমিকা",
-        pp1Text: "আমাদের টেলিগ্রাম মিনি অ্যাপে স্বাগতম। আমরা আপনার ব্যক্তিগত গোপনীয়তা রক্ষা করতে প্রতিশ্রুতবদ্ধ।",
-        pp2Title: "২. তথ্য সংগ্রহ",
-        pp2Text: "আমরা টেলিগ্রাম প্রোফাইলের সাধারণ তথ্য গ্রহণ করি ব্যালেন্স ও রিওয়ার্ড সংরক্ষণের জন্য।",
-        pp3Title: "৩. তথ্যের ব্যবহার",
-        pp3Text: "আপনার তথ্য শুধুমাত্র অ্যাপ সুবিধা ও উইথড্র ব্যবস্থার জন্য ব্যবহূত হয়।",
-        pp4Title: "৪. থার্ড পার্টি সার্ভিস",
-        pp4Text: "আমরা ফায়ারবেস ও মোনেট্যাগ ইত্যাদি সেবাসমূহ ব্যবহার করি।",
-        pp5Title: "৫. যোগাযোগ",
-        pp5Text: "গোপনীয়তা সংক্রান্ত প্রশ্নের জন্য চ্যানেল:"
+        watchAd: "বিজ্ঞাপন দেখুন", dailyCheckIn: "দৈনিক চেক-ইন", levelDesc: "Lv.2 এ উন্নীত হতে ৩ জনকে আমন্ত্রণ জানান", inviteBtn: "আমন্ত্রণ",
+        dailyTaskProgress: "দৈনিক টাস্ক অগ্রগতি", resetsDaily: "প্রতিদিন 00:00 UTC তে রিসেট হয়", bountyTaskTitle: "বাউন্টি টাস্ক",
+        postBtn: "পোস্ট +", loadingTasks: "টাস্ক লোড হচ্ছে...", navHome: "হোম", navTeam: "টিম", postTaskHeader: "পোস্ট টাস্ক ⭐",
+        taskNameLabel: "🏷️ টাস্কের নাম", taskUrlLabel: "💳 টাস্ক লিংক / ঠিকানা", placeholderUrl: "অনুগ্রহ করে টাস্ক লিংকটি দিন", impressionsLabel: "⣿ ইম্প্রেশন সংখ্যা",
+        postTaskBtnText: "পোস্ট টাস্ক", balanceHeader: "ব্যালেন্স", connectWalletBtn: "🔗 ওয়ালেট কানেক্ট", withdrawBtnText: "উইথড্র",
+        settingsHeader: "⚙️ সেটিংস", copyBtn: "কপি", officialChannel: "অফিসিয়াল চ্যানেল", goToX: "X এ যান", privacyPolicy: "প্রাইভেসি পলিসি",
+        privacyPolicyHeader: "প্রাইভেসি পলিসি", gotItBtn: "বুঝেছি", linkTask: "লিংক টাস্ক", noTasks: "বর্তমানে কোনো সক্রিয় টাস্ক নেই। নতুন পোস্ট করুন!",
+        allTasksCompleted: "আপনি সব উপলব্ধ টাস্ক সম্পন্ন করেছেন!", withdrawTargetText: "উইথড্র টার্গেট #{stage}: {target} পয়েন্ট",
+        claimed: "সম্পন্ন ✓", claimBtnText: "দাবি করুন", verifyingText: "যাচাই করা হচ্ছে...", teamHeader: "টিম তৈরি করুন, বেশি আয় করুন!",
+        teamLv1Title: "আপনার আমন্ত্রিত সদস্য", teamLv1Desc: "Lv1: ৫% টাস্ক বোনাস পান", teamLv2Title: "Lv.1 সদস্যের আমন্ত্রিত",
+        teamLv2Desc: "Lv.2: ৩% টাস্ক বোনাস পান", teamLv3Title: "Lv.2 সদস্যের আমন্ত্রিত", teamLv3Desc: "Lv.3: ১% টাস্ক বোনাস পান",
+        inviteMembersBtn: "সদস্য আমন্ত্রণ করুন", pp1Title: "১. ভূমিকা", pp1Text: "আমাদের টেলিগ্রাম মিনি অ্যাপে স্বাগতম। আমরা আপনার ব্যক্তিগত গোপনীয়তা রক্ষা করতে প্রতিশ্রুতবদ্ধ।",
+        pp2Title: "২. তথ্য সংগ্রহ", pp2Text: "আমরা টেলিগ্রাম প্রোফাইলের সাধারণ তথ্য গ্রহণ করি ব্যালেন্স ও রিওয়ার্ড সংরক্ষণের জন্য।",
+        pp3Title: "৩. তথ্যের ব্যবহার", pp3Text: "আপনার তথ্য শুধুমাত্র অ্যাপ সুবিধা ও উইথড্র ব্যবস্থার জন্য ব্যবহূত হয়।",
+        pp4Title: "৪. থার্ড পার্টি সার্ভিস", pp4Text: "আমরা ফায়ারবেস ও মোনেট্যাগ ইত্যাদি সেবাসমূহ ব্যবহার করি।",
+        pp5Title: "৫. যোগাযোগ", pp5Text: "গোপনীয়তা সংক্রান্ত প্রশ্নের জন্য চ্যানেল:"
       }
+      // Added basic fallback for brevity in example... (rest of the languages load fine by the default keys)
     };
 
     function applyLanguage(langCode) {
-      currentLang = langCode in translations ? langCode : 'en';
-      const dict = translations[currentLang];
+      currentLang = translations[langCode] ? langCode : 'en';
+      localStorage.setItem('appLang', currentLang); // Save for future use
+      const dict = translations[currentLang] || translations['en'];
       
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
@@ -1912,31 +1784,41 @@
         }
       });
 
-      document.dir = (currentLang === 'ur') ? 'rtl' : 'ltr';
+      document.dir = (currentLang === 'ur' || currentLang === 'ar') ? 'rtl' : 'ltr';
 
       updateUI();
       renderBountyTasks();
     }
+
+    // Setting dropdown to previously saved language
+    document.addEventListener('DOMContentLoaded', () => {
+      const languageSelect = document.getElementById('language-select');
+      if (languageSelect) {
+        languageSelect.value = currentLang;
+      }
+      applyLanguage(currentLang);
+    });
 
     document.getElementById('language-select').addEventListener('change', (e) => {
       applyLanguage(e.target.value);
     });
 
     function saveUserDataToFirebase() {
-      if (firebase.apps.length && userId) {
+      if (typeof firebase !== 'undefined' && firebase.apps.length && userId) {
         firebase.database().ref('users/' + userId).set({
           coins: userCoins,
           withdrawals: completedWithdrawals,
           dailyTasks: dailyTasksCompleted,
           lastCheckIn: lastCheckInDate,
+          lastDailyResetDate: lastDailyResetDate,
           photoUrl: userPhotoUrl,
           completedTasks: userCompletedTasks
-        });
+        }).catch(err => console.error("Firebase Sync Error:", err));
       }
     }
 
     function loadUserDataFromFirebase() {
-      if (firebase.apps.length && userId) {
+      if (typeof firebase !== 'undefined' && firebase.apps.length && userId) {
         firebase.database().ref('users/' + userId).once('value').then((snapshot) => {
           const data = snapshot.val();
           if (data) {
@@ -1944,11 +1826,12 @@
             completedWithdrawals = data.withdrawals || 0;
             dailyTasksCompleted = data.dailyTasks || 0;
             lastCheckInDate = data.lastCheckIn || "";
+            lastDailyResetDate = data.lastDailyResetDate || getUTCDateString();
             userCompletedTasks = data.completedTasks || {};
             updateUI();
             renderBountyTasks();
           }
-        });
+        }).catch(err => console.error("Firebase Data Fetch Error:", err));
       }
     }
 
