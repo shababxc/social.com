@@ -558,10 +558,10 @@
       });
 
       if (savedBotToken) {
-        const messageText = `🎉 *Congratulations ${userName}!* \n\nYour withdrawal request for *${gramAmount} $GRAM* (Stage #${stage}) has been *Approved & Sent* to your wallet:\n💳 \`${walletAddress}\`\n\nThank you for using our platform! 🚀`;
+        const messageText = `🎉 <b>Congratulations ${userName}!</b> \n\nYour withdrawal request for <b>${gramAmount} $GRAM</b> (Stage #${stage}) has been <b>Approved & Sent</b> to your wallet:\n💳 <code>${walletAddress}</code>\n\nThank you for using our platform! 🚀`;
         
         try {
-          const url = `https://api.telegram.org/bot${savedBotToken}/sendMessage?chat_id=${userId}&text=${encodeURIComponent(messageText)}&parse_mode=Markdown`;
+          const url = `https://api.telegram.org/bot${savedBotToken}/sendMessage?chat_id=${userId}&text=${encodeURIComponent(messageText)}&parse_mode=HTML`;
           await fetch(url);
           alert("Withdrawal Approved & Telegram Notification Sent successfully!");
         } catch (e) {
@@ -595,9 +595,9 @@
       }
 
       if (savedBotToken) {
-        const messageText = `❌ *Withdrawal Update*\n\nYour withdrawal request for *${gramAmount} $GRAM* has been rejected. *${parseInt(coins).toLocaleString()} Coins* have been refunded to your account balance.`;
+        const messageText = `❌ <b>Withdrawal Update</b>\n\nYour withdrawal request for <b>${gramAmount} $GRAM</b> has been rejected. <b>${parseInt(coins).toLocaleString()} Coins</b> have been refunded to your account balance.`;
         try {
-          const url = `https://api.telegram.org/bot${savedBotToken}/sendMessage?chat_id=${userId}&text=${encodeURIComponent(messageText)}&parse_mode=Markdown`;
+          const url = `https://api.telegram.org/bot${savedBotToken}/sendMessage?chat_id=${userId}&text=${encodeURIComponent(messageText)}&parse_mode=HTML`;
           await fetch(url);
         } catch (e) {}
       }
