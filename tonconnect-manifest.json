@@ -1,7 +1,7 @@
 {
-  "url": "https://https://social-com-red.vercel.app/",
+  "url": "https://social-com-red.vercel.app",
   "name": "MediaBoost Mini App",
-  "iconUrl": "https://your-new-app-domain.com/icon.png",
-  "termsOfUseUrl": "https://your-new-app-domain.com/terms.html",
-  "privacyPolicyUrl": "https://your-new-app-domain.com/privacy.html"
+  "iconUrl": "https://social-com-red.vercel.app/icon.png",
+  "termsOfUseUrl": "https://social-com-red.vercel.app",
+  "privacyPolicyUrl": "https://social-com-red.vercel.app"
 }
