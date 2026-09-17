@@ -19,6 +19,7 @@
       --accent-blue: #38bdf8;
       --success: #22c55e;
       --danger: #ef4444;
+      --warning: #f59e0b;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
     }
@@ -53,9 +54,10 @@
       gap: 8px;
     }
 
+    /* Live Analytics & Stats Grid */
     .stats-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
       gap: 12px;
       margin-bottom: 20px;
     }
@@ -64,21 +66,30 @@
       background: var(--card-dark);
       border: 1px solid var(--border-dark);
       border-radius: 12px;
-      padding: 14px;
+      padding: 14px 10px;
       text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .stat-box i {
+      font-size: 18px;
+      margin-bottom: 6px;
+      display: block;
     }
 
     .stat-box h3 {
-      font-size: 22px;
+      font-size: 20px;
       color: var(--text-main);
       margin-bottom: 4px;
+      font-weight: 800;
     }
 
     .stat-box p {
-      font-size: 11px;
+      font-size: 10.5px;
       color: var(--text-muted);
       text-transform: uppercase;
       font-weight: bold;
+      letter-spacing: 0.5px;
     }
 
     .config-card {
@@ -322,17 +333,35 @@
     <button class="copy-btn" onclick="location.reload()"><i class="fas fa-sync-alt"></i> Refresh</button>
   </div>
 
-  <!-- Stats Grid -->
+  <!-- Live Analytics Stats Grid (Total Users, Active Today, Ads Run, Withdrawals) -->
   <div class="stats-container">
     <div class="stat-box">
+      <i class="fas fa-users" style="color: var(--accent-blue);"></i>
+      <h3 id="stat-total-users">0</h3>
+      <p>Total Users</p>
+    </div>
+    <div class="stat-box">
+      <i class="fas fa-user-check" style="color: var(--success);"></i>
+      <h3 id="stat-active-today">0</h3>
+      <p>Active Today</p>
+    </div>
+    <div class="stat-box">
+      <i class="fas fa-bullhorn" style="color: var(--warning);"></i>
+      <h3 id="stat-total-tasks">0</h3>
+      <p>Total Ads Run</p>
+    </div>
+    <div class="stat-box">
+      <i class="fas fa-clock" style="color: var(--warning);"></i>
       <h3 id="stat-pending">0</h3>
       <p>Pending</p>
     </div>
     <div class="stat-box">
+      <i class="fas fa-check-circle" style="color: var(--success);"></i>
       <h3 id="stat-approved">0</h3>
       <p>Approved</p>
     </div>
     <div class="stat-box">
+      <i class="fas fa-coins" style="color: var(--accent-blue);"></i>
       <h3 id="stat-total-gram">0</h3>
       <p>Total $GRAM Paid</p>
     </div>
@@ -359,8 +388,8 @@
   <div class="requests-list" id="requests-list">
     <div style="text-align: center; color: var(--text-muted); padding: 20px;">Loading requests...</div>
   </div>
-<script>
-    // Master Strong Password (You can change this password to whatever you want)
+
+  <script>
     const MASTER_ADMIN_PASSWORD = "Admin#Secure$9988";
 
     let failedAttempts = parseInt(localStorage.getItem('admin_failed_attempts') || '0');
@@ -404,7 +433,7 @@
         localStorage.setItem('admin_failed_attempts', failedAttempts.toString());
 
         if (failedAttempts >= 3) {
-          const lockTime = Date.now() + 15 * 60 * 1000; // 15 Minutes Lockout
+          const lockTime = Date.now() + 15 * 60 * 1000;
           localStorage.setItem('admin_lockout_until', lockTime.toString());
           lockoutUntil = lockTime;
           checkLockout();
@@ -459,11 +488,37 @@
       renderRequests();
     }
 
+    // 1. Live Withdrawal Requests Listener
     function loadWithdrawRequests() {
       firebase.database().ref('withdraw_requests').on('value', (snapshot) => {
         allRequests = snapshot.val() || {};
         updateStats();
         renderRequests();
+      });
+    }
+
+    // 2. Live Users & Ads Analytics Listener
+    function loadAppAnalytics() {
+      const today = new Date().toISOString().split('T')[0];
+
+      // A. Real-time Total & Active Users
+      firebase.database().ref('users').on('value', (snapshot) => {
+        const users = snapshot.val() || {};
+        const userList = Object.values(users);
+        const totalUsers = Object.keys(users).length;
+
+        // Active today if they checked in today or completed a task today
+        const activeToday = userList.filter(u => u.lastCheckIn === today || u.lastTaskDate === today).length;
+
+        document.getElementById('stat-total-users').innerText = totalUsers.toLocaleString();
+        document.getElementById('stat-active-today').innerText = activeToday.toLocaleString();
+      });
+
+      // B. Real-time Total Bounty Ads Run
+      firebase.database().ref('bounty_tasks').on('value', (snapshot) => {
+        const tasks = snapshot.val() || {};
+        const totalTasks = Object.keys(tasks).length;
+        document.getElementById('stat-total-tasks').innerText = totalTasks.toLocaleString();
       });
     }
 
@@ -498,7 +553,6 @@
           timeStyle: 'short'
         });
 
-        // BUG FIX: యూজারের নামে থাকা সিঙ্গেল কোট (') নিরাপদ করা হলো
         const safeUserName = req.userName ? req.userName.replace(/'/g, "\\'") : 'User';
 
         let actionsHTML = '';
@@ -629,7 +683,9 @@
       alert("Request Rejected & Coins Refunded to user balance successfully!");
     }
 
+    // Initialize All Listeners
     loadWithdrawRequests();
+    loadAppAnalytics();
   </script>
-  </body>
+</body>
 </html>
