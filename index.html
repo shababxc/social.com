@@ -741,11 +741,1289 @@
       margin-top: 2px;
     }
 
-    .strike-through {
-      text-decoration: line-through;
-      opacity: 0.6;
+    .modal-balance-view {
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .modal-usd-badge {
+      background: rgba(255, 255, 255, 0.25);
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      margin-top: 4px;
       font-weight: normal;
+    }
+
+    .withdraw-info-card {
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 11px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .wallet-connect-btn {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px dashed rgba(255, 255, 255, 0.5);
+      color: #fff;
+      padding: 12px;
+      border-radius: 12px;
+      font-weight: bold;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.3s ease;
+    }
+
+    .withdraw-submit-btn {
+      width: 100%;
+      background: #fff;
+      color: #0284c7;
+      border: none;
+      padding: 14px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    /* Settings Profile Card */
+    .settings-profile-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 10px 12px;
+      border-radius: 14px;
+      margin-bottom: 12px;
+    }
+
+    .settings-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #fff;
+      color: #0284c7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      overflow: hidden;
+      font-size: 16px;
+    }
+
+    .settings-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .settings-user-info h4 {
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .id-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: #e0f2fe;
+    }
+
+    .copy-id-btn {
+      background: rgba(255,255,255,0.25);
+      border: none;
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    .settings-menu-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .settings-item {
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 10px 12px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .settings-item-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .setting-icon-svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .settings-item select {
+      background: rgba(0,0,0,0.25);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.4);
+      padding: 4px 6px;
+      border-radius: 6px;
+      font-size: 11px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .privacy-text-box {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 11px;
+      line-height: 1.4;
+      max-height: 200px;
+      overflow-y: auto;
+      margin-bottom: 12px;
+      color: #f8fafc;
+    }
+  </style>
+</head>
+<body>
+
+  <template id="gram-star-coin-template">
+    <svg class="gram-star-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="48" fill="url(#blueGradOuter)"/>
+      <circle cx="50" cy="50" r="44" fill="url(#blueGradFace)"/>
+      <g filter="url(#star3dShadow)">
+        <path d="M50 24 L56.8 37.8 L72 40 L61 50.7 L63.6 65.8 L50 58.6 L36.4 65.8 L39 50.7 L28 40 L43.2 37.8 Z" fill="url(#starGradient)"/>
+      </g>
+      <defs>
+        <linearGradient id="blueGradOuter" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#38BDF8"/>
+          <stop offset="1" stop-color="#0284C7"/>
+        </linearGradient>
+        <linearGradient id="blueGradFace" x1="10" y1="10" x2="90" y2="90" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#22D3EE"/>
+          <stop offset="1" stop-color="#0284C7"/>
+        </linearGradient>
+        <linearGradient id="starGradient" x1="28" y1="24" x2="72" y2="65" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#FFFFFF"/>
+          <stop offset="0.7" stop-color="#F1F5F9"/>
+          <stop offset="1" stop-color="#CBD5E1"/>
+        </linearGradient>
+        <filter id="star3dShadow" x="0" y="0" width="100%" height="100%" filterUnits="userSpaceOnUse">
+          <feDropShadow dx="0" dy="3" stdDeviation="1.5" flood-color="#0369A1" flood-opacity="0.5"/>
+        </filter>
+      </defs>
+    </svg>
+  </template>
+
+  <div class="app-wrapper">
+    <div class="top-bar">
+      <div class="user-profile">
+        <div class="avatar-img" id="user-avatar">U</div>
+        <span class="user-name" id="user-name">Hi, User</span>
+      </div>
+      <div class="header-icons">
+        <button class="icon-btn">?</button>
+        <button class="icon-btn" onclick="openSettingsModal()">⚙️</button>
+      </div>
+    </div>
+
+    <div class="container" id="home-page">
+      <div class="fixed-top-section">
+        <div class="balance-card" onclick="openWithdrawModal()">
+          <div class="coin-display">
+            <div id="main-coin-svg-container"></div>
+            <span class="coin-amount" id="main-coins">0</span>
+          </div>
+          <div class="rate-badge">
+            ≈ <span id="main-gram">0.00</span> <span class="gram-label">$GRAM</span> ⇄
+          </div>
+        </div>
+
+        <div class="rate-subtitle">
+          10,000 <span class="mini-rate-coin-slot"></span> ≈ 1 <span class="gram-label">$GRAM</span>
+        </div>
+
+        <div class="quick-actions">
+          <div class="action-card ad-card-premium" onclick="watchMonetagAd()">
+            <div class="action-icon">
+              <svg class="ads-svg-logo" viewBox="0 0 220 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 105,10 C 50,10 10,45 10,80 C 10,115 50,118 105,118 C 118,118 130,114 140,108 C 112,112 35,108 30,78 C 25,48 78,16 115,12 Z" fill="url(#adsBgGrad)"/>
+                <path d="M 98,24 C 65,24 34,45 34,74 C 34,88 42,98 52,104 C 44,95 42,82 46,68 C 52,50 72,30 98,24 Z" fill="url(#adsBgGrad)"/>
+                <text x="55" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-style="italic" font-size="44" fill="#0F172A" letter-spacing="1">ADS</text>
+                <defs>
+                  <linearGradient id="adsBgGrad" x1="0" y1="0" x2="150" y2="120" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#38BDF8"/>
+                    <stop offset="1" stop-color="#0284C7"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <div class="action-title" data-i18n="watchAd">Watch Ad</div>
+            <div class="action-reward">
+              <span class="mini-coin-slot-ad"></span> + 50,000
+            </div>
+          </div>
+
+          <div class="action-card" onclick="dailyCheckIn()">
+            <div class="action-icon">
+              <svg class="calendar-svg-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 4H5C3.89543 4 3 4.89543 3 6V8H21V6C21 4.89543 20.1046 4 19 4Z" fill="url(#calHeaderGrad)"/>
+                <rect x="3" y="4" width="18" height="16" rx="2" stroke="#0F172A" stroke-width="1.8" fill="none"/>
+                <line x1="16" y1="2" x2="16" y2="6" stroke="#0F172A" stroke-width="1.8" stroke-linecap="round"/>
+                <line x1="8" y1="2" x2="8" y2="6" stroke="#0F172A" stroke-width="1.8" stroke-linecap="round"/>
+                <line x1="3" y1="8" x2="21" y2="8" stroke="#0F172A" stroke-width="1.8"/>
+                <circle cx="8" cy="12" r="1" fill="#0284C7"/>
+                <circle cx="12" cy="12" r="1" fill="#0284C7"/>
+                <circle cx="16" cy="12" r="1" fill="#0284C7"/>
+                <circle cx="8" cy="16" r="1" fill="#0284C7"/>
+                <circle cx="12" cy="16" r="1" fill="#0284C7"/>
+                <circle cx="16" cy="16" r="1" fill="#0284C7"/>
+                <defs>
+                  <linearGradient id="calHeaderGrad" x1="3" y1="4" x2="21" y2="8" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#38BDF8"/>
+                    <stop offset="1" stop-color="#0284C7"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <div class="action-title" data-i18n="dailyCheckIn">Daily Check-in</div>
+            <div class="action-reward" id="checkin-reward-box">
+              <span class="mini-coin-slot-checkin"></span> + 100
+            </div>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="level-title">Lv.1 »</div>
+            <div class="stat-desc" data-i18n="levelDesc">Invite 3 users to upgrade to Lv.2</div>
+            <div class="progress-bar-container">
+              <span style="font-size: 11px; font-weight: bold;" id="invite-count">0/3</span>
+              <button class="invite-btn" onclick="inviteFriends()" data-i18n="inviteBtn">invite</button>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="daily-counter" id="daily-task-count">0/5</div>
+            <div style="font-size: 12px; font-weight: bold; color: #0f172a; margin-top: 2px;" data-i18n="dailyTaskProgress">Daily Task Progress</div>
+            <div class="stat-desc" style="margin-bottom: 0;" data-i18n="resetsDaily">Resets daily at 00:00</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bounty-container">
+        <div class="bounty-header">
+          <span class="bounty-title" data-i18n="bountyTaskTitle">Bounty Task</span>
+          <button class="post-btn" onclick="openPostTaskModal()" data-i18n="postBtn">POST +</button>
+        </div>
+
+        <div class="task-list" id="task-list">
+          <div class="no-tasks-text" data-i18n="loadingTasks">Loading bounty tasks...</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" id="team-page" style="display: none; padding-bottom: 85px; overflow-y: auto;">
+      <div style="text-align: center; margin: 20px 0 15px 0;">
+        <h2 style="color: #0f172a; font-size: 20px; font-weight: 800;" data-i18n="teamHeader">Create team, Earn more!</h2>
+      </div>
+
+      <div style="display: flex; flex-direction: column;">
+        <div class="team-card">
+          <div class="team-avatar-icon"><i class="fas fa-user"></i></div>
+          <div class="team-info">
+            <h4 data-i18n="teamLv1Title">Members you invited</h4>
+            <p data-i18n="teamLv1Desc">Lv1:Get 5% task bouns</p>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar-icon"><i class="fas fa-user-friends"></i></div>
+          <div class="team-info">
+            <h4 data-i18n="teamLv2Title">Invited by Lv.1 members</h4>
+            <p data-i18n="teamLv2Desc">Lv.2:Get 3% task bouns</p>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-avatar-icon"><i class="fas fa-users"></i></div>
+          <div class="team-info">
+            <h4 data-i18n="teamLv3Title">Invited by Lv.2 members</h4>
+            <p data-i18n="teamLv3Desc">Lv.3:Get 1% task bouns</p>
+          </div>
+        </div>
+
+        <button class="big-invite-btn" onclick="inviteFriends()">
+          <span data-i18n="inviteMembersBtn">Invite Members</span> <i class="fas fa-user-plus" style="font-size: 15px;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <div class="nav-link active" id="nav-home" onclick="switchNav('home')">
+      <i class="fas fa-home"></i>
+      <span data-i18n="navHome">Home</span>
+    </div>
+
+    <div class="nav-link" id="nav-team" onclick="switchNav('team')">
+      <svg class="nav-icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:24px; height:20px; fill:currentColor;">
+        <circle cx="9" cy="8" r="3.5" fill="currentColor"/>
+        <path d="M4 18.5C4 15.7 6.2 13.5 9 13.5C11.8 13.5 14 15.7 14 18.5V20.5H4V18.5Z" fill="currentColor"/>
+        <circle cx="16.5" cy="9.5" r="2.5" fill="currentColor"/>
+        <path d="M14.5 15.5C15.2 15 16.1 14.8 17 14.8C18.4 14.8 19.7 15.4 20.6 16.4C20.8 16.7 20.9 17.1 20.9 17.5V19.5H14.5V15.5Z" fill="currentColor"/>
+      </svg>
+      <span data-i18n="navTeam">Team</span>
+    </div>
+  </div>
+
+  <div id="post-task-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="header-title-container">
+          <span class="live-badge">LIVE</span>
+          <h3 data-i18n="postTaskHeader">Post Task ⭐</h3>
+        </div>
+        <button class="close-modal" onclick="closePostTaskModal()">✕</button>
+      </div>
+
+      <div class="form-group">
+        <label id="lbl-task-name" data-i18n="taskNameLabel">🏷️ Task name</label>
+        <input type="text" id="post-task-name" class="form-input" placeholder="Enter task name" data-i18n-placeholder="placeholderTaskName">
+      </div>
+
+      <div class="form-group">
+        <label id="lbl-task-address" data-i18n="taskUrlLabel">💳 Task address</label>
+        <textarea id="post-task-url" class="form-input" placeholder="Please input task url" data-i18n-placeholder="placeholderUrl"></textarea>
+      </div>
+
+      <div class="form-group">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <label id="lbl-impressions" data-i18n="impressionsLabel">⣿ Impressions</label>
+          <span id="impression-val" style="font-weight: bold; font-size: 13px;">500</span>
+        </div>
+        <div class="range-slider-container">
+          <input type="range" id="impressionSlider" class="range-slider" min="100" max="10000" step="100" value="500" oninput="updateCalculations(this.value)">
+        </div>
+      </div>
+
+      <div class="buttons-container-three">
+        <button class="btn-action btn-points" onclick="submitTask('points')">
+          <span>Points</span>
+          <span class="btn-content"><span id="pts-count">50K</span> Pts</span>
+        </button>
+
+        <button class="btn-action btn-gram" onclick="submitTask('gram')">
+          <span>$GRAM</span>
+          <span class="btn-content"><span id="gram-count">5</span> $GRAM</span>
+        </button>
+
+        <button class="btn-action btn-stars" onclick="submitTask('stars')">
+          <span>Stars ⭐</span>
+          <span class="btn-content"><span id="star-count">1500</span> ⭐</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="withdraw-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 data-i18n="balanceHeader">Balance</h3>
+        <button class="close-modal" onclick="closeWithdrawModal()">✕</button>
+      </div>
+
+      <div class="modal-balance-view">
+        <h1 style="font-size: 30px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <span class="modal-coin-slot"></span>
+          <span id="modal-coin-val">0</span>
+        </h1>
+        <div class="modal-usd-badge">≈ <span id="modal-gram-val">0.00</span> <span class="gram-label">$GRAM</span></div>
+      </div>
+
+      <div class="withdraw-info-card" id="withdraw-target-text">
+        Withdrawal Target: 10,000 Coins
+      </div>
+
+      <button class="wallet-connect-btn" onclick="connectWallet()">
+        🔗 Connect $GRAM Wallet
+      </button>
+
+      <button class="withdraw-submit-btn" onclick="processWithdrawal()" data-i18n="withdrawBtnText">
+        Withdraw
+      </button>
+    </div>
+  </div>
+
+  <div id="settings-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 data-i18n="settingsHeader">⚙️ Settings</h3>
+        <button class="close-modal" onclick="closeSettingsModal()">✕</button>
+      </div>
+
+      <div class="settings-profile-card">
+        <div class="settings-avatar" id="settings-avatar">U</div>
+        <div class="settings-user-info">
+          <h4 id="settings-user-name">User</h4>
+          <div class="id-row">
+            <span>ID: <strong id="settings-user-id">guest_user</strong></span>
+            <button class="copy-id-btn" onclick="copyTelegramId()" data-i18n="copyBtn">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-menu-list">
+        <div class="settings-item">
+          <span class="settings-item-label">🌐 Language</span>
+          <select id="language-select">
+            <option value="en" selected>English (US)</option>
+            <option value="bn">বাংলা (Bengali)</option>
+            <option value="ur">اردو (Urdu)</option>
+            <option value="es">Español</option>
+            <option value="pt">Português</option>
+            <option value="ru">Русский</option>
+            <option value="fr">Français</option>
+            <option value="id">Bahasa Indonesia</option>
+            <option value="uk">Українська</option>
+            <option value="hi">हिन्दी</option>
+            <option value="ko">한국어</option>
+            <option value="tw">繁體中文</option>
+            <option value="cn">简体中文</option>
+            <option value="vi">Tiếng Việt</option>
+          </select>
+        </div>
+
+        <a href="https://t.me/mediaboostAi" target="_blank" class="settings-item">
+          <span class="settings-item-label">
+            <svg class="setting-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 0C5.37 0 0 5.37 0 12C0 18.63 5.37 24 12 24C18.63 24 24 18.63 24 12C24 5.37 18.63 0 12 0ZM17.89 8.05L15.93 17.29C15.78 17.95 15.39 18.11 14.84 17.8L11.84 15.59L10.39 16.98C10.23 17.14 10.1 17.27 9.79 17.27L10.01 14.21L15.58 9.18C15.82 8.96 15.52 8.84 15.2 9.05L8.32 13.38L5.36 12.46C4.72 12.26 4.71 11.82 5.5 11.51L17.07 7.05C17.61 6.85 18.08 7.18 17.89 8.05Z" fill="#38BDF8"/>
+            </svg>
+            <span data-i18n="officialChannel">Official Channel</span>
+          </span>
+          <span>↗</span>
+        </a>
+
+        <a href="https://x.com" target="_blank" class="settings-item">
+          <span class="settings-item-label">
+            <svg class="setting-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#FFFFFF"/>
+            </svg>
+            <span data-i18n="goToX">Go to X</span>
+          </span>
+          <span>↗</span>
+        </a>
+
+        <div class="settings-item" onclick="openPrivacyPolicyModal()">
+          <span class="settings-item-label">
+            <svg class="setting-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L4 5V11C4 16.55 7.42 21.74 12 23C16.58 21.74 20 16.55 20 11V5L12 2ZM10 15.5L6.5 12L7.91 10.59L10 12.67L16.09 6.58L17.5 8L10 15.5Z" fill="#38BDF8"/>
+            </svg>
+            <span data-i18n="privacyPolicy">Privacy Policy</span>
+          </span>
+          <span>›</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="privacy-policy-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 data-i18n="privacyPolicyHeader">Privacy Policy</h3>
+        <button class="close-modal" onclick="closePrivacyPolicyModal()">✕</button>
+      </div>
+      <div class="privacy-text-box">
+        <p><strong data-i18n="pp1Title">1. Introduction</strong><br><span data-i18n="pp1Text">Welcome to our Telegram Mini App. We respect your privacy and are committed to protecting any data associated with your Telegram account.</span></p>
+        <br>
+        <p><strong data-i18n="pp2Title">2. Information Collection</strong><br><span data-i18n="pp2Text">We collect basic Telegram profile details provided via Telegram WebApp API to identify your account, track your task completions, and store your coin balance safely.</span></p>
+        <br>
+        <p><strong data-i18n="pp3Title">3. Use of Data</strong><br><span data-i18n="pp3Text">Your data is used solely to provide app functionality, manage rewards, and process your withdrawals.</span></p>
+        <br>
+        <p><strong data-i18n="pp4Title">4. Third-Party Services</strong><br><span data-i18n="pp4Text">We integrate services like Firebase for data synchronization and Monetag for ad-supported rewards.</span></p>
+        <br>
+        <p><strong data-i18n="pp5Title">5. Contact Us</strong><br><span data-i18n="pp5Text">For any inquiries regarding privacy, please reach out to our official channel:</span> <strong>https://t.me/mediaboostAi</strong>.</p>
+      </div>
+      <button class="withdraw-submit-btn" onclick="closePrivacyPolicyModal()" data-i18n="gotItBtn">Got It</button>
+    </div>
+  </div>
+  Playground
+tokens
+
+Model 1:15 AM
+ThinkingThoughts
+Expand to view model thoughts
+
+chevron_right
+Model 1:20 AM
+দারুণ! ডেস্কটপ মোড অন থাকায় এখন আপনি এক ক্লিকেই পুরো কোডটি কপি করতে পারবেন।
+
+নিচে আপনার অ্যাপের **সবচেয়ে লেটেস্ট, সম্পূর্ণ (100%), এবং ফাইনাল `index.html` কোডটি** একসাথে দেওয়া হলো। এই কোডে আপনার অ্যাডমিন প্যানেলে রিকোয়েস্ট পাঠানো, ১৪টি ভাষা, অটো-রিসেট এবং $GRAM ওয়ালেট কানেক্ট সিস্টেম—সবকিছু নিখুঁতভাবে যুক্ত আছে।
+
+*(পুরো বক্সের ওপর থেকে Copy বাটনে চাপ দিয়ে আপনার গিটহাবের `index.html` ফাইলে পেস্ট করে দিন)*
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Telegram Mini App</title>
+  
+  <!-- FontAwesome CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Telegram WebApp SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  
+  <!-- TON Connect UI SDK -->
+  <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
+  
+  <!-- Firebase SDKs (Compat Version) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  
+  <!-- Monetag SDK -->
+  <script src='//libtl.com/sdk.js' data-zone='11759773' data-sdk='show_11759773'></script>
+  
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(180deg, #56ccf2 0%, #2f80ed 100%);
+      --card-bg: rgba(255, 255, 255, 0.3);
+      --card-border: rgba(255, 255, 255, 0.6);
+      --text-dark: #0f172a;
+      --text-muted: #475569;
+      --accent-blue: #3b82f6;
+      --primary-blue: #3b82f6;
+      --light-blue: #eff6ff;
+      --border-blue: #60a5fa;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background: var(--bg-gradient);
+      color: var(--text-dark);
+      user-select: none;
+      position: fixed;
+    }
+
+    .app-wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    /* Top User Header */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      flex-shrink: 0;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar-img {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      object-fit: cover;
+      background: #3b82f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: bold;
+      overflow: hidden;
+    }
+
+    .avatar-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .user-name {
+      font-weight: bold;
+      color: #fff;
+      font-size: 15px;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .header-icons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      border: none;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    /* Main Container */
+    .container {
+      padding: 0 14px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .fixed-top-section {
+      flex-shrink: 0;
+    }
+
+    /* Balance Card */
+    .balance-card {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 8px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(31, 38, 135, 0.12);
+    }
+
+    .coin-display {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .gram-star-icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+    }
+
+    .coin-amount {
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    }
+
+    .rate-badge {
+      background: rgba(255, 255, 255, 0.4);
+      padding: 4px 10px;
+      border-radius: 12px;
+      color: #0f172a;
+      font-weight: normal;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .rate-subtitle {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 11px;
+      font-weight: normal;
+      margin: 4px 0 8px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .gram-label {
+      font-weight: 400 !important;
+      opacity: 0.9;
+    }
+
+    /* Quick Action Grid */
+    .quick-actions {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .action-card {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 14px;
+      padding: 8px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .action-card:active {
+      transform: scale(0.97);
+    }
+
+    .ad-card-premium {
+      background: #ffffff !important;
+      border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    }
+
+    .action-icon {
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ads-svg-logo {
+      width: 42px;
+      height: 22px;
+    }
+
+    .calendar-svg-icon {
+      width: 26px;
+      height: 26px;
+    }
+
+    .action-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .action-reward {
+      font-size: 10px;
+      font-weight: 800;
+      color: #2563eb;
+      background: rgba(59, 130, 246, 0.15);
+      padding: 2px 6px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .action-reward.claimed-badge {
+      background: #dcfce7 !important;
+      color: #16a34a !important;
+    }
+
+    /* Level & Daily Task Counter Grid */
+    .stats-grid {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .stat-card {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 14px;
+      padding: 8px 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    .level-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .stat-desc {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin: 2px 0 6px 0;
+    }
+
+    .progress-bar-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .invite-btn {
+      background: var(--accent-blue);
+      color: #fff;
+      border: none;
+      padding: 5px 14px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .daily-counter {
+      font-size: 20px;
+      font-weight: 800;
+      color: #0f172a;
+      text-align: right;
+    }
+
+    /* Bounty Task Section */
+    .bounty-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .bounty-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      flex-shrink: 0;
+    }
+
+    .bounty-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .post-btn {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 7px 16px; 
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+      transition: transform 0.1s ease;
+    }
+
+    .post-btn:active {
+      transform: scale(0.95);
+    }
+
+    .task-list {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-bottom: 85px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .task-list::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-tasks-text {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 15px 0;
+    }
+
+    .task-item {
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 14px;
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .task-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .task-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #475569;
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
+      flex-shrink: 0;
+      font-size: 13px;
+    }
+
+    .task-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .task-details h4 {
+      font-size: 13px;
+      color: #0f172a;
+      margin-bottom: 2px;
+    }
+
+    .task-pill {
+      background: #0088cc;
+      color: #fff;
       font-size: 9px;
+      padding: 2px 6px;
+      border-radius: 6px;
+      display: inline-block;
+      font-weight: 600;
+    }
+
+    .task-action-btn {
+      background: rgba(59, 130, 246, 0.15);
+      color: #2563eb;
+      font-size: 12.12px;
+      font-weight: bold;
+      padding: 6.06px 14.14px;
+      border-radius: 16px;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .task-action-btn.claim-btn {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    .task-action-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* TEAM PAGE */
+    .team-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      margin-bottom: 10px;
+    }
+
+    .team-avatar-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #e0f2fe 0%, #bae6fd 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0284c7;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .team-info h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 2px;
+    }
+
+    .team-info p {
+      font-size: 12px;
+      font-weight: 700;
+      color: #3b82f6;
+    }
+
+    .big-invite-btn {
+      background: #3b82f6;
+      color: #ffffff;
+      width: 100%;
+      padding: 16px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+      margin-top: 12px;
+    }
+
+    /* Bottom Nav */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0 calc(10px + env(safe-area-inset-bottom, 0px));
+      border-top: 1px solid rgba(0,0,0,0.05);
+      backdrop-filter: blur(10px);
+      z-index: 10;
+    }
+
+    .nav-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      color: rgba(0, 0, 0, 0.35);
+      font-size: 11px;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      opacity: 0.55;
+    }
+
+    .nav-link.active {
+      color: #2563eb;
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    .nav-link i {
+      font-size: 18px;
+    }
+
+    /* Modals Overlay */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(6px);
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-box {
+      background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+      width: 90%;
+      max-width: 380px;
+      max-height: 85vh;
+      overflow-y: auto;
+      border-radius: 20px;
+      padding: 20px;
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .modal-header h3 {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 18px;
+    }
+
+    .header-title-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .live-badge {
+      background: #000;
+      color: #fff;
+      font-size: 11px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .live-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #22c55e;
+      border-radius: 50%;
+    }
+
+    .close-modal {
+      font-size: 20px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: #fff;
+    }
+
+    /* Form Fields */
+    .form-group {
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 4px;
+      color: #f1f5f9;
+    }
+
+    .form-input, select.form-input, textarea.form-input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.4);
+      background: rgba(255, 255, 255, 0.9);
+      color: #0f172a;
+      font-size: 13px;
+      outline: none;
+    }
+
+    textarea.form-input {
+      height: 75px;
+      resize: none;
+    }
+
+    .range-slider-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .range-slider {
+      width: 100%;
+      -webkit-appearance: none;
+      height: 8px;
+      border-radius: 5px;
+      background: #06b6d4;
+      outline: none;
+      margin-top: 4px;
+    }
+
+    .range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      cursor: pointer;
+    }
+
+    /* Triple Action Buttons Grid for Task Submissions */
+    .buttons-container-three {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+      margin-top: 16px;
+    }
+
+    .btn-action {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 4px;
+      border-radius: 16px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      border: none;
+      text-align: center;
+    }
+
+    .btn-points {
+      background: var(--primary-blue);
+      color: white;
+      box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+    }
+    .btn-points:hover {
+      background: #2563eb;
+    }
+
+    .btn-gram {
+      background: #0284c7;
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+    }
+    .btn-gram:hover {
+      background: #0369a1;
+    }
+
+    .btn-stars {
+      background: #fff;
+      color: var(--primary-blue);
+      border: 1.5px solid var(--border-blue);
+    }
+    .btn-stars:hover {
+      background: var(--light-blue);
+    }
+
+    .btn-content {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      font-size: 11px;
+      margin-top: 2px;
     }
 
     .modal-balance-view {
@@ -914,17 +2192,13 @@
 </head>
 <body>
 
-  <!-- Cyan/Blue Star Circle Badge Coin Template -->
   <template id="gram-star-coin-template">
     <svg class="gram-star-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="50" cy="50" r="48" fill="url(#blueGradOuter)"/>
       <circle cx="50" cy="50" r="44" fill="url(#blueGradFace)"/>
-      
-      <!-- 3D Star Path -->
       <g filter="url(#star3dShadow)">
         <path d="M50 24 L56.8 37.8 L72 40 L61 50.7 L63.6 65.8 L50 58.6 L36.4 65.8 L39 50.7 L28 40 L43.2 37.8 Z" fill="url(#starGradient)"/>
       </g>
-      
       <defs>
         <linearGradient id="blueGradOuter" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
           <stop stop-color="#38BDF8"/>
@@ -934,13 +2208,11 @@
           <stop stop-color="#22D3EE"/>
           <stop offset="1" stop-color="#0284C7"/>
         </linearGradient>
-
         <linearGradient id="starGradient" x1="28" y1="24" x2="72" y2="65" gradientUnits="userSpaceOnUse">
           <stop stop-color="#FFFFFF"/>
           <stop offset="0.7" stop-color="#F1F5F9"/>
           <stop offset="1" stop-color="#CBD5E1"/>
         </linearGradient>
-
         <filter id="star3dShadow" x="0" y="0" width="100%" height="100%" filterUnits="userSpaceOnUse">
           <feDropShadow dx="0" dy="3" stdDeviation="1.5" flood-color="#0369A1" flood-opacity="0.5"/>
         </filter>
@@ -949,7 +2221,6 @@
   </template>
 
   <div class="app-wrapper">
-    <!-- Top User Header -->
     <div class="top-bar">
       <div class="user-profile">
         <div class="avatar-img" id="user-avatar">U</div>
@@ -961,12 +2232,8 @@
       </div>
     </div>
 
-    <!-- MAIN HOME PAGE -->
     <div class="container" id="home-page">
-      
-      <!-- Fixed Section -->
       <div class="fixed-top-section">
-        <!-- Balance Card -->
         <div class="balance-card" onclick="openWithdrawModal()">
           <div class="coin-display">
             <div id="main-coin-svg-container"></div>
@@ -977,21 +2244,17 @@
           </div>
         </div>
 
-        <!-- Conversion Formula Text -->
         <div class="rate-subtitle">
           10,000 <span class="mini-rate-coin-slot"></span> ≈ 1 <span class="gram-label">$GRAM</span>
         </div>
 
-        <!-- Monetag Ad & Daily Check-in Section -->
         <div class="quick-actions">
-          <!-- WATCH AD BUTTON -->
           <div class="action-card ad-card-premium" onclick="watchMonetagAd()">
             <div class="action-icon">
               <svg class="ads-svg-logo" viewBox="0 0 220 120" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M 105,10 C 50,10 10,45 10,80 C 10,115 50,118 105,118 C 118,118 130,114 140,108 C 112,112 35,108 30,78 C 25,48 78,16 115,12 Z" fill="url(#adsBgGrad)"/>
                 <path d="M 98,24 C 65,24 34,45 34,74 C 34,88 42,98 52,104 C 44,95 42,82 46,68 C 52,50 72,30 98,24 Z" fill="url(#adsBgGrad)"/>
                 <text x="55" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-style="italic" font-size="44" fill="#0F172A" letter-spacing="1">ADS</text>
-                
                 <defs>
                   <linearGradient id="adsBgGrad" x1="0" y1="0" x2="150" y2="120" gradientUnits="userSpaceOnUse">
                     <stop stop-color="#38BDF8"/>
@@ -1006,7 +2269,6 @@
             </div>
           </div>
 
-          <!-- Daily Check-in -->
           <div class="action-card" onclick="dailyCheckIn()">
             <div class="action-icon">
               <svg class="calendar-svg-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1036,7 +2298,6 @@
           </div>
         </div>
 
-        <!-- Level & Daily Task Counter Grid -->
         <div class="stats-grid">
           <div class="stat-card">
             <div class="level-title">Lv.1 »</div>
@@ -1055,71 +2316,55 @@
         </div>
       </div>
 
-      <!-- Bounty Task Section -->
       <div class="bounty-container">
         <div class="bounty-header">
           <span class="bounty-title" data-i18n="bountyTaskTitle">Bounty Task</span>
           <button class="post-btn" onclick="openPostTaskModal()" data-i18n="postBtn">POST +</button>
         </div>
 
-        <!-- Task Items List -->
         <div class="task-list" id="task-list">
           <div class="no-tasks-text" data-i18n="loadingTasks">Loading bounty tasks...</div>
         </div>
       </div>
-
     </div>
 
-    <!-- TEAM PAGE VIEW -->
     <div class="container" id="team-page" style="display: none; padding-bottom: 85px; overflow-y: auto;">
       <div style="text-align: center; margin: 20px 0 15px 0;">
         <h2 style="color: #0f172a; font-size: 20px; font-weight: 800;" data-i18n="teamHeader">Create team, Earn more!</h2>
       </div>
 
       <div style="display: flex; flex-direction: column;">
-        <!-- Level 1 Card -->
         <div class="team-card">
-          <div class="team-avatar-icon">
-            <i class="fas fa-user"></i>
-          </div>
+          <div class="team-avatar-icon"><i class="fas fa-user"></i></div>
           <div class="team-info">
             <h4 data-i18n="teamLv1Title">Members you invited</h4>
             <p data-i18n="teamLv1Desc">Lv1:Get 5% task bouns</p>
           </div>
         </div>
 
-        <!-- Level 2 Card -->
         <div class="team-card">
-          <div class="team-avatar-icon">
-            <i class="fas fa-user-friends"></i>
-          </div>
+          <div class="team-avatar-icon"><i class="fas fa-user-friends"></i></div>
           <div class="team-info">
             <h4 data-i18n="teamLv2Title">Invited by Lv.1 members</h4>
             <p data-i18n="teamLv2Desc">Lv.2:Get 3% task bouns</p>
           </div>
         </div>
 
-        <!-- Level 3 Card -->
         <div class="team-card">
-          <div class="team-avatar-icon">
-            <i class="fas fa-users"></i>
-          </div>
+          <div class="team-avatar-icon"><i class="fas fa-users"></i></div>
           <div class="team-info">
             <h4 data-i18n="teamLv3Title">Invited by Lv.2 members</h4>
             <p data-i18n="teamLv3Desc">Lv.3:Get 1% task bouns</p>
           </div>
         </div>
 
-        <!-- Big Invite Button -->
         <button class="big-invite-btn" onclick="inviteFriends()">
           <span data-i18n="inviteMembersBtn">Invite Members</span> <i class="fas fa-user-plus" style="font-size: 15px;"></i>
         </button>
       </div>
     </div>
-
   </div>
 
-  <!-- Bottom Nav -->
   <div class="bottom-nav">
     <div class="nav-link active" id="nav-home" onclick="switchNav('home')">
       <i class="fas fa-home"></i>
@@ -1137,7 +2382,6 @@
     </div>
   </div>
 
-  <!-- Post Task Modal Overlay -->
   <div id="post-task-modal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
@@ -1168,36 +2412,25 @@
         </div>
       </div>
 
-      <!-- 3-Button Payment Grid: Points, $GRAM Direct, and Stars -->
       <div class="buttons-container-three">
-        <!-- Button 1: Points -->
         <button class="btn-action btn-points" onclick="submitTask('points')">
           <span>Points</span>
-          <span class="btn-content">
-            <span id="pts-count">50K</span> Pts
-          </span>
+          <span class="btn-content"><span id="pts-count">50K</span> Pts</span>
         </button>
 
-        <!-- Button 2: $GRAM Token Direct Payment -->
         <button class="btn-action btn-gram" onclick="submitTask('gram')">
           <span>$GRAM</span>
-          <span class="btn-content">
-            <span id="gram-count">5</span> $GRAM
-          </span>
+          <span class="btn-content"><span id="gram-count">5</span> $GRAM</span>
         </button>
 
-        <!-- Button 3: Telegram Stars -->
         <button class="btn-action btn-stars" onclick="submitTask('stars')">
           <span>Stars ⭐</span>
-          <span class="btn-content">
-            <span id="star-count">1500</span> ⭐
-          </span>
+          <span class="btn-content"><span id="star-count">1500</span> ⭐</span>
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Withdrawal Modal Overlay -->
   <div id="withdraw-modal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
@@ -1217,7 +2450,6 @@
         Withdrawal Target: 10,000 Coins
       </div>
 
-      <!-- Live $GRAM Connect Trigger Button -->
       <button class="wallet-connect-btn" onclick="connectWallet()">
         🔗 Connect $GRAM Wallet
       </button>
@@ -1228,7 +2460,6 @@
     </div>
   </div>
 
-  <!-- Settings Modal Overlay -->
   <div id="settings-modal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
@@ -1301,7 +2532,6 @@
     </div>
   </div>
 
-  <!-- Privacy Policy Modal Overlay -->
   <div id="privacy-policy-modal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
@@ -1322,15 +2552,13 @@
       <button class="withdraw-submit-btn" onclick="closePrivacyPolicyModal()" data-i18n="gotItBtn">Got It</button>
     </div>
   </div>
-
-  <script>
+ <script>
     if (window.visualViewport) {
       window.visualViewport.addEventListener('resize', () => {
         document.body.style.height = window.visualViewport.height + 'px';
       });
     }
 
-    // Official Admin Destination Wallet for receiving $GRAM token payments
     const ADMIN_GRAM_WALLET = "UQC_uwp-fGIO5qwRgGKe0ymORn-Cd-pW_HtBVbHD-NPzIVfq";
 
     const firebaseConfig = {
@@ -1347,7 +2575,6 @@
       firebase.initializeApp(firebaseConfig);
     }
 
-    // $GRAM TON Connect UI Initialization with Vercel Manifest
     let tonConnectUI = null;
     let connectedWalletAddress = "";
 
@@ -1358,7 +2585,6 @@
           buttonRootId: null
         });
 
-        // Watch for Wallet Status Changes
         tonConnectUI.onStatusChange((wallet) => {
           if (wallet) {
             connectedWalletAddress = wallet.account.address;
@@ -1383,7 +2609,7 @@
         btn.style.background = 'rgba(34, 197, 94, 0.25)';
         btn.style.borderColor = '#22c55e';
       } else {
-        btn.innerHTML = translations[currentLang]?.connectWalletBtn || '🔗 Connect $GRAM Wallet';
+        btn.innerHTML = getTrans('connectWalletBtn');
         btn.style.background = 'rgba(255, 255, 255, 0.2)';
         btn.style.borderColor = 'rgba(255, 255, 255, 0.5)';
       }
@@ -1391,7 +2617,7 @@
 
     async function connectWallet() {
       if (!tonConnectUI) {
-        alert("$GRAM Connect SDK is loading. Please try again in 3 seconds.");
+        alert(getTrans('alertWalletLoading'));
         return;
       }
       try {
@@ -1480,7 +2706,7 @@
       if (checkinRewardEl) {
         if (lastCheckInDate === today) {
           checkinRewardEl.className = 'action-reward claimed-badge';
-          checkinRewardEl.innerText = translations[currentLang]?.claimed || 'Claimed ✓';
+          checkinRewardEl.innerText = getTrans('claimed');
         } else {
           checkinRewardEl.className = 'action-reward';
           const miniSlot = document.createElement('span');
@@ -1524,10 +2750,8 @@
 
       const nextTarget = getNextWithdrawTarget();
       const currentStage = completedWithdrawals + 1;
-      const targetText = translations[currentLang]?.withdrawTargetText || 'Withdrawal Target #{stage}: {target} Coins';
-      document.getElementById('withdraw-target-text').innerText = targetText
-        .replace('{stage}', currentStage)
-        .replace('{target}', nextTarget.toLocaleString());
+      const targetText = getTrans('withdrawTargetText', { stage: currentStage, target: nextTarget.toLocaleString() });
+      document.getElementById('withdraw-target-text').innerText = targetText;
 
       renderGoldCoins();
       updateWalletButtonUI();
@@ -1535,7 +2759,7 @@
 
     function watchMonetagAd() {
       if (!isDataLoaded) {
-        alert("Please wait, syncing user data...");
+        alert(getTrans('alertSyncing'));
         return;
       }
       if (typeof show_11759773 === 'function') {
@@ -1544,14 +2768,14 @@
             userCoins += 50000;
             updateUI();
             saveUserDataToFirebase();
-            alert("Success! You watched the full ad and earned 50,000 Points!");
+            alert(getTrans('alertAdSuccess'));
           })
           .catch((err) => {
             console.warn("Ad error or closed early:", err);
-            alert("You must watch the full ad to earn 50,000 Points!");
+            alert(getTrans('alertAdFail'));
           });
       } else {
-        alert("Ad Network loading. Please try again in 5 seconds.");
+        alert(getTrans('alertAdLoading'));
       }
     }
 
@@ -1560,7 +2784,7 @@
       const today = getTodayString();
       
       if (lastCheckInDate === today) {
-        alert("You have already claimed today's daily bonus!");
+        alert(getTrans('alertCheckinClaimed'));
         return;
       }
 
@@ -1569,7 +2793,7 @@
       
       updateUI();
       saveUserDataToFirebase();
-      alert("Daily Check-in Successful! You received 100 Points!");
+      alert(getTrans('alertCheckinSuccess'));
     }
 
     function openPostTaskModal() {
@@ -1598,7 +2822,7 @@
 
     async function submitTask(type) {
       if (!isDataLoaded) {
-        alert("Data is still syncing, please wait a second.");
+        alert(getTrans('alertSyncing'));
         return;
       }
       const taskName = document.getElementById('post-task-name').value.trim() || "Bounty Task";
@@ -1606,14 +2830,14 @@
       const impressions = parseInt(document.getElementById('impressionSlider').value);
 
       if (!taskUrl || (!taskUrl.startsWith('http://') && !taskUrl.startsWith('https://'))) {
-        alert("Please enter a valid URL (e.g., https://t.me/...)");
+        alert(getTrans('alertInvalidUrl'));
         return;
       }
 
       if (type === 'points') {
         const costPoints = impressions * 100;
         if (userCoins < costPoints) {
-          alert(`Insufficient balance! You need ${costPoints.toLocaleString()} Points to post this task.`);
+          alert(getTrans('alertInsufficientPoints', { cost: costPoints.toLocaleString() }));
           return;
         }
 
@@ -1624,7 +2848,6 @@
       } else if (type === 'gram') {
         const gramAmount = (impressions / 100).toFixed(0);
         
-        // If wallet is connected, send real $GRAM token transaction to Admin Wallet
         if (tonConnectUI && tonConnectUI.connected) {
           try {
             const nanoGram = (gramAmount * 1e9).toString();
@@ -1637,27 +2860,27 @@
                 }
               ]
             };
-            alert(`Initiating transfer of ${gramAmount} $GRAM to official wallet...`);
+            alert(getTrans('alertPaymentInitiating', { amount: gramAmount }));
             const result = await tonConnectUI.sendTransaction(transaction);
             if (result) {
-              alert("Payment successful! Your task has been posted.");
+              alert(getTrans('alertPaymentSuccess'));
               saveTaskToFirebase(taskName, taskUrl, impressions);
             }
           } catch (err) {
             console.error("Payment error:", err);
-            alert("Transaction cancelled or failed. Please try again.");
+            alert(getTrans('alertPaymentFailed'));
           }
         } else {
-          // Fallback if wallet is not connected
-          const copyChoice = confirm(`Please connect your $GRAM wallet or send exactly ${gramAmount} $GRAM to:\n\n${ADMIN_GRAM_WALLET}\n\nClick OK to copy address.`);
+          const promptMsg = getTrans('alertSendGramPrompt', { amount: gramAmount, wallet: ADMIN_GRAM_WALLET });
+          const copyChoice = confirm(promptMsg);
           if (copyChoice) {
             navigator.clipboard.writeText(ADMIN_GRAM_WALLET);
-            alert("Admin $GRAM Wallet address copied to clipboard!");
+            alert(getTrans('alertAddressCopied'));
           }
         }
       } else if (type === 'stars') {
         const costStars = impressions * 3;
-        alert(`Telegram Stars invoice: ${costStars} Stars requested.`);
+        alert(getTrans('alertStarsInvoice', { stars: costStars }));
         saveTaskToFirebase(taskName, taskUrl, impressions);
       }
     }
@@ -1674,13 +2897,13 @@
         creatorPhotoUrl: userPhotoUrl,
         createdAt: Date.now()
       }).then(() => {
-        alert("Task posted successfully!");
+        alert(getTrans('alertTaskPosted'));
         document.getElementById('post-task-name').value = '';
         document.getElementById('post-task-url').value = '';
         closePostTaskModal();
       }).catch((err) => {
         console.error("Task post error:", err);
-        alert("Failed to post task. Please try again.");
+        alert(getTrans('alertTaskFailed'));
       });
     }
 
@@ -1696,7 +2919,7 @@
       taskListDiv.innerHTML = '';
 
       if (!rawBountyTasks || Object.keys(rawBountyTasks).length === 0) {
-        taskListDiv.innerHTML = `<div class="no-tasks-text">${translations[currentLang]?.noTasks || 'No active bounty tasks available right now.'}</div>`;
+        taskListDiv.innerHTML = `<div class="no-tasks-text">${getTrans('noTasks')}</div>`;
         return;
       }
 
@@ -1704,7 +2927,7 @@
       const availableTasks = tasks.filter(task => !userCompletedTasks[task.id]);
 
       if (availableTasks.length === 0) {
-        taskListDiv.innerHTML = `<div class="no-tasks-text">${translations[currentLang]?.allTasksCompleted || 'You have completed all available tasks!'}</div>`;
+        taskListDiv.innerHTML = `<div class="no-tasks-text">${getTrans('allTasksCompleted')}</div>`;
         return;
       }
 
@@ -1725,7 +2948,7 @@
 
         let rightActionHTML = '';
         if (isClicked) {
-          rightActionHTML = `<button class="task-action-btn claim-btn" onclick="claimBountyTask('${task.id}', ${rewardAmount}, this)">${translations[currentLang]?.claimBtnText || 'Claim'}</button>`;
+          rightActionHTML = `<button class="task-action-btn claim-btn" onclick="claimBountyTask('${task.id}', ${rewardAmount}, this)">${getTrans('claimBtnText')}</button>`;
         } else {
           rightActionHTML = `<button class="task-action-btn" onclick="startBountyTask('${task.id}', '${task.url}')">${iconHtmlStr} ${rewardAmount}</button>`;
         }
@@ -1735,7 +2958,7 @@
             <div class="task-avatar">${avatarHTML}</div>
             <div class="task-details">
               <h4>${task.name}</h4>
-              <span class="task-pill">${translations[currentLang]?.linkTask || 'Link Task'}</span>
+              <span class="task-pill">${getTrans('linkTask')}</span>
             </div>
           </div>
           <div>${rightActionHTML}</div>
@@ -1759,11 +2982,11 @@
       if (!isDataLoaded || userCompletedTasks[taskId]) return;
 
       if (dailyTasksCompleted >= 5) {
-        alert("Daily limit reached! You can only complete 5 tasks per day. Resets at 00:00.");
+        alert(getTrans('alertDailyLimit'));
         return;
       }
 
-      btnElement.innerText = translations[currentLang]?.verifyingText || "Verifying...";
+      btnElement.innerText = getTrans('verifyingText');
       btnElement.disabled = true;
 
       setTimeout(() => {
@@ -1775,7 +2998,7 @@
         updateUI();
         saveUserDataToFirebase();
         renderBountyTasks(); 
-        alert(`Task completed! +${rewardAmount} Points`);
+        alert(getTrans('alertTaskCompleted', { amount: rewardAmount }));
       }, 2000);
     }
 
@@ -1792,22 +3015,41 @@
       if (!isDataLoaded) return;
       const targetCoins = getNextWithdrawTarget();
       const stage = completedWithdrawals + 1;
+      const gramAmount = (targetCoins / 10000).toFixed(2);
 
       if (!connectedWalletAddress) {
-        alert("Please connect your $GRAM wallet first before withdrawing!");
+        alert(getTrans('alertConnectWalletFirst'));
         return;
       }
 
       if (userCoins < targetCoins) {
-        alert(`Insufficient balance!\nAt least ${targetCoins.toLocaleString()} Points are required for withdrawal #${stage}.`);
+        alert(getTrans('alertInsufficientWithdraw', { target: targetCoins.toLocaleString(), stage: stage }));
       } else {
-        alert(`Congratulations! Withdrawal #${stage} requested successfully (${targetCoins.toLocaleString()} Points).\nDestination Wallet: ${connectedWalletAddress}`);
-        userCoins -= targetCoins;
-        completedWithdrawals += 1;
-        
-        updateUI();
-        saveUserDataToFirebase();
-        closeWithdrawModal();
+        // Send Withdrawal Request to Firebase for Admin Panel
+        const reqRef = firebase.database().ref('withdraw_requests').push();
+        reqRef.set({
+          id: reqRef.key,
+          userId: userId,
+          userName: userName,
+          walletAddress: connectedWalletAddress,
+          coins: targetCoins,
+          gramAmount: gramAmount,
+          stage: stage,
+          status: "pending",
+          requestedAt: Date.now()
+        }).then(() => {
+          userCoins -= targetCoins;
+          completedWithdrawals += 1;
+          
+          updateUI();
+          saveUserDataToFirebase();
+          closeWithdrawModal();
+
+          alert(`Withdrawal #${stage} Submitted Successfully!\n\nAmount: ${gramAmount} $GRAM (${targetCoins.toLocaleString()} Coins)\nDestination: ${connectedWalletAddress}\n\nStatus: Pending (Processed within 24-48 hours).`);
+        }).catch((err) => {
+          console.error("Withdrawal error:", err);
+          alert("Failed to submit withdrawal request. Please try again.");
+        });
       }
     }
 
@@ -1817,7 +3059,7 @@
         tg.openTelegramLink(inviteUrl);
       } else {
         navigator.clipboard.writeText(`https://t.me/YourBot?start=${userId}`);
-        alert("Referral link copied to clipboard!");
+        alert(getTrans('alertReferralCopied'));
       }
     }
 
@@ -1841,7 +3083,7 @@
 
     function copyTelegramId() {
       navigator.clipboard.writeText(String(userId)).then(() => {
-        alert("Telegram ID copied: " + userId);
+        alert(getTrans('alertIdCopied', { id: userId }));
       }).catch(() => {
         alert("ID: " + userId);
       });
@@ -1860,75 +3102,95 @@
     const translations = {
       en: {
         watchAd: "Watch Ad", dailyCheckIn: "Daily Check-in", levelDesc: "Invite 3 users to upgrade to Lv.2", inviteBtn: "invite", dailyTaskProgress: "Daily Task Progress", resetsDaily: "Resets daily at 00:00", bountyTaskTitle: "Bounty Task", postBtn: "POST +", loadingTasks: "Loading bounty tasks...", navHome: "Home", navTeam: "Team", postTaskHeader: "Post Task ⭐", taskNameLabel: "🏷️ Task name", placeholderTaskName: "Enter task name", taskUrlLabel: "💳 Task address", placeholderUrl: "Please input task url", impressionsLabel: "⣿ Impressions", postTaskBtnText: "Post Task", balanceHeader: "Balance", connectWalletBtn: "🔗 Connect $GRAM Wallet", withdrawBtnText: "Withdraw", settingsHeader: "⚙️ Settings", copyBtn: "Copy", officialChannel: "Official Channel", goToX: "Go to X", privacyPolicy: "Privacy Policy", privacyPolicyHeader: "Privacy Policy", gotItBtn: "Got It", linkTask: "Link Task", noTasks: "No active bounty tasks available right now.", allTasksCompleted: "You have completed all available tasks!", withdrawTargetText: "Withdrawal Target #{stage}: {target} Coins", claimed: "Claimed ✓", claimBtnText: "Claim", verifyingText: "Verifying...", teamHeader: "Create team, Earn more!", teamLv1Title: "Members you invited", teamLv1Desc: "Lv1: Get 5% task bonus", teamLv2Title: "Invited by Lv.1 members", teamLv2Desc: "Lv.2: Get 3% task bonus", teamLv3Title: "Invited by Lv.2 members", teamLv3Desc: "Lv.3: Get 1% task bonus", inviteMembersBtn: "Invite Members",
-        pp1Title: "1. Introduction", pp1Text: "Welcome to our Telegram Mini App.", pp2Title: "2. Information Collection", pp2Text: "We collect basic Telegram profile details.", pp3Title: "3. Use of Data", pp3Text: "Your data is used solely to provide app functionality.", pp4Title: "4. Third-Party Services", pp4Text: "We integrate Firebase and Monetag.", pp5Title: "5. Contact Us", pp5Text: "Contact channel:"
+        pp1Title: "1. Introduction", pp1Text: "Welcome to our Telegram Mini App.", pp2Title: "2. Information Collection", pp2Text: "We collect basic Telegram profile details.", pp3Title: "3. Use of Data", pp3Text: "Your data is used solely to provide app functionality.", pp4Title: "4. Third-Party Services", pp4Text: "We integrate Firebase and Monetag.", pp5Title: "5. Contact Us", pp5Text: "Contact channel:",
+        alertSyncing: "Please wait, syncing user data...", alertAdSuccess: "Success! You watched the full ad and earned 50,000 Points!", alertAdFail: "You must watch the full ad to earn 50,000 Points!", alertAdLoading: "Ad Network loading. Please try again in 5 seconds.", alertCheckinClaimed: "You have already claimed today's daily bonus!", alertCheckinSuccess: "Daily Check-in Successful! You received 100 Points!", alertInvalidUrl: "Please enter a valid URL (e.g., https://t.me/...)", alertInsufficientPoints: "Insufficient balance! You need {cost} Points to post this task.", alertPaymentInitiating: "Initiating transfer of {amount} $GRAM to official wallet...", alertPaymentSuccess: "Payment successful! Your task has been posted.", alertPaymentFailed: "Transaction cancelled or failed. Please try again.", alertSendGramPrompt: "Please connect your $GRAM wallet or send exactly {amount} $GRAM to:\n\n{wallet}\n\nClick OK to copy address.", alertAddressCopied: "Admin $GRAM Wallet address copied to clipboard!", alertStarsInvoice: "Telegram Stars invoice: {stars} Stars requested.", alertTaskPosted: "Task posted successfully!", alertTaskFailed: "Failed to post task. Please try again.", alertDailyLimit: "Daily limit reached! You can only complete 5 tasks per day. Resets at 00:00.", alertTaskCompleted: "Task completed! +{amount} Points", alertConnectWalletFirst: "Please connect your $GRAM wallet first before withdrawing!", alertInsufficientWithdraw: "Insufficient balance!\nAt least {target} Points are required for withdrawal #{stage}.", alertWithdrawSuccess: "Congratulations! Withdrawal #{stage} requested successfully ({target} Points).", alertReferralCopied: "Referral link copied to clipboard!", alertIdCopied: "Telegram ID copied: {id}", alertWalletLoading: "$GRAM Connect SDK is loading. Please try again in 3 seconds."
       },
       bn: {
         watchAd: "বিজ্ঞাপন দেখুন", dailyCheckIn: "দৈনিক চেক-ইন", levelDesc: "Lv.2 এ উন্নীত হতে ৩ জনকে আমন্ত্রণ জানান", inviteBtn: "আমন্ত্রণ", dailyTaskProgress: "দৈনিক টাস্ক অগ্রগতি", resetsDaily: "প্রতিটি রাত ০০:০০ টায় রিসেট হয়", bountyTaskTitle: "বাউন্টি টাস্ক", postBtn: "পোস্ট +", loadingTasks: "টাস্ক লোড হচ্ছে...", navHome: "হোম", navTeam: "টিম", postTaskHeader: "পোস্ট টাস্ক ⭐", taskNameLabel: "🏷️ টাস্কের নাম", placeholderTaskName: "টাস্কের নাম লিখুন", taskUrlLabel: "💳 টাস্ক লিংক / ঠিকানা", placeholderUrl: "অনুগ্রহ করে টাস্ক লিংকটি দিন", impressionsLabel: "⣿ ইম্প্রেশন সংখ্যা", postTaskBtnText: "পোস্ট টাস্ক", balanceHeader: "ব্যালেন্স", connectWalletBtn: "🔗 $GRAM ওয়ালেট কানেক্ট", withdrawBtnText: "উইথড্র", settingsHeader: "⚙️ সেটিংস", copyBtn: "কপি", officialChannel: "অফিসিয়াল চ্যানেল", goToX: "X এ যান", privacyPolicy: "প্রাইভেসি পলিসি", privacyPolicyHeader: "প্রাইভেসি পলিসি", gotItBtn: "বুঝেছি", linkTask: "লিংক টাস্ক", noTasks: "বর্তমানে কোনো সক্রিয় টাস্ক নেই।", allTasksCompleted: "আপনি সব উপলব্ধ টাস্ক সম্পন্ন করেছেন!", withdrawTargetText: "উইথড্র টার্গেট #{stage}: {target} পয়েন্ট", claimed: "সম্পন্ন ✓", claimBtnText: "দাবি করুন", verifyingText: "যাচাই করা হচ্ছে...", teamHeader: "টিম তৈরি করুন, বেশি আয় করুন!", teamLv1Title: "আপনার আমন্ত্রিত সদস্য", teamLv1Desc: "Lv1: ৫% টাস্ক বোনাস পান", teamLv2Title: "Lv.1 সদস্যের আমন্ত্রিত", teamLv2Desc: "Lv.2: ৩% টাস্ক বোনাস পান", teamLv3Title: "Lv.2 সদস্যের আমন্ত্রিত", teamLv3Desc: "Lv.3: ১% টাস্ক বোনাস পান", inviteMembersBtn: "সদস্য আমন্ত্রণ করুন",
-        pp1Title: "১. ভূমিকা", pp1Text: "আমাদের টেলিগ্রাম মিনি অ্যাপে স্বাগতম।", pp2Title: "২. তথ্য সংগ্রহ", pp2Text: "আমরা টেলিগ্রাম প্রোফাইলের তথ্য গ্রহণ করি।", pp3Title: "৩. তথ্যের ব্যবহার", pp3Text: "আপনার তথ্য ব্যালেন্স সংরক্ষণে ব্যবহূত হয়।", pp4Title: "৪. থার্ড পার্টি সার্ভিস", pp4Text: "আমরা ফায়ারবেস ও মোনেট্যাগ ব্যবহার করি।", pp5Title: "৫. যোগাযোগ", pp5Text: "যোগাযোগের চ্যানেল:"
+        pp1Title: "১. ভূমিকা", pp1Text: "আমাদের টেলিগ্রাম মিনি অ্যাপে স্বাগতম।", pp2Title: "২. তথ্য সংগ্রহ", pp2Text: "আমরা টেলিগ্রাম প্রোফাইলের তথ্য গ্রহণ করি।", pp3Title: "৩. তথ্যের ব্যবহার", pp3Text: "আপনার তথ্য ব্যালেন্স সংরক্ষণে ব্যবহূত হয়।", pp4Title: "৪. থার্ড পার্টি সার্ভিস", pp4Text: "আমরা ফায়ারবেস ও মোনেট্যাগ ব্যবহার করি।", pp5Title: "৫. যোগাযোগ", pp5Text: "যোগাযোগের চ্যানেল:",
+        alertSyncing: "অনুগ্রহ করে অপেক্ষা করুন, ডেটা লোড হচ্ছে...", alertAdSuccess: "অভিনন্দন! আপনি পুরো বিজ্ঞাপন দেখে ৫০,০০০ পয়েন্ট অর্জন করেছেন!", alertAdFail: "পয়েন্ট পেতে আপনাকে পুরো বিজ্ঞাপনটি দেখতে হবে!", alertAdLoading: "বিজ্ঞাপন নেটওয়ার্ক লোড হচ্ছে। ৫ সেকেন্ড পর আবার চেষ্টা করুন।", alertCheckinClaimed: "আপনি আজকের দৈনিক বোনাস ইতিমধ্যে গ্রহণ করেছেন!", alertCheckinSuccess: "দৈনিক চেক-ইন সফল! আপনি ১০০ পয়েন্ট পেয়েছেন!", alertInvalidUrl: "অনুগ্রহ করে একটি সঠিক লিংক দিন (যেমন: https://t.me/...)", alertInsufficientPoints: "অপর্যাপ্ত ব্যালেন্স! টাস্ক পোস্ট করতে {cost} পয়েন্ট প্রয়োজন।", alertPaymentInitiating: "{amount} $GRAM ওয়ালেটে পাঠানোর প্রক্রিয়া শুরু হচ্ছে...", alertPaymentSuccess: "পেমেন্ট সফল! আপনার টাস্ক পোস্ট হয়েছে।", alertPaymentFailed: "লেনদেন বাতিল বা ব্যর্থ হয়েছে। আবার চেষ্টা করুন।", alertSendGramPrompt: "আপনার ওয়ালেট কানেক্ট করুন অথবা এই অ্যাড্রেসে ঠিক {amount} $GRAM পাঠান:\n\n{wallet}\n\nঅ্যাড্রেস কপি করতে OK চাপুন।", alertAddressCopied: "অ্যাডমিন $GRAM ওয়ালেট অ্যাড্রেস কপি হয়েছে!", alertStarsInvoice: "টেলিগ্রাম স্টারস পেমেন্ট: {stars} স্টার চাওয়া হয়েছে।", alertTaskPosted: "টাস্ক সফলভাবে পোস্ট হয়েছে!", alertTaskFailed: "টাস্ক পোস্ট ব্যর্থ হয়েছে। আবার চেষ্টা করুন।", alertDailyLimit: "দৈনিক লিমিট শেষ! আপনি প্রতিদিন সর্বোচ্চ ৫টি টাস্ক করতে পারবেন। রাত ০০:০০ টায় রিসেট হবে।", alertTaskCompleted: "টাস্ক সম্পন্ন! +{amount} পয়েন্ট", alertConnectWalletFirst: "উইথড্র করার আগে অনুগ্রহ করে আপনার $GRAM ওয়ালেট কানেক্ট করুন!", alertInsufficientWithdraw: "অপর্যাপ্ত ব্যালেন্স!\nউইথড্র #{stage} এর জন্য কমপক্ষে {target} পয়েন্ট প্রয়োজন।", alertWithdrawSuccess: "অভিনন্দন! উইথড্র #{stage} সফলভাবে গৃহীত হয়েছে ({target} পয়েন্ট)।", alertReferralCopied: "রেফারেল লিংক কপি হয়েছে!", alertIdCopied: "টেলিগ্রাম আইডি কপি হয়েছে: {id}", alertWalletLoading: "ওয়ালেট SDK লোড হচ্ছে। ৩ সেকেন্ড পর চেষ্টা করুন।"
       },
       es: {
         watchAd: "Ver Anuncio", dailyCheckIn: "Registro Diario", levelDesc: "Invita a 3 usuarios para subir a Nivel 2", inviteBtn: "invitar", dailyTaskProgress: "Progreso Diario", resetsDaily: "Se reinicia a las 00:00", bountyTaskTitle: "Tareas Bounty", postBtn: "PUBLICAR +", loadingTasks: "Cargando tareas...", navHome: "Inicio", navTeam: "Equipo", postTaskHeader: "Publicar Tarea ⭐", taskNameLabel: "🏷️ Nombre de la tarea", placeholderTaskName: "Ingrese el nombre de la tarea", taskUrlLabel: "💳 URL de la tarea", placeholderUrl: "Ingrese la URL de la tarea", impressionsLabel: "⣿ Impresiones", postTaskBtnText: "Publicar Tarea", balanceHeader: "Saldo", connectWalletBtn: "🔗 Conectar Billetera $GRAM", withdrawBtnText: "Retirar", settingsHeader: "⚙️ Configuración", copyBtn: "Copiar", officialChannel: "Canal Oficial", goToX: "Ir a X", privacyPolicy: "Política de Privacidad", privacyPolicyHeader: "Política de Privacidad", gotItBtn: "Entendido", linkTask: "Enlace", noTasks: "No hay tareas activas disponibles.", allTasksCompleted: "¡Has completado todas las tareas disponibles!", withdrawTargetText: "Objetivo de Retiro #{stage}: {target} Monedas", claimed: "Reclamado ✓", claimBtnText: "Reclamar", verifyingText: "Verificando...", teamHeader: "¡Crea un equipo y gana más!", teamLv1Title: "Miembros invitados por ti", teamLv1Desc: "Nv1: Obtén 5% de bono", teamLv2Title: "Invitados por miembros Nv.1", teamLv2Desc: "Nv.2: Obtén 3% de bono", teamLv3Title: "Invitados por miembros Nv.2", teamLv3Desc: "Nv.3: Obtén 1% de bono", inviteMembersBtn: "Invitar Miembros",
-        pp1Title: "1. Introducción", pp1Text: "Bienvenido a nuestra aplicación.", pp2Title: "2. Recopilación", pp2Text: "Recopilamos datos básicos de Telegram.", pp3Title: "3. Uso de Datos", pp3Text: "Los datos se usan para procesar retiros.", pp4Title: "4. Terceros", pp4Text: "Usamos Firebase y Monetag.", pp5Title: "5. Contacto", pp5Text: "Canal oficial:"
+        pp1Title: "1. Introducción", pp1Text: "Bienvenido a nuestra aplicación.", pp2Title: "2. Recopilación", pp2Text: "Recopilamos datos básicos de Telegram.", pp3Title: "3. Uso de Datos", pp3Text: "Los datos se usan para procesar retiros.", pp4Title: "4. Terceros", pp4Text: "Usamos Firebase y Monetag.", pp5Title: "5. Contacto", pp5Text: "Canal oficial:",
+        alertSyncing: "Espere, sincronizando datos...", alertAdSuccess: "¡Éxito! ¡Ganaste 50,000 Puntos!", alertAdFail: "¡Debes ver el anuncio completo!", alertAdLoading: "Cargando red de anuncios...", alertCheckinClaimed: "¡Ya reclamaste el bono diario!", alertCheckinSuccess: "¡Registro diario exitoso! +100 Puntos", alertInvalidUrl: "Ingrese una URL válida", alertInsufficientPoints: "Saldo insuficiente. Necesita {cost} Puntos.", alertPaymentInitiating: "Iniciando transferencia de {amount} $GRAM...", alertPaymentSuccess: "¡Pago exitoso! Tarea publicada.", alertPaymentFailed: "Transacción cancelada.", alertSendGramPrompt: "Envía {amount} $GRAM a:\n\n{wallet}", alertAddressCopied: "¡Dirección copiada!", alertStarsInvoice: "Factura de Stars: {stars} ⭐", alertTaskPosted: "¡Tarea publicada con éxito!", alertTaskFailed: "Error al publicar la tarea.", alertDailyLimit: "¡Límite diario alcanzado (5 tareas/día)!", alertTaskCompleted: "¡Tarea completada! +{amount} Puntos", alertConnectWalletFirst: "¡Conecte su billetera $GRAM primero!", alertInsufficientWithdraw: "Saldo insuficiente para retiro #{stage}.", alertWithdrawSuccess: "¡Retiro #{stage} solicitado con éxito!", alertReferralCopied: "¡Enlace de referido copiado!", alertIdCopied: "ID de Telegram copiado: {id}", alertWalletLoading: "Cargando SDK de billetera..."
       },
       ur: {
         watchAd: "اشتہار دیکھیں", dailyCheckIn: "روزانہ چیک ان", levelDesc: "Lv.2 پر جانے کے لیے 3 صارفین کو مدعو کریں", inviteBtn: "مدعو کریں", dailyTaskProgress: "روزانہ ٹاسک پیشرفت", resetsDaily: "ہر رات 00:00 بجے ری سیٹ ہوتا ہے", bountyTaskTitle: "باؤنٹی ٹاسک", postBtn: "پوسٹ +", loadingTasks: "ٹاسک لوڈ ہو رہے ہیں...", navHome: "ہوم", navTeam: "ٹیم", postTaskHeader: "ٹاسک پوسٹ کریں ⭐", taskNameLabel: "🏷️ ٹاسک کا نام", placeholderTaskName: "ٹاسک کا نام درج کریں", taskUrlLabel: "💳 ٹاسک کا پتہ", placeholderUrl: "ٹاسک یو آر ایل درج کریں", impressionsLabel: "⣿ امپریشنز", postTaskBtnText: "ٹاسک پوسٹ کریں", balanceHeader: "بیلنس", connectWalletBtn: "🔗 $GRAM والٹ منسلک کریں", withdrawBtnText: "نکلوائیں", settingsHeader: "⚙️ ترتیبات", copyBtn: "کاپی", officialChannel: "آفیشل چینل", goToX: "X پر جائیں", privacyPolicy: "پرائیویسی پالیسی", privacyPolicyHeader: "پرائیویسی پالیسی", gotItBtn: "سمجھ گیا", linkTask: "لنک ٹاسک", noTasks: "فی الحال کوئی ٹاسک دستیاب نہیں ہے۔", allTasksCompleted: "آپ نے تمام ٹاسکس مکمل کر لیے ہیں!", withdrawTargetText: "نکالنے کا ہدف #{stage}: {target} سکے", claimed: "موصول ہوا ✓", claimBtnText: "دعویٰ کریں", verifyingText: "تصدیق ہو رہی ہے...", teamHeader: "ٹیم بنائیں، مزید کمائیں!", teamLv1Title: "آپ کے مدعو کردہ ممبران", teamLv1Desc: "Lv1: 5% بونس حاصل کریں", teamLv2Title: "Lv.1 کے مدعو کردہ", teamLv2Desc: "Lv.2: 3% بونس حاصل کریں", teamLv3Title: "Lv.2 کے مدعو کردہ", teamLv3Desc: "Lv.3: 1% بونس حاصل کریں", inviteMembersBtn: "ممبران کو مدعو کریں",
-        pp1Title: "1. تعارف", pp1Text: "ہماری ایپ میں خوش آمدید۔", pp2Title: "2. معلومات", pp2Text: "ہم بنیادی معلومات حاصل کرتے ہیں۔", pp3Title: "3. استعمال", pp3Text: "ڈیٹا صرف ایپ کی خدمات کے لیے ہے۔", pp4Title: "4. تھرڈ پارٹی", pp4Text: "ہم فائر بیس کا استعمال کرتے ہیں۔", pp5Title: "5. رابطہ", pp5Text: "آفیشل چینل:"
+        pp1Title: "1. تعارف", pp1Text: "ہماری ایپ میں خوش آمدید۔", pp2Title: "2. معلومات", pp2Text: "ہم بنیادی معلومات حاصل کرتے ہیں۔", pp3Title: "3. استعمال", pp3Text: "ڈیٹا صرف ایپ کی خدمات کے لیے ہے۔", pp4Title: "4. تھرڈ پارٹی", pp4Text: "ہم فائر بیس کا استعمال کرتے ہیں۔", pp5Title: "5. رابطہ", pp5Text: "آفیشل چینل:",
+        alertSyncing: "براہ کرم انتظار کریں...", alertAdSuccess: "کامیابی! آپ نے 50,000 پوائنٹس حاصل کیے!", alertAdFail: "پوائنٹس کے لیے پورا اشتہار دیکھیں!", alertAdLoading: "نیٹ ورک لوڈ ہو رہا ہے...", alertCheckinClaimed: "آپ پہلے ہی کلیم کر چکے ہیں!", alertCheckinSuccess: "چیک ان کامیاب! +100 پوائنٹس", alertInvalidUrl: "درست لنک درج کریں", alertInsufficientPoints: "ناکافی بیلنس! {cost} پوائنٹس درکار ہیں۔", alertPaymentInitiating: "{amount} $GRAM کی منتقلی شروع ہو رہی ہے...", alertPaymentSuccess: "ادائیگی کامیاب! ٹاسک پوسٹ ہو گیا۔", alertPaymentFailed: "ٹرانزیکشن منسوخ ہو گئی۔", alertSendGramPrompt: "{amount} $GRAM اس ایڈریس پر بھیجیں:\n\n{wallet}", alertAddressCopied: "ایڈریس کاپی ہو گیا!", alertStarsInvoice: "سٹارز انوائس: {stars} ⭐", alertTaskPosted: "ٹاسک کامیابی سے پوسٹ ہو گیا!", alertTaskFailed: "ٹاسک پوسٹ ناکام ہو گیا۔", alertDailyLimit: "روزانہ کی حد ختم ہو گئی (5 ٹاسکس/دن)!", alertTaskCompleted: "ٹاسک مکمل! +{amount} پوائنٹس", alertConnectWalletFirst: "پہلے اپنا $GRAM والٹ منسلک کریں!", alertInsufficientWithdraw: "واپسی کے لیے ناکافی بیلنس!", alertWithdrawSuccess: "واپسی کی درخواست کامیاب!", alertReferralCopied: "ریفرل لنک کاپی ہو گیا!", alertIdCopied: "آئی ڈی کاپی ہو گئی: {id}", alertWalletLoading: "والٹ لوڈ ہو رہا ہے..."
       },
       pt: {
         watchAd: "Assistir Anúncio", dailyCheckIn: "Check-in Diário", levelDesc: "Convide 3 usuários para o Nível 2", inviteBtn: "convidar", dailyTaskProgress: "Progresso Diário", resetsDaily: "Reinicia diariamente às 00:00", bountyTaskTitle: "Tarefas Bounty", postBtn: "POSTAR +", loadingTasks: "Carregando tarefas...", navHome: "Início", navTeam: "Equipe", postTaskHeader: "Postar Tarefa ⭐", taskNameLabel: "🏷️ Nome da tarefa", placeholderTaskName: "Digite o nome da tarefa", taskUrlLabel: "💳 URL da tarefa", placeholderUrl: "Insira a URL da tarefa", impressionsLabel: "⣿ Impressões", postTaskBtnText: "Postar Tarefa", balanceHeader: "Saldo", connectWalletBtn: "🔗 Conectar Carteira $GRAM", withdrawBtnText: "Sacar", settingsHeader: "⚙️ Configurações", copyBtn: "Copiar", officialChannel: "Canal Oficial", goToX: "Ir para o X", privacyPolicy: "Política de Privacidade", privacyPolicyHeader: "Política de Privacidade", gotItBtn: "Entendido", linkTask: "Link da Tarefa", noTasks: "Nenhuma tarefa ativa no momento.", allTasksCompleted: "Você concluiu todas as tarefas!", withdrawTargetText: "Meta de Saque #{stage}: {target} Moedas", claimed: "Resgatado ✓", claimBtnText: "Resgatar", verifyingText: "Verificando...", teamHeader: "Crie uma equipe, ganhe mais!", teamLv1Title: "Membros convidados", teamLv1Desc: "Nv1: Ganhe 5% de bônus", teamLv2Title: "Convidados por Nv.1", teamLv2Desc: "Nv.2: Ganhe 3% de bônus", teamLv3Title: "Convidados por Nv.2", teamLv3Desc: "Nv.3: Ganhe 1% de bônus", inviteMembersBtn: "Convidar Membros",
-        pp1Title: "1. Introdução", pp1Text: "Bem-vindo ao aplicativo.", pp2Title: "2. Coleta", pp2Text: "Coletamos detalhes básicos.", pp3Title: "3. Uso de Dados", pp3Text: "Usado para saques.", pp4Title: "4. Terceiros", pp4Text: "Integramos Firebase.", pp5Title: "5. Contato", pp5Text: "Canal oficial:"
+        pp1Title: "1. Introdução", pp1Text: "Bem-vindo ao aplicativo.", pp2Title: "2. Coleta", pp2Text: "Coletamos detalhes básicos.", pp3Title: "3. Uso de Dados", pp3Text: "Usado para saques.", pp4Title: "4. Terceiros", pp4Text: "Integramos Firebase.", pp5Title: "5. Contato", pp5Text: "Canal oficial:",
+        alertSyncing: "Aguarde, sincronizando...", alertAdSuccess: "Sucesso! Ganhou 50.000 pontos!", alertAdFail: "Assista ao anúncio completo!", alertAdLoading: "Carregando anúncios...", alertCheckinClaimed: "Bônus diário já resgatado!", alertCheckinSuccess: "Check-in bem-sucedido! +100 Pontos", alertInvalidUrl: "Insira uma URL válida", alertInsufficientPoints: "Saldo insuficiente! Precisa de {cost} pontos.", alertPaymentInitiating: "Iniciando transferência de {amount} $GRAM...", alertPaymentSuccess: "Pagamento bem-sucedido!", alertPaymentFailed: "Transação cancelada.", alertSendGramPrompt: "Envie {amount} $GRAM para:\n\n{wallet}", alertAddressCopied: "Endereço copiado!", alertStarsInvoice: "Fatura Stars: {stars} ⭐", alertTaskPosted: "Tarefa postada com sucesso!", alertTaskFailed: "Falha ao postar tarefa.", alertDailyLimit: "Limite diário atingido (5 tarefas/dia)!", alertTaskCompleted: "Tarefa concluída! +{amount} Pontos", alertConnectWalletFirst: "Conecte sua carteira $GRAM primeiro!", alertInsufficientWithdraw: "Saldo insuficiente para saque #{stage}.", alertWithdrawSuccess: "Saque #{stage} solicitado com sucesso!", alertReferralCopied: "Link copiado!", alertIdCopied: "ID copiado: {id}", alertWalletLoading: "Carregando carteira..."
       },
       ru: {
         watchAd: "Смотреть рекламу", dailyCheckIn: "Ежедневный вход", levelDesc: "Пригласите 3 пользователей для Lv.2", inviteBtn: "пригласить", dailyTaskProgress: "Прогресс заданий", resetsDaily: "Сброс в 00:00", bountyTaskTitle: "Баунти задания", postBtn: "СОЗДАТЬ +", loadingTasks: "Загрузка заданий...", navHome: "Главная", navTeam: "Команда", postTaskHeader: "Опубликовать задание ⭐", taskNameLabel: "🏷️ Название задания", placeholderTaskName: "Введите название задания", taskUrlLabel: "💳 Ссылка задания", placeholderUrl: "Введите ссылку задания", impressionsLabel: "⣿ Показы", postTaskBtnText: "Опубликовать", balanceHeader: "Баланс", connectWalletBtn: "🔗 Подключить $GRAM кошелек", withdrawBtnText: "Вывести", settingsHeader: "⚙️ Настройки", copyBtn: "Копировать", officialChannel: "Официальный канал", goToX: "Перейти в X", privacyPolicy: "Политика конфиденциальности", privacyPolicyHeader: "Политика конфиденциальности", gotItBtn: "Понятно", linkTask: "Ссылка", noTasks: "Нет активных заданий.", allTasksCompleted: "Вы выполнили все задания!", withdrawTargetText: "Цель вывода #{stage}: {target} Монет", claimed: "Получено ✓", claimBtnText: "Забрать", verifyingText: "Проверка...", teamHeader: "Создавай команду, зарабатывай больше!", teamLv1Title: "Приглашенные вами", teamLv1Desc: "Lv1: 5% бонус", teamLv2Title: "Приглашенные Lv.1", teamLv2Desc: "Lv.2: 3% бонус", teamLv3Title: "Приглашенные Lv.2", teamLv3Desc: "Lv.3: 1% бонус", inviteMembersBtn: "Пригласить участников",
-        pp1Title: "1. Введение", pp1Text: "Добро пожаловать в приложение.", pp2Title: "2. Сбор данных", pp2Text: "Мы собираем данные Telegram профиля.", pp3Title: "3. Использование", pp3Text: "Данные используются для выплат.", pp4Title: "4. Сторонние сервисы", pp4Text: "Интеграция с Firebase.", pp5Title: "5. Контакты", pp5Text: "Официальный канал:"
+        pp1Title: "1. Введение", pp1Text: "Добро пожаловать в приложение.", pp2Title: "2. Сбор данных", pp2Text: "Мы собираем данные Telegram профиля.", pp3Title: "3. Использование", pp3Text: "Данные используются для выплат.", pp4Title: "4. Сторонние сервисы", pp4Text: "Интеграция с Firebase.", pp5Title: "5. Контакты", pp5Text: "Официальный канал:",
+        alertSyncing: "Подождите, синхронизация...", alertAdSuccess: "Успех! Вы получили 50,000 очков!", alertAdFail: "Посмотрите рекламу полностью!", alertAdLoading: "Загрузка рекламы...", alertCheckinClaimed: "Вы уже забрали бонус!", alertCheckinSuccess: "Вход выполнен! +100 очков", alertInvalidUrl: "Введите корректную ссылку", alertInsufficientPoints: "Недостаточно очков! Нужно {cost}.", alertPaymentInitiating: "Перевод {amount} $GRAM...", alertPaymentSuccess: "Оплата прошла успешно!", alertPaymentFailed: "Транзакция отменена.", alertSendGramPrompt: "Отправьте {amount} $GRAM на:\n\n{wallet}", alertAddressCopied: "Адрес скопирован!", alertStarsInvoice: "Счет Stars: {stars} ⭐", alertTaskPosted: "Задание опубликовано!", alertTaskFailed: "Ошибка публикации задания.", alertDailyLimit: "Дневной лимит исчерпан (5 заданий/день)!", alertTaskCompleted: "Задание выполнено! +{amount} очков", alertConnectWalletFirst: "Сначала подключите $GRAM кошелек!", alertInsufficientWithdraw: "Недостаточно средств для вывода #{stage}.", alertWithdrawSuccess: "Вывод #{stage} успешно запрошен!", alertReferralCopied: "Ссылка скопирована!", alertIdCopied: "ID скопирован: {id}", alertWalletLoading: "Загрузка кошелька..."
       },
       fr: {
         watchAd: "Regarder Pub", dailyCheckIn: "Bonus Quotidien", levelDesc: "Invitez 3 utilisateurs pour le Niveau 2", inviteBtn: "inviter", dailyTaskProgress: "Progrès Quotidien", resetsDaily: "Réinitialisation à 00:00", bountyTaskTitle: "Tâches Bounty", postBtn: "POSTER +", loadingTasks: "Chargement des tâches...", navHome: "Accueil", navTeam: "Équipe", postTaskHeader: "Publier une tâche ⭐", taskNameLabel: "🏷️ Nom de la tâche", placeholderTaskName: "Entrez le nom de la tâche", taskUrlLabel: "💳 URL de la tâche", placeholderUrl: "Veuillez saisir l'URL", impressionsLabel: "⣿ Impressions", postTaskBtnText: "Publier", balanceHeader: "Solde", connectWalletBtn: "🔗 Connecter Portefeuille $GRAM", withdrawBtnText: "Retirer", settingsHeader: "⚙️ Paramètres", copyBtn: "Copier", officialChannel: "Chaîne Officielle", goToX: "Aller sur X", privacyPolicy: "Politique de Confidentialité", privacyPolicyHeader: "Politique de Confidentialité", gotItBtn: "Compris", linkTask: "Lien", noTasks: "Aucune tâche disponible.", allTasksCompleted: "Toutes les tâches sont terminées !", withdrawTargetText: "Objectif de Retrait #{stage}: {target} Pièces", claimed: "Réclamé ✓", claimBtnText: "Réclamer", verifyingText: "Vérification...", teamHeader: "Créez une équipe, gagnez plus !", teamLv1Title: "Membres invités", teamLv1Desc: "Niv 1 : 5% bonus", teamLv2Title: "Invités Niv 1", teamLv2Desc: "Niv 2 : 3% bonus", teamLv3Title: "Invités Niv 2", teamLv3Desc: "Niv 3 : 1% bonus", inviteMembersBtn: "Inviter des membres",
-        pp1Title: "1. Introduction", pp1Text: "Bienvenue dans l'application.", pp2Title: "2. Collecte", pp2Text: "Collecte d'informations de base.", pp3Title: "3. Utilisation", pp3Text: "Utilisé pour les retraits.", pp4Title: "4. Tiers", pp4Text: "Services Firebase et Monetag.", pp5Title: "5. Contact", pp5Text: "Chaîne officielle :"
+        pp1Title: "1. Introduction", pp1Text: "Bienvenue dans l'application.", pp2Title: "2. Collecte", pp2Text: "Collecte d'informations de base.", pp3Title: "3. Utilisation", pp3Text: "Utilisé pour les retraits.", pp4Title: "4. Tiers", pp4Text: "Services Firebase et Monetag.", pp5Title: "5. Contact", pp5Text: "Chaîne officielle :",
+        alertSyncing: "Veuillez patienter...", alertAdSuccess: "Succès ! 50 000 points gagnés !", alertAdFail: "Regardez la vidéo complète !", alertAdLoading: "Chargement de la pub...", alertCheckinClaimed: "Bonus déjà réclamé !", alertCheckinSuccess: "Check-in réussi ! +100 Points", alertInvalidUrl: "Entrez une URL valide", alertInsufficientPoints: "Solde insuffisant ! Requis : {cost} pts.", alertPaymentInitiating: "Transfert de {amount} $GRAM...", alertPaymentSuccess: "Paiement réussi !", alertPaymentFailed: "Transaction annulée.", alertSendGramPrompt: "Envoyez {amount} $GRAM à :\n\n{wallet}", alertAddressCopied: "Adresse copiée !", alertStarsInvoice: "Facture Stars : {stars} ⭐", alertTaskPosted: "Tâche publiée avec succès !", alertTaskFailed: "Échec de publication.", alertDailyLimit: "Limite quotidienne atteinte (5 tâches/jour) !", alertTaskCompleted: "Tâche terminée ! +{amount} Points", alertConnectWalletFirst: "Connectez votre portefeuille $GRAM d'abord !", alertInsufficientWithdraw: "Solde insuffisant pour le retrait #{stage}.", alertWithdrawSuccess: "Retrait #{stage} demandé avec succès !", alertReferralCopied: "Lien copié !", alertIdCopied: "ID copié : {id}", alertWalletLoading: "Chargement du portefeuille..."
       },
       id: {
         watchAd: "Tonton Iklan", dailyCheckIn: "Absen Harian", levelDesc: "Undang 3 pengguna untuk ke Lv.2", inviteBtn: "undang", dailyTaskProgress: "Progres Tugas", resetsDaily: "Reset jam 00:00", bountyTaskTitle: "Tugas Bounty", postBtn: "POST +", loadingTasks: "Memuat tugas...", navHome: "Beranda", navTeam: "Tim", postTaskHeader: "Buat Tugas ⭐", taskNameLabel: "🏷️ Nama tugas", placeholderTaskName: "Masukkan nama tugas", taskUrlLabel: "💳 URL tugas", placeholderUrl: "Masukkan URL tugas", impressionsLabel: "⣿ Impresi", postTaskBtnText: "Kirim Tugas", balanceHeader: "Saldo", connectWalletBtn: "🔗 Hubungkan Dompet $GRAM", withdrawBtnText: "Tarik Saldo", settingsHeader: "⚙️ Pengaturan", copyBtn: "Salin", officialChannel: "Saluran Resmi", goToX: "Buka X", privacyPolicy: "Kebijakan Privasi", privacyPolicyHeader: "Kebijakan Privasi", gotItBtn: "Mengerti", linkTask: "Tautan", noTasks: "Tidak ada tugas aktif.", allTasksCompleted: "Semua tugas selesai!", withdrawTargetText: "Target #{stage}: {target} Koin", claimed: "Klaim ✓", claimBtnText: "Klaim", verifyingText: "Memverifikasi...", teamHeader: "Buat tim, Dapatkan lebih!", teamLv1Title: "Anggota yang diundang", teamLv1Desc: "Lv1: Bonus 5%", teamLv2Title: "Diundang Lv.1", teamLv2Desc: "Lv.2: Bonus 3%", teamLv3Title: "Diundang Lv.2", teamLv3Desc: "Lv.3: Bonus 1%", inviteMembersBtn: "Undang Anggota",
-        pp1Title: "1. Pendahuluan", pp1Text: "Selamat datang di aplikasi.", pp2Title: "2. Informasi", pp2Text: "Kami mengumpulkan detail dasar.", pp3Title: "3. Penggunaan", pp3Text: "Digunakan untuk penarikan.", pp4Title: "4. Pihak Ketiga", pp4Text: "Menggunakan Firebase.", pp5Title: "5. Kontak", pp5Text: "Saluran resmi:"
+        pp1Title: "1. Pendahuluan", pp1Text: "Selamat datang di aplikasi.", pp2Title: "2. Informasi", pp2Text: "Kami mengumpulkan detail dasar.", pp3Title: "3. Penggunaan", pp3Text: "Digunakan untuk penarikan.", pp4Title: "4. Pihak Ketiga", pp4Text: "Menggunakan Firebase.", pp5Title: "5. Kontak", pp5Text: "Saluran resmi:",
+        alertSyncing: "Mohon tunggu...", alertAdSuccess: "Berhasil! Mendapat 50.000 Poin!", alertAdFail: "Tonton iklan sampai selesai!", alertAdLoading: "Memuat iklan...", alertCheckinClaimed: "Bonus harian sudah diambil!", alertCheckinSuccess: "Absen berhasil! +100 Poin", alertInvalidUrl: "Masukkan URL yang valid", alertInsufficientPoints: "Poin tidak cukup! Butuh {cost} Poin.", alertPaymentInitiating: "Memulai transfer {amount} $GRAM...", alertPaymentSuccess: "Pembayaran berhasil!", alertPaymentFailed: "Transaksi dibatalkan.", alertSendGramPrompt: "Kirim {amount} $GRAM ke:\n\n{wallet}", alertAddressCopied: "Alamat disalin!", alertStarsInvoice: "Faktur Stars: {stars} ⭐", alertTaskPosted: "Tugas berhasil diposting!", alertTaskFailed: "Gagal memposting tugas.", alertDailyLimit: "Batas harian tercapai (5 tugas/hari)!", alertTaskCompleted: "Tugas selesai! +{amount} Poin", alertConnectWalletFirst: "Hubungkan dompet $GRAM terlebih dahulu!", alertInsufficientWithdraw: "Saldo tidak cukup untuk penarikan #{stage}.", alertWithdrawSuccess: "Penarikan #{stage} berhasil diminta!", alertReferralCopied: "Tautan disalin!", alertIdCopied: "ID disalin: {id}", alertWalletLoading: "Memuat dompet..."
       },
       uk: {
         watchAd: "Дивитись рекламу", dailyCheckIn: "Щоденний вхід", levelDesc: "Запросіть 3 користувачів для Lv.2", inviteBtn: "запросити", dailyTaskProgress: "Прогрес завдань", resetsDaily: "Скидання о 00:00", bountyTaskTitle: "Баунті завдання", postBtn: "СТВОРИТИ +", loadingTasks: "Завантаження завдань...", navHome: "Головна", navTeam: "Команда", postTaskHeader: "Опублікувати завдання ⭐", taskNameLabel: "🏷️ Назва завдання", placeholderTaskName: "Введіть назву завдання", taskUrlLabel: "💳 Посилання завдання", placeholderUrl: "Введіть посилання", impressionsLabel: "⣿ Покази", postTaskBtnText: "Опублікувати", balanceHeader: "Баланс", connectWalletBtn: "🔗 Підключити $GRAM гаманець", withdrawBtnText: "Вивести", settingsHeader: "⚙️ Налаштування", copyBtn: "Копіювати", officialChannel: "Офіційний канал", goToX: "Перейти в X", privacyPolicy: "Політика конфіденційності", privacyPolicyHeader: "Політика конфіденційності", gotItBtn: "Зрозуміло", linkTask: "Посилання", noTasks: "Немає активних завдань.", allTasksCompleted: "Ви виконали всі завдання!", withdrawTargetText: "Ціль виведення #{stage}: {target} Монет", claimed: "Отримано ✓", claimBtnText: "Забрати", verifyingText: "Перевірка...", teamHeader: "Створюй команду, заробляй!", teamLv1Title: "Запрошені вами", teamLv1Desc: "Lv1: 5% бонус", teamLv2Title: "Запрошені Lv.1", teamLv2Desc: "Lv.2: 3% бонус", teamLv3Title: "Запрошені Lv.2", teamLv3Desc: "Lv.3: 1% бонус", inviteMembersBtn: "Запросити учасників",
-        pp1Title: "1. Вступ", pp1Text: "Ласкаво просимо в додаток.", pp2Title: "2. Збір інформації", pp2Text: "Базові дані профілю.", pp3Title: "3. Використання", pp3Text: "Використовується для виплат.", pp4Title: "4. Сервіси", pp4Text: "Firebase та Monetag.", pp5Title: "5. Контакти", pp5Text: "Офіційний канал:"
+        pp1Title: "1. Вступ", pp1Text: "Ласкаво просимо в додаток.", pp2Title: "2. Збір інформації", pp2Text: "Базові дані профілю.", pp3Title: "3. Використання", pp3Text: "Використовується для виплат.", pp4Title: "4. Сервіси", pp4Text: "Firebase та Monetag.", pp5Title: "5. Контакти", pp5Text: "Офіційний канал:",
+        alertSyncing: "Зачекайте...", alertAdSuccess: "Успіх! Отримано 50,000 балів!", alertAdFail: "Перегляньте рекламу повністю!", alertAdLoading: "Завантаження реклами...", alertCheckinClaimed: "Бонус вже отримано!", alertCheckinSuccess: "Вхід успішний! +100 балів", alertInvalidUrl: "Введіть коректне посилання", alertInsufficientPoints: "Недостатньо балів! Потрібно {cost}.", alertPaymentInitiating: "Переказ {amount} $GRAM...", alertPaymentSuccess: "Оплата успішна!", alertPaymentFailed: "Транзакцію скасовано.", alertSendGramPrompt: "Надішліть {amount} $GRAM на:\n\n{wallet}", alertAddressCopied: "Адресу скопійовано!", alertStarsInvoice: "Рахунок Stars: {stars} ⭐", alertTaskPosted: "Завдання опубліковано!", alertTaskFailed: "Помилка публікації.", alertDailyLimit: "Денний ліміт вичерпано (5 завдань/день)!", alertTaskCompleted: "Завдання виконано! +{amount} балів", alertConnectWalletFirst: "Підключіть $GRAM гаманець!", alertInsufficientWithdraw: "Недостатньо коштів для виведення #{stage}.", alertWithdrawSuccess: "Виведення #{stage} успішно замовлено!", alertReferralCopied: "Посилання скопійовано!", alertIdCopied: "ID скопійовано: {id}", alertWalletLoading: "Завантаження гаманця..."
       },
       hi: {
         watchAd: "विज्ञापन देखें", dailyCheckIn: "दैनिक चेक-इन", levelDesc: "Lv.2 के लिए 3 उपयोगकर्ताओं को आमंत्रित करें", inviteBtn: "आमंत्रित करें", dailyTaskProgress: "दैनिक कार्य प्रगति", resetsDaily: "रात 00:00 बजे रीसेट", bountyTaskTitle: "बाउंटी कार्य", postBtn: "पोस्ट +", loadingTasks: "कार्य लोड हो रहे हैं...", navHome: "होम", navTeam: "टीम", postTaskHeader: "कार्य पोस्ट करें ⭐", taskNameLabel: "🏷️ कार्य का नाम", placeholderTaskName: "कार्य का नाम दर्ज करें", taskUrlLabel: "💳 कार्य लिंक", placeholderUrl: "कृपया कार्य लिंक दर्ज करें", impressionsLabel: "⣿ इंप्रेशन", postTaskBtnText: "पोस्ट करें", balanceHeader: "बैलेंस", connectWalletBtn: "🔗 $GRAM वॉलेट जोड़ें", withdrawBtnText: "निकालें", settingsHeader: "⚙️ सेटिंग्स", copyBtn: "कॉपी", officialChannel: "ऑफिशियल चैनल", goToX: "X पर जाएं", privacyPolicy: "गोपनीयता नीति", privacyPolicyHeader: "गोपनीयता नीति", gotItBtn: "समझ गया", linkTask: "लिंक कार्य", noTasks: "कोई सक्रिय कार्य उपलब्ध नहीं है।", allTasksCompleted: "आपने सभी कार्य पूरे कर लिए हैं!", withdrawTargetText: "निकासी का लक्ष्य #{stage}: {target} सिक्के", claimed: "प्राप्त ✓", claimBtnText: "दावा करें", verifyingText: "सत्यापित हो रहा है...", teamHeader: "टीम बनाएं, अधिक कमाएं!", teamLv1Title: "आपके द्वारा आमंत्रित", teamLv1Desc: "Lv1: 5% बोनस पाएं", teamLv2Title: "Lv.1 द्वारा आमंत्रित", teamLv2Desc: "Lv.2: 3% बोनस पाएं", teamLv3Title: "Lv.2 द्वारा आमंत्रित", teamLv3Desc: "Lv.3: 1% बोनस पाएं", inviteMembersBtn: "सदस्यों को आमंत्रित करें",
-        pp1Title: "1. परिचय", pp1Text: "ऐप में आपका स्वागत है।", pp2Title: "2. डेटा संग्रह", pp2Text: "बुनियादी डेटा एकत्र किया जाता है।", pp3Title: "3. उपयोग", pp3Text: "निकासी के लिए उपयोग किया जाता है।", pp4Title: "4. थर्ड पार्टी", pp4Text: "फायरबेस सेवाएँ।", pp5Title: "5. संपर्क", pp5Text: "ऑफिशियल चैनल:"
+        pp1Title: "1. परिचय", pp1Text: "ऐप में आपका स्वागत है।", pp2Title: "2. डेटा संग्रह", pp2Text: "बुनियादी डेटा एकत्र किया जाता है।", pp3Title: "3. उपयोग", pp3Text: "निकासी के लिए उपयोग किया जाता है।", pp4Title: "4. थर्ड पार्टी", pp4Text: "फायरबेस सेवाएँ।", pp5Title: "5. संपर्क", pp5Text: "ऑफिशियल चैनल:",
+        alertSyncing: "कृपया प्रतीक्षा करें...", alertAdSuccess: "सफल! आपने 50,000 अंक अर्जित किए!", alertAdFail: "अंक अर्जित करने के लिए पूरा विज्ञापन देखें!", alertAdLoading: "विज्ञापन लोड हो रहा है...", alertCheckinClaimed: "दैनिक बोनस पहले ही दावा किया जा चुका है!", alertCheckinSuccess: "चेक-इन सफल! +100 अंक", alertInvalidUrl: "कृपया एक मान्य URL दर्ज करें", alertInsufficientPoints: "अपर्याप्त बैलेंस! आपको {cost} अंकों की आवश्यकता है।", alertPaymentInitiating: "{amount} $GRAM ट्रांसफर शुरू किया जा रहा है...", alertPaymentSuccess: "भुगतान सफल! कार्य पोस्ट किया गया।", alertPaymentFailed: "लेनदेन रद्द या विफल।", alertSendGramPrompt: "{amount} $GRAM इस पते पर भेजें:\n\n{wallet}", alertAddressCopied: "पता कॉपी किया गया!", alertStarsInvoice: "Stars चालान: {stars} ⭐", alertTaskPosted: "कार्य सफलतापूर्वक पोस्ट किया गया!", alertTaskFailed: "कार्य पोस्ट करने में विफल।", alertDailyLimit: "दैनिक सीमा समाप्त (5 कार्य/दिन)!", alertTaskCompleted: "कार्य पूरा हुआ! +{amount} अंक", alertConnectWalletFirst: "कृपया पहले $GRAM वॉलेट जोड़ें!", alertInsufficientWithdraw: "निकासी #{stage} के लिए अपर्याप्त बैलेंस।", alertWithdrawSuccess: "निकासी #{stage} सफलतापूर्वक अनुरोधित!", alertReferralCopied: "रेफरल लिंक कॉपी किया गया!", alertIdCopied: "ID कॉपी की गई: {id}", alertWalletLoading: "वॉलेट लोड हो रहा है..."
       },
       ko: {
         watchAd: "광고 시청", dailyCheckIn: "출석 체크", levelDesc: "Lv.2 업그레이드를 위해 3명 초대", inviteBtn: "초대하기", dailyTaskProgress: "일일 미션 진행률", resetsDaily: "매일 00:00 초기화", bountyTaskTitle: "바운티 미션", postBtn: "등록 +", loadingTasks: "미션 불러오는 중...", navHome: "홈", navTeam: "팀", postTaskHeader: "미션 등록 ⭐", taskNameLabel: "🏷️ 미션 이름", placeholderTaskName: "미션 이름을 입력하세요", taskUrlLabel: "💳 미션 링크", placeholderUrl: "미션 URL을 입력하세요", impressionsLabel: "⣿ 노출 수", postTaskBtnText: "미션 등록", balanceHeader: "잔액", connectWalletBtn: "🔗 $GRAM 지갑 연결", withdrawBtnText: "출금하기", settingsHeader: "⚙️ 설정", copyBtn: "복사", officialChannel: "공식 채널", goToX: "X 방문", privacyPolicy: "개인정보 처리방침", privacyPolicyHeader: "개인정보 처리방침", gotItBtn: "확인", linkTask: "링크", noTasks: "현재 미션이 없습니다.", allTasksCompleted: "모든 미션을 완료했습니다!", withdrawTargetText: "출금 목표 #{stage}: {target} 코인", claimed: "수령됨 ✓", claimBtnText: "수령", verifyingText: "확인 중...", teamHeader: "팀을 만들고 더 많이 버세요!", teamLv1Title: "직접 초대한 회원", teamLv1Desc: "Lv1: 5% 보너스", teamLv2Title: "Lv.1 회원이 초대한 회원", teamLv2Desc: "Lv.2: 3% 보너스", teamLv3Title: "Lv.2 회원이 초대한 회원", teamLv3Desc: "Lv.3: 1% 보너스", inviteMembersBtn: "팀원 초대하기",
-        pp1Title: "1. 소개", pp1Text: "앱에 오신 것을 환영합니다.", pp2Title: "2. 정보 수집", pp2Text: "기본 프로필을 수집합니다.", pp3Title: "3. 데이터 사용", pp3Text: "출금 처리에 사용됩니다.", pp4Title: "4. 제3자 서비스", pp4Text: "Firebase 연동.", pp5Title: "5. 문의하기", pp5Text: "공식 채널:"
+        pp1Title: "1. 소개", pp1Text: "앱에 오신 것을 환영합니다.", pp2Title: "2. 정보 수집", pp2Text: "기본 프로필을 수집합니다.", pp3Title: "3. 데이터 사용", pp3Text: "출금 처리에 사용됩니다.", pp4Title: "4. 제3자 서비스", pp4Text: "Firebase 연동.", pp5Title: "5. 문의하기", pp5Text: "공식 채널:",
+        alertSyncing: "잠시만 기다려주세요...", alertAdSuccess: "성공! 50,000 포인트를 획득했습니다!", alertAdFail: "광고를 끝까지 시청해야 합니다!", alertAdLoading: "광고 불러오는 중...", alertCheckinClaimed: "이미 오늘의 보너스를 받았습니다!", alertCheckinSuccess: "출석 체크 성공! +100 포인트", alertInvalidUrl: "올바른 URL을 입력하세요", alertInsufficientPoints: "잔액이 부족합니다! {cost} 포인트가 필요합니다.", alertPaymentInitiating: "{amount} $GRAM 전송을 시작합니다...", alertPaymentSuccess: "결제 완료! 미션이 등록되었습니다.", alertPaymentFailed: "거래가 취소되었거나 실패했습니다.", alertSendGramPrompt: "{amount} $GRAM을 다음 주소로 전송하세요:\n\n{wallet}", alertAddressCopied: "지갑 주소가 복사되었습니다!", alertStarsInvoice: "Stars 청구서: {stars} ⭐", alertTaskPosted: "미션이 성공적으로 등록되었습니다!", alertTaskFailed: "미션 등록 실패.", alertDailyLimit: "일일 한도 초과 (하루 5개 미션)!", alertTaskCompleted: "미션 완료! +{amount} 포인트", alertConnectWalletFirst: "먼저 $GRAM 지갑을 연결하세요!", alertInsufficientWithdraw: "출금 #{stage}에 잔액이 부족합니다.", alertWithdrawSuccess: "출금 #{stage} 신청 완료!", alertReferralCopied: "초대 링크 복사 완료!", alertIdCopied: "텔레그램 ID 복사: {id}", alertWalletLoading: "지갑 로딩 중..."
       },
       tw: {
         watchAd: "觀看廣告", dailyCheckIn: "每日簽到", levelDesc: "邀請 3 位用戶升級至 Lv.2", inviteBtn: "邀請", dailyTaskProgress: "每日任務進度", resetsDaily: "每日 00:00 重置", bountyTaskTitle: "賞金任務", postBtn: "發布 +", loadingTasks: "載入任務中...", navHome: "首頁", navTeam: "團隊", postTaskHeader: "發布任務 ⭐", taskNameLabel: "🏷️ 任務名稱", placeholderTaskName: "請輸入任務名稱", taskUrlLabel: "💳 任務網址", placeholderUrl: "請輸入任務網址", impressionsLabel: "⣿ 展示次數", postTaskBtnText: "發布任務", balanceHeader: "餘額", connectWalletBtn: "🔗 連結 $GRAM 錢包", withdrawBtnText: "提現", settingsHeader: "⚙️ 設定", copyBtn: "複製", officialChannel: "官方頻道", goToX: "前往 X", privacyPolicy: "隱私政策", privacyPolicyHeader: "隱私政策", gotItBtn: "我知道了", linkTask: "連結", noTasks: "目前沒有可用的賞金任務。", allTasksCompleted: "您已完成所有可用任務！", withdrawTargetText: "提現目標 #{stage}: {target} 金幣", claimed: "已領取 ✓", claimBtnText: "領取", verifyingText: "驗證中...", teamHeader: "創建團隊，賺取更多！", teamLv1Title: "您邀請的成員", teamLv1Desc: "Lv1: 獲得 5% 獎勵", teamLv2Title: "由 Lv.1 成員邀請", teamLv2Desc: "Lv.2: 獲得 3% 獎勵", teamLv3Title: "由 Lv.2 成員邀請", teamLv3Desc: "Lv.3: 獲得 1% 獎勵", inviteMembersBtn: "邀請成員",
-        pp1Title: "1. 簡介", pp1Text: "歡迎使用此應用程式。", pp2Title: "2. 資料收集", pp2Text: "收集基本帳戶資料。", pp3Title: "3. 資料使用", pp3Text: "僅用於提現與功能。", pp4Title: "4. 第三方服務", pp4Text: "整合 Firebase。", pp5Title: "5. 聯絡我們", pp5Text: "官方頻道："
+        pp1Title: "1. 簡介", pp1Text: "歡迎使用此應用程式。", pp2Title: "2. 資料收集", pp2Text: "收集基本帳戶資料。", pp3Title: "3. 資料使用", pp3Text: "僅用於提現與功能。", pp4Title: "4. 第三方服務", pp4Text: "整合 Firebase。", pp5Title: "5. 聯絡我們", pp5Text: "官方頻道：",
+        alertSyncing: "請稍候...", alertAdSuccess: "成功！獲得 50,000 點數！", alertAdFail: "請觀看完整廣告！", alertAdLoading: "廣告載入中...", alertCheckinClaimed: "今日獎勵已領取！", alertCheckinSuccess: "簽到成功！+100 點數", alertInvalidUrl: "請輸入有效的網址", alertInsufficientPoints: "餘額不足！需要 {cost} 點數。", alertPaymentInitiating: "正在轉帳 {amount} $GRAM...", alertPaymentSuccess: "付款成功！任務已發布。", alertPaymentFailed: "交易已取消。", alertSendGramPrompt: "請發送 {amount} $GRAM 至：\n\n{wallet}", alertAddressCopied: "地址已複製！", alertStarsInvoice: "Stars 發票: {stars} ⭐", alertTaskPosted: "任務發布成功！", alertTaskFailed: "任務發布失敗。", alertDailyLimit: "已達每日上限 (5 個任務/天)！", alertTaskCompleted: "任務完成！+{amount} 點數", alertConnectWalletFirst: "請先連結您的 $GRAM 錢包！", alertInsufficientWithdraw: "餘額不足以提現 #{stage}。", alertWithdrawSuccess: "提現 #{stage} 申請成功！", alertReferralCopied: "邀請連結已複製！", alertIdCopied: "Telegram ID 已複製: {id}", alertWalletLoading: "錢包載入中..."
       },
       cn: {
         watchAd: "观看广告", dailyCheckIn: "每日签到", levelDesc: "邀请 3 位用户升级至 Lv.2", inviteBtn: "邀请", dailyTaskProgress: "每日任务进度", resetsDaily: "每日 00:00 重置", bountyTaskTitle: "赏金任务", postBtn: "发布 +", loadingTasks: "加载任务中...", navHome: "首页", navTeam: "团队", postTaskHeader: "发布任务 ⭐", taskNameLabel: "🏷️ 任务名称", placeholderTaskName: "请输入任务名称", taskUrlLabel: "💳 任务网址", placeholderUrl: "请输入任务网址", impressionsLabel: "⣿ 展示次数", postTaskBtnText: "发布任务", balanceHeader: "余额", connectWalletBtn: "🔗 链接 $GRAM 钱包", withdrawBtnText: "提现", settingsHeader: "⚙️ 设置", copyBtn: "复制", officialChannel: "官方频道", goToX: "前往 X", privacyPolicy: "隐私政策", privacyPolicyHeader: "隐私政策", gotItBtn: "我知道了", linkTask: "链接", noTasks: "目前没有可用的赏金任务。", allTasksCompleted: "您已完成所有可用任务！", withdrawTargetText: "提现目标 #{stage}: {target} 金币", claimed: "已领取 ✓", claimBtnText: "领取", verifyingText: "验证中...", teamHeader: "创建团队，赚取更多！", teamLv1Title: "您邀请的成员", teamLv1Desc: "Lv1: 获得 5% 奖励", teamLv2Title: "由 Lv.1 成员邀请", teamLv2Desc: "Lv.2: 获得 3% 奖励", teamLv3Title: "由 Lv.2 成员邀请", teamLv3Desc: "Lv.3: 获得 1% 奖励", inviteMembersBtn: "邀请成员",
-        pp1Title: "1. 简介", pp1Text: "欢迎使用此应用程序。", pp2Title: "2. 数据收集", pp2Text: "收集基本个人资料。", pp3Title: "3. 数据使用", pp3Text: "仅用于提现与服务。", pp4Title: "4. 第三方服务", pp4Text: "整合 Firebase。", pp5Title: "5. 联系我们", pp5Text: "官方频道："
+        pp1Title: "1. 简介", pp1Text: "欢迎使用此应用程序。", pp2Title: "2. 数据收集", pp2Text: "收集基本个人资料。", pp3Title: "3. 数据使用", pp3Text: "仅用于提现与服务。", pp4Title: "4. 第三方服务", pp4Text: "整合 Firebase。", pp5Title: "5. 联系我们", pp5Text: "官方频道：",
+        alertSyncing: "请稍候...", alertAdSuccess: "成功！获得 50,000 积分！", alertAdFail: "请观看完整广告！", alertAdLoading: "广告加载中...", alertCheckinClaimed: "今日奖励已领取！", alertCheckinSuccess: "签到成功！+100 积分", alertInvalidUrl: "请输入有效的网址", alertInsufficientPoints: "余额不足！需要 {cost} 积分。", alertPaymentInitiating: "正在转账 {amount} $GRAM...", alertPaymentSuccess: "付款成功！任务已发布。", alertPaymentFailed: "交易已取消。", alertSendGramPrompt: "请发送 {amount} $GRAM 至：\n\n{wallet}", alertAddressCopied: "地址已复制！", alertStarsInvoice: "Stars 账单: {stars} ⭐", alertTaskPosted: "任务发布成功！", alertTaskFailed: "任务发布失败。", alertDailyLimit: "已达每日上限 (5 个任务/天)！", alertTaskCompleted: "任务完成！+{amount} 积分", alertConnectWalletFirst: "请先连接您的 $GRAM 钱包！", alertInsufficientWithdraw: "余额不足以提现 #{stage}。", alertWithdrawSuccess: "提现 #{stage} 申请成功！", alertReferralCopied: "邀请链接已复制！", alertIdCopied: "Telegram ID 已复制: {id}", alertWalletLoading: "钱包加载中..."
       },
       vi: {
         watchAd: "Xem Quảng Cáo", dailyCheckIn: "Điểm Danh Hàng Ngày", levelDesc: "Mời 3 người dùng để nâng Cấp 2", inviteBtn: "mời", dailyTaskProgress: "Tiến Độ Nhiệm Vụ", resetsDaily: "Đặt lại lúc 00:00", bountyTaskTitle: "Nhiệm Vụ Bounty", postBtn: "ĐĂNG +", loadingTasks: "Đang tải nhiệm vụ...", navHome: "Trang chủ", navTeam: "Đội ngũ", postTaskHeader: "Đăng Nhiệm Vụ ⭐", taskNameLabel: "🏷️ Tên nhiệm vụ", placeholderTaskName: "Nhập tên nhiệm vụ", taskUrlLabel: "💳 Đường dẫn nhiệm vụ", placeholderUrl: "Vui lòng nhập đường dẫn", impressionsLabel: "⣿ Lượt hiển thị", postTaskBtnText: "Đăng Nhiệm Vụ", balanceHeader: "Số dư", connectWalletBtn: "🔗 Kết Nối Ví $GRAM", withdrawBtnText: "Rút Tiền", settingsHeader: "⚙️ Cài đặt", copyBtn: "Sao chép", officialChannel: "Kênh Chính Thức", goToX: "Truy cập X", privacyPolicy: "Chính Sách Quyền Riêng Tư", privacyPolicyHeader: "Chính Sách Quyền Riêng Tư", gotItBtn: "Đã Hiểu", linkTask: "Liên kết", noTasks: "Hiện không có nhiệm vụ nào.", allTasksCompleted: "Bạn đã hoàn thành tất cả nhiệm vụ!", withdrawTargetText: "Mục Tiêu Rút #{stage}: {target} Xu", claimed: "Đã Nhận ✓", claimBtnText: "Nhận", verifyingText: "Đang xác minh...", teamHeader: "Tạo đội ngũ, Nhận nhiều hơn!", teamLv1Title: "Thành viên bạn đã mời", teamLv1Desc: "Cấp 1: Nhận 5% thưởng", teamLv2Title: "Do Cấp 1 mời", teamLv2Desc: "Cấp 2: Nhận 3% thưởng", teamLv3Title: "Do Cấp 2 mời", teamLv3Desc: "Cấp 3: Nhận 1% thưởng", inviteMembersBtn: "Mời Thành Viên",
-        pp1Title: "1. Giới thiệu", pp1Text: "Chào mừng bạn đến với ứng dụng.", pp2Title: "2. Thu thập", pp2Text: "Thu thập dữ liệu cơ bản.", pp3Title: "3. Sử dụng", pp3Text: "Dùng để xử lý rút tiền.", pp4Title: "4. Bên thứ ba", pp4Text: "Dịch vụ Firebase.", pp5Title: "5. Liên hệ", pp5Text: "Kênh chính thức:"
+        pp1Title: "1. Giới thiệu", pp1Text: "Chào mừng bạn đến với ứng dụng.", pp2Title: "2. Thu thập", pp2Text: "Thu thập dữ liệu cơ bản.", pp3Title: "3. Sử dụng", pp3Text: "Dùng để xử lý rút tiền.", pp4Title: "4. Bên thứ ba", pp4Text: "Dịch vụ Firebase.", pp5Title: "5. Liên hệ", pp5Text: "Kênh chính thức:",
+        alertSyncing: "Vui lòng chờ...", alertAdSuccess: "Thành công! Nhận được 50.000 Điểm!", alertAdFail: "Xem hết quảng cáo để nhận thưởng!", alertAdLoading: "Đang tải quảng cáo...", alertCheckinClaimed: "Đã nhận thưởng hôm nay!", alertCheckinSuccess: "Điểm danh thành công! +100 Điểm", alertInvalidUrl: "Vui lòng nhập URL hợp lệ", alertInsufficientPoints: "Số dư không đủ! Cần {cost} Điểm.", alertPaymentInitiating: "Bắt đầu chuyển {amount} $GRAM...", alertPaymentSuccess: "Thanh toán thành công!", alertPaymentFailed: "Giao dịch đã bị hủy.", alertSendGramPrompt: "Gửi {amount} $GRAM đến:\n\n{wallet}", alertAddressCopied: "Đã sao chép địa chỉ!", alertStarsInvoice: "Hóa đơn Stars: {stars} ⭐", alertTaskPosted: "Đăng nhiệm vụ thành công!", alertTaskFailed: "Đăng nhiệm vụ thất bại.", alertDailyLimit: "Đã đạt giới hạn hàng ngày (5 nhiệm vụ/ngày)!", alertTaskCompleted: "Nhiệm vụ hoàn thành! +{amount} Điểm", alertConnectWalletFirst: "Vui lòng kết nối ví $GRAM trước!", alertInsufficientWithdraw: "Số dư không đủ để rút #{stage}.", alertWithdrawSuccess: "Yêu cầu rút #{stage} thành công!", alertReferralCopied: "Đã sao chép liên kết giới thiệu!", alertIdCopied: "Đã sao chép ID: {id}", alertWalletLoading: "Đang tải ví..."
       }
     };
 
+    function getTrans(key, params = {}) {
+      let text = (translations[currentLang] && translations[currentLang][key]) || translations['en'][key] || key;
+      Object.keys(params).forEach(p => {
+        text = text.replace(new RegExp(`\\{${p}\\}`, 'g'), params[p]);
+      });
+      return text;
+    }
+
     function applyLanguage(langCode) {
       currentLang = langCode in translations ? langCode : 'en';
-      const dict = translations[currentLang];
-      if (!dict) return;
       
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (dict[key]) el.innerText = dict[key];
+        el.innerText = getTrans(key);
       });
 
       document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.getAttribute('data-i18n-placeholder');
-        if (dict[key]) el.placeholder = dict[key];
+        el.placeholder = getTrans(key);
       });
 
       document.dir = (currentLang === 'ur') ? 'rtl' : 'ltr';
