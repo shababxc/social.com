@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Admin Dashboard - High Security Portal</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-dark: #1e293b;
+      --border-dark: #334155;
+      --accent-blue: #38bdf8;
+      --success: #22c55e;
+      --danger: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-main);
+      padding: 16px;
+      min-height: 100vh;
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-dark);
+      margin-bottom: 20px;
+    }
+
+    .header-bar h1 {
+      font-size: 20px;
+      color: var(--accent-blue);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .stat-box {
+      background: var(--card-dark);
+      border: 1px solid var(--border-dark);
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .stat-box h3 {
+      font-size: 22px;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .stat-box p {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .config-card {
+      background: var(--card-dark);
+      border: 1px solid var(--border-dark);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 20px;
+    }
+
+    .config-card label {
+      display: block;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: var(--accent-blue);
+    }
+
+    .config-input-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .input-field {
+      flex: 1;
+      background: #0f172a;
+      border: 1px solid var(--border-dark);
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .save-btn {
+      background: var(--accent-blue);
+      color: #0f172a;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .tabs-nav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-dark);
+      padding-bottom: 8px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      background: var(--card-dark);
+      border-color: var(--border-dark);
+      color: var(--accent-blue);
+    }
+
+    .requests-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .request-card {
+      background: var(--card-dark);
+      border: 1px solid var(--border-dark);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .req-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .user-tag {
+      font-weight: bold;
+      font-size: 15px;
+      color: #fff;
+    }
+
+    .status-badge {
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .status-pending {
+      background: rgba(245, 158, 11, 0.2);
+      color: #f59e0b;
+      border: 1px solid #f59e0b;
+    }
+
+    .status-approved {
+      background: rgba(34, 197, 94, 0.2);
+      color: #22c55e;
+      border: 1px solid #22c55e;
+    }
+
+    .status-rejected {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+      border: 1px solid #ef4444;
+    }
+
+    .wallet-box {
+      background: #0f172a;
+      border: 1px dashed var(--border-dark);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      word-break: break-all;
+    }
+
+    .copy-btn {
+      background: rgba(56, 189, 248, 0.2);
+      color: var(--accent-blue);
+      border: 1px solid var(--accent-blue);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-left: 8px;
+    }
+
+    .req-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 13px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-approve {
+      background: var(--success);
+      color: #fff;
+    }
+
+    .btn-reject {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    /* High Security Password Overlay */
+    #security-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #090d16;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      padding: 16px;
+    }
+
+    .auth-box {
+      background: var(--card-dark);
+      border: 1px solid var(--border-dark);
+      padding: 28px 20px;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 360px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .auth-box h2 {
+      font-size: 20px;
+      margin-bottom: 8px;
+      color: var(--accent-blue);
+    }
+
+    .lock-icon {
+      font-size: 36px;
+      color: var(--accent-blue);
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Super Secure Password Login Overlay -->
+  <div id="security-overlay">
+    <div class="auth-box">
+      <div class="lock-icon"><i class="fas fa-user-lock"></i></div>
+      <h2>Secure Admin Portal</h2>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">
+        High-Security Access • Encrypted Gateway
+      </p>
+      
+      <div style="position: relative; margin-bottom: 12px;">
+        <input type="password" id="admin-password-input" class="input-field" placeholder="Enter Master Password" style="width: 100%; padding-right: 40px;">
+        <i class="fas fa-eye" id="toggle-pwd-icon" onclick="togglePasswordVisibility()" style="position: absolute; right: 12px; top: 12px; color: var(--text-muted); cursor: pointer;"></i>
+      </div>
+      
+      <button class="save-btn" style="width: 100%; padding: 12px; font-size: 14px;" onclick="verifyMasterPassword()">
+        <i class="fas fa-key"></i> Authenticate & Login
+      </button>
+
+      <div id="lockout-timer" style="font-size: 11px; color: var(--danger); margin-top: 10px; display: none;"></div>
+    </div>
+  </div>
+
+  <div class="header-bar">
+    <h1><i class="fas fa-shield-alt"></i> Admin Dashboard</h1>
+    <button class="copy-btn" onclick="location.reload()"><i class="fas fa-sync-alt"></i> Refresh</button>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="stats-container">
+    <div class="stat-box">
+      <h3 id="stat-pending">0</h3>
+      <p>Pending</p>
+    </div>
+    <div class="stat-box">
+      <h3 id="stat-approved">0</h3>
+      <p>Approved</p>
+    </div>
+    <div class="stat-box">
+      <h3 id="stat-total-gram">0</h3>
+      <p>Total $GRAM Paid</p>
+    </div>
+  </div>
+
+  <!-- Telegram Bot Token Config Box -->
+  <div class="config-card">
+    <label><i class="fab fa-telegram-plane"></i> Telegram Bot Token (For Automated User Notifications):</label>
+    <div class="config-input-group">
+      <input type="text" id="bot-token-input" class="input-field" placeholder="Paste your Telegram Bot Token here">
+      <button class="save-btn" onclick="saveBotToken()">Save Token</button>
+    </div>
+    <p style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">Token is saved securely in your browser to send instant approval messages to users.</p>
+  </div>
+
+  <!-- Navigation Tabs -->
+  <div class="tabs-nav">
+    <button class="tab-btn active" id="tab-pending" onclick="switchTab('pending')">Pending Requests</button>
+    <button class="tab-btn" id="tab-approved" onclick="switchTab('approved')">Approved History</button>
+    <button class="tab-btn" id="tab-rejected" onclick="switchTab('rejected')">Rejected History</button>
+  </div>
+
+  <!-- Requests List Container -->
+  <div class="requests-list" id="requests-list">
+    <div style="text-align: center; color: var(--text-muted); padding: 20px;">Loading requests...</div>
+  </div>
+
+  <script>
+    // Master Strong Password (You can change this password to whatever you want)
+    const MASTER_ADMIN_PASSWORD = "Admin#Secure$9988";
+
+    let failedAttempts = parseInt(localStorage.getItem('admin_failed_attempts') || '0');
+    let lockoutUntil = parseInt(localStorage.getItem('admin_lockout_until') || '0');
+
+    function checkLockout() {
+      const now = Date.now();
+      if (lockoutUntil > now) {
+        const remainingMinutes = Math.ceil((lockoutUntil - now) / 60000);
+        document.getElementById('lockout-timer').style.display = 'block';
+        document.getElementById('lockout-timer').innerText = `Too many failed attempts! Locked for ${remainingMinutes} minute(s).`;
+        return true;
+      }
+      return false;
+    }
+
+    function togglePasswordVisibility() {
+      const input = document.getElementById('admin-password-input');
+      const icon = document.getElementById('toggle-pwd-icon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'fas fa-eye-slash';
+      } else {
+        input.type = 'password';
+        icon.className = 'fas fa-eye';
+      }
+    }
+
+    function verifyMasterPassword() {
+      if (checkLockout()) return;
+
+      const enteredPassword = document.getElementById('admin-password-input').value.trim();
+
+      if (enteredPassword === MASTER_ADMIN_PASSWORD) {
+        localStorage.setItem('admin_failed_attempts', '0');
+        localStorage.setItem('admin_lockout_until', '0');
+        sessionStorage.setItem('admin_authenticated_session', 'true');
+        document.getElementById('security-overlay').style.display = 'none';
+      } else {
+        failedAttempts += 1;
+        localStorage.setItem('admin_failed_attempts', failedAttempts.toString());
+
+        if (failedAttempts >= 3) {
+          const lockTime = Date.now() + 15 * 60 * 1000; // 15 Minutes Lockout
+          localStorage.setItem('admin_lockout_until', lockTime.toString());
+          lockoutUntil = lockTime;
+          checkLockout();
+          alert("Security Alert: 3 failed attempts! Dashboard is locked for 15 minutes.");
+        } else {
+          alert(`Access Denied! Incorrect Password. (${3 - failedAttempts} attempt(s) remaining)`);
+        }
+      }
+    }
+
+    // Auto unlock if session is active
+    if (sessionStorage.getItem('admin_authenticated_session') === 'true') {
+      document.getElementById('security-overlay').style.display = 'none';
+    } else {
+      checkLockout();
+    }
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCizaCuNkTOsdyeLErVsUzjTj6P0Du6zZw",
+      authDomain: "social-media-fe850.firebaseapp.com",
+      databaseURL: "https://social-media-fe850-default-rtdb.firebaseio.com",
+      projectId: "social-media-fe850",
+      storageBucket: "social-media-fe850.firebasestorage.app",
+      messagingSenderId: "264506398502",
+      appId: "1:264506398502:web:56d2722066cb55ec8353e7"
+    };
+
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+
+    let savedBotToken = localStorage.getItem('admin_bot_token') || "";
+    if (savedBotToken) {
+      document.getElementById('bot-token-input').value = savedBotToken;
+    }
+
+    function saveBotToken() {
+      const token = document.getElementById('bot-token-input').value.trim();
+      if (token) {
+        localStorage.setItem('admin_bot_token', token);
+        savedBotToken = token;
+        alert("Bot Token saved successfully!");
+      }
+    }
+
+    let currentTab = 'pending';
+    let allRequests = {};
+
+    function switchTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(`tab-${tab}`).classList.add('active');
+      renderRequests();
+    }
+
+    function loadWithdrawRequests() {
+      firebase.database().ref('withdraw_requests').on('value', (snapshot) => {
+        allRequests = snapshot.val() || {};
+        updateStats();
+        renderRequests();
+      });
+    }
+
+    function updateStats() {
+      const list = Object.values(allRequests);
+      const pendingCount = list.filter(r => r.status === 'pending').length;
+      const approvedCount = list.filter(r => r.status === 'approved').length;
+      const totalGram = list.filter(r => r.status === 'approved').reduce((acc, curr) => acc + (parseFloat(curr.gramAmount) || 0), 0);
+
+      document.getElementById('stat-pending').innerText = pendingCount;
+      document.getElementById('stat-approved').innerText = approvedCount;
+      document.getElementById('stat-total-gram').innerText = totalGram.toFixed(2);
+    }
+
+    function renderRequests() {
+      const container = document.getElementById('requests-list');
+      container.innerHTML = '';
+
+      const list = Object.values(allRequests).filter(r => r.status === currentTab).reverse();
+
+      if (list.length === 0) {
+        container.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 30px;">No ${currentTab} requests found.</div>`;
+        return;
+      }
+
+      list.forEach(req => {
+        const card = document.createElement('div');
+        card.className = 'request-card';
+
+        const reqDate = new Date(req.requestedAt).toLocaleString('en-US', {
+          dateStyle: 'medium',
+          timeStyle: 'short'
+        });
+
+        let actionsHTML = '';
+        if (req.status === 'pending') {
+          actionsHTML = `
+            <div class="req-actions">
+              <button class="action-btn btn-approve" onclick="approveRequest('${req.id}', '${req.userId}', '${req.userName}', '${req.gramAmount}', '${req.stage}', '${req.walletAddress}')">
+                <i class="fas fa-check-circle"></i> Approve & Send Notification
+              </button>
+              <button class="action-btn btn-reject" onclick="rejectRequest('${req.id}', '${req.userId}', '${req.coins}', '${req.gramAmount}')">
+                <i class="fas fa-times-circle"></i> Reject & Refund
+              </button>
+            </div>
+          `;
+        }
+
+        card.innerHTML = `
+          <div class="req-header">
+            <div>
+              <span class="user-tag">${req.userName}</span>
+              <span style="font-size: 11px; color: var(--text-muted); margin-left: 6px;">(ID: ${req.userId})</span>
+            </div>
+            <span class="status-badge status-${req.status}">${req.status}</span>
+          </div>
+
+          <div style="font-size: 13px; color: var(--text-main);">
+            <strong>Amount:</strong> <span style="color: var(--accent-blue); font-weight: bold;">${req.gramAmount} $GRAM</span> (${req.coins.toLocaleString()} Coins) | <strong>Stage:</strong> #${req.stage}
+          </div>
+
+          <div class="wallet-box">
+            <span>💳 ${req.walletAddress}</span>
+            <button class="copy-btn" onclick="copyText('${req.walletAddress}')"><i class="fas fa-copy"></i> Copy</button>
+          </div>
+
+          <div style="font-size: 11px; color: var(--text-muted);">
+            Requested on: ${reqDate}
+          </div>
+
+          ${actionsHTML}
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text);
+      alert("Address copied to clipboard: " + text);
+    }
+
+    async function approveRequest(reqId, userId, userName, gramAmount, stage, walletAddress) {
+      const confirmApprove = confirm(`Have you sent ${gramAmount} $GRAM to:\n${walletAddress}?\n\nClick OK to confirm approval and send Telegram notification.`);
+      if (!confirmApprove) return;
+
+      await firebase.database().ref(`withdraw_requests/${reqId}`).update({
+        status: "approved",
+        approvedAt: Date.now()
+      });
+
+      if (savedBotToken) {
+        const messageText = `🎉 *Congratulations ${userName}!* \n\nYour withdrawal request for *${gramAmount} $GRAM* (Stage #${stage}) has been *Approved & Sent* to your wallet:\n💳 \`${walletAddress}\`\n\nThank you for using our platform! 🚀`;
+        
+        try {
+          const url = `https://api.telegram.org/bot${savedBotToken}/sendMessage?chat_id=${userId}&text=${encodeURIComponent(messageText)}&parse_mode=Markdown`;
+          await fetch(url);
+          alert("Withdrawal Approved & Telegram Notification Sent successfully!");
+        } catch (e) {
+          console.error("Bot API error:", e);
+          alert("Withdrawal Approved, but failed to send bot notification. Please verify bot token.");
+        }
+      } else {
+        alert("Withdrawal Approved! (Note: Save Telegram Bot Token above to send automated user messages).");
+      }
+    }
+
+    async function rejectRequest(reqId, userId, coins, gramAmount) {
+      const confirmReject = confirm(`Are you sure you want to reject this withdrawal of ${gramAmount} $GRAM?\n${coins} Coins will be refunded to user account.`);
+      if (!confirmReject) return;
+
+      await firebase.database().ref(`withdraw_requests/${reqId}`).update({
+        status: "rejected",
+        rejectedAt: Date.now()
+      });
+
+      const userRef = firebase.database().ref(`users/${userId}`);
+      const snap = await userRef.once('value');
+      const userData = snap.val();
+      if (userData) {
+        const currentCoins = userData.coins || 0;
+        const currentWithdrawals = Math.max(0, (userData.withdrawals || 1) - 1);
+        await userRef.update({
+          coins: currentCoins + parseInt(coins),
+          withdrawals: currentWithdrawals
+        });
+      }
+
+      if (savedBotToken) {
+        const messageText = `❌ *Withdrawal Update*\n\nYour withdrawal request for *${gramAmount} $GRAM* has been rejected. *${parseInt(coins).toLocaleString()} Coins* have been refunded to your account balance.`;
+        try {
+          const url = `https://api.telegram.org/bot${savedBotToken}/sendMessage?chat_id=${userId}&text=${encodeURIComponent(messageText)}&parse_mode=Markdown`;
+          await fetch(url);
+        } catch (e) {}
+      }
+
+      alert("Request Rejected & Coins Refunded to user balance successfully!");
+    }
+
+    loadWithdrawRequests();
+  </script>
+</body>
+</html>
