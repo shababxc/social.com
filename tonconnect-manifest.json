@@ -1,7 +1,7 @@
 {
   "url": "https://social-com-red.vercel.app",
-  "name": "MediaBoost Mini App",
-  "iconUrl": "https://social-com-red.vercel.app/icon.png",
-  "termsOfUseUrl": "https://social-com-red.vercel.app",
-  "privacyPolicyUrl": "https://social-com-red.vercel.app"
+  "name": "ToBOOSTAi",
+  "iconUrl": "https://social-com-red.vercel.app/logo.png",
+  "termsOfServiceUrl": "https://social-com-red.vercel.app/terms",
+  "privacyPolicyUrl": "https://social-com-red.vercel.app/privacy"
 }
