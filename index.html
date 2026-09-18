@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Telegram Mini App</title>
+  <title>ToBOOSTAi - Social Media Boost & Earning</title>
   
   <!-- FontAwesome CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -59,12 +59,43 @@
       overflow: hidden;
     }
 
+    /* Top Verified Pill Badge (★ ToBOOSTAi ✔) */
+    .top-badge-wrapper {
+      display: flex;
+      justify-content: center;
+      padding: 6px 0 2px 0;
+      flex-shrink: 0;
+    }
+    .top-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.28);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 4px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      color: #ffffff;
+      font-size: 12.5px;
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(0, 114, 255, 0.2);
+    }
+    .top-badge .badge-star {
+      color: #38bdf8;
+      font-size: 13px;
+    }
+    .top-badge .badge-check {
+      color: #38bdf8;
+      font-size: 13px;
+    }
+
     /* Top User Header */
     .top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 16px;
+      padding: 6px 16px 8px 16px;
       flex-shrink: 0;
     }
 
@@ -119,6 +150,10 @@
       justify-content: center;
       cursor: pointer;
       font-size: 13px;
+      transition: transform 0.15s ease;
+    }
+    .icon-btn:active {
+      transform: scale(0.92);
     }
 
     /* Main Container */
@@ -271,7 +306,7 @@
       color: #16a34a !important;
     }
 
-    /* Level & Daily Task Counter Grid */
+    /* Level & Daily Task Counter Grid with 3D Badges & Slider */
     .stats-grid {
       display: flex;
       gap: 8px;
@@ -284,6 +319,32 @@
       border-radius: 14px;
       padding: 8px 10px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .level-header-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-3d-diamond {
+      width: 26px;
+      height: 26px;
+      filter: drop-shadow(0 2px 5px rgba(147, 51, 234, 0.35));
+      flex-shrink: 0;
+    }
+
+    .badge-3d-clipboard {
+      position: absolute;
+      left: 6px;
+      bottom: 4px;
+      width: 48px;
+      height: 48px;
+      opacity: 0.22;
+      pointer-events: none;
+      filter: drop-shadow(0 2px 4px rgba(2, 132, 199, 0.2));
     }
 
     .level-title {
@@ -300,19 +361,40 @@
 
     .progress-bar-container {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+    }
+
+    /* Referral Progress Slider Bar */
+    .invite-progress-bar-wrap {
+      flex: 1;
+      height: 6px;
+      background: rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 0 6px;
+    }
+
+    .invite-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #38bdf8 0%, #2563eb 100%);
+      border-radius: 10px;
+      transition: width 0.4s ease;
+      box-shadow: 0 0 6px rgba(37, 99, 235, 0.4);
     }
 
     .invite-btn {
       background: var(--accent-blue);
       color: #fff;
       border: none;
-      padding: 5px 14px;
+      padding: 5px 12px;
       border-radius: 10px;
       font-weight: bold;
       font-size: 11px;
       cursor: pointer;
+      flex-shrink: 0;
     }
 
     .daily-counter {
@@ -390,6 +472,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      transition: all 0.35s ease;
     }
 
     .task-left {
@@ -397,22 +480,23 @@
       align-items: center;
       gap: 10px;
       flex: 1;
+      min-width: 0;
     }
 
     .task-avatar {
-      width: 34px;
-      height: 34px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       background: #e2e8f0;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: bold;
-      color: #475569;
+      color: #0284c7;
       overflow: hidden;
       border: 1px solid #cbd5e1;
       flex-shrink: 0;
-      font-size: 13px;
+      font-size: 14px;
     }
 
     .task-avatar img {
@@ -421,10 +505,17 @@
       object-fit: cover;
     }
 
+    .task-details {
+      overflow: hidden;
+    }
+
     .task-details h4 {
       font-size: 13px;
       color: #0f172a;
       margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .task-pill {
@@ -437,27 +528,69 @@
       font-weight: 600;
     }
 
+    /* Blum / Notcoin Style Action Pill with Exact 3D Coin SVG */
     .task-action-btn {
       background: rgba(59, 130, 246, 0.15);
       color: #2563eb;
-      font-size: 12.12px;
-      font-weight: bold;
-      padding: 6.06px 14.14px;
-      border-radius: 16px;
-      border: none;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 18px;
+      border: 1px solid #bfdbfe;
       display: flex;
       align-items: center;
-      gap: 4px;
+      justify-content: center;
+      gap: 6px;
       cursor: pointer;
-    }
-
-    .task-action-btn.claim-btn {
-      background: #2563eb;
-      color: #fff;
+      min-width: 96px;
+      transition: all 0.25s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
     }
 
     .task-action-btn:active {
-      transform: scale(0.96);
+      transform: scale(0.95);
+    }
+
+    .task-action-btn svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* 10s Verifying State */
+    .btn-verifying-pulse {
+      background: #1e293b !important;
+      color: #38bdf8 !important;
+      border-color: #38bdf8 !important;
+      cursor: not-allowed !important;
+      animation: pulseGlow 1.2s infinite ease-in-out;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+
+    /* Neon Green Claim State */
+    .btn-claim-green {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+      color: #ffffff !important;
+      border: none !important;
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.6) !important;
+      animation: popIn 0.3s ease;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.88); }
+      100% { transform: scale(1); }
+    }
+
+    /* Fade-out Animation for completed task */
+    .task-fade-vanish {
+      opacity: 0;
+      transform: translateY(-20px) scale(0.9);
+      transition: all 0.4s ease;
+      pointer-events: none;
     }
 
     /* TEAM PAGE */
@@ -516,41 +649,55 @@
       margin-top: 12px;
     }
 
-    /* Bottom Nav */
+    /* BOTTOM NAV */
     .bottom-nav {
       position: fixed;
       bottom: 0; left: 0; right: 0;
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.98);
       display: flex;
       justify-content: space-around;
       padding: 10px 0 calc(10px + env(safe-area-inset-bottom, 0px));
-      border-top: 1px solid rgba(0,0,0,0.05);
-      backdrop-filter: blur(10px);
-      z-index: 10;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      backdrop-filter: blur(15px);
+      z-index: 100;
+      box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.05);
     }
 
     .nav-link {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2px;
-      color: rgba(0, 0, 0, 0.35);
+      gap: 3px;
+      color: #94a3b8 !important;
       font-size: 11px;
       text-decoration: none;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s ease;
-      opacity: 0.55;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0.85;
+    }
+
+    .nav-link i, .nav-link svg {
+      font-size: 20px;
+      color: #94a3b8 !important;
+      fill: #94a3b8 !important;
+      transition: all 0.25s ease;
     }
 
     .nav-link.active {
-      color: #2563eb;
-      opacity: 1;
-      transform: scale(1.05);
+      color: #2563eb !important;
+      opacity: 1 !important;
+      transform: scale(1.08);
     }
 
-    .nav-link i {
-      font-size: 18px;
+    .nav-link.active i, .nav-link.active svg {
+      color: #2563eb !important;
+      fill: #2563eb !important;
+    }
+
+    .nav-link.active span {
+      color: #2563eb !important;
+      font-weight: 800;
     }
 
     /* Modals Overlay */
@@ -682,11 +829,11 @@
       cursor: pointer;
     }
 
-    /* Triple Action Buttons Grid for Task Submissions */
+    /* Volume Discount Strikethrough Buttons Grid */
     .buttons-container-three {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 6px;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
       margin-top: 16px;
     }
 
@@ -695,7 +842,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 8px 4px;
+      padding: 8px 6px;
       border-radius: 16px;
       cursor: pointer;
       font-size: 12px;
@@ -706,39 +853,48 @@
       text-align: center;
     }
 
-    .btn-points {
-      background: var(--primary-blue);
-      color: white;
-      box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
-    }
-    .btn-points:hover {
-      background: #2563eb;
-    }
-
     .btn-gram {
-      background: #0284c7;
+      background: #2563eb;
       color: #fff;
-      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
     }
     .btn-gram:hover {
-      background: #0369a1;
+      background: #1d4ed8;
     }
 
     .btn-stars {
-      background: #fff;
-      color: var(--primary-blue);
-      border: 1.5px solid var(--border-blue);
+      background: #ffffff;
+      color: #0284c7;
+      border: 1.5px solid #bae6fd;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     }
-    .btn-stars:hover {
-      background: var(--light-blue);
+
+    .btn-points-full {
+      grid-column: span 2;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #ffffff;
+      padding: 8px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 4px;
     }
 
     .btn-content {
       display: flex;
       align-items: center;
-      gap: 2px;
-      font-size: 11px;
+      gap: 4px;
+      font-size: 12px;
       margin-top: 2px;
+    }
+
+    .strikethrough-tag {
+      font-size: 9.5px;
+      opacity: 0.7;
+      text-decoration: line-through;
+      margin-left: 2px;
     }
 
     .modal-balance-view {
@@ -903,1290 +1059,45 @@
       margin-bottom: 12px;
       color: #f8fafc;
     }
-  </style>
-</head>
-<body>
 
-  <template id="gram-star-coin-template">
-    <svg class="gram-star-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="50" cy="50" r="48" fill="url(#blueGradOuter)"/>
-      <circle cx="50" cy="50" r="44" fill="url(#blueGradFace)"/>
-      <g filter="url(#star3dShadow)">
-        <path d="M50 24 L56.8 37.8 L72 40 L61 50.7 L63.6 65.8 L50 58.6 L36.4 65.8 L39 50.7 L28 40 L43.2 37.8 Z" fill="url(#starGradient)"/>
-      </g>
-      <defs>
-        <linearGradient id="blueGradOuter" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#38BDF8"/>
-          <stop offset="1" stop-color="#0284C7"/>
-        </linearGradient>
-        <linearGradient id="blueGradFace" x1="10" y1="10" x2="90" y2="90" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#22D3EE"/>
-          <stop offset="1" stop-color="#0284C7"/>
-        </linearGradient>
-        <linearGradient id="starGradient" x1="28" y1="24" x2="72" y2="65" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FFFFFF"/>
-          <stop offset="0.7" stop-color="#F1F5F9"/>
-          <stop offset="1" stop-color="#CBD5E1"/>
-        </linearGradient>
-        <filter id="star3dShadow" x="0" y="0" width="100%" height="100%" filterUnits="userSpaceOnUse">
-          <feDropShadow dx="0" dy="3" stdDeviation="1.5" flood-color="#0369A1" flood-opacity="0.5"/>
-        </filter>
-      </defs>
-    </svg>
-  </template>
-
-  <div class="app-wrapper">
-    <div class="top-bar">
-      <div class="user-profile">
-        <div class="avatar-img" id="user-avatar">U</div>
-        <span class="user-name" id="user-name">Hi, User</span>
-      </div>
-      <div class="header-icons">
-        <button class="icon-btn">?</button>
-        <button class="icon-btn" onclick="openSettingsModal()">⚙️</button>
-      </div>
-    </div>
-
-    <div class="container" id="home-page">
-      <div class="fixed-top-section">
-        <div class="balance-card" onclick="openWithdrawModal()">
-          <div class="coin-display">
-            <div id="main-coin-svg-container"></div>
-            <span class="coin-amount" id="main-coins">0</span>
-          </div>
-          <div class="rate-badge">
-            ≈ <span id="main-gram">0.00</span> <span class="gram-label">$GRAM</span> ⇄
-          </div>
-        </div>
-
-        <div class="rate-subtitle">
-          10,000 <span class="mini-rate-coin-slot"></span> ≈ 1 <span class="gram-label">$GRAM</span>
-        </div>
-
-        <div class="quick-actions">
-          <div class="action-card ad-card-premium" onclick="watchMonetagAd()">
-            <div class="action-icon">
-              <svg class="ads-svg-logo" viewBox="0 0 220 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M 105,10 C 50,10 10,45 10,80 C 10,115 50,118 105,118 C 118,118 130,114 140,108 C 112,112 35,108 30,78 C 25,48 78,16 115,12 Z" fill="url(#adsBgGrad)"/>
-                <path d="M 98,24 C 65,24 34,45 34,74 C 34,88 42,98 52,104 C 44,95 42,82 46,68 C 52,50 72,30 98,24 Z" fill="url(#adsBgGrad)"/>
-                <text x="55" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-style="italic" font-size="44" fill="#0F172A" letter-spacing="1">ADS</text>
-                <defs>
-                  <linearGradient id="adsBgGrad" x1="0" y1="0" x2="150" y2="120" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#38BDF8"/>
-                    <stop offset="1" stop-color="#0284C7"/>
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
-            <div class="action-title" data-i18n="watchAd">Watch Ad</div>
-            <div class="action-reward">
-              <span class="mini-coin-slot-ad"></span> + 50,000
-            </div>
-          </div>
-
-          <div class="action-card" onclick="dailyCheckIn()">
-            <div class="action-icon">
-              <svg class="calendar-svg-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 4H5C3.89543 4 3 4.89543 3 6V8H21V6C21 4.89543 20.1046 4 19 4Z" fill="url(#calHeaderGrad)"/>
-                <rect x="3" y="4" width="18" height="16" rx="2" stroke="#0F172A" stroke-width="1.8" fill="none"/>
-                <line x1="16" y1="2" x2="16" y2="6" stroke="#0F172A" stroke-width="1.8" stroke-linecap="round"/>
-                <line x1="8" y1="2" x2="8" y2="6" stroke="#0F172A" stroke-width="1.8" stroke-linecap="round"/>
-                <line x1="3" y1="8" x2="21" y2="8" stroke="#0F172A" stroke-width="1.8"/>
-                <circle cx="8" cy="12" r="1" fill="#0284C7"/>
-                <circle cx="12" cy="12" r="1" fill="#0284C7"/>
-                <circle cx="16" cy="12" r="1" fill="#0284C7"/>
-                <circle cx="8" cy="16" r="1" fill="#0284C7"/>
-                <circle cx="12" cy="16" r="1" fill="#0284C7"/>
-                <circle cx="16" cy="16" r="1" fill="#0284C7"/>
-                <defs>
-                  <linearGradient id="calHeaderGrad" x1="3" y1="4" x2="21" y2="8" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#38BDF8"/>
-                    <stop offset="1" stop-color="#0284C7"/>
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
-            <div class="action-title" data-i18n="dailyCheckIn">Daily Check-in</div>
-            <div class="action-reward" id="checkin-reward-box">
-              <span class="mini-coin-slot-checkin"></span> + 100
-            </div>
-          </div>
-        </div>
-
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="level-title">Lv.1 »</div>
-            <div class="stat-desc" data-i18n="levelDesc">Invite 3 users to upgrade to Lv.2</div>
-            <div class="progress-bar-container">
-              <span style="font-size: 11px; font-weight: bold;" id="invite-count">0/3</span>
-              <button class="invite-btn" onclick="inviteFriends()" data-i18n="inviteBtn">invite</button>
-            </div>
-          </div>
-
-          <div class="stat-card">
-            <div class="daily-counter" id="daily-task-count">0/5</div>
-            <div style="font-size: 12px; font-weight: bold; color: #0f172a; margin-top: 2px;" data-i18n="dailyTaskProgress">Daily Task Progress</div>
-            <div class="stat-desc" style="margin-bottom: 0;" data-i18n="resetsDaily">Resets daily at 00:00</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="bounty-container">
-        <div class="bounty-header">
-          <span class="bounty-title" data-i18n="bountyTaskTitle">Bounty Task</span>
-          <button class="post-btn" onclick="openPostTaskModal()" data-i18n="postBtn">POST +</button>
-        </div>
-
-        <div class="task-list" id="task-list">
-          <div class="no-tasks-text" data-i18n="loadingTasks">Loading bounty tasks...</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container" id="team-page" style="display: none; padding-bottom: 85px; overflow-y: auto;">
-      <div style="text-align: center; margin: 20px 0 15px 0;">
-        <h2 style="color: #0f172a; font-size: 20px; font-weight: 800;" data-i18n="teamHeader">Create team, Earn more!</h2>
-      </div>
-
-      <div style="display: flex; flex-direction: column;">
-        <div class="team-card">
-          <div class="team-avatar-icon"><i class="fas fa-user"></i></div>
-          <div class="team-info">
-            <h4 data-i18n="teamLv1Title">Members you invited</h4>
-            <p data-i18n="teamLv1Desc">Lv1:Get 5% task bouns</p>
-          </div>
-        </div>
-
-        <div class="team-card">
-          <div class="team-avatar-icon"><i class="fas fa-user-friends"></i></div>
-          <div class="team-info">
-            <h4 data-i18n="teamLv2Title">Invited by Lv.1 members</h4>
-            <p data-i18n="teamLv2Desc">Lv.2:Get 3% task bouns</p>
-          </div>
-        </div>
-
-        <div class="team-card">
-          <div class="team-avatar-icon"><i class="fas fa-users"></i></div>
-          <div class="team-info">
-            <h4 data-i18n="teamLv3Title">Invited by Lv.2 members</h4>
-            <p data-i18n="teamLv3Desc">Lv.3:Get 1% task bouns</p>
-          </div>
-        </div>
-
-        <button class="big-invite-btn" onclick="inviteFriends()">
-          <span data-i18n="inviteMembersBtn">Invite Members</span> <i class="fas fa-user-plus" style="font-size: 15px;"></i>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <div class="bottom-nav">
-    <div class="nav-link active" id="nav-home" onclick="switchNav('home')">
-      <i class="fas fa-home"></i>
-      <span data-i18n="navHome">Home</span>
-    </div>
-
-    <div class="nav-link" id="nav-team" onclick="switchNav('team')">
-      <svg class="nav-icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:24px; height:20px; fill:currentColor;">
-        <circle cx="9" cy="8" r="3.5" fill="currentColor"/>
-        <path d="M4 18.5C4 15.7 6.2 13.5 9 13.5C11.8 13.5 14 15.7 14 18.5V20.5H4V18.5Z" fill="currentColor"/>
-        <circle cx="16.5" cy="9.5" r="2.5" fill="currentColor"/>
-        <path d="M14.5 15.5C15.2 15 16.1 14.8 17 14.8C18.4 14.8 19.7 15.4 20.6 16.4C20.8 16.7 20.9 17.1 20.9 17.5V19.5H14.5V15.5Z" fill="currentColor"/>
-      </svg>
-      <span data-i18n="navTeam">Team</span>
-    </div>
-  </div>
-
-  <div id="post-task-modal" class="modal-overlay">
-    <div class="modal-box">
-      <div class="modal-header">
-        <div class="header-title-container">
-          <span class="live-badge">LIVE</span>
-          <h3 data-i18n="postTaskHeader">Post Task ⭐</h3>
-        </div>
-        <button class="close-modal" onclick="closePostTaskModal()">✕</button>
-      </div>
-
-      <div class="form-group">
-        <label id="lbl-task-name" data-i18n="taskNameLabel">🏷️ Task name</label>
-        <input type="text" id="post-task-name" class="form-input" placeholder="Enter task name" data-i18n-placeholder="placeholderTaskName">
-      </div>
-
-      <div class="form-group">
-        <label id="lbl-task-address" data-i18n="taskUrlLabel">💳 Task address</label>
-        <textarea id="post-task-url" class="form-input" placeholder="Please input task url" data-i18n-placeholder="placeholderUrl"></textarea>
-      </div>
-
-      <div class="form-group">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <label id="lbl-impressions" data-i18n="impressionsLabel">⣿ Impressions</label>
-          <span id="impression-val" style="font-weight: bold; font-size: 13px;">500</span>
-        </div>
-        <div class="range-slider-container">
-          <input type="range" id="impressionSlider" class="range-slider" min="100" max="10000" step="100" value="500" oninput="updateCalculations(this.value)">
-        </div>
-      </div>
-
-      <div class="buttons-container-three">
-        <button class="btn-action btn-points" onclick="submitTask('points')">
-          <span>Points</span>
-          <span class="btn-content"><span id="pts-count">50K</span> Pts</span>
-        </button>
-
-        <button class="btn-action btn-gram" onclick="submitTask('gram')">
-          <span>$GRAM</span>
-          <span class="btn-content"><span id="gram-count">5</span> $GRAM</span>
-        </button>
-
-        <button class="btn-action btn-stars" onclick="submitTask('stars')">
-          <span>Stars ⭐</span>
-          <span class="btn-content"><span id="star-count">1500</span> ⭐</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <div id="withdraw-modal" class="modal-overlay">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3 data-i18n="balanceHeader">Balance</h3>
-        <button class="close-modal" onclick="closeWithdrawModal()">✕</button>
-      </div>
-
-      <div class="modal-balance-view">
-        <h1 style="font-size: 30px; display: flex; align-items: center; justify-content: center; gap: 8px;">
-          <span class="modal-coin-slot"></span>
-          <span id="modal-coin-val">0</span>
-        </h1>
-        <div class="modal-usd-badge">≈ <span id="modal-gram-val">0.00</span> <span class="gram-label">$GRAM</span></div>
-      </div>
-
-      <div class="withdraw-info-card" id="withdraw-target-text">
-        Withdrawal Target: 10,000 Coins
-      </div>
-
-      <button class="wallet-connect-btn" onclick="connectWallet()">
-        🔗 Connect $GRAM Wallet
-      </button>
-
-      <button class="withdraw-submit-btn" onclick="processWithdrawal()" data-i18n="withdrawBtnText">
-        Withdraw
-      </button>
-    </div>
-  </div>
-
-  <div id="settings-modal" class="modal-overlay">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3 data-i18n="settingsHeader">⚙️ Settings</h3>
-        <button class="close-modal" onclick="closeSettingsModal()">✕</button>
-      </div>
-
-      <div class="settings-profile-card">
-        <div class="settings-avatar" id="settings-avatar">U</div>
-        <div class="settings-user-info">
-          <h4 id="settings-user-name">User</h4>
-          <div class="id-row">
-            <span>ID: <strong id="settings-user-id">guest_user</strong></span>
-            <button class="copy-id-btn" onclick="copyTelegramId()" data-i18n="copyBtn">Copy</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="settings-menu-list">
-        <div class="settings-item">
-          <span class="settings-item-label">🌐 Language</span>
-          <select id="language-select">
-            <option value="en" selected>English (US)</option>
-            <option value="bn">বাংলা (Bengali)</option>
-            <option value="ur">اردو (Urdu)</option>
-            <option value="es">Español</option>
-            <option value="pt">Português</option>
-            <option value="ru">Русский</option>
-            <option value="fr">Français</option>
-            <option value="id">Bahasa Indonesia</option>
-            <option value="uk">Українська</option>
-            <option value="hi">हिन्दी</option>
-            <option value="ko">한국어</option>
-            <option value="tw">繁體中文</option>
-            <option value="cn">简体中文</option>
-            <option value="vi">Tiếng Việt</option>
-          </select>
-        </div>
-
-        <a href="https://t.me/mediaboostAi" target="_blank" class="settings-item">
-          <span class="settings-item-label">
-            <svg class="setting-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 0C5.37 0 0 5.37 0 12C0 18.63 5.37 24 12 24C18.63 24 24 18.63 24 12C24 5.37 18.63 0 12 0ZM17.89 8.05L15.93 17.29C15.78 17.95 15.39 18.11 14.84 17.8L11.84 15.59L10.39 16.98C10.23 17.14 10.1 17.27 9.79 17.27L10.01 14.21L15.58 9.18C15.82 8.96 15.52 8.84 15.2 9.05L8.32 13.38L5.36 12.46C4.72 12.26 4.71 11.82 5.5 11.51L17.07 7.05C17.61 6.85 18.08 7.18 17.89 8.05Z" fill="#38BDF8"/>
-            </svg>
-            <span data-i18n="officialChannel">Official Channel</span>
-          </span>
-          <span>↗</span>
-        </a>
-
-        <a href="https://x.com" target="_blank" class="settings-item">
-          <span class="settings-item-label">
-            <svg class="setting-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#FFFFFF"/>
-            </svg>
-            <span data-i18n="goToX">Go to X</span>
-          </span>
-          <span>↗</span>
-        </a>
-
-        <div class="settings-item" onclick="openPrivacyPolicyModal()">
-          <span class="settings-item-label">
-            <svg class="setting-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L4 5V11C4 16.55 7.42 21.74 12 23C16.58 21.74 20 16.55 20 11V5L12 2ZM10 15.5L6.5 12L7.91 10.59L10 12.67L16.09 6.58L17.5 8L10 15.5Z" fill="#38BDF8"/>
-            </svg>
-            <span data-i18n="privacyPolicy">Privacy Policy</span>
-          </span>
-          <span>›</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="privacy-policy-modal" class="modal-overlay">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3 data-i18n="privacyPolicyHeader">Privacy Policy</h3>
-        <button class="close-modal" onclick="closePrivacyPolicyModal()">✕</button>
-      </div>
-      <div class="privacy-text-box">
-        <p><strong data-i18n="pp1Title">1. Introduction</strong><br><span data-i18n="pp1Text">Welcome to our Telegram Mini App. We respect your privacy and are committed to protecting any data associated with your Telegram account.</span></p>
-        <br>
-        <p><strong data-i18n="pp2Title">2. Information Collection</strong><br><span data-i18n="pp2Text">We collect basic Telegram profile details provided via Telegram WebApp API to identify your account, track your task completions, and store your coin balance safely.</span></p>
-        <br>
-        <p><strong data-i18n="pp3Title">3. Use of Data</strong><br><span data-i18n="pp3Text">Your data is used solely to provide app functionality, manage rewards, and process your withdrawals.</span></p>
-        <br>
-        <p><strong data-i18n="pp4Title">4. Third-Party Services</strong><br><span data-i18n="pp4Text">We integrate services like Firebase for data synchronization and Monetag for ad-supported rewards.</span></p>
-        <br>
-        <p><strong data-i18n="pp5Title">5. Contact Us</strong><br><span data-i18n="pp5Text">For any inquiries regarding privacy, please reach out to our official channel:</span> <strong>https://t.me/mediaboostAi</strong>.</p>
-      </div>
-      <button class="withdraw-submit-btn" onclick="closePrivacyPolicyModal()" data-i18n="gotItBtn">Got It</button>
-    </div>
-  </div>
-  Playground
-tokens
-
-Model 1:15 AM
-ThinkingThoughts
-Expand to view model thoughts
-
-chevron_right
-Model 1:20 AM
-দারুণ! ডেস্কটপ মোড অন থাকায় এখন আপনি এক ক্লিকেই পুরো কোডটি কপি করতে পারবেন।
-
-নিচে আপনার অ্যাপের **সবচেয়ে লেটেস্ট, সম্পূর্ণ (100%), এবং ফাইনাল `index.html` কোডটি** একসাথে দেওয়া হলো। এই কোডে আপনার অ্যাডমিন প্যানেলে রিকোয়েস্ট পাঠানো, ১৪টি ভাষা, অটো-রিসেট এবং $GRAM ওয়ালেট কানেক্ট সিস্টেম—সবকিছু নিখুঁতভাবে যুক্ত আছে।
-
-*(পুরো বক্সের ওপর থেকে Copy বাটনে চাপ দিয়ে আপনার গিটহাবের `index.html` ফাইলে পেস্ট করে দিন)*
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Telegram Mini App</title>
-  
-  <!-- FontAwesome CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <!-- Telegram WebApp SDK -->
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  
-  <!-- TON Connect UI SDK -->
-  <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
-  
-  <!-- Firebase SDKs (Compat Version) -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-  
-  <!-- Monetag SDK -->
-  <script src='//libtl.com/sdk.js' data-zone='11759773' data-sdk='show_11759773'></script>
-  
-  <style>
-    :root {
-      --bg-gradient: linear-gradient(180deg, #56ccf2 0%, #2f80ed 100%);
-      --card-bg: rgba(255, 255, 255, 0.3);
-      --card-border: rgba(255, 255, 255, 0.6);
-      --text-dark: #0f172a;
-      --text-muted: #475569;
-      --accent-blue: #3b82f6;
-      --primary-blue: #3b82f6;
-      --light-blue: #eff6ff;
-      --border-blue: #60a5fa;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-
-    html, body {
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-      background: var(--bg-gradient);
-      color: var(--text-dark);
-      user-select: none;
-      position: fixed;
-    }
-
-    .app-wrapper {
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    /* Top User Header */
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 16px;
-      flex-shrink: 0;
-    }
-
-    .user-profile {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .avatar-img {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      border: 2px solid #fff;
-      object-fit: cover;
-      background: #3b82f6;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-weight: bold;
-      overflow: hidden;
-    }
-
-    .avatar-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .user-name {
-      font-weight: bold;
-      color: #fff;
-      font-size: 15px;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    }
-
-    .header-icons {
-      display: flex;
-      gap: 8px;
-    }
-
-    .icon-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.3);
-      border: none;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 13px;
-    }
-
-    /* Main Container */
-    .container {
-      padding: 0 14px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      overflow: hidden;
-    }
-
-    .fixed-top-section {
-      flex-shrink: 0;
-    }
-
-    /* Balance Card */
-    .balance-card {
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(15px);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 8px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(31, 38, 135, 0.12);
-    }
-
-    .coin-display {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .gram-star-icon {
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
-    }
-
-    .coin-amount {
-      font-size: 22px;
-      font-weight: 800;
-      color: #fff;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.15);
-    }
-
-    .rate-badge {
-      background: rgba(255, 255, 255, 0.4);
-      padding: 4px 10px;
+    /* FAQ Accordion */
+    .faq-accordion-item {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       border-radius: 12px;
-      color: #0f172a;
-      font-weight: normal;
-      font-size: 12px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .rate-subtitle {
-      text-align: center;
-      color: rgba(255, 255, 255, 0.95);
-      font-size: 11px;
-      font-weight: normal;
-      margin: 4px 0 8px 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-    }
-
-    .gram-label {
-      font-weight: 400 !important;
-      opacity: 0.9;
-    }
-
-    /* Quick Action Grid */
-    .quick-actions {
-      display: flex;
-      gap: 8px;
       margin-bottom: 8px;
-    }
-
-    .action-card {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 14px;
-      padding: 8px 6px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 3px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .action-card:active {
-      transform: scale(0.97);
-    }
-
-    .ad-card-premium {
-      background: #ffffff !important;
-      border: 1px solid rgba(255, 255, 255, 0.8) !important;
-    }
-
-    .action-icon {
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .ads-svg-logo {
-      width: 42px;
-      height: 22px;
-    }
-
-    .calendar-svg-icon {
-      width: 26px;
-      height: 26px;
-    }
-
-    .action-title {
-      font-size: 11px;
-      font-weight: 700;
-      color: #0f172a;
-    }
-
-    .action-reward {
-      font-size: 10px;
-      font-weight: 800;
-      color: #2563eb;
-      background: rgba(59, 130, 246, 0.15);
-      padding: 2px 6px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      gap: 3px;
-    }
-
-    .action-reward.claimed-badge {
-      background: #dcfce7 !important;
-      color: #16a34a !important;
-    }
-
-    /* Level & Daily Task Counter Grid */
-    .stats-grid {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    .stat-card {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.88);
-      border-radius: 14px;
-      padding: 8px 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-    }
-
-    .level-title {
-      font-size: 14px;
-      font-weight: 800;
-      color: #0f172a;
-    }
-
-    .stat-desc {
-      font-size: 10px;
-      color: var(--text-muted);
-      margin: 2px 0 6px 0;
-    }
-
-    .progress-bar-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .invite-btn {
-      background: var(--accent-blue);
-      color: #fff;
-      border: none;
-      padding: 5px 14px;
-      border-radius: 10px;
-      font-weight: bold;
-      font-size: 11px;
-      cursor: pointer;
-    }
-
-    .daily-counter {
-      font-size: 20px;
-      font-weight: 800;
-      color: #0f172a;
-      text-align: right;
-    }
-
-    /* Bounty Task Section */
-    .bounty-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
       overflow: hidden;
     }
 
-    .bounty-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-      flex-shrink: 0;
-    }
-
-    .bounty-title {
-      font-size: 16px;
-      font-weight: 800;
-      color: #fff;
-    }
-
-    .post-btn {
-      background: #2563eb;
-      color: #fff;
-      border: none;
-      padding: 7px 16px; 
-      border-radius: 10px;
-      font-weight: 800;
-      font-size: 13px;
-      cursor: pointer;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-      transition: transform 0.1s ease;
-    }
-
-    .post-btn:active {
-      transform: scale(0.95);
-    }
-
-    .task-list {
-      flex: 1;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      padding-bottom: 85px;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .task-list::-webkit-scrollbar {
-      display: none;
-    }
-
-    .no-tasks-text {
-      text-align: center;
-      color: rgba(255, 255, 255, 0.85);
-      font-size: 12px;
-      font-weight: 600;
-      padding: 15px 0;
-    }
-
-    .task-item {
-      background: rgba(255, 255, 255, 0.92);
-      border-radius: 14px;
+    .faq-accordion-header {
       padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .task-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex: 1;
-    }
-
-    .task-avatar {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: #e2e8f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      color: #475569;
-      overflow: hidden;
-      border: 1px solid #cbd5e1;
-      flex-shrink: 0;
-      font-size: 13px;
-    }
-
-    .task-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .task-details h4 {
-      font-size: 13px;
-      color: #0f172a;
-      margin-bottom: 2px;
-    }
-
-    .task-pill {
-      background: #0088cc;
-      color: #fff;
-      font-size: 9px;
-      padding: 2px 6px;
-      border-radius: 6px;
-      display: inline-block;
-      font-weight: 600;
-    }
-
-    .task-action-btn {
-      background: rgba(59, 130, 246, 0.15);
-      color: #2563eb;
-      font-size: 12.12px;
-      font-weight: bold;
-      padding: 6.06px 14.14px;
-      border-radius: 16px;
-      border: none;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      cursor: pointer;
-    }
-
-    .task-action-btn.claim-btn {
-      background: #2563eb;
-      color: #fff;
-    }
-
-    .task-action-btn:active {
-      transform: scale(0.96);
-    }
-
-    /* TEAM PAGE */
-    .team-card {
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-      margin-bottom: 10px;
-    }
-
-    .team-avatar-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: linear-gradient(180deg, #e0f2fe 0%, #bae6fd 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #0284c7;
-      font-size: 20px;
-      flex-shrink: 0;
-    }
-
-    .team-info h4 {
-      font-size: 15px;
-      font-weight: 700;
-      color: #1e293b;
-      margin-bottom: 2px;
-    }
-
-    .team-info p {
-      font-size: 12px;
-      font-weight: 700;
-      color: #3b82f6;
-    }
-
-    .big-invite-btn {
-      background: #3b82f6;
-      color: #ffffff;
-      width: 100%;
-      padding: 16px;
-      border-radius: 16px;
-      font-size: 16px;
-      font-weight: 800;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
-      margin-top: 12px;
-    }
-
-    /* Bottom Nav */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: rgba(255, 255, 255, 0.95);
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 0 calc(10px + env(safe-area-inset-bottom, 0px));
-      border-top: 1px solid rgba(0,0,0,0.05);
-      backdrop-filter: blur(10px);
-      z-index: 10;
-    }
-
-    .nav-link {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-      color: rgba(0, 0, 0, 0.35);
-      font-size: 11px;
-      text-decoration: none;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      opacity: 0.55;
-    }
-
-    .nav-link.active {
-      color: #2563eb;
-      opacity: 1;
-      transform: scale(1.05);
-    }
-
-    .nav-link i {
-      font-size: 18px;
-    }
-
-    /* Modals Overlay */
-    .modal-overlay {
+    .faq-accordion-content {
       display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(6px);
-      z-index: 999;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-box {
-      background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
-      width: 90%;
-      max-width: 380px;
-      max-height: 85vh;
-      overflow-y: auto;
-      border-radius: 20px;
-      padding: 20px;
-      color: #fff;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-
-    .modal-header h3 {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 18px;
-    }
-
-    .header-title-container {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .live-badge {
-      background: #000;
-      color: #fff;
-      font-size: 11px;
-      font-weight: bold;
-      padding: 2px 6px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .live-badge::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      background: #22c55e;
-      border-radius: 50%;
-    }
-
-    .close-modal {
-      font-size: 20px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      color: #fff;
-    }
-
-    /* Form Fields */
-    .form-group {
-      margin-bottom: 12px;
-      text-align: left;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 12px;
-      font-weight: bold;
-      margin-bottom: 4px;
+      padding: 0 12px 10px 12px;
+      font-size: 11.5px;
+      line-height: 1.45;
       color: #f1f5f9;
     }
 
-    .form-input, select.form-input, textarea.form-input {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.4);
-      background: rgba(255, 255, 255, 0.9);
-      color: #0f172a;
-      font-size: 13px;
-      outline: none;
+    .faq-accordion-item.open .faq-accordion-content {
+      display: block;
     }
 
-    textarea.form-input {
-      height: 75px;
-      resize: none;
+    .faq-accordion-item.open .faq-icon {
+      transform: rotate(180deg);
     }
 
-    .range-slider-container {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 4px;
-    }
-
-    .range-slider {
-      width: 100%;
-      -webkit-appearance: none;
-      height: 8px;
-      border-radius: 5px;
-      background: #06b6d4;
-      outline: none;
-      margin-top: 4px;
-    }
-
-    .range-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: #ffffff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      cursor: pointer;
-    }
-
-    /* Triple Action Buttons Grid for Task Submissions */
-    .buttons-container-three {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 6px;
-      margin-top: 16px;
-    }
-
-    .btn-action {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 4px;
-      border-radius: 16px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 700;
-      transition: all 0.2s ease;
-      text-decoration: none;
-      border: none;
-      text-align: center;
-    }
-
-    .btn-points {
-      background: var(--primary-blue);
-      color: white;
-      box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
-    }
-    .btn-points:hover {
-      background: #2563eb;
-    }
-
-    .btn-gram {
-      background: #0284c7;
-      color: #fff;
-      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
-    }
-    .btn-gram:hover {
-      background: #0369a1;
-    }
-
-    .btn-stars {
-      background: #fff;
-      color: var(--primary-blue);
-      border: 1.5px solid var(--border-blue);
-    }
-    .btn-stars:hover {
-      background: var(--light-blue);
-    }
-
-    .btn-content {
-      display: flex;
-      align-items: center;
-      gap: 2px;
+    .faq-icon {
+      transition: transform 0.2s ease;
       font-size: 11px;
-      margin-top: 2px;
-    }
-
-    .modal-balance-view {
-      text-align: center;
-      margin-bottom: 14px;
-    }
-
-    .modal-usd-badge {
-      background: rgba(255, 255, 255, 0.25);
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 10px;
-      font-size: 12px;
-      margin-top: 4px;
-      font-weight: normal;
-    }
-
-    .withdraw-info-card {
-      background: rgba(255, 255, 255, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 8px 12px;
-      border-radius: 10px;
-      font-size: 11px;
-      text-align: center;
-      margin-bottom: 12px;
-    }
-
-    .wallet-connect-btn {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.2);
-      border: 1px dashed rgba(255, 255, 255, 0.5);
-      color: #fff;
-      padding: 12px;
-      border-radius: 12px;
-      font-weight: bold;
-      margin-bottom: 12px;
-      cursor: pointer;
-      font-size: 13px;
-      transition: all 0.3s ease;
-    }
-
-    .withdraw-submit-btn {
-      width: 100%;
-      background: #fff;
-      color: #0284c7;
-      border: none;
-      padding: 14px;
-      border-radius: 14px;
-      font-weight: 800;
-      font-size: 15px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-
-    /* Settings Profile Card */
-    .settings-profile-card {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(255, 255, 255, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 10px 12px;
-      border-radius: 14px;
-      margin-bottom: 12px;
-    }
-
-    .settings-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: #fff;
-      color: #0284c7;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      overflow: hidden;
-      font-size: 16px;
-    }
-
-    .settings-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .settings-user-info h4 {
-      font-size: 14px;
-      margin-bottom: 2px;
-    }
-
-    .id-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      color: #e0f2fe;
-    }
-
-    .copy-id-btn {
-      background: rgba(255,255,255,0.25);
-      border: none;
-      color: #fff;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 10px;
-      cursor: pointer;
-    }
-
-    .settings-menu-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .settings-item {
-      background: rgba(255, 255, 255, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 10px 12px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 13px;
-      cursor: pointer;
-    }
-
-    .settings-item-label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .setting-icon-svg {
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
-    }
-
-    .settings-item select {
-      background: rgba(0,0,0,0.25);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.4);
-      padding: 4px 6px;
-      border-radius: 6px;
-      font-size: 11px;
-      outline: none;
-      cursor: pointer;
-    }
-
-    .privacy-text-box {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 10px;
-      padding: 10px;
-      font-size: 11px;
-      line-height: 1.4;
-      max-height: 200px;
-      overflow-y: auto;
-      margin-bottom: 12px;
-      color: #f8fafc;
     }
   </style>
 </head>
@@ -2221,14 +1132,24 @@ Model 1:20 AM
   </template>
 
   <div class="app-wrapper">
+    <!-- Top Verified Pill Badge (★ ToBOOSTAi ✔) -->
+    <div class="top-badge-wrapper">
+      <div class="top-badge">
+        <span class="badge-star">★</span>
+        <span>ToBOOSTAi</span>
+        <span class="badge-check">✔</span>
+      </div>
+    </div>
+
+    <!-- Top User Bar -->
     <div class="top-bar">
       <div class="user-profile">
         <div class="avatar-img" id="user-avatar">U</div>
         <span class="user-name" id="user-name">Hi, User</span>
       </div>
       <div class="header-icons">
-        <button class="icon-btn">?</button>
-        <button class="icon-btn" onclick="openSettingsModal()">⚙️</button>
+        <button class="icon-btn" onclick="openFaqModal()" title="Help & FAQ">?</button>
+        <button class="icon-btn" onclick="openSettingsModal()" title="Settings">⚙️</button>
       </div>
     </div>
 
@@ -2299,16 +1220,38 @@ Model 1:20 AM
         </div>
 
         <div class="stats-grid">
+          <!-- Level Card with 3D Diamond Crest & Referral Slider -->
           <div class="stat-card">
-            <div class="level-title">Lv.1 »</div>
-            <div class="stat-desc" data-i18n="levelDesc">Invite 3 users to upgrade to Lv.2</div>
+            <div class="level-header-wrapper">
+              <svg class="badge-3d-diamond" viewBox="0 0 64 64" fill="none">
+                <polygon points="32,4 58,24 32,60 6,24" fill="#a855f7" />
+                <polygon points="32,4 48,24 32,52 16,24" fill="#c084fc" />
+                <polygon points="32,4 32,52 6,24" fill="#9333ea" />
+                <polygon points="20,24 44,24 32,42" fill="#e9d5ff" />
+              </svg>
+              <div class="level-title" id="user-level-title">Lv.1 »</div>
+            </div>
+            <div class="stat-desc" id="user-level-desc" data-i18n="levelDesc">Invite 3 users to upgrade to Lv.2</div>
             <div class="progress-bar-container">
               <span style="font-size: 11px; font-weight: bold;" id="invite-count">0/3</span>
+              <!-- Dynamic Referral Progress Bar -->
+              <div class="invite-progress-bar-wrap">
+                <div class="invite-progress-fill" id="invite-progress-fill"></div>
+              </div>
               <button class="invite-btn" onclick="inviteFriends()" data-i18n="inviteBtn">invite</button>
             </div>
           </div>
 
+          <!-- Daily Tasks Card with 3D Clipboard Background -->
           <div class="stat-card">
+            <svg class="badge-3d-clipboard" viewBox="0 0 64 64" fill="none">
+              <rect x="14" y="10" width="36" height="46" rx="6" fill="#bae6fd" />
+              <rect x="18" y="14" width="28" height="38" rx="4" fill="#f0f9ff" />
+              <rect x="22" y="6" width="20" height="8" rx="3" fill="#38bdf8" />
+              <line x1="24" y1="24" x2="40" y2="24" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" />
+              <line x1="24" y1="32" x2="40" y2="32" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" />
+              <line x1="24" y1="40" x2="34" y2="40" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" />
+            </svg>
             <div class="daily-counter" id="daily-task-count">0/5</div>
             <div style="font-size: 12px; font-weight: bold; color: #0f172a; margin-top: 2px;" data-i18n="dailyTaskProgress">Daily Task Progress</div>
             <div class="stat-desc" style="margin-bottom: 0;" data-i18n="resetsDaily">Resets daily at 00:00</div>
@@ -2365,6 +1308,7 @@ Model 1:20 AM
     </div>
   </div>
 
+  <!-- BOTTOM NAV -->
   <div class="bottom-nav">
     <div class="nav-link active" id="nav-home" onclick="switchNav('home')">
       <i class="fas fa-home"></i>
@@ -2372,16 +1316,17 @@ Model 1:20 AM
     </div>
 
     <div class="nav-link" id="nav-team" onclick="switchNav('team')">
-      <svg class="nav-icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:24px; height:20px; fill:currentColor;">
-        <circle cx="9" cy="8" r="3.5" fill="currentColor"/>
-        <path d="M4 18.5C4 15.7 6.2 13.5 9 13.5C11.8 13.5 14 15.7 14 18.5V20.5H4V18.5Z" fill="currentColor"/>
-        <circle cx="16.5" cy="9.5" r="2.5" fill="currentColor"/>
-        <path d="M14.5 15.5C15.2 15 16.1 14.8 17 14.8C18.4 14.8 19.7 15.4 20.6 16.4C20.8 16.7 20.9 17.1 20.9 17.5V19.5H14.5V15.5Z" fill="currentColor"/>
+      <svg class="nav-icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:22px; height:20px;">
+        <circle cx="9" cy="8" r="3.5"/>
+        <path d="M4 18.5C4 15.7 6.2 13.5 9 13.5C11.8 13.5 14 15.7 14 18.5V20.5H4V18.5Z"/>
+        <circle cx="16.5" cy="9.5" r="2.5"/>
+        <path d="M14.5 15.5C15.2 15 16.1 14.8 17 14.8C18.4 14.8 19.7 15.4 20.6 16.4C20.8 16.7 20.9 17.1 20.9 17.5V19.5H14.5V15.5Z"/>
       </svg>
       <span data-i18n="navTeam">Team</span>
     </div>
   </div>
 
+  <!-- POST TASK MODAL (Volume Discount Strikethrough Buttons) -->
   <div id="post-task-modal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
@@ -2405,27 +1350,33 @@ Model 1:20 AM
       <div class="form-group">
         <div style="display:flex; justify-content:space-between; align-items:center;">
           <label id="lbl-impressions" data-i18n="impressionsLabel">⣿ Impressions</label>
-          <span id="impression-val" style="font-weight: bold; font-size: 13px;">500</span>
+          <span id="impression-val" style="font-weight: bold; font-size: 13px;">100</span>
         </div>
         <div class="range-slider-container">
-          <input type="range" id="impressionSlider" class="range-slider" min="100" max="10000" step="100" value="500" oninput="updateCalculations(this.value)">
+          <input type="range" id="impressionSlider" class="range-slider" min="100" max="10000" step="100" value="100" oninput="updateCalculations(this.value)">
         </div>
       </div>
 
+      <!-- Volume Discount Strikethrough Buttons -->
       <div class="buttons-container-three">
-        <button class="btn-action btn-points" onclick="submitTask('points')">
-          <span>Points</span>
-          <span class="btn-content"><span id="pts-count">50K</span> Pts</span>
-        </button>
-
         <button class="btn-action btn-gram" onclick="submitTask('gram')">
-          <span>$GRAM</span>
-          <span class="btn-content"><span id="gram-count">5</span> $GRAM</span>
+          <span>Post Task</span>
+          <span class="btn-content">
+            ≈<span id="gram-count">1</span> 💎
+            <span class="strikethrough-tag" id="gram-reg-price">≈1</span>
+          </span>
         </button>
 
         <button class="btn-action btn-stars" onclick="submitTask('stars')">
-          <span>Stars ⭐</span>
-          <span class="btn-content"><span id="star-count">1500</span> ⭐</span>
+          <span>Post Task</span>
+          <span class="btn-content">
+            ≈<span id="star-count">300</span> ⭐
+            <span class="strikethrough-tag" id="star-reg-price">≈300</span>
+          </span>
+        </button>
+
+        <button class="btn-points-full" onclick="submitTask('points')">
+          Pay with Points (≈<span id="pts-count">10,000</span> Pts)
         </button>
       </div>
     </div>
@@ -2457,6 +1408,70 @@ Model 1:20 AM
       <button class="withdraw-submit-btn" onclick="processWithdrawal()" data-i18n="withdrawBtnText">
         Withdraw
       </button>
+    </div>
+  </div>
+
+  <!-- FAQ HELP MODAL -->
+  <div id="faq-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>❓ Help & FAQ</h3>
+        <button class="close-modal" onclick="closeFaqModal()">✕</button>
+      </div>
+
+      <div class="faq-accordion-item open">
+        <div class="faq-accordion-header" onclick="toggleFaqAccordion(this)">
+          <span>1. What is ToBOOSTAi?</span>
+          <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-accordion-content">
+          ToBOOSTAi is a Web3-powered social media boost and earning mini-app on Telegram. Users can earn points and $GRAM by completing tasks or spend them to boost their own channels and communities.
+        </div>
+      </div>
+
+      <div class="faq-accordion-item">
+        <div class="faq-accordion-header" onclick="toggleFaqAccordion(this)">
+          <span>2. How can I earn points & $GRAM?</span>
+          <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-accordion-content">
+          You can earn rewards by:
+          <br>• Completing Bounty Tasks (+200 Pts each)
+          <br>• Watching Sponsored Video Ads (+50,000 Pts)
+          <br>• Claiming Daily Check-in (+100 Pts)
+          <br>• Inviting friends with our 3-tier team referral program (5%, 3%, 1%).
+        </div>
+      </div>
+
+      <div class="faq-accordion-item">
+        <div class="faq-accordion-header" onclick="toggleFaqAccordion(this)">
+          <span>3. How can I use my points?</span>
+          <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-accordion-content">
+          Formula: 10,000 Points = 1 $GRAM. You can use your balance to publish exposure tasks for your own Telegram channels, groups, and social profiles.
+        </div>
+      </div>
+
+      <div class="faq-accordion-item">
+        <div class="faq-accordion-header" onclick="toggleFaqAccordion(this)">
+          <span>4. How to boost a channel or post tasks?</span>
+          <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-accordion-content">
+          Click the "POST +" button on the home screen. Enter your task title and link, select desired impressions on the slider, and pay using Points, $GRAM via TON Connect, or Telegram Stars!
+        </div>
+      </div>
+
+      <div class="faq-accordion-item">
+        <div class="faq-accordion-header" onclick="toggleFaqAccordion(this)">
+          <span>5. What is the daily task limit?</span>
+          <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-accordion-content">
+          To maintain fair authentic engagement, each user can complete up to 5 bounty tasks per day. The limit automatically resets daily at 00:00 UTC.
+        </div>
+      </div>
     </div>
   </div>
 
@@ -2499,12 +1514,13 @@ Model 1:20 AM
           </select>
         </div>
 
-        <a href="https://t.me/mediaboostAi" target="_blank" class="settings-item">
+        <!-- Official Channel Link updated to @ToBOOST_Ai -->
+        <a href="https://t.me/ToBOOST_Ai" target="_blank" class="settings-item">
           <span class="settings-item-label">
             <svg class="setting-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 0C5.37 0 0 5.37 0 12C0 18.63 5.37 24 12 24C18.63 24 24 18.63 24 12C24 5.37 18.63 0 12 0ZM17.89 8.05L15.93 17.29C15.78 17.95 15.39 18.11 14.84 17.8L11.84 15.59L10.39 16.98C10.23 17.14 10.1 17.27 9.79 17.27L10.01 14.21L15.58 9.18C15.82 8.96 15.52 8.84 15.2 9.05L8.32 13.38L5.36 12.46C4.72 12.26 4.71 11.82 5.5 11.51L17.07 7.05C17.61 6.85 18.08 7.18 17.89 8.05Z" fill="#38BDF8"/>
             </svg>
-            <span data-i18n="officialChannel">Official Channel</span>
+            <span>Official Channel (@ToBOOST_Ai)</span>
           </span>
           <span>↗</span>
         </a>
@@ -2547,12 +1563,13 @@ Model 1:20 AM
         <br>
         <p><strong data-i18n="pp4Title">4. Third-Party Services</strong><br><span data-i18n="pp4Text">We integrate services like Firebase for data synchronization and Monetag for ad-supported rewards.</span></p>
         <br>
-        <p><strong data-i18n="pp5Title">5. Contact Us</strong><br><span data-i18n="pp5Text">For any inquiries regarding privacy, please reach out to our official channel:</span> <strong>https://t.me/mediaboostAi</strong>.</p>
+        <p><strong data-i18n="pp5Title">5. Contact Us</strong><br><span data-i18n="pp5Text">For any inquiries regarding privacy, please reach out to our official channel:</span> <strong>https://t.me/ToBOOST_Ai</strong>.</p>
       </div>
       <button class="withdraw-submit-btn" onclick="closePrivacyPolicyModal()" data-i18n="gotItBtn">Got It</button>
     </div>
   </div>
- <script>
+
+  <script>
     if (window.visualViewport) {
       window.visualViewport.addEventListener('resize', () => {
         document.body.style.height = window.visualViewport.height + 'px';
@@ -2560,6 +1577,8 @@ Model 1:20 AM
     }
 
     const ADMIN_GRAM_WALLET = "UQC_uwp-fGIO5qwRgGKe0ymORn-Cd-pW_HtBVbHD-NPzIVfq";
+    const OFFICIAL_BOT_USERNAME = "ToFarmsAi_Bot";
+    const OFFICIAL_CHANNEL_USERNAME = "ToBOOST_Ai";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCizaCuNkTOsdyeLErVsUzjTj6P0Du6zZw",
@@ -2575,13 +1594,57 @@ Model 1:20 AM
       firebase.initializeApp(firebaseConfig);
     }
 
+    // --- Pure JS TON Raw Address (0:hex) to User-Friendly (UQ...) Converter ---
+    function toUserFriendlyTonAddress(rawAddress) {
+      try {
+        if (!rawAddress || !rawAddress.includes(':')) return rawAddress;
+        const parts = rawAddress.split(':');
+        const wc = parseInt(parts[0], 10);
+        const hex = parts[1];
+        if (hex.length !== 64) return rawAddress;
+
+        // Non-bounceable mainnet tag: 0x51 -> Starts with UQ
+        const bytes = [0x51, (wc & 0xFF)];
+        for (let i = 0; i < 64; i += 2) {
+          bytes.push(parseInt(hex.substr(i, 2), 16));
+        }
+
+        // CRC16 Checksum
+        let crc = 0;
+        for (let byte of bytes) {
+          crc ^= (byte << 8);
+          for (let i = 0; i < 8; i++) {
+            if (crc & 0x8000) {
+              crc = ((crc << 1) ^ 0x1021) & 0xFFFF;
+            } else {
+              crc = (crc << 1) & 0xFFFF;
+            }
+          }
+        }
+        bytes.push((crc >> 8) & 0xFF);
+        bytes.push(crc & 0xFF);
+
+        // Base64URL string
+        let binary = '';
+        for (let b of bytes) binary += String.fromCharCode(b);
+        return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_');
+      } catch (e) {
+        return rawAddress;
+      }
+    }
+
+    function shortenTonAddress(addr) {
+      if (!addr || addr.length < 12) return addr;
+      return addr.slice(0, 4) + '...' + addr.slice(-4);
+    }
+
     let tonConnectUI = null;
     let connectedWalletAddress = "";
 
     try {
       if (typeof TON_CONNECT_UI !== 'undefined') {
         tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-          manifestUrl: 'https://social-com-red.vercel.app/tonconnect-manifest.json',
+          manifestUrl: 'https://social-com-red.vercel.app/tonconnect-manifest.json?v=2',
           buttonRootId: null
         });
 
@@ -2604,7 +1667,8 @@ Model 1:20 AM
       const btn = document.querySelector('.wallet-connect-btn');
       if (!btn) return;
       if (connectedWalletAddress) {
-        const shortAddr = connectedWalletAddress.slice(0, 4) + '...' + connectedWalletAddress.slice(-4);
+        const friendlyAddr = toUserFriendlyTonAddress(connectedWalletAddress);
+        const shortAddr = shortenTonAddress(friendlyAddr);
         btn.innerHTML = `✅ Connected: <strong>${shortAddr}</strong>`;
         btn.style.background = 'rgba(34, 197, 94, 0.25)';
         btn.style.borderColor = '#22c55e';
@@ -2665,6 +1729,8 @@ Model 1:20 AM
     let userCompletedTasks = {}; 
     let userClickedTasks = {}; 
     let rawBountyTasks = {};
+    const taskTimers = {};
+    let userReferralCount = 0;
 
     function getTodayString() {
       return new Date().toISOString().split('T')[0];
@@ -2719,6 +1785,37 @@ Model 1:20 AM
       }
     }
 
+    // --- Dynamic Tiered Referral Level & Slider Bar UI ---
+    function updateReferralLevelUI(totalInvites = 0) {
+      userReferralCount = totalInvites;
+      const levelTitle = document.getElementById('user-level-title');
+      const levelDesc = document.getElementById('user-level-desc');
+      const inviteCountText = document.getElementById('invite-count');
+      const progressFill = document.getElementById('invite-progress-fill');
+
+      if (!levelTitle || !progressFill) return;
+
+      if (userReferralCount < 3) {
+        levelTitle.innerText = "Lv.1 »";
+        levelDesc.innerText = "Invite 3 users to upgrade to Lv.2";
+        inviteCountText.innerText = `${userReferralCount}/3`;
+        const percent = Math.min(100, Math.round((userReferralCount / 3) * 100));
+        progressFill.style.width = `${percent}%`;
+      } else if (userReferralCount < 8) {
+        levelTitle.innerText = "Lv.2 »";
+        levelDesc.innerText = "Invite 5 more users to upgrade to Lv.3";
+        const currentLvlInvites = userReferralCount - 3;
+        inviteCountText.innerText = `${currentLvlInvites}/5`;
+        const percent = Math.min(100, Math.round((currentLvlInvites / 5) * 100));
+        progressFill.style.width = `${percent}%`;
+      } else {
+        levelTitle.innerText = "Lv.3 (MAX) »";
+        levelDesc.innerText = "Max referral tier reached! Earning 1% Lv.3 bonus";
+        inviteCountText.innerText = "MAX";
+        progressFill.style.width = "100%";
+      }
+    }
+
     function switchNav(tabName) {
       document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
       const homePage = document.getElementById('home-page');
@@ -2755,6 +1852,7 @@ Model 1:20 AM
 
       renderGoldCoins();
       updateWalletButtonUI();
+      updateReferralLevelUI(userReferralCount);
     }
 
     function watchMonetagAd() {
@@ -2796,6 +1894,38 @@ Model 1:20 AM
       alert(getTrans('alertCheckinSuccess'));
     }
 
+    // --- Dynamic Tiered Volume Discount Pricing Engine ---
+    function calcDiscountedPrices(impressions) {
+      const regGram = impressions / 100;
+      const regStars = (impressions / 100) * 300;
+
+      const anchors = [
+        { imp: 100, gram: 1.0, stars: 300 },
+        { imp: 200, gram: 1.75, stars: 550 },
+        { imp: 300, gram: 2.50, stars: 750 },
+        { imp: 500, gram: 3.80, stars: 1150 },
+        { imp: 1000, gram: 6.50, stars: 1950 },
+        { imp: 2500, gram: 12.00, stars: 3600 },
+        { imp: 5000, gram: 16.00, stars: 4800 },
+        { imp: 10000, gram: 20.00, stars: 6000 }
+      ];
+
+      if (impressions <= 100) return { discGram: 1.0, discStars: 300, regGram, regStars };
+      if (impressions >= 10000) return { discGram: 20.0, discStars: 6000, regGram: 100, regStars: 30000 };
+
+      for (let i = 0; i < anchors.length - 1; i++) {
+        const p1 = anchors[i];
+        const p2 = anchors[i + 1];
+        if (impressions >= p1.imp && impressions <= p2.imp) {
+          const ratio = (impressions - p1.imp) / (p2.imp - p1.imp);
+          const discGram = +(p1.gram + ratio * (p2.gram - p1.gram)).toFixed(2);
+          const discStars = Math.round(p1.stars + ratio * (p2.stars - p1.stars));
+          return { discGram, discStars, regGram, regStars };
+        }
+      }
+      return { discGram: regGram, discStars: regStars, regGram, regStars };
+    }
+
     function openPostTaskModal() {
       updateCalculations(document.getElementById('impressionSlider').value);
       document.getElementById('post-task-modal').style.display = 'flex';
@@ -2806,18 +1936,22 @@ Model 1:20 AM
     }
 
     function updateCalculations(value) {
-      const val = parseInt(value);
+      const val = parseInt(value, 10);
       document.getElementById('impression-val').innerText = val.toLocaleString();
 
-      const points = val * 100;
-      const formattedPoints = points >= 1000000 ? (points / 1000000) + 'M' : (points >= 1000 ? (points / 1000) + 'K' : points);
-      document.getElementById('pts-count').innerText = formattedPoints;
+      const { discGram, discStars, regGram, regStars } = calcDiscountedPrices(val);
 
-      const gram = (val / 100).toFixed(0);
-      document.getElementById('gram-count').innerText = gram;
+      // GRAM Display
+      document.getElementById('gram-count').innerText = discGram;
+      document.getElementById('gram-reg-price').innerText = `≈${regGram}`;
 
-      const stars = val * 3;
-      document.getElementById('star-count').innerText = stars.toLocaleString();
+      // Stars Display
+      document.getElementById('star-count').innerText = discStars.toLocaleString();
+      document.getElementById('star-reg-price').innerText = `≈${regStars.toLocaleString()}`;
+
+      // Points Display
+      const discPoints = Math.round(discGram * 10000);
+      document.getElementById('pts-count').innerText = discPoints.toLocaleString();
     }
 
     async function submitTask(type) {
@@ -2827,15 +1961,17 @@ Model 1:20 AM
       }
       const taskName = document.getElementById('post-task-name').value.trim() || "Bounty Task";
       const taskUrl = document.getElementById('post-task-url').value.trim();
-      const impressions = parseInt(document.getElementById('impressionSlider').value);
+      const impressions = parseInt(document.getElementById('impressionSlider').value, 10);
 
       if (!taskUrl || (!taskUrl.startsWith('http://') && !taskUrl.startsWith('https://'))) {
         alert(getTrans('alertInvalidUrl'));
         return;
       }
 
+      const { discGram, discStars } = calcDiscountedPrices(impressions);
+
       if (type === 'points') {
-        const costPoints = impressions * 100;
+        const costPoints = Math.round(discGram * 10000);
         if (userCoins < costPoints) {
           alert(getTrans('alertInsufficientPoints', { cost: costPoints.toLocaleString() }));
           return;
@@ -2846,7 +1982,7 @@ Model 1:20 AM
         saveUserDataToFirebase();
         saveTaskToFirebase(taskName, taskUrl, impressions);
       } else if (type === 'gram') {
-        const gramAmount = (impressions / 100).toFixed(0);
+        const gramAmount = discGram;
         
         if (tonConnectUI && tonConnectUI.connected) {
           try {
@@ -2879,7 +2015,7 @@ Model 1:20 AM
           }
         }
       } else if (type === 'stars') {
-        const costStars = impressions * 3;
+        const costStars = discStars;
         alert(getTrans('alertStarsInvoice', { stars: costStars }));
         saveTaskToFirebase(taskName, taskUrl, impressions);
       }
@@ -2914,6 +2050,7 @@ Model 1:20 AM
       });
     }
 
+    // --- Render Bounty Tasks with Exact 3D Coin SVG Matching Main Balance ---
     function renderBountyTasks() {
       const taskListDiv = document.getElementById('task-list');
       taskListDiv.innerHTML = '';
@@ -2934,24 +2071,16 @@ Model 1:20 AM
       availableTasks.forEach(task => {
         const item = document.createElement('div');
         item.className = 'task-item';
+        item.id = `task-card-${task.id}`;
 
         const avatarHTML = task.creatorPhotoUrl 
           ? `<img src="${task.creatorPhotoUrl}" alt="Avatar">`
           : (task.name ? task.name.charAt(0).toUpperCase() : 'T');
 
-        const tempContainer = document.createElement('span');
-        tempContainer.appendChild(getGramStarCoinSVG(12));
-        const iconHtmlStr = tempContainer.innerHTML;
-
-        const isClicked = userClickedTasks[task.id];
         const rewardAmount = task.reward || 200;
 
-        let rightActionHTML = '';
-        if (isClicked) {
-          rightActionHTML = `<button class="task-action-btn claim-btn" onclick="claimBountyTask('${task.id}', ${rewardAmount}, this)">${getTrans('claimBtnText')}</button>`;
-        } else {
-          rightActionHTML = `<button class="task-action-btn" onclick="startBountyTask('${task.id}', '${task.url}')">${iconHtmlStr} ${rewardAmount}</button>`;
-        }
+        // Exact 3D Glossy Star Coin matching Main Balance
+        const coinSvg = getGramStarCoinSVG(18).outerHTML;
 
         item.innerHTML = `
           <div class="task-left">
@@ -2961,21 +2090,67 @@ Model 1:20 AM
               <span class="task-pill">${getTrans('linkTask')}</span>
             </div>
           </div>
-          <div>${rightActionHTML}</div>
+          <div>
+            <button 
+              id="btn-task-${task.id}" 
+              class="task-action-btn" 
+              data-state="start" 
+              onclick="handleTaskAction('${task.id}', '${task.url}', ${rewardAmount})">
+              ${coinSvg} <span>${rewardAmount}</span>
+            </button>
+          </div>
         `;
 
         taskListDiv.appendChild(item);
       });
     }
 
-    function startBountyTask(taskId, url) {
-      userClickedTasks[taskId] = true;
-      if (tg && tg.openLink) {
-        tg.openLink(url);
-      } else {
-        window.open(url, '_blank');
+    // --- Blum & Notcoin Smart Timer Countdown & Safe Claim Handler ---
+    function handleTaskAction(taskId, taskUrl, rewardAmount) {
+      const btn = document.getElementById(`btn-task-${taskId}`);
+      if (!btn) return;
+      const currentState = btn.getAttribute('data-state') || 'start';
+
+      // State 1: Start Task -> Open Link + 10s Countdown
+      if (currentState === 'start') {
+        if (tg && tg.openLink) {
+          tg.openLink(taskUrl);
+        } else {
+          window.open(taskUrl, '_blank');
+        }
+
+        btn.setAttribute('data-state', 'verifying');
+        btn.classList.add('btn-verifying-pulse');
+        btn.disabled = true;
+
+        let timeLeft = 10;
+        btn.innerHTML = `<span>Checking ${timeLeft}s</span>`;
+
+        taskTimers[taskId] = setInterval(() => {
+          timeLeft--;
+          if (timeLeft > 0) {
+            btn.innerHTML = `<span>Checking ${timeLeft}s</span>`;
+          } else {
+            clearInterval(taskTimers[taskId]);
+            delete taskTimers[taskId];
+
+            btn.setAttribute('data-state', 'claim');
+            btn.classList.remove('btn-verifying-pulse');
+            btn.classList.add('btn-claim-green');
+            btn.disabled = false;
+            btn.innerHTML = `<span>Claim +${rewardAmount}</span>`;
+
+            if (tg?.HapticFeedback) {
+              tg.HapticFeedback.impactOccurred('medium');
+            }
+          }
+        }, 1000);
+
+      } 
+      // State 2: Claim Points
+      else if (currentState === 'claim') {
+        claimBountyTask(taskId, rewardAmount, btn);
       }
-      renderBountyTasks();
     }
 
     function claimBountyTask(taskId, rewardAmount, btnElement) {
@@ -2989,17 +2164,29 @@ Model 1:20 AM
       btnElement.innerText = getTrans('verifyingText');
       btnElement.disabled = true;
 
-      setTimeout(() => {
-        userCompletedTasks[taskId] = true; 
-        userCoins += rewardAmount;
-        dailyTasksCompleted += 1;
-        lastTaskDate = getTodayString();
-        
-        updateUI();
-        saveUserDataToFirebase();
-        renderBountyTasks(); 
-        alert(getTrans('alertTaskCompleted', { amount: rewardAmount }));
-      }, 2000);
+      // Safe Atomic Update
+      userCompletedTasks[taskId] = true; 
+      userCoins += rewardAmount;
+      dailyTasksCompleted += 1;
+      lastTaskDate = getTodayString();
+      
+      updateUI();
+      saveUserDataToFirebase();
+
+      if (tg?.HapticFeedback) {
+        tg.HapticFeedback.notificationOccurred('success');
+      }
+
+      // Smooth Vanish Animation
+      const card = document.getElementById(`task-card-${taskId}`);
+      if (card) {
+        card.classList.add('task-fade-vanish');
+        setTimeout(() => {
+          card.remove();
+        }, 400);
+      }
+
+      alert(getTrans('alertTaskCompleted', { amount: rewardAmount }));
     }
 
     function openWithdrawModal() {
@@ -3025,7 +2212,6 @@ Model 1:20 AM
       if (userCoins < targetCoins) {
         alert(getTrans('alertInsufficientWithdraw', { target: targetCoins.toLocaleString(), stage: stage }));
       } else {
-        // Send Withdrawal Request to Firebase for Admin Panel
         const reqRef = firebase.database().ref('withdraw_requests').push();
         reqRef.set({
           id: reqRef.key,
@@ -3045,7 +2231,8 @@ Model 1:20 AM
           saveUserDataToFirebase();
           closeWithdrawModal();
 
-          alert(`Withdrawal #${stage} Submitted Successfully!\n\nAmount: ${gramAmount} $GRAM (${targetCoins.toLocaleString()} Coins)\nDestination: ${connectedWalletAddress}\n\nStatus: Pending (Processed within 24-48 hours).`);
+          const friendly = toUserFriendlyTonAddress(connectedWalletAddress);
+          alert(`Withdrawal #${stage} Submitted Successfully!\n\nAmount: ${gramAmount} $GRAM (${targetCoins.toLocaleString()} Coins)\nDestination: ${shortenTonAddress(friendly)}\n\nStatus: Pending (Processed within 24-48 hours).`);
         }).catch((err) => {
           console.error("Withdrawal error:", err);
           alert("Failed to submit withdrawal request. Please try again.");
@@ -3053,12 +2240,13 @@ Model 1:20 AM
       }
     }
 
+    // Official Bot Referral System
     function inviteFriends() {
-      const inviteUrl = `https://t.me/share/url?url=https://t.me/YourBot?start=${userId}`;
+      const inviteUrl = `https://t.me/share/url?url=https://t.me/${OFFICIAL_BOT_USERNAME}?start=${userId}`;
       if (tg && tg.openTelegramLink) {
         tg.openTelegramLink(inviteUrl);
       } else {
-        navigator.clipboard.writeText(`https://t.me/YourBot?start=${userId}`);
+        navigator.clipboard.writeText(`https://t.me/${OFFICIAL_BOT_USERNAME}?start=${userId}`);
         alert(getTrans('alertReferralCopied'));
       }
     }
@@ -3097,12 +2285,29 @@ Model 1:20 AM
       document.getElementById('privacy-policy-modal').style.display = 'none';
     }
 
+    // FAQ Modal Handlers
+    function openFaqModal() {
+      document.getElementById('faq-modal').style.display = 'flex';
+    }
+
+    function closeFaqModal() {
+      document.getElementById('faq-modal').style.display = 'none';
+    }
+
+    function toggleFaqAccordion(headerEl) {
+      headerEl.parentElement.classList.toggle('open');
+    }
+
     let currentLang = 'en';
 
     const translations = {
       en: {
         watchAd: "Watch Ad", dailyCheckIn: "Daily Check-in", levelDesc: "Invite 3 users to upgrade to Lv.2", inviteBtn: "invite", dailyTaskProgress: "Daily Task Progress", resetsDaily: "Resets daily at 00:00", bountyTaskTitle: "Bounty Task", postBtn: "POST +", loadingTasks: "Loading bounty tasks...", navHome: "Home", navTeam: "Team", postTaskHeader: "Post Task ⭐", taskNameLabel: "🏷️ Task name", placeholderTaskName: "Enter task name", taskUrlLabel: "💳 Task address", placeholderUrl: "Please input task url", impressionsLabel: "⣿ Impressions", postTaskBtnText: "Post Task", balanceHeader: "Balance", connectWalletBtn: "🔗 Connect $GRAM Wallet", withdrawBtnText: "Withdraw", settingsHeader: "⚙️ Settings", copyBtn: "Copy", officialChannel: "Official Channel", goToX: "Go to X", privacyPolicy: "Privacy Policy", privacyPolicyHeader: "Privacy Policy", gotItBtn: "Got It", linkTask: "Link Task", noTasks: "No active bounty tasks available right now.", allTasksCompleted: "You have completed all available tasks!", withdrawTargetText: "Withdrawal Target #{stage}: {target} Coins", claimed: "Claimed ✓", claimBtnText: "Claim", verifyingText: "Verifying...", teamHeader: "Create team, Earn more!", teamLv1Title: "Members you invited", teamLv1Desc: "Lv1: Get 5% task bonus", teamLv2Title: "Invited by Lv.1 members", teamLv2Desc: "Lv.2: Get 3% task bonus", teamLv3Title: "Invited by Lv.2 members", teamLv3Desc: "Lv.3: Get 1% task bonus", inviteMembersBtn: "Invite Members",
-        pp1Title: "1. Introduction", pp1Text: "Welcome to our Telegram Mini App.", pp2Title: "2. Information Collection", pp2Text: "We collect basic Telegram profile details.", pp3Title: "3. Use of Data", pp3Text: "Your data is used solely to provide app functionality.", pp4Title: "4. Third-Party Services", pp4Text: "We integrate Firebase and Monetag.", pp5Title: "5. Contact Us", pp5Text: "Contact channel:",
+        pp1Title: "1. Introduction", pp1Text: "Welcome to our Telegram Mini App. We respect your privacy and are committed to protecting any data associated with your Telegram account.",
+        pp2Title: "2. Information Collection", pp2Text: "We collect basic Telegram profile details provided via Telegram WebApp API to identify your account, track your task completions, and store your coin balance safely.",
+        pp3Title: "3. Use of Data", pp3Text: "Your data is used solely to provide app functionality, manage rewards, and process your withdrawals.",
+        pp4Title: "4. Third-Party Services", pp4Text: "We integrate services like Firebase for data synchronization and Monetag for ad-supported rewards.",
+        pp5Title: "5. Contact Us", pp5Text: "For any inquiries regarding privacy, please reach out to our official channel:",
         alertSyncing: "Please wait, syncing user data...", alertAdSuccess: "Success! You watched the full ad and earned 50,000 Points!", alertAdFail: "You must watch the full ad to earn 50,000 Points!", alertAdLoading: "Ad Network loading. Please try again in 5 seconds.", alertCheckinClaimed: "You have already claimed today's daily bonus!", alertCheckinSuccess: "Daily Check-in Successful! You received 100 Points!", alertInvalidUrl: "Please enter a valid URL (e.g., https://t.me/...)", alertInsufficientPoints: "Insufficient balance! You need {cost} Points to post this task.", alertPaymentInitiating: "Initiating transfer of {amount} $GRAM to official wallet...", alertPaymentSuccess: "Payment successful! Your task has been posted.", alertPaymentFailed: "Transaction cancelled or failed. Please try again.", alertSendGramPrompt: "Please connect your $GRAM wallet or send exactly {amount} $GRAM to:\n\n{wallet}\n\nClick OK to copy address.", alertAddressCopied: "Admin $GRAM Wallet address copied to clipboard!", alertStarsInvoice: "Telegram Stars invoice: {stars} Stars requested.", alertTaskPosted: "Task posted successfully!", alertTaskFailed: "Failed to post task. Please try again.", alertDailyLimit: "Daily limit reached! You can only complete 5 tasks per day. Resets at 00:00.", alertTaskCompleted: "Task completed! +{amount} Points", alertConnectWalletFirst: "Please connect your $GRAM wallet first before withdrawing!", alertInsufficientWithdraw: "Insufficient balance!\nAt least {target} Points are required for withdrawal #{stage}.", alertWithdrawSuccess: "Congratulations! Withdrawal #{stage} requested successfully ({target} Points).", alertReferralCopied: "Referral link copied to clipboard!", alertIdCopied: "Telegram ID copied: {id}", alertWalletLoading: "$GRAM Connect SDK is loading. Please try again in 3 seconds."
       },
       bn: {
@@ -3215,7 +2420,8 @@ Model 1:20 AM
           lastCheckIn: lastCheckInDate,
           photoUrl: userPhotoUrl,
           completedTasks: userCompletedTasks,
-          walletAddress: connectedWalletAddress
+          walletAddress: connectedWalletAddress,
+          referralCount: userReferralCount
         });
       }
     }
@@ -3233,6 +2439,7 @@ Model 1:20 AM
             lastTaskDate = data.lastTaskDate || today;
             userCompletedTasks = data.completedTasks || {};
             connectedWalletAddress = data.walletAddress || "";
+            userReferralCount = data.referralCount || 0;
 
             if (lastTaskDate !== today) {
               dailyTasksCompleted = 0;
@@ -3249,6 +2456,7 @@ Model 1:20 AM
             lastTaskDate = today;
             dailyTasksCompleted = 0;
             userCompletedTasks = {};
+            userReferralCount = 0;
           }
 
           isDataLoaded = true;
