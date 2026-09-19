@@ -8,10 +8,12 @@
   <!-- Open Graph & Telegram Share Banner -->
   <meta property="og:title" content="ToBOOSTAi - Social Media Boost & Earning">
   <meta property="og:description" content="Join ToBOOSTAi and get exclusive rewards! Complete tasks, earn points, and get real $GRAM rewards.">
-  <meta property="og:image" content="./banner.png">
+  <meta property="og:image" content="https://social-com-red.vercel.app/banner.png">
+  <meta property="og:image:width" content="800">
+  <meta property="og:image:height" content="450">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="./banner.png">
+  <meta name="twitter:image" content="https://social-com-red.vercel.app/banner.png">
   
   <!-- FontAwesome CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -67,37 +69,51 @@
       overflow: hidden;
     }
 
-    /* Top Verified Pill Badge (Point 3 Update) */
+    /* TOP HEADER: EXACT MATCH TO USER'S SCREENSHOT 1 (NO PILL/CAPSULE BOUNDARY) */
     .top-badge-wrapper {
       display: flex;
       justify-content: center;
-      padding: 6px 0 2px 0;
+      align-items: center;
+      padding: 12px 0 6px 0;
       flex-shrink: 0;
     }
     .top-badge {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      background: rgba(255, 255, 255, 0.28);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      padding: 4px 14px;
-      border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      color: #ffffff;
-      font-size: 13px;
-      font-weight: 800;
-      box-shadow: 0 4px 12px rgba(0, 114, 255, 0.2);
+      gap: 9px;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
     }
-    .top-badge .badge-coin-slot {
+    /* 3D Cyan Round Sphere with Star */
+    .top-badge .badge-star-ball {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
+      filter: drop-shadow(0 3px 6px rgba(0, 70, 160, 0.3));
     }
-    .top-badge .telegram-verified-badge {
-      width: 16px;
-      height: 16px;
+    /* Clean, Bold, White App Name */
+    .top-badge .badge-app-title {
+      font-size: 22px;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: 0.6px;
+      text-shadow: 0 2px 6px rgba(0, 60, 150, 0.25);
+      line-height: 1;
+    }
+    /* Official Telegram 3D Blue Rosette Verified Badge */
+    .top-badge .badge-verified-rosette {
+      width: 27px;
+      height: 27px;
       flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 3px 6px rgba(0, 70, 160, 0.35));
     }
 
     /* Top User Header */
@@ -105,7 +121,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 6px 16px 8px 16px;
+      padding: 2px 16px 8px 16px;
       flex-shrink: 0;
     }
 
@@ -207,11 +223,11 @@
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
     }
 
-    /* Point 2 Update: Balance Amount Color Black */
+    /* Bold Black Contrast Balance */
     .coin-amount {
       font-size: 22px;
       font-weight: 900;
-      color: #0f172a !important; /* Bold Black */
+      color: #0f172a !important; 
       text-shadow: none !important;
     }
 
@@ -428,11 +444,10 @@
       flex-shrink: 0;
     }
 
-    /* Point 2 Update: Bounty Task Title Color Black */
     .bounty-title {
       font-size: 16px;
       font-weight: 900;
-      color: #0f172a !important; /* Bold Black */
+      color: #0f172a !important; 
     }
 
     .post-btn {
@@ -537,22 +552,23 @@
       font-weight: 600;
     }
 
+    /* COMPACT REFINED BOUNTY TASK BUTTON */
     .task-action-btn {
       background: rgba(59, 130, 246, 0.15);
       color: #2563eb;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
-      padding: 6px 14px;
-      border-radius: 18px;
+      padding: 5px 10px;
+      border-radius: 14px;
       border: 1px solid #bfdbfe;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 4px;
       cursor: pointer;
-      min-width: 96px;
+      min-width: 76px;
       transition: all 0.25s ease;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.04);
     }
 
     .task-action-btn:active {
@@ -560,8 +576,8 @@
     }
 
     .task-action-btn svg {
-      width: 18px;
-      height: 18px;
+      width: 15px;
+      height: 15px;
       flex-shrink: 0;
     }
 
@@ -924,7 +940,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
-    /* Point 4: 7-Day Check-in Template Modal */
+    /* 7-Day Check-in Modal */
     .checkin-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -985,7 +1001,7 @@
       cursor: not-allowed;
     }
 
-    /* Point 4: Withdrawal Locked Popup Card */
+    /* Withdrawal Requirement Locked Modal */
     .req-locked-card {
       background: rgba(239, 68, 68, 0.2);
       border: 1.5px solid #ef4444;
@@ -1103,16 +1119,44 @@
       cursor: pointer;
     }
 
+    /* PRIVACY POLICY BOX: PURE BLACK TEXT ON CLEAN LIGHT BACKGROUND */
     .privacy-text-box {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 10px;
-      padding: 10px;
-      font-size: 11px;
-      line-height: 1.4;
-      max-height: 200px;
+      background: rgba(255, 255, 255, 0.95) !important;
+      border-radius: 14px;
+      padding: 16px;
+      font-size: 11.5px;
+      line-height: 1.6;
+      max-height: 380px;
       overflow-y: auto;
-      margin-bottom: 12px;
-      color: #f8fafc;
+      margin-bottom: 14px;
+      color: #0f172a !important; /* Pure Black Text */
+      text-align: left;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+    .privacy-text-box h4 {
+      color: #0f172a !important; /* Bold Black Header */
+      font-size: 13.5px;
+      font-weight: 900;
+      margin-top: 14px;
+      margin-bottom: 4px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      padding-bottom: 2px;
+    }
+    .privacy-text-box h5 {
+      color: #1e293b !important; /* Dark Grey/Black */
+      font-size: 12px;
+      font-weight: 800;
+      margin-top: 8px;
+      margin-bottom: 2px;
+    }
+    .privacy-text-box p {
+      color: #0f172a !important; /* 100% Solid Black Text */
+      margin-bottom: 6px;
+    }
+    .privacy-text-box strong {
+      color: #000000 !important;
+      font-weight: 800;
     }
 
     .faq-accordion-item {
@@ -1187,16 +1231,47 @@
   </template>
 
   <div class="app-wrapper">
-    <!-- Point 3 Update: Top Verified Pill Badge with 3D Coin + Official Telegram Verified Blue Badge -->
+    <!-- TOP HEADER: EXACT PIXEL-PERFECT REPLICA OF USER'S IMAGE 1 (NO PILL/CAPSULE BORDER) -->
     <div class="top-badge-wrapper">
       <div class="top-badge">
-        <span class="badge-coin-slot" id="top-pill-coin-slot"></span>
-        <span>ToBOOSTAi</span>
-        <!-- Telegram Official Verified Rosette Badge SVG -->
-        <svg class="telegram-verified-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M10.29 2.308a2.5 2.5 0 013.42 0l.96.883a2.5 2.5 0 002.048.665l1.29-.182a2.5 2.5 0 012.784 2.022l.288 1.274a2.5 2.5 0 001.448 1.609l1.173.57a2.5 2.5 0 011.064 3.275l-.57 1.173a2.5 2.5 0 000 2.164l.57 1.173a2.5 2.5 0 01-1.064 3.275l-1.173.57a2.5 2.5 0 00-1.448 1.609l-.288 1.274a2.5 2.5 0 01-2.784 2.022l-1.29-.182a2.5 2.5 0 00-2.048.665l-.96.883a2.5 2.5 0 01-3.42 0l-.96-.883a2.5 2.5 0 00-2.048-.665l-1.29.182a2.5 2.5 0 01-2.784-2.022l-.288-1.274a2.5 2.5 0 00-1.448-1.609l-1.173-.57a2.5 2.5 0 01-1.064-3.275l.57-1.173a2.5 2.5 0 000-2.164l-.57-1.173a2.5 2.5 0 011.064-3.275l1.173-.57a2.5 2.5 0 001.448-1.609l.288-1.274a2.5 2.5 0 012.784-2.022l1.29.182a2.5 2.5 0 002.048-.665l.96-.883z" fill="#0088cc"/>
-          <path d="M9.5 12.5l2 2 4.5-4.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        
+        <!-- Left: 3D Cyan Round Sphere with Star -->
+        <div class="badge-star-ball">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+            <defs>
+              <linearGradient id="badgeStarGrad" x1="20" y1="10" x2="80" y2="90" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#38bdf8"/>
+                <stop offset="1" stop-color="#0284c7"/>
+              </linearGradient>
+              <filter id="starInnerGlow">
+                <feDropShadow dx="0" dy="2" stdDeviation="1.2" flood-color="#0369a1" flood-opacity="0.5"/>
+              </filter>
+            </defs>
+            <circle cx="50" cy="50" r="48" fill="url(#badgeStarGrad)"/>
+            <path d="M50 20 L58 38 L77 40 L63 53 L67 72 L50 62 L33 72 L37 53 L23 40 L42 38 Z" fill="#ffffff" filter="url(#starInnerGlow)"/>
+          </svg>
+        </div>
+
+        <!-- Center: Bold Crisp White App Name -->
+        <span class="badge-app-title">ToBOOSTAi</span>
+
+        <!-- Right: 3D Blue Telegram Verified Rosette Badge -->
+        <div class="badge-verified-rosette">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+            <defs>
+              <linearGradient id="rosetteGrad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#38bdf8"/>
+                <stop offset="1" stop-color="#0284c7"/>
+              </linearGradient>
+              <filter id="rosetteShadow">
+                <feDropShadow dx="0" dy="2" stdDeviation="1.5" flood-color="#0369a1" flood-opacity="0.6"/>
+              </filter>
+            </defs>
+            <path d="M10.29 2.308a2.5 2.5 0 013.42 0l.96.883a2.5 2.5 0 002.048.665l1.29-.182a2.5 2.5 0 012.784 2.022l.288 1.274a2.5 2.5 0 001.448 1.609l1.173.57a2.5 2.5 0 011.064 3.275l-.57 1.173a2.5 2.5 0 000 2.164l.57 1.173a2.5 2.5 0 01-1.064 3.275l-1.173.57a2.5 2.5 0 00-1.448 1.609l-.288 1.274a2.5 2.5 0 01-2.784 2.022l-1.29-.182a2.5 2.5 0 00-2.048.665l-.96.883a2.5 2.5 0 01-3.42 0l-.96-.883a2.5 2.5 0 00-2.048-.665l-1.29.182a2.5 2.5 0 01-2.784-2.022l-.288-1.274a2.5 2.5 0 00-1.448-1.609l-1.173-.57a2.5 2.5 0 01-1.064-3.275l.57-1.173a2.5 2.5 0 000-2.164l-.57-1.173a2.5 2.5 0 011.064-3.275l1.173-.57a2.5 2.5 0 001.448-1.609l.288-1.274a2.5 2.5 0 012.784-2.022l1.29.182a2.5 2.5 0 002.048-.665l.96-.883z" fill="url(#rosetteGrad)" filter="url(#rosetteShadow)"/>
+            <path d="M9.5 12.5l2 2 4.5-4.5" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
       </div>
     </div>
 
@@ -1217,7 +1292,7 @@
         <div class="balance-card" onclick="openWithdrawModal()">
           <div class="coin-display">
             <div id="main-coin-svg-container"></div>
-            <!-- Point 2: Bold Black Color Text -->
+            <!-- Black Bold Contrast Balance -->
             <span class="coin-amount" id="main-coins">0</span>
           </div>
           <div class="rate-badge">
@@ -1250,7 +1325,7 @@
             </div>
           </div>
 
-          <!-- Point 4: Opens 7-Day Check-in Modal -->
+          <!-- Opens 7-Day Check-in Modal -->
           <div class="action-card" onclick="openCheckinModal()">
             <div class="action-icon">
               <svg class="calendar-svg-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1291,7 +1366,7 @@
               </svg>
               <div class="level-title" id="user-level-title">Lv.1 »</div>
             </div>
-            <div class="stat-desc" id="user-level-desc" data-i18n="levelDesc">Invite 3 users to upgrade to Lv.2</div>
+            <div class="stat-desc" id="user-level-desc">Invite 3 users to unlock 10 tasks/day</div>
             <div class="progress-bar-container">
               <span style="font-size: 11px; font-weight: bold;" id="invite-count">0/3</span>
               <div class="invite-progress-bar-wrap">
@@ -1319,7 +1394,6 @@
 
       <div class="bounty-container">
         <div class="bounty-header">
-          <!-- Point 2: Bold Black Color Text -->
           <span class="bounty-title" data-i18n="bountyTaskTitle">Bounty Task</span>
           <button class="post-btn" onclick="openPostTaskModal()" data-i18n="postBtn">POST +</button>
         </div>
@@ -1385,7 +1459,7 @@
     </div>
   </div>
 
-  <!-- 7-DAY CHECK-IN MODAL (Point 4) -->
+  <!-- 7-DAY CHECK-IN MODAL (BLUE 3D STAR COINS) -->
   <div id="checkin-modal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
@@ -1405,7 +1479,7 @@
     </div>
   </div>
 
-  <!-- WITHDRAWAL REQUIREMENT LOCKED MODAL (Point 4) -->
+  <!-- WITHDRAWAL REQUIREMENT LOCKED MODAL -->
   <div id="withdraw-req-modal" class="modal-overlay">
     <div class="modal-box" style="text-align: center;">
       <div style="font-size: 44px; margin-bottom: 8px;">🔒</div>
@@ -1516,7 +1590,7 @@
     </div>
   </div>
 
-  <!-- FAQ MODAL -->
+  <!-- COMPLETE HELP & FAQ MODAL -->
   <div id="faq-modal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
@@ -1530,7 +1604,51 @@
           <span class="faq-icon">▼</span>
         </div>
         <div class="faq-accordion-content">
-          ToBOOSTAi is a Web3-powered social media boost and earning mini-app on Telegram.
+          ToBOOSTAi is a Web3-powered social media boost and earning mini-app on Telegram. Users can earn points and $GRAM by completing tasks or spend them to boost their own channels and communities.
+        </div>
+      </div>
+
+      <div class="faq-accordion-item">
+        <div class="faq-accordion-header" onclick="toggleFaqAccordion(this)">
+          <span>2. How can I earn points & $GRAM?</span>
+          <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-accordion-content">
+          You can earn rewards by:
+          <br>• Completing Bounty Tasks (+200 Pts each)
+          <br>• Watching Sponsored Video Ads (+50,000 Pts)
+          <br>• Claiming Daily Check-in (+100 Pts)
+          <br>• Inviting friends with our multi-tier referral program!
+        </div>
+      </div>
+
+      <div class="faq-accordion-item">
+        <div class="faq-accordion-header" onclick="toggleFaqAccordion(this)">
+          <span>3. How can I use my points?</span>
+          <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-accordion-content">
+          Formula: 10,000 Points = 1 $GRAM. You can use your balance to publish exposure tasks for your own Telegram channels, groups, and social profiles.
+        </div>
+      </div>
+
+      <div class="faq-accordion-item">
+        <div class="faq-accordion-header" onclick="toggleFaqAccordion(this)">
+          <span>4. How to boost a channel or post tasks?</span>
+          <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-accordion-content">
+          Click the "POST +" button on the home screen. Enter your task title and link, select desired impressions on the slider, and pay using Points, $GRAM via TON Connect, or Telegram Stars!
+        </div>
+      </div>
+
+      <div class="faq-accordion-item">
+        <div class="faq-accordion-header" onclick="toggleFaqAccordion(this)">
+          <span>5. How does the daily task limit work?</span>
+          <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-accordion-content">
+          By default, every user can complete up to 5 bounty tasks per day. You can increase this limit up to 20 tasks per day by inviting friends (3 invites = 10 tasks, 6 invites = 15 tasks, 9 invites = 20 tasks).
         </div>
       </div>
     </div>
@@ -1556,27 +1674,19 @@
       </div>
 
       <div class="settings-menu-list">
+        <!-- 6 Selected Languages -->
         <div class="settings-item">
           <span class="settings-item-label">🌐 Language</span>
           <select id="language-select">
             <option value="en" selected>English (US)</option>
-            <option value="bn">বাংলা (Bengali)</option>
+            <option value="cn">简体中文 (Mandarin)</option>
+            <option value="hi">हिन्दी (Hindi)</option>
             <option value="ur">اردو (Urdu)</option>
-            <option value="es">Español</option>
-            <option value="pt">Português</option>
-            <option value="ru">Русский</option>
-            <option value="fr">Français</option>
-            <option value="id">Bahasa Indonesia</option>
-            <option value="uk">Українська</option>
-            <option value="hi">हिन्दी</option>
-            <option value="ko">한국어</option>
-            <option value="tw">繁體中文</option>
-            <option value="cn">简体中文</option>
-            <option value="vi">Tiếng Việt</option>
+            <option value="es">Español (Spanish)</option>
+            <option value="pt">Português (Portuguese)</option>
           </select>
         </div>
 
-        <!-- Point 3: Official Channel Direct Telegram Link -->
         <div class="settings-item" onclick="openOfficialChannel()">
           <span class="settings-item-label">
             <svg class="setting-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1610,16 +1720,61 @@
     </div>
   </div>
 
-  <!-- PRIVACY POLICY MODAL -->
+  <!-- COMPLETE 11-SECTION PRIVACY POLICY MODAL (WITH 100% BLACK READABLE TEXT) -->
   <div id="privacy-policy-modal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
         <h3 data-i18n="privacyPolicyHeader">Privacy Policy</h3>
         <button class="close-modal" onclick="closePrivacyPolicyModal()">✕</button>
       </div>
+      
+      <!-- Styled in Pure Black -->
       <div class="privacy-text-box">
-        <p>Your privacy is respected and protected in our Telegram Mini App.</p>
+        <p><strong>Effective Date: June 1, 2025</strong></p>
+        <p>Welcome to our services. We highly value your privacy and are committed to protecting your personal data. This privacy policy details the information we collect, how we use it, and your related rights.</p>
+        
+        <h4>1. Information We Collect</h4>
+        <h5>1.1 Personal Data</h5>
+        <p>We may collect the following types of personal data: Your Telegram user ID, username, and user avatar.</p>
+        <h5>1.2 Usage Data</h5>
+        <p>We may automatically collect: Game data (activities, achievements, scores, rankings), Device information (device type, operating system, unique identifiers, hardware settings), and Log data (IP address, browser version, visit timestamps, and diagnostic data).</p>
+        <h5>1.3 Transaction Data</h5>
+        <p>When you make a transaction, we collect and store payment details, payment account information, and transaction history.</p>
+
+        <h4>2. Cookies & Related Technologies</h4>
+        <p>Cookies allow servers to store and retrieve data. We use cookies, scripts, and web beacons to optimize your experience. Disabling cookies in your browser may prevent some features from functioning properly.</p>
+
+        <h4>3. How We Use Your Information</h4>
+        <p>• To provide and maintain services properly.<br>• To optimize our products based on user behavior.<br>• To personalize your in-app rewards and experience.<br>• To process transactions and customer support requests.<br>• To communicate game updates, events, and promotions.<br>• To ensure compliance with applicable laws and security standards.</p>
+
+        <h4>4. Data Sharing and Disclosure</h4>
+        <p>We do not sell your personal data. We may share data with service providers (payment processors, hosting, data analysis) or when required by legal regulations or business asset transfers.</p>
+
+        <h4>5. Data Security</h4>
+        <p>We implement technical and organizational measures (encryption, firewalls, tokenization) to protect your personal data from unauthorized access or destruction.</p>
+
+        <h4>6. Storage and Protection</h4>
+        <h5>6.1 Storage & Retention</h5>
+        <p>We store data using local storage, encrypted databases, and server logs. Electronic records are permanently deleted when operations cease.</p>
+        <h5>6.2 Protection & Incident Handling</h5>
+        <p>We utilize industry-leading SSL encryption, access controls, and strict employee confidentiality. In case of a security incident, immediate notifications will be released via app announcements.</p>
+
+        <h4>7. Your Rights</h4>
+        <p>Under applicable laws, you hold the right to access, rectify, delete, restrict processing, request data portability, and withdraw consent at any time.</p>
+
+        <h4>8. Children's Privacy</h4>
+        <p>Our services are strictly not directed to children under the age of 13. We do not knowingly collect personal data from minors.</p>
+
+        <h4>9. International Data Transfers</h4>
+        <p>Collected data may be transferred to and securely stored on servers located outside your country of residence under strict privacy guidelines.</p>
+
+        <h4>10. Changes to This Privacy Policy</h4>
+        <p>We may update this policy periodically. The latest version will always be posted here with an updated "Effective Date".</p>
+
+        <h4>11. Accessibility</h4>
+        <p>For bot users, this policy is accessible via the /privacy command. For mini app users, it is directly available through the Settings page.</p>
       </div>
+
       <button class="withdraw-submit-btn" onclick="closePrivacyPolicyModal()" data-i18n="gotItBtn">Got It</button>
     </div>
   </div>
@@ -1635,7 +1790,7 @@
     const OFFICIAL_BOT_USERNAME = "ToFarmsAi_Bot";
     const OFFICIAL_CHANNEL_USERNAME = "ToBOOST_Ai";
 
-    // POINT 1 UPDATE: BOT TOKEN & REFERRAL BONUS SETTINGS
+    // BOT TOKEN & REFERRAL BONUS SETTINGS
     const BOT_TOKEN = "8477055207:AAGuqmR6f7lqQ_M3kRmr50kOQnpCaVinMCE";
     const REFERRAL_BONUS = 100; // 100 Points Referral Bonus
 
@@ -1785,8 +1940,9 @@
     let rawBountyTasks = {};
     const taskTimers = {};
     let userReferralCount = 0;
+    let userReferredBy = null;
 
-    // POINT 4: WITHDRAWAL RESTRICTION TRACKERS
+    // WITHDRAWAL RESTRICTION TRACKERS
     let adsWatchedToday = 0;
     let totalCheckIns = 0;
     let lastAdWatchDate = "";
@@ -1804,18 +1960,37 @@
       return svg;
     }
 
+    // BLUE 3D STAR COIN SVG FOR 7-DAY DAILY CHECK-IN MODAL
+    function getBlueCheckinCoinSVG(size = 22) {
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("viewBox", "0 0 100 100");
+      svg.style.width = size + "px";
+      svg.style.height = size + "px";
+      svg.style.filter = "drop-shadow(0 2px 4px rgba(0,0,0,0.2))";
+
+      svg.innerHTML = `
+        <circle cx="50" cy="50" r="48" fill="url(#blueCalOuter)"/>
+        <circle cx="50" cy="50" r="44" fill="url(#blueCalFace)"/>
+        <path d="M50 24 L56.8 37.8 L72 40 L61 50.7 L63.6 65.8 L50 58.6 L36.4 65.8 L39 50.7 L28 40 L43.2 37.8 Z" fill="#ffffff"/>
+        <defs>
+          <linearGradient id="blueCalOuter" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#38bdf8"/>
+            <stop offset="1" stop-color="#0284c7"/>
+          </linearGradient>
+          <linearGradient id="blueCalFace" x1="10" y1="10" x2="90" y2="90" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#0ea5e9"/>
+            <stop offset="1" stop-color="#0369a1"/>
+          </linearGradient>
+        </defs>
+      `;
+      return svg;
+    }
+
     function renderGoldCoins() {
       const mainContainer = document.getElementById('main-coin-svg-container');
       if (mainContainer) {
         mainContainer.innerHTML = '';
         mainContainer.appendChild(getGramStarCoinSVG(32));
-      }
-
-      // Point 3: Render Real 3D Coin into Top Pill Slot
-      const topPillSlot = document.getElementById('top-pill-coin-slot');
-      if (topPillSlot) {
-        topPillSlot.innerHTML = '';
-        topPillSlot.appendChild(getGramStarCoinSVG(16));
       }
 
       const modalCoinSlot = document.querySelector('.modal-coin-slot');
@@ -1851,6 +2026,14 @@
       }
     }
 
+    // Dynamic Daily Task Limit based on Referrals (5 -> 10 -> 15 -> 20)
+    function getMaxDailyTasks(referrals) {
+      if (referrals >= 9) return 20; // Level 3 (Max)
+      if (referrals >= 6) return 15; // Level 2
+      if (referrals >= 3) return 10; // Level 1
+      return 5; // Base
+    }
+
     function updateReferralLevelUI(totalInvites = 0) {
       userReferralCount = totalInvites;
       const levelTitle = document.getElementById('user-level-title');
@@ -1862,20 +2045,27 @@
 
       if (userReferralCount < 3) {
         levelTitle.innerText = "Lv.1 »";
-        levelDesc.innerText = "Invite 3 users to upgrade to Lv.2";
+        levelDesc.innerText = "Invite 3 users to unlock 10 tasks/day";
         inviteCountText.innerText = `${userReferralCount}/3`;
         const percent = Math.min(100, Math.round((userReferralCount / 3) * 100));
         progressFill.style.width = `${percent}%`;
-      } else if (userReferralCount < 8) {
+      } else if (userReferralCount < 6) {
         levelTitle.innerText = "Lv.2 »";
-        levelDesc.innerText = "Invite 5 more users to upgrade to Lv.3";
+        levelDesc.innerText = "Invite 3 more users to unlock 15 tasks/day";
         const currentLvlInvites = userReferralCount - 3;
-        inviteCountText.innerText = `${currentLvlInvites}/5`;
-        const percent = Math.min(100, Math.round((currentLvlInvites / 5) * 100));
+        inviteCountText.innerText = `${currentLvlInvites}/3`;
+        const percent = Math.min(100, Math.round((currentLvlInvites / 3) * 100));
+        progressFill.style.width = `${percent}%`;
+      } else if (userReferralCount < 9) {
+        levelTitle.innerText = "Lv.3 »";
+        levelDesc.innerText = "Invite 3 more users to unlock 20 tasks/day";
+        const currentLvlInvites = userReferralCount - 6;
+        inviteCountText.innerText = `${currentLvlInvites}/3`;
+        const percent = Math.min(100, Math.round((currentLvlInvites / 3) * 100));
         progressFill.style.width = `${percent}%`;
       } else {
         levelTitle.innerText = "Lv.3 (MAX) »";
-        levelDesc.innerText = "Max referral tier reached! Earning 1% Lv.3 bonus";
+        levelDesc.innerText = "Max Level Reached! 20 Daily Tasks Unlocked";
         inviteCountText.innerText = "MAX";
         progressFill.style.width = "100%";
       }
@@ -1903,12 +2093,13 @@
 
     function updateUI() {
       const gramVal = (userCoins / 10000).toFixed(2);
+      const maxTasks = getMaxDailyTasks(userReferralCount);
       
       document.getElementById('main-coins').innerText = userCoins.toLocaleString();
       document.getElementById('main-gram').innerText = gramVal;
       document.getElementById('modal-coin-val').innerText = userCoins.toLocaleString();
       document.getElementById('modal-gram-val').innerText = gramVal;
-      document.getElementById('daily-task-count').innerText = `${dailyTasksCompleted}/5`;
+      document.getElementById('daily-task-count').innerText = `${dailyTasksCompleted}/${maxTasks}`;
 
       const nextTarget = getNextWithdrawTarget();
       const currentStage = completedWithdrawals + 1;
@@ -1931,7 +2122,6 @@
             const today = getTodayString();
             userCoins += 50000;
             
-            // Point 4: Increment Ads Watched Today
             if (lastAdWatchDate !== today) {
               adsWatchedToday = 1;
               lastAdWatchDate = today;
@@ -1952,9 +2142,7 @@
       }
     }
 
-    // ==========================================
-    // POINT 4: 7-DAY CHECK-IN MODAL LOGIC
-    // ==========================================
+    // 7-DAY CHECK-IN MODAL (BLUE COIN LOGO)
     function openCheckinModal() {
       renderCheckinGrid();
       document.getElementById('checkin-modal').style.display = 'flex';
@@ -1984,9 +2172,11 @@
           statusText = isClaimedToday ? "✓ Claimed" : "Today";
         }
 
+        const blueCoin = getBlueCheckinCoinSVG(22).outerHTML;
+
         card.innerHTML = `
           <div class="day-title">Day ${i}</div>
-          <div style="margin: 3px 0;">⭐</div>
+          <div style="margin: 3px 0; display: flex; justify-content: center;">${blueCoin}</div>
           <div class="day-reward-pts">${statusText}</div>
         `;
         container.appendChild(card);
@@ -2014,7 +2204,7 @@
       }
 
       userCoins += 100;
-      totalCheckIns += 1; // Point 4: Streak counter
+      totalCheckIns += 1;
       lastCheckInDate = today;
 
       updateUI();
@@ -2023,9 +2213,7 @@
       alert("🎉 Daily Bonus Claimed! (+100 Points)");
     }
 
-    // ==========================================
-    // POINT 4: WITHDRAWAL VERIFICATION LOGIC
-    // ==========================================
+    // WITHDRAWAL VERIFICATION & HIDDEN REQUIREMENT MODAL
     function openWithdrawModal() {
       updateUI();
       document.getElementById('withdraw-modal').style.display = 'flex';
@@ -2047,12 +2235,11 @@
         adsWatchedToday = 0;
       }
 
-      // 🛑 Point 4 Condition Check: At least 10 Ads Today & 7 Days Check-in
+      // Strict Requirement: At least 10 Ads Today & 7 Days Check-in (for all stages)
       if (adsWatchedToday < 10 || totalCheckIns < 7) {
         document.getElementById('req-ads-status').innerText = `${adsWatchedToday} / 10`;
         document.getElementById('req-checkin-status').innerText = `${totalCheckIns} / 7 Days`;
         
-        // Hide balance modal & show Secret Requirement Modal
         closeWithdrawModal();
         document.getElementById('withdraw-req-modal').style.display = 'flex';
         return;
@@ -2098,9 +2285,7 @@
       }
     }
 
-    // ==========================================
-    // POINT 1: REFERRAL & INSTANT NOTIFICATION
-    // ==========================================
+    // 100% RELIABLE REFERRAL COUNTING & TELEGRAM BOT NOTIFICATION
     function sendTelegramNotification(referrerChatId, newUserName) {
       const message = `🎉 <b>Congratulations! New Referral!</b>\n\n👤 <b>${newUserName}</b> has joined using your invite link!\n💰 You received a bonus of <b>${REFERRAL_BONUS} Points</b>!`;
       const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
@@ -2114,11 +2299,13 @@
           parse_mode: 'HTML'
         })
       }).then(() => {
-        console.log("Notification sent successfully!");
+        console.log("Notification sent successfully to referrer!");
       }).catch(err => console.error("Notification Error:", err));
     }
 
     function processReferralReward(referrerId, newUserName) {
+      if (!referrerId || referrerId === userId) return;
+
       const refUserRef = firebase.database().ref('users/' + referrerId);
       refUserRef.once('value').then((snapshot) => {
         const refData = snapshot.val();
@@ -2130,10 +2317,26 @@
             coins: updatedCoins,
             referralCount: updatedCount
           }).then(() => {
+            userReferredBy = referrerId;
+            firebase.database().ref('users/' + userId).update({
+              referredBy: referrerId
+            });
             sendTelegramNotification(referrerId, newUserName);
           });
         }
       });
+    }
+
+    function getIncomingReferrerId() {
+      let param = tg?.initDataUnsafe?.start_param;
+      if (!param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        param = urlParams.get('tgWebAppStartParam') || urlParams.get('startapp') || urlParams.get('start');
+      }
+      if (param && param.startsWith('ref_')) {
+        return param.replace('ref_', '');
+      }
+      return param || null;
     }
 
     function inviteFriends() {
@@ -2150,7 +2353,6 @@
       }
     }
 
-    // POINT 3: OFFICIAL CHANNEL DIRECT TELEGRAM OPEN
     function openOfficialChannel() {
       const channelUrl = `https://t.me/${OFFICIAL_CHANNEL_USERNAME}`;
       if (tg && tg.openTelegramLink) {
@@ -2328,7 +2530,7 @@
           : (task.name ? task.name.charAt(0).toUpperCase() : 'T');
 
         const rewardAmount = task.reward || 200;
-        const coinSvg = getGramStarCoinSVG(18).outerHTML;
+        const coinSvg = getGramStarCoinSVG(15).outerHTML;
 
         item.innerHTML = `
           <div class="task-left">
@@ -2400,8 +2602,9 @@
     function claimBountyTask(taskId, rewardAmount, btnElement) {
       if (!isDataLoaded || userCompletedTasks[taskId]) return;
 
-      if (dailyTasksCompleted >= 5) {
-        alert(getTrans('alertDailyLimit'));
+      const maxDaily = getMaxDailyTasks(userReferralCount);
+      if (dailyTasksCompleted >= maxDaily) {
+        alert(getTrans('alertDailyLimit', { limit: maxDaily }));
         return;
       }
 
@@ -2473,16 +2676,33 @@
       headerEl.parentElement.classList.toggle('open');
     }
 
+    // 6 SELECTED INTERNATIONAL LANGUAGES (FULL DICTIONARIES)
     let currentLang = 'en';
 
     const translations = {
       en: {
-        watchAd: "Watch Ad", dailyCheckIn: "Daily Check-in", levelDesc: "Invite 3 users to upgrade to Lv.2", inviteBtn: "invite", dailyTaskProgress: "Daily Task Progress", resetsDaily: "Resets daily at 00:00", bountyTaskTitle: "Bounty Task", postBtn: "POST +", loadingTasks: "Loading bounty tasks...", navHome: "Home", navTeam: "Team", postTaskHeader: "Post Task ⭐", taskNameLabel: "🏷️ Task name", placeholderTaskName: "Enter task name", taskUrlLabel: "💳 Task address", placeholderUrl: "Please input task url", impressionsLabel: "⣿ Impressions", postTaskBtnText: "Post Task", balanceHeader: "Balance", connectWalletBtn: "🔗 Connect $GRAM Wallet", withdrawBtnText: "Withdraw", settingsHeader: "⚙️ Settings", copyBtn: "Copy", officialChannel: "Official Channel", goToX: "Go to X", privacyPolicy: "Privacy Policy", privacyPolicyHeader: "Privacy Policy", gotItBtn: "Got It", linkTask: "Link Task", noTasks: "No active bounty tasks available right now.", allTasksCompleted: "You have completed all available tasks!", withdrawTargetText: "Withdrawal Target #{stage}: {target} Coins", claimed: "Claimed ✓", claimBtnText: "Claim", verifyingText: "Verifying...", teamHeader: "Create team, Earn more!", teamLv1Title: "Members you invited", teamLv1Desc: "Lv1: Get 5% task bonus", teamLv2Title: "Invited by Lv.1 members", teamLv2Desc: "Lv.2: Get 3% task bonus", teamLv3Title: "Invited by Lv.2 members", teamLv3Desc: "Lv.3: Get 1% task bonus", inviteMembersBtn: "Invite Members",
-        alertSyncing: "Please wait, syncing user data...", alertAdSuccess: "Success! You watched the full ad and earned 50,000 Points!", alertAdFail: "You must watch the full ad to earn 50,000 Points!", alertAdLoading: "Ad Network loading. Please try again in 5 seconds.", alertCheckinClaimed: "You have already claimed today's daily bonus!", alertCheckinSuccess: "Daily Check-in Successful! You received 100 Points!", alertInvalidUrl: "Please enter a valid URL", alertInsufficientPoints: "Insufficient balance! You need {cost} Points to post this task.", alertPaymentInitiating: "Initiating transfer of {amount} $GRAM...", alertPaymentSuccess: "Payment successful! Your task has been posted.", alertPaymentFailed: "Transaction cancelled or failed.", alertSendGramPrompt: "Send {amount} $GRAM to:\n\n{wallet}", alertAddressCopied: "Admin Wallet address copied!", alertStarsInvoice: "Telegram Stars invoice: {stars} Stars requested.", alertTaskPosted: "Task posted successfully!", alertTaskFailed: "Failed to post task.", alertDailyLimit: "Daily limit reached (5 tasks/day). Resets at 00:00.", alertTaskCompleted: "Task completed! +{amount} Points", alertConnectWalletFirst: "Please connect your $GRAM wallet first!", alertInsufficientWithdraw: "Insufficient balance!\nAt least {target} Points are required for withdrawal #{stage}.", alertWithdrawSuccess: "Withdrawal #{stage} requested successfully!", alertReferralCopied: "Referral link copied to clipboard!", alertIdCopied: "Telegram ID copied: {id}", alertWalletLoading: "Wallet SDK is loading."
+        watchAd: "Watch Ad", dailyCheckIn: "Daily Check-in", inviteBtn: "invite", dailyTaskProgress: "Daily Task Progress", resetsDaily: "Resets daily at 00:00", bountyTaskTitle: "Bounty Task", postBtn: "POST +", loadingTasks: "Loading bounty tasks...", navHome: "Home", navTeam: "Team", postTaskHeader: "Post Task ⭐", taskNameLabel: "🏷️ Task name", placeholderTaskName: "Enter task name", taskUrlLabel: "💳 Task address", placeholderUrl: "Please input task url", impressionsLabel: "⣿ Impressions", postTaskBtnText: "Post Task", balanceHeader: "Balance", connectWalletBtn: "🔗 Connect $GRAM Wallet", withdrawBtnText: "Withdraw", settingsHeader: "⚙️ Settings", copyBtn: "Copy", goToX: "Go to X", privacyPolicy: "Privacy Policy", privacyPolicyHeader: "Privacy Policy", gotItBtn: "Got It", linkTask: "Link Task", noTasks: "No active bounty tasks available right now.", allTasksCompleted: "You have completed all available tasks!", withdrawTargetText: "Withdrawal Target #{stage}: {target} Coins", claimed: "Claimed ✓", claimBtnText: "Claim", verifyingText: "Verifying...", teamHeader: "Create team, Earn more!", teamLv1Title: "Members you invited", teamLv1Desc: "Lv1: Get 5% task bonus", teamLv2Title: "Invited by Lv.1 members", teamLv2Desc: "Lv.2: Get 3% task bonus", teamLv3Title: "Invited by Lv.2 members", teamLv3Desc: "Lv.3: Get 1% task bonus", inviteMembersBtn: "Invite Members",
+        alertSyncing: "Please wait, syncing user data...", alertAdSuccess: "Success! You watched the full ad and earned 50,000 Points!", alertAdFail: "You must watch the full ad to earn 50,000 Points!", alertAdLoading: "Ad Network loading. Please try again in 5 seconds.", alertCheckinClaimed: "You have already claimed today's daily bonus!", alertCheckinSuccess: "Daily Check-in Successful! You received 100 Points!", alertInvalidUrl: "Please enter a valid URL", alertInsufficientPoints: "Insufficient balance! You need {cost} Points to post this task.", alertPaymentInitiating: "Initiating transfer of {amount} $GRAM...", alertPaymentSuccess: "Payment successful! Your task has been posted.", alertPaymentFailed: "Transaction cancelled or failed.", alertSendGramPrompt: "Send {amount} $GRAM to:\n\n{wallet}", alertAddressCopied: "Admin Wallet address copied!", alertStarsInvoice: "Telegram Stars invoice: {stars} Stars requested.", alertTaskPosted: "Task posted successfully!", alertTaskFailed: "Failed to post task.", alertDailyLimit: "Daily limit reached! ({limit} tasks/day). Invite friends to unlock more!", alertTaskCompleted: "Task completed! +{amount} Points", alertConnectWalletFirst: "Please connect your $GRAM wallet first!", alertInsufficientWithdraw: "Insufficient balance!\nAt least {target} Points are required for withdrawal #{stage}.", alertWithdrawSuccess: "Withdrawal #{stage} requested successfully!", alertReferralCopied: "Referral link copied to clipboard!", alertIdCopied: "Telegram ID copied: {id}", alertWalletLoading: "Wallet SDK is loading."
       },
-      bn: {
-        watchAd: "বিজ্ঞাপন দেখুন", dailyCheckIn: "দৈনিক চেক-ইন", levelDesc: "Lv.2 এ উন্নীত হতে ৩ জনকে আমন্ত্রণ জানান", inviteBtn: "আমন্ত্রণ", dailyTaskProgress: "দৈনিক টাস্ক অগ্রগতি", resetsDaily: "প্রতিটি রাত ০০:০০ টায় রিসেট হয়", bountyTaskTitle: "বাউন্টি টাস্ক", postBtn: "পোস্ট +", loadingTasks: "টাস্ক লোড হচ্ছে...", navHome: "হোম", navTeam: "টিম", postTaskHeader: "পোস্ট টাস্ক ⭐", taskNameLabel: "🏷️ টাস্কের নাম", placeholderTaskName: "টাস্কের নাম লিখুন", taskUrlLabel: "💳 টাস্ক লিংক / ঠিকানা", placeholderUrl: "অনুগ্রহ করে টাস্ক লিংকটি দিন", impressionsLabel: "⣿ ইম্প্রেশন সংখ্যা", postTaskBtnText: "পোস্ট টাস্ক", balanceHeader: "ব্যালেন্স", connectWalletBtn: "🔗 $GRAM ওয়ালেট কানেক্ট", withdrawBtnText: "উইথড্র", settingsHeader: "⚙️ সেটিংস", copyBtn: "কপি", officialChannel: "অফিসিয়াল চ্যানেল", goToX: "X এ যান", privacyPolicy: "প্রাইভেসি পলিসি", privacyPolicyHeader: "প্রাইভেসি পলিসি", gotItBtn: "বুঝেছি", linkTask: "লিংক টাস্ক", noTasks: "বর্তমানে কোনো সক্রিয় টাস্ক নেই।", allTasksCompleted: "আপনি সব উপলব্ধ টাস্ক সম্পন্ন করেছেন!", withdrawTargetText: "উইথড্র টার্গেট #{stage}: {target} পয়েন্ট", claimed: "সম্পন্ন ✓", claimBtnText: "দাবি করুন", verifyingText: "যাচাই করা হচ্ছে...", teamHeader: "টিম তৈরি করুন, বেশি আয় করুন!", teamLv1Title: "আপনার আমন্ত্রিত সদস্য", teamLv1Desc: "Lv1: ৫% টাস্ক বোনাস পান", teamLv2Title: "Lv.1 সদস্যের আমন্ত্রিত", teamLv2Desc: "Lv.2: ৩% টাস্ক বোনাস পান", teamLv3Title: "Lv.2 সদস্যের আমন্ত্রিত", teamLv3Desc: "Lv.3: ১% টাস্ক বোনাস পান", inviteMembersBtn: "সদস্য আমন্ত্রণ করুন",
-        alertSyncing: "অনুগ্রহ করে অপেক্ষা করুন...", alertAdSuccess: "অভিনন্দন! ৫০,০০০ পয়েন্ট অর্জন করেছেন!", alertAdFail: "পয়েন্ট পেতে পুরো বিজ্ঞাপনটি দেখুন!", alertAdLoading: "বিজ্ঞাপন নেটওয়ার্ক লোড হচ্ছে...", alertCheckinClaimed: "আজকের বোনাস নেওয়া হয়েছে!", alertCheckinSuccess: "দৈনিক চেক-ইন সফল! +১০০ পয়েন্ট!", alertInvalidUrl: "সঠিক লিংক দিন", alertInsufficientPoints: "অপর্যাপ্ত ব্যালেন্স!", alertPaymentInitiating: "পেমেন্ট প্রক্রিয়া শুরু হচ্ছে...", alertPaymentSuccess: "পেমেন্ট সফল!", alertPaymentFailed: "লেনদেন বাতিল হয়েছে।", alertSendGramPrompt: "এই ঠিকানায় {amount} $GRAM পাঠান:\n\n{wallet}", alertAddressCopied: "অ্যাড্রেস কপি হয়েছে!", alertStarsInvoice: "{stars} স্টার চাওয়া হয়েছে।", alertTaskPosted: "টাস্ক সফলভাবে পোস্ট হয়েছে!", alertTaskFailed: "টাস্ক পোস্ট ব্যর্থ হয়েছে।", alertDailyLimit: "দৈনিক লিমিট শেষ (৫টি টাস্ক/দিন)!", alertTaskCompleted: "টাস্ক সম্পন্ন! +{amount} পয়েন্ট", alertConnectWalletFirst: "ওয়ালেট কানেক্ট করুন!", alertInsufficientWithdraw: "অপর্যাপ্ত ব্যালেন্স!", alertWithdrawSuccess: "উইথড্র রিকোয়েস্ট সফল!", alertReferralCopied: "রেফারেল লিংক কপি হয়েছে!", alertIdCopied: "টেলিগ্রাম আইডি কপি হয়েছে: {id}", alertWalletLoading: "ওয়ালেট SDK লোড হচ্ছে..."
+      cn: {
+        watchAd: "观看广告", dailyCheckIn: "每日签到", inviteBtn: "邀请", dailyTaskProgress: "每日任务进度", resetsDaily: "每日 00:00 重置", bountyTaskTitle: "赏金任务", postBtn: "发布 +", loadingTasks: "加载任务中...", navHome: "首页", navTeam: "团队", postTaskHeader: "发布任务 ⭐", taskNameLabel: "🏷️ 任务名称", placeholderTaskName: "请输入任务名称", taskUrlLabel: "💳 任务网址", placeholderUrl: "请输入任务网址", impressionsLabel: "⣿ 展示次数", postTaskBtnText: "发布任务", balanceHeader: "余额", connectWalletBtn: "🔗 链接 $GRAM 钱包", withdrawBtnText: "提现", settingsHeader: "⚙️ 设置", copyBtn: "复制", goToX: "前往 X", privacyPolicy: "隐私政策", privacyPolicyHeader: "隐私政策", gotItBtn: "我知道了", linkTask: "链接", noTasks: "目前没有可用的赏金任务。", allTasksCompleted: "您已完成所有可用任务！", withdrawTargetText: "提现目标 #{stage}: {target} 金币", claimed: "已领取 ✓", claimBtnText: "领取", verifyingText: "验证中...", teamHeader: "创建团队，赚取更多！", teamLv1Title: "您邀请的成员", teamLv1Desc: "Lv1: 获得 5% 奖励", teamLv2Title: "由 Lv.1 成员邀请", teamLv2Desc: "Lv.2: 获得 3% 奖励", teamLv3Title: "由 Lv.2 成员邀请", teamLv3Desc: "Lv.3: 获得 1% 奖励", inviteMembersBtn: "邀请成员",
+        alertSyncing: "请稍候...", alertAdSuccess: "成功！获得 50,000 积分！", alertAdFail: "请观看完整广告！", alertAdLoading: "广告加载中...", alertCheckinClaimed: "今日奖励已领取！", alertCheckinSuccess: "签到成功！+100 积分", alertInvalidUrl: "请输入有效的网址", alertInsufficientPoints: "余额不足！需要 {cost} 积分。", alertPaymentInitiating: "正在转账 {amount} $GRAM...", alertPaymentSuccess: "付款成功！任务已发布。", alertPaymentFailed: "交易已取消。", alertSendGramPrompt: "请发送 {amount} $GRAM 至：\n\n{wallet}", alertAddressCopied: "地址已复制！", alertStarsInvoice: "Stars 账单: {stars} ⭐", alertTaskPosted: "任务发布成功！", alertTaskFailed: "任务发布失败。", alertDailyLimit: "已达每日上限 ({limit} 个任务/天)！邀请好友可解锁更多！", alertTaskCompleted: "任务完成！+{amount} 积分", alertConnectWalletFirst: "请先连接您的 $GRAM 钱包！", alertInsufficientWithdraw: "余额不足以提现 #{stage}。", alertWithdrawSuccess: "提现 #{stage} 申请成功！", alertReferralCopied: "邀请链接已复制！", alertIdCopied: "Telegram ID 已复制: {id}", alertWalletLoading: "钱包加载中..."
+      },
+      hi: {
+        watchAd: "विज्ञापन देखें", dailyCheckIn: "दैनिक चेक-इन", inviteBtn: "आमंत्रित करें", dailyTaskProgress: "दैनिक कार्य प्रगति", resetsDaily: "रात 00:00 बजे रीसेट", bountyTaskTitle: "बाउंटी कार्य", postBtn: "पोस्ट +", loadingTasks: "कार्य लोड हो रहे हैं...", navHome: "होम", navTeam: "टीम", postTaskHeader: "कार्य पोस्ट करें ⭐", taskNameLabel: "🏷️ कार्य का नाम", placeholderTaskName: "कार्य का नाम दर्ज करें", taskUrlLabel: "💳 कार्य लिंक", placeholderUrl: "कृपया कार्य लिंक दर्ज करें", impressionsLabel: "⣿ इंप्रेशन", postTaskBtnText: "पोस्ट करें", balanceHeader: "बैलेंस", connectWalletBtn: "🔗 $GRAM वॉलेट जोड़ें", withdrawBtnText: "निकालें", settingsHeader: "⚙️ सेटिंग्स", copyBtn: "कॉपी", goToX: "X पर जाएं", privacyPolicy: "गोपनीयता नीति", privacyPolicyHeader: "गोपनीयता नीति", gotItBtn: "समझ गया", linkTask: "लिंक कार्य", noTasks: "कोई सक्रिय कार्य उपलब्ध नहीं है।", allTasksCompleted: "आपने सभी कार्य पूरे कर लिए हैं!", withdrawTargetText: "निकासी का लक्ष्य #{stage}: {target} सिक्के", claimed: "प्राप्त ✓", claimBtnText: "दावा करें", verifyingText: "सत्यापित हो रहा है...", teamHeader: "टीम बनाएं, अधिक कमाएं!", teamLv1Title: "आपके द्वारा आमंत्रित", teamLv1Desc: "Lv1: 5% बोनस पाएं", teamLv2Title: "Lv.1 द्वारा आमंत्रित", teamLv2Desc: "Lv.2: 3% बोनस पाएं", teamLv3Title: "Lv.2 द्वारा आमंत्रित", teamLv3Desc: "Lv.3: 1% बोनस पाएं", inviteMembersBtn: "सदस्यों को आमंत्रित करें",
+        alertSyncing: "कृपया प्रतीक्षा करें...", alertAdSuccess: "सफल! आपने 50,000 अंक अर्जित किए!", alertAdFail: "अंक अर्जित करने के लिए पूरा विज्ञापन देखें!", alertAdLoading: "विज्ञापन लोड हो रहा है...", alertCheckinClaimed: "दैनिक बोनस पहले ही दावा किया जा चुका है!", alertCheckinSuccess: "चेक-इन सफल! +100 अंक", alertInvalidUrl: "कृपया एक मान्य URL दर्ज करें", alertInsufficientPoints: "अपर्याप्त बैलेंस! आपको {cost} अंकों की आवश्यकता है।", alertPaymentInitiating: "{amount} $GRAM ट्रांसफर शुरू किया जा रहा है...", alertPaymentSuccess: "भुगतान सफल! कार्य पोस्ट किया गया।", alertPaymentFailed: "लेनदेन रद्द या विफल।", alertSendGramPrompt: "{amount} $GRAM इस पते पर भेजें:\n\n{wallet}", alertAddressCopied: "पता कॉपी किया गया!", alertStarsInvoice: "Stars चालान: {stars} ⭐", alertTaskPosted: "कार्य सफलतापूर्वक पोस्ट किया गया!", alertTaskFailed: "कार्य पोस्ट करने में विफल।", alertDailyLimit: "दैनिक सीमा समाप्त ({limit} कार्य/दिन)! अधिक अनलॉक करने के लिए मित्रों को आमंत्रित करें!", alertTaskCompleted: "कार्य पूरा हुआ! +{amount} अंक", alertConnectWalletFirst: "कृपया पहले $GRAM वॉलेट जोड़ें!", alertInsufficientWithdraw: "निकासी #{stage} के लिए अपर्याप्त बैलेंस।", alertWithdrawSuccess: "निकासी #{stage} सफलतापूर्वक अनुरोधित!", alertReferralCopied: "रेफरल लिंक कॉपी किया गया!", alertIdCopied: "ID कॉपी की गई: {id}", alertWalletLoading: "वॉलेट लोड हो रहा है..."
+      },
+      ur: {
+        watchAd: "اشتہار دیکھیں", dailyCheckIn: "روزانہ چیک ان", inviteBtn: "مدعو کریں", dailyTaskProgress: "روزانہ ٹاسک پیشرفت", resetsDaily: "ہر رات 00:00 بجے ری سیٹ ہوتا ہے", bountyTaskTitle: "باؤنٹی ٹاسک", postBtn: "پوسٹ +", loadingTasks: "ٹاسک لوڈ ہو رہے ہیں...", navHome: "ہوم", navTeam: "ٹیم", postTaskHeader: "ٹاسک پوسٹ کریں ⭐", taskNameLabel: "🏷️ ٹاسک کا نام", placeholderTaskName: "ٹاسک کا نام درج کریں", taskUrlLabel: "💳 ٹاسک کا پتہ", placeholderUrl: "ٹاسک یو آر ایل درج کریں", impressionsLabel: "⣿ امپریشنز", postTaskBtnText: "ٹاسک پوسٹ کریں", balanceHeader: "بیلنس", connectWalletBtn: "🔗 $GRAM والٹ منسلک کریں", withdrawBtnText: "نکلوائیں", settingsHeader: "⚙️ ترتیبات", copyBtn: "کاپی", goToX: "X پر جائیں", privacyPolicy: "پرائیویسی پالیسی", privacyPolicyHeader: "پرائیویسی پالیسی", gotItBtn: "سمجھ گیا", linkTask: "لنک ٹاسک", noTasks: "فی الحال کوئی ٹاسک دستیاب نہیں ہے۔", allTasksCompleted: "آپ نے تمام ٹاسکس مکمل کر لیے ہیں!", withdrawTargetText: "نکالنے کا ہدف #{stage}: {target} سکے", claimed: "موصول ہوا ✓", claimBtnText: "دعویٰ کریں", verifyingText: "تصدیق ہو رہی ہے...", teamHeader: "ٹیم بنائیں، مزید کمائیں!", teamLv1Title: "آپ کے مدعو کردہ ممبران", teamLv1Desc: "Lv1: 5% بونس حاصل کریں", teamLv2Title: "Lv.1 کے مدعو کردہ", teamLv2Desc: "Lv.2: 3% بونس حاصل کریں", teamLv3Title: "Lv.2 کے مدعو کردہ", teamLv3Desc: "Lv.3: 1% بونس حاصل کریں", inviteMembersBtn: "ممبران کو مدعو کریں",
+        alertSyncing: "براہ کرم انتظار کریں...", alertAdSuccess: "کامیابی! آپ نے 50,000 پوائنٹس حاصل کیے!", alertAdFail: "پوائنٹس کے لیے پورا اشتہار دیکھیں!", alertAdLoading: "نیٹ ورک لوڈ ہو رہا ہے...", alertCheckinClaimed: "آپ پہلے ہی کلیم کر چکے ہیں!", alertCheckinSuccess: "چیک ان کامیاب! +100 پوائنٹس", alertInvalidUrl: "درست لنک درج کریں", alertInsufficientPoints: "ناکافی بیلنس! {cost} پوائنٹس درکار ہیں۔", alertPaymentInitiating: "{amount} $GRAM کی منتقلی شروع ہو رہی ہے...", alertPaymentSuccess: "ادائیگی کامیاب! ٹاسک پوسٹ ہو گیا۔", alertPaymentFailed: "ٹرانزیکشن منسوخ ہو گئی۔", alertSendGramPrompt: "{amount} $GRAM اس ایڈریس پر بھیجیں:\n\n{wallet}", alertAddressCopied: "ایڈریس کاپی ہو گیا!", alertStarsInvoice: "سٹارز انوائس: {stars} ⭐", alertTaskPosted: "ٹاسک کامیابی سے پوسٹ ہو گیا!", alertTaskFailed: "ٹاسک پوسٹ ناکام ہو گیا۔", alertDailyLimit: "روزانہ کی حد ختم ہو گئی ({limit} ٹاسکس/دن)! مزید کھولنے کے لیے دوستوں کو مدعو کریں!", alertTaskCompleted: "ٹاسک مکمل! +{amount} پوائنٹس", alertConnectWalletFirst: "پہلے اپنا $GRAM والٹ منسلک کریں!", alertInsufficientWithdraw: "واپسی کے لیے ناکافی بیلنس!", alertWithdrawSuccess: "واپسی کی درخواست کامیاب!", alertReferralCopied: "ریفرل لنک کاپی ہو گیا!", alertIdCopied: "آئی ڈی کاپی ہو گئی: {id}", alertWalletLoading: "والٹ لوڈ ہو رہا ہے..."
+      },
+      es: {
+        watchAd: "Ver Anuncio", dailyCheckIn: "Registro Diario", inviteBtn: "invitar", dailyTaskProgress: "Progreso Diario", resetsDaily: "Se reinicia a las 00:00", bountyTaskTitle: "Tareas Bounty", postBtn: "PUBLICAR +", loadingTasks: "Cargando tareas...", navHome: "Inicio", navTeam: "Equipo", postTaskHeader: "Publicar Tarea ⭐", taskNameLabel: "🏷️ Nombre de la tarea", placeholderTaskName: "Ingrese el nombre de la tarea", taskUrlLabel: "💳 URL de la tarea", placeholderUrl: "Ingrese la URL de la tarea", impressionsLabel: "⣿ Impresiones", postTaskBtnText: "Publicar Tarea", balanceHeader: "Saldo", connectWalletBtn: "🔗 Conectar Billetera $GRAM", withdrawBtnText: "Retirar", settingsHeader: "⚙️ Configuración", copyBtn: "Copiar", goToX: "Ir a X", privacyPolicy: "Política de Privacidad", privacyPolicyHeader: "Política de Privacidad", gotItBtn: "Entendido", linkTask: "Enlace", noTasks: "No hay tareas activas disponibles.", allTasksCompleted: "¡Has completado todas las tareas disponibles!", withdrawTargetText: "Objetivo de Retiro #{stage}: {target} Monedas", claimed: "Reclamado ✓", claimBtnText: "Reclamar", verifyingText: "Verificando...", teamHeader: "¡Crea un equipo y gana más!", teamLv1Title: "Miembros invitados por ti", teamLv1Desc: "Nv1: Obtén 5% de bono", teamLv2Title: "Invitados por miembros Nv.1", teamLv2Desc: "Nv.2: Obtén 3% de bono", teamLv3Title: "Invitados por miembros Nv.2", teamLv3Desc: "Nv.3: Obtén 1% de bono", inviteMembersBtn: "Invitar Miembros",
+        alertSyncing: "Espere, sincronizando datos...", alertAdSuccess: "¡Éxito! ¡Ganaste 50,000 Puntos!", alertAdFail: "¡Debes ver el anuncio completo!", alertAdLoading: "Cargando red de anuncios...", alertCheckinClaimed: "¡Ya reclamaste el bono diario!", alertCheckinSuccess: "¡Registro diario exitoso! +100 Puntos", alertInvalidUrl: "Ingrese una URL válida", alertInsufficientPoints: "Saldo insuficiente. Necesita {cost} Puntos.", alertPaymentInitiating: "Iniciando transferencia de {amount} $GRAM...", alertPaymentSuccess: "¡Pago exitoso! Tarea publicada.", alertPaymentFailed: "Transacción cancelada.", alertSendGramPrompt: "Envía {amount} $GRAM a:\n\n{wallet}", alertAddressCopied: "¡Dirección copiada!", alertStarsInvoice: "Factura de Stars: {stars} ⭐", alertTaskPosted: "¡Tarea publicada con éxito!", alertTaskFailed: "Error al publicar la tarea.", alertDailyLimit: "¡Límite diario alcanzado ({limit} tareas/día)! ¡Invita a amigos para desbloquear más!", alertTaskCompleted: "¡Tarea completada! +{amount} Puntos", alertConnectWalletFirst: "¡Conecte su billetera $GRAM primero!", alertInsufficientWithdraw: "Saldo insuficiente para retiro #{stage}.", alertWithdrawSuccess: "¡Retiro #{stage} solicitado con éxito!", alertReferralCopied: "¡Enlace de referido copiado!", alertIdCopied: "ID de Telegram copiado: {id}", alertWalletLoading: "Cargando SDK de billetera..."
+      },
+      pt: {
+        watchAd: "Assistir Anúncio", dailyCheckIn: "Check-in Diário", inviteBtn: "convidar", dailyTaskProgress: "Progresso Diário", resetsDaily: "Reinicia diariamente às 00:00", bountyTaskTitle: "Tarefas Bounty", postBtn: "POSTAR +", loadingTasks: "Carregando tarefas...", navHome: "Início", navTeam: "Equipe", postTaskHeader: "Postar Tarefa ⭐", taskNameLabel: "🏷️ Nome da tarefa", placeholderTaskName: "Digite o nome da tarefa", taskUrlLabel: "💳 URL da tarefa", placeholderUrl: "Insira a URL da tarefa", impressionsLabel: "⣿ Impressões", postTaskBtnText: "Postar Tarefa", balanceHeader: "Saldo", connectWalletBtn: "🔗 Conectar Carteira $GRAM", withdrawBtnText: "Sacar", settingsHeader: "⚙️ Configurações", copyBtn: "Copiar", goToX: "Ir para o X", privacyPolicy: "Política de Privacidade", privacyPolicyHeader: "Política de Privacidade", gotItBtn: "Entendido", linkTask: "Link da Tarefa", noTasks: "Nenhuma tarefa ativa no momento.", allTasksCompleted: "Você concluiu todas as tarefas!", withdrawTargetText: "Meta de Saque #{stage}: {target} Moedas", claimed: "Resgatado ✓", claimBtnText: "Resgatar", verifyingText: "Verificando...", teamHeader: "Crie uma equipe, ganhe mais!", teamLv1Title: "Membros convidados", teamLv1Desc: "Nv1: Ganhe 5% de bônus", teamLv2Title: "Convidados por Nv.1", teamLv2Desc: "Nv.2: Ganhe 3% de bônus", teamLv3Title: "Convidados por Nv.2", teamLv3Desc: "Nv.3: Ganhe 1% de bônus", inviteMembersBtn: "Convidar Membros",
+        alertSyncing: "Aguarde, sincronizando...", alertAdSuccess: "Sucesso! Ganhou 50.000 pontos!", alertAdFail: "Assista ao anúncio completo!", alertAdLoading: "Carregando anúncios...", alertCheckinClaimed: "Bônus diário já resgatado!", alertCheckinSuccess: "Check-in bem-sucedido! +100 Pontos", alertInvalidUrl: "Insira uma URL válida", alertInsufficientPoints: "Saldo insuficiente! Precisa de {cost} pontos.", alertPaymentInitiating: "Iniciando transferência de {amount} $GRAM...", alertPaymentSuccess: "Pagamento bem-sucedido!", alertPaymentFailed: "Transação cancelada.", alertSendGramPrompt: "Envie {amount} $GRAM para:\n\n{wallet}", alertAddressCopied: "Endereço copiado!", alertStarsInvoice: "Fatura Stars: {stars} ⭐", alertTaskPosted: "Tarefa postada com sucesso!", alertTaskFailed: "Falha ao postar tarefa.", alertDailyLimit: "Limite diário atingido ({limit} tarefas/dia)! Convide amigos para desbloquear mais!", alertTaskCompleted: "Tarefa concluída! +{amount} Pontos", alertConnectWalletFirst: "Conecte sua carteira $GRAM primeiro!", alertInsufficientWithdraw: "Saldo insuficiente para saque #{stage}.", alertWithdrawSuccess: "Saque #{stage} solicitado com sucesso!", alertReferralCopied: "Link copiado!", alertIdCopied: "ID copiado: {id}", alertWalletLoading: "Carregando carteira..."
       }
     };
 
@@ -2498,6 +2718,9 @@
       currentLang = langCode in translations ? langCode : 'en';
       document.querySelectorAll('[data-i18n]').forEach(el => {
         el.innerText = getTrans(el.getAttribute('data-i18n'));
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        el.placeholder = getTrans(el.getAttribute('data-i18n-placeholder'));
       });
       document.dir = (currentLang === 'ur') ? 'rtl' : 'ltr';
       updateUI();
@@ -2525,7 +2748,8 @@
           referralCount: userReferralCount,
           adsWatchedToday: adsWatchedToday,
           totalCheckIns: totalCheckIns,
-          lastAdWatchDate: lastAdWatchDate || today
+          lastAdWatchDate: lastAdWatchDate || today,
+          referredBy: userReferredBy || null
         });
       }
     }
@@ -2535,6 +2759,7 @@
         firebase.database().ref('users/' + userId).once('value').then((snapshot) => {
           const data = snapshot.val();
           const today = getTodayString();
+          const incomingReferrer = getIncomingReferrerId();
 
           if (data) {
             userCoins = data.coins || 0;
@@ -2546,6 +2771,7 @@
             userReferralCount = data.referralCount || 0;
             totalCheckIns = data.totalCheckIns || 0;
             lastAdWatchDate = data.lastAdWatchDate || today;
+            userReferredBy = data.referredBy || null;
 
             if (lastAdWatchDate !== today) {
               adsWatchedToday = 0;
@@ -2566,8 +2792,14 @@
             } else {
               dailyTasksCompleted = data.dailyTasks || 0;
             }
+
+            // Reliable check: If user hasn't been credited as referred yet
+            if (!userReferredBy && incomingReferrer && incomingReferrer !== userId) {
+              processReferralReward(incomingReferrer, userName);
+            }
+
           } else {
-            // NEW USER REGISTRATION
+            // BRAND NEW USER
             lastTaskDate = today;
             dailyTasksCompleted = 0;
             userCompletedTasks = {};
@@ -2575,16 +2807,13 @@
             adsWatchedToday = 0;
             totalCheckIns = 0;
             lastAdWatchDate = today;
+            userReferredBy = incomingReferrer && incomingReferrer !== userId ? incomingReferrer : null;
 
             saveUserDataToFirebase();
 
-            // POINT 1: CHECK INCOMING REFERRAL
-            const startParam = tg?.initDataUnsafe?.start_param;
-            if (startParam && startParam.startsWith('ref_')) {
-              const referrerId = startParam.split('_')[1];
-              if (referrerId !== userId) {
-                processReferralReward(referrerId, userName);
-              }
+            // REWARD REFERRER INSTANTLY
+            if (incomingReferrer && incomingReferrer !== userId) {
+              processReferralReward(incomingReferrer, userName);
             }
           }
 
