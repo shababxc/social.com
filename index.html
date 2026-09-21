@@ -1,750 +1,2765 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>ToBOOSTAi - Telegram Web3 Mini App</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>ToBOOSTAi - Social Media Boost & Earning</title>
+
+  <!-- Open Graph & Telegram Share Banner -->
+  <meta property="og:title" content="ToBOOSTAi - Social Media Boost & Earning">
+  <meta property="og:description" content="Join ToBOOSTAi and get exclusive rewards! Complete tasks, earn points, and get real $GRAM rewards.">
+  <meta property="og:image" content="https://social-com-red.vercel.app/banner.png">
+  <meta property="og:image:width" content="800">
+  <meta property="og:image:height" content="450">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://social-com-red.vercel.app/banner.png">
   
+  <!-- FontAwesome CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <!-- Telegram WebApp SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- TON Connect UI SDK -->
+  <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
   
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Firebase SDKs (Compat Version) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Plus Jakarta Sans', 'sans-serif'],
-          },
-          keyframes: {
-            blink: {
-              '0%, 100%': { opacity: '1', transform: 'scale(1)' },
-              '50%': { opacity: '0.3', transform: 'scale(0.85)' },
-            }
-          },
-          animation: {
-            'live-blink': 'blink 1.2s infinite ease-in-out',
-          }
-        }
+  <!-- Monetag SDK -->
+  <script src='//libtl.com/sdk.js' data-zone='11759773' data-sdk='show_11759773'></script>
+  
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(180deg, #56ccf2 0%, #2f80ed 100%);
+      --card-bg: rgba(255, 255, 255, 0.3);
+      --card-border: rgba(255, 255, 255, 0.6);
+      --text-dark: #0f172a;
+      --text-muted: #475569;
+      --accent-blue: #3b82f6;
+      --primary-blue: #3b82f6;
+      --light-blue: #eff6ff;
+      --border-blue: #60a5fa;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background: var(--bg-gradient);
+      color: var(--text-dark);
+      user-select: none;
+      position: fixed;
+    }
+
+    .app-wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    /* Top User Header */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px 8px 16px;
+      flex-shrink: 0;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar-img {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      object-fit: cover;
+      background: #3b82f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: bold;
+      overflow: hidden;
+    }
+
+    .avatar-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .user-name {
+      font-weight: bold;
+      color: #fff;
+      font-size: 15px;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .header-icons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      border: none;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 13px;
+      transition: transform 0.15s ease;
+    }
+    .icon-btn:active {
+      transform: scale(0.92);
+    }
+
+    .container {
+      padding: 0 14px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .fixed-top-section {
+      flex-shrink: 0;
+    }
+
+    /* Balance Card */
+    .balance-card {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 8px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(31, 38, 135, 0.12);
+    }
+
+    .coin-display {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .gram-star-icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 2px 5px rgba(2, 132, 199, 0.25));
+    }
+
+    .coin-amount {
+      font-size: 22px;
+      font-weight: 900;
+      color: #0f172a !important; 
+      text-shadow: none !important;
+    }
+
+    .rate-badge {
+      background: rgba(255, 255, 255, 0.4);
+      padding: 4px 10px;
+      border-radius: 12px;
+      color: #0f172a;
+      font-weight: normal;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .rate-subtitle {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 11px;
+      font-weight: normal;
+      margin: 4px 0 8px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .gram-label {
+      font-weight: 400 !important;
+      opacity: 0.9;
+    }
+
+    /* Quick Action Grid */
+    .quick-actions {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .action-card {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 14px;
+      padding: 8px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .action-card:active {
+      transform: scale(0.97);
+    }
+
+    .ad-card-premium {
+      background: #ffffff !important;
+      border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    }
+
+    .action-icon {
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ads-svg-logo {
+      width: 42px;
+      height: 22px;
+    }
+
+    .calendar-svg-icon {
+      width: 26px;
+      height: 26px;
+    }
+
+    .action-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .action-reward {
+      font-size: 10px;
+      font-weight: 800;
+      color: #2563eb;
+      background: rgba(59, 130, 246, 0.15);
+      padding: 2px 6px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .action-reward.claimed-badge {
+      background: #dcfce7 !important;
+      color: #16a34a !important;
+    }
+
+    .stats-grid {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .stat-card {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 14px;
+      padding: 8px 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .level-header-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-3d-diamond {
+      width: 26px;
+      height: 26px;
+      filter: drop-shadow(0 2px 5px rgba(147, 51, 234, 0.35));
+      flex-shrink: 0;
+    }
+
+    .badge-3d-clipboard {
+      position: absolute;
+      left: 6px;
+      bottom: 4px;
+      width: 48px;
+      height: 48px;
+      opacity: 0.22;
+      pointer-events: none;
+      filter: drop-shadow(0 2px 4px rgba(2, 132, 199, 0.2));
+    }
+
+    .level-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .stat-desc {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin: 2px 0 6px 0;
+    }
+
+    .progress-bar-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+    }
+
+    .invite-progress-bar-wrap {
+      flex: 1;
+      height: 6px;
+      background: rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 0 6px;
+    }
+
+    .invite-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #38bdf8 0%, #2563eb 100%);
+      border-radius: 10px;
+      transition: width 0.4s ease;
+      box-shadow: 0 0 6px rgba(37, 99, 235, 0.4);
+    }
+
+    .invite-btn {
+      background: var(--accent-blue);
+      color: #fff;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 11px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .daily-counter {
+      font-size: 20px;
+      font-weight: 800;
+      color: #0f172a;
+      text-align: right;
+    }
+
+    /* Bounty Task Section */
+    .bounty-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .bounty-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      flex-shrink: 0;
+    }
+
+    .bounty-title {
+      font-size: 16px;
+      font-weight: 900;
+      color: #0f172a !important; 
+    }
+
+    .post-btn {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 7px 16px; 
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+      transition: transform 0.1s ease;
+    }
+
+    .post-btn:active {
+      transform: scale(0.95);
+    }
+
+    .task-list {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-bottom: 85px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .task-list::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-tasks-text {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 15px 0;
+    }
+
+    .task-item {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .task-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .task-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #0284c7;
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
+      flex-shrink: 0;
+      font-size: 14px;
+    }
+
+    .task-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .task-details {
+      overflow: hidden;
+    }
+
+    .task-details h4 {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .task-pill {
+      background: #0088cc;
+      color: #fff;
+      font-size: 9px;
+      padding: 2px 6px;
+      border-radius: 6px;
+      display: inline-block;
+      font-weight: 600;
+    }
+
+    /* COMPACT REFINED BOUNTY TASK BUTTON */
+    .task-action-btn {
+      background: #f0f9ff !important;
+      border: 1.2px solid #7dd3fc !important;
+      color: #0284c7 !important;
+      font-size: 13.5px !important;
+      font-weight: 800 !important;
+      padding: 4px 13px 4px 6px !important;
+      border-radius: 50px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 5px !important;
+      cursor: pointer;
+      width: auto !important;
+      min-width: unset !important;
+      box-shadow: 0 1px 4px rgba(2, 132, 199, 0.08);
+      transition: transform 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .task-action-btn:active {
+      transform: scale(0.95);
+    }
+
+    .task-action-btn svg {
+      width: 19px;
+      height: 19px;
+      flex-shrink: 0;
+    }
+
+    .btn-verifying-pulse {
+      background: #1e293b !important;
+      color: #38bdf8 !important;
+      border-color: #38bdf8 !important;
+      cursor: not-allowed !important;
+      animation: pulseGlow 1.2s infinite ease-in-out;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+
+    .btn-claim-green {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+      color: #ffffff !important;
+      border: none !important;
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.6) !important;
+      animation: popIn 0.3s ease;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.88); }
+      100% { transform: scale(1); }
+    }
+
+    .task-fade-vanish {
+      opacity: 0;
+      transform: translateY(-20px) scale(0.9);
+      transition: all 0.4s ease;
+      pointer-events: none;
+    }
+
+    /* TEAM PAGE */
+    .team-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      margin-bottom: 10px;
+    }
+
+    .team-avatar-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #e0f2fe 0%, #bae6fd 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0284c7;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .team-info h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 2px;
+    }
+
+    .team-info p {
+      font-size: 12px;
+      font-weight: 700;
+      color: #3b82f6;
+    }
+
+    .big-invite-btn {
+      background: #3b82f6;
+      color: #ffffff;
+      width: 100%;
+      padding: 16px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+      margin-top: 12px;
+    }
+
+    /* BOTTOM NAV */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(255, 255, 255, 0.98);
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0 calc(10px + env(safe-area-inset-bottom, 0px));
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      backdrop-filter: blur(15px);
+      z-index: 100;
+      box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      color: #94a3b8 !important;
+      font-size: 11px;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0.85;
+    }
+
+    .nav-link i, .nav-link svg {
+      font-size: 20px;
+      color: #94a3b8 !important;
+      fill: #94a3b8 !important;
+      transition: all 0.25s ease;
+    }
+
+    .nav-link.active {
+      color: #2563eb !important;
+      opacity: 1 !important;
+      transform: scale(1.08);
+    }
+
+    .nav-link.active i, .nav-link.active svg {
+      color: #2563eb !important;
+      fill: #2563eb !important;
+    }
+
+    .nav-link.active span {
+      color: #2563eb !important;
+      font-weight: 800;
+    }
+
+    /* Modals Overlay */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(6px);
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-box {
+      background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+      width: 90%;
+      max-width: 380px;
+      max-height: 85vh;
+      overflow-y: auto;
+      border-radius: 20px;
+      padding: 20px;
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .modal-header h3 {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 18px;
+    }
+
+    .header-title-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .live-badge {
+      background: rgba(15, 23, 42, 0.75);
+      color: #ffffff;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      background-color: #22c55e;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 8px #22c55e;
+      animation: liveBlink 1.2s infinite ease-in-out;
+    }
+
+    @keyframes liveBlink {
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 0 8px #22c55e, 0 0 12px #22c55e;
+      }
+      50% {
+        opacity: 0.25;
+        transform: scale(0.8);
+        box-shadow: 0 0 2px #22c55e;
       }
     }
-  </script>
 
-  <style>
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      -webkit-tap-highlight-color: transparent;
-      user-select: none;
+    .close-modal {
+      font-size: 20px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: #fff;
     }
-    
-    /* 3D Dished Star Coin Styles */
-    .dished-coin-outer {
-      background: linear-gradient(145deg, #38bdf8, #0284c7, #0369a1);
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35), inset 0 2px 4px rgba(255, 255, 255, 0.6), inset 0 -3px 6px rgba(12, 74, 110, 0.8);
+
+    /* Form Fields */
+    .form-group {
+      margin-bottom: 12px;
+      text-align: left;
     }
-    .dished-coin-inner {
-      background: radial-gradient(circle at 50% 35%, #0284c7 0%, #0369a1 60%, #075985 100%);
-      box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.55), inset 0 -2px 4px rgba(56, 189, 248, 0.4), 0 1px 2px rgba(255, 255, 255, 0.3);
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 4px;
+      color: #f1f5f9;
     }
-    .star-3d {
-      filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45));
+
+    .form-input, select.form-input, textarea.form-input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.4);
+      background: rgba(255, 255, 255, 0.9);
+      color: #0f172a;
+      font-size: 13px;
+      outline: none;
+    }
+
+    textarea.form-input {
+      height: 75px;
+      resize: none;
+    }
+
+    .range-slider-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .range-slider {
+      width: 100%;
+      -webkit-appearance: none;
+      height: 8px;
+      border-radius: 5px;
+      background: #06b6d4;
+      outline: none;
+      margin-top: 4px;
+    }
+
+    .range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      cursor: pointer;
+    }
+
+    .buttons-container-three {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .btn-action {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 6px;
+      border-radius: 16px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      border: none;
+      text-align: center;
+    }
+
+    .btn-gram {
+      background: #2563eb;
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-stars {
+      background: #ffffff;
+      color: #0284c7;
+      border: 1.5px solid #bae6fd;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-points-full {
+      grid-column: span 2;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #ffffff;
+      padding: 8px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .btn-content {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .strikethrough-tag {
+      font-size: 9.5px;
+      opacity: 0.7;
+      text-decoration: line-through;
+      margin-left: 2px;
+    }
+
+    .modal-balance-view {
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .modal-usd-badge {
+      background: rgba(255, 255, 255, 0.25);
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      margin-top: 4px;
+      font-weight: normal;
+    }
+
+    .withdraw-info-card {
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 11px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .wallet-connect-btn {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px dashed rgba(255, 255, 255, 0.5);
+      color: #fff;
+      padding: 12px;
+      border-radius: 12px;
+      font-weight: bold;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.3s ease;
+    }
+
+    .withdraw-submit-btn {
+      width: 100%;
+      background: #fff;
+      color: #0284c7;
+      border: none;
+      padding: 14px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    /* 7-Day Check-in Modal */
+    .checkin-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 16px 0;
+    }
+    .checkin-day-card {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 12px;
+      padding: 10px 4px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      transition: transform 0.2s ease;
+    }
+    .checkin-day-card.active-day {
+      background: #ffffff;
+      color: #0284c7;
+      border-color: #ffffff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transform: scale(1.04);
+    }
+    .checkin-day-card.active-day .day-title {
+      color: #0284c7;
+    }
+    .checkin-day-card.completed-day {
+      background: rgba(34, 197, 94, 0.3);
+      border-color: #22c55e;
+    }
+    .day-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .day-reward-pts {
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .checkin-action-btn {
+      width: 100%;
+      background: #ffffff;
+      color: #0284c7;
+      border: none;
+      padding: 14px;
+      border-radius: 14px;
+      font-weight: 900;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      margin-top: 10px;
+    }
+    .checkin-action-btn.claimed {
+      background: #e2e8f0;
+      color: #64748b;
+      cursor: not-allowed;
+    }
+
+    /* Withdrawal Requirement Locked Modal */
+    .req-locked-card {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1.5px solid #ef4444;
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 14px;
+      text-align: left;
+    }
+    .req-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 6px;
+      color: #f8fafc;
+    }
+
+    /* Settings Profile Card */
+    .settings-profile-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 10px 12px;
+      border-radius: 14px;
+      margin-bottom: 12px;
+    }
+
+    .settings-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #fff;
+      color: #0284c7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      overflow: hidden;
+      font-size: 16px;
+    }
+
+    .settings-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .settings-user-info h4 {
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .id-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: #e0f2fe;
+    }
+
+    .copy-id-btn {
+      background: rgba(255,255,255,0.25);
+      border: none;
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    .settings-menu-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .settings-item {
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 10px 12px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .settings-item-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .setting-icon-svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .settings-item select {
+      background: rgba(0,0,0,0.25);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.4);
+      padding: 4px 6px;
+      border-radius: 6px;
+      font-size: 11px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* 100% PURE BLACK TEXT PRIVACY POLICY BOX */
+    .privacy-text-box {
+      background: #ffffff !important;
+      border-radius: 14px;
+      padding: 16px;
+      font-size: 12px;
+      line-height: 1.6;
+      max-height: 380px;
+      overflow-y: auto;
+      margin-bottom: 14px;
+      color: #0f172a !important;
+      text-align: left;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.04);
+    }
+    .privacy-text-box h4 {
+      color: #0f172a !important;
+      font-size: 14px;
+      font-weight: 900;
+      margin-top: 14px;
+      margin-bottom: 4px;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      padding-bottom: 2px;
+    }
+    .privacy-text-box h5 {
+      color: #1e293b !important;
+      font-size: 12.5px;
+      font-weight: 800;
+      margin-top: 8px;
+      margin-bottom: 2px;
+    }
+    .privacy-text-box p, .privacy-text-box span {
+      color: #0f172a !important;
+      margin-bottom: 6px;
+    }
+    .privacy-text-box strong {
+      color: #000000 !important;
+      font-weight: 800;
+    }
+
+    .faq-accordion-item {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 12px;
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+
+    .faq-accordion-header {
+      padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-accordion-content {
+      display: none;
+      padding: 0 12px 10px 12px;
+      font-size: 11.5px;
+      line-height: 1.45;
+      color: #f1f5f9;
+    }
+
+    .faq-accordion-item.open .faq-accordion-content {
+      display: block;
+    }
+
+    .faq-accordion-item.open .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-icon {
+      transition: transform 0.2s ease;
+      font-size: 11px;
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-900 pb-20 antialiased min-h-screen">
+<body>
 
-  <!-- Toast Notification -->
-  <div id="toast" class="fixed top-14 left-1/2 -translate-x-1/2 z-50 px-4 py-2 bg-slate-900 text-white text-xs font-bold rounded-full shadow-xl border border-slate-700 transition-all duration-300 opacity-0 pointer-events-none -translate-y-2">
-    Notification
-  </div>
+  <!-- ========================================================================= -->
+  <!-- 🌟 MASTER CURVED 3D COIN TEMPLATE (EMBOSSED & CURVED FROM INSIDE) -->
+  <!-- ========================================================================= -->
+  <template id="gram-star-coin-template">
+    <svg class="gram-star-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- 3D Curved Outer Rim -->
+      <circle cx="50" cy="50" r="48" fill="url(#curvedOuterGrad)"/>
+      <!-- Inner Dished/Curved Cavity -->
+      <circle cx="50" cy="50" r="39" stroke="rgba(255, 255, 255, 0.4)" stroke-width="2.5" fill="url(#curvedInnerDish)"/>
+      <!-- Embossed Center White Star -->
+      <path d="M50 22 L57.8 38.6 L78 40 L62.5 53.5 L67.2 73.5 L50 62.8 L32.8 73.5 L37.5 53.5 L22 40 L42.2 38.6 Z" fill="#ffffff"/>
+      <defs>
+        <linearGradient id="curvedOuterGrad" x1="10" y1="10" x2="90" y2="90" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#38bdf8"/>
+          <stop offset="1" stop-color="#0284c7"/>
+        </linearGradient>
+        <radialGradient id="curvedInnerDish" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#0369a1" stop-opacity="0.75"/>
+        </radialGradient>
+      </defs>
+    </svg>
+  </template>
 
-  <!-- Header -->
-  <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 py-2.5 flex items-center justify-between">
-    <div class="flex items-center gap-2.5">
-      <!-- 3D Dished Coin Small -->
-      <div class="w-8 h-8 rounded-full dished-coin-outer p-0.5 flex items-center justify-center shrink-0">
-        <div class="w-full h-full rounded-full dished-coin-inner flex items-center justify-center">
-          <svg class="w-4 h-4 text-amber-300 star-3d fill-amber-300" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        </div>
+  <div class="app-wrapper">
+    <!-- Top User Header -->
+    <div class="top-bar">
+      <div class="user-profile">
+        <div class="avatar-img" id="user-avatar">U</div>
+        <span class="user-name" id="user-name">Hi, User</span>
       </div>
-      <div>
-        <div class="flex items-center gap-1.5">
-          <h1 class="font-extrabold text-slate-900 text-sm tracking-tight">ToBOOSTAi</h1>
-          <span id="headerLevelBadge" class="text-[10px] font-black px-1.5 py-0.2 rounded bg-cyan-100 text-cyan-800 border border-cyan-200">LV.0</span>
-        </div>
-        <p class="text-[10px] text-slate-400 font-medium">Telegram Web3 Mini App</p>
+      <div class="header-icons">
+        <button class="icon-btn" onclick="openFaqModal()" title="Help & FAQ">?</button>
+        <button class="icon-btn" onclick="openSettingsModal()" title="Settings">⚙️</button>
       </div>
     </div>
 
-    <div class="flex items-center gap-1.5">
-      <!-- Policy Icon -->
-      <button onclick="openPolicyModal()" class="p-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-600 hover:text-slate-900">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      </button>
-      <!-- FAQ Icon -->
-      <button onclick="openFaqModal()" class="p-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-600 hover:text-slate-900">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-      </button>
-    </div>
-  </header>
-
-  <!-- Main Container -->
-  <main class="max-w-md mx-auto px-4 py-3 space-y-4">
-    
-    <!-- Top Hero Banner -->
-    <div class="relative rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white p-4">
-      <div class="absolute top-0 right-0 w-44 h-44 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none"></div>
-      <div class="relative z-10 flex items-center justify-between gap-3">
-        <div class="space-y-1.5 max-w-[70%]">
-          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-cyan-500/20 text-cyan-300 border border-cyan-400/30">
-            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-            OFFICIAL TELEGRAM MINI APP
-          </span>
-          <h2 class="text-sm sm:text-base font-extrabold tracking-tight text-white leading-tight">
-            Boost Channels & Earn TON Crypto
-          </h2>
-          <p class="text-[11px] text-slate-300 font-medium line-clamp-2">
-            7-day streak bonuses, community live boosting, and verified referral rewards.
-          </p>
-          <div class="pt-1 flex items-center gap-2">
-            <a href="https://t.me/ToBOOST_Ai" target="_blank" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-extrabold transition-all">
-              <span>Join Channel</span>
-              <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <span class="text-[10px] text-slate-400 font-medium">@ToBOOST_Ai</span>
+    <div class="container" id="home-page">
+      <div class="fixed-top-section">
+        <!-- Main Balance Card with Curved 3D Coin -->
+        <div class="balance-card" onclick="openWithdrawModal()">
+          <div class="coin-display">
+            <div id="main-coin-svg-container"></div>
+            <!-- Black Bold Contrast Balance -->
+            <span class="coin-amount" id="main-coins">0</span>
+          </div>
+          <div class="rate-badge">
+            ≈ <span id="main-gram">0.00</span> <span class="gram-label">$GRAM</span> ⇄
           </div>
         </div>
 
-        <!-- 3D Coin Badge -->
-        <div class="flex flex-col items-center justify-center p-2.5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm shrink-0">
-          <div class="w-14 h-14 rounded-full dished-coin-outer p-1 flex items-center justify-center">
-            <div class="w-full h-full rounded-full dished-coin-inner flex items-center justify-center">
-              <svg class="w-7 h-7 text-amber-300 star-3d fill-amber-300" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <div class="rate-subtitle">
+          10,000 <span class="mini-rate-coin-slot"></span> ≈ 1 <span class="gram-label">$GRAM</span>
+        </div>
+
+        <div class="quick-actions">
+          <div class="action-card ad-card-premium" onclick="watchMonetagAd()">
+            <div class="action-icon">
+              <svg class="ads-svg-logo" viewBox="0 0 220 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 105,10 C 50,10 10,45 10,80 C 10,115 50,118 105,118 C 118,118 130,114 140,108 C 112,112 35,108 30,78 C 25,48 78,16 115,12 Z" fill="url(#adsBgGrad)"/>
+                <path d="M 98,24 C 65,24 34,45 34,74 C 34,88 42,98 52,104 C 44,95 42,82 46,68 C 52,50 72,30 98,24 Z" fill="url(#adsBgGrad)"/>
+                <text x="55" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-style="italic" font-size="44" fill="#0F172A" letter-spacing="1">ADS</text>
+                <defs>
+                  <linearGradient id="adsBgGrad" x1="0" y1="0" x2="150" y2="120" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#38BDF8"/>
+                    <stop offset="1" stop-color="#0284C7"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <div class="action-title" data-i18n="watchAd">Watch Ad</div>
+            <div class="action-reward">
+              <span class="mini-coin-slot-ad"></span> + 50,000
             </div>
           </div>
-          <span class="text-[9px] font-black text-cyan-300 mt-1 uppercase tracking-wider">Web3 Star</span>
-        </div>
-      </div>
-    </div>
 
-    <!-- Main Balance Card -->
-    <div class="bg-gradient-to-b from-white to-sky-50/40 rounded-3xl p-5 border border-sky-100 shadow-sm space-y-4">
-      <div class="flex items-center justify-between">
-        <span class="text-xs font-black tracking-wider text-slate-400 uppercase">Available Balance</span>
-        <span id="tierBadge" class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-cyan-50 text-cyan-800 border border-cyan-200">
-          Tier Lv.0 (5 tasks/day)
-        </span>
-      </div>
-
-      <div class="flex items-center gap-3">
-        <!-- Big Dished 3D Coin -->
-        <div class="w-14 h-14 rounded-full dished-coin-outer p-1 flex items-center justify-center shrink-0">
-          <div class="w-full h-full rounded-full dished-coin-inner flex items-center justify-center">
-            <svg class="w-7 h-7 text-amber-300 star-3d fill-amber-300" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-        </div>
-        <div>
-          <div class="flex items-baseline gap-1.5">
-            <span id="balanceText" class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">1,000</span>
-            <span class="text-sm font-black text-cyan-600">PTS</span>
-          </div>
-          <div id="tonEquivText" class="text-xs font-bold text-slate-500 mt-0.5">≈ 0.50 TON</div>
-        </div>
-      </div>
-
-      <!-- Level Progress Bar -->
-      <div class="space-y-1.5 pt-1">
-        <div class="flex justify-between text-xs font-bold text-slate-700">
-          <span id="levelProgressLabel">Level 0 → Level 1</span>
-          <span id="referralCountLabel">1/3 Referrals</span>
-        </div>
-        <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
-          <div id="levelProgressBar" class="h-full bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full transition-all duration-500" style="width: 33%"></div>
-        </div>
-      </div>
-
-      <!-- 4 Quick Actions Grid -->
-      <div class="grid grid-cols-4 gap-2 pt-1">
-        <button onclick="switchTab('checkIn')" class="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-white border border-slate-200/90 hover:border-cyan-400 hover:shadow-xs transition-all">
-          <svg class="w-5 h-5 text-cyan-600 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          <span class="text-[11px] font-extrabold text-slate-800">Check-in</span>
-        </button>
-
-        <button onclick="switchTab('ads')" class="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-white border border-slate-200/90 hover:border-cyan-400 hover:shadow-xs transition-all">
-          <svg class="w-5 h-5 text-amber-500 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          <span class="text-[11px] font-extrabold text-slate-800">Watch Ad</span>
-        </button>
-
-        <button onclick="switchTab('boost')" class="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-white border border-slate-200/90 hover:border-cyan-400 hover:shadow-xs transition-all relative">
-          <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-500 animate-live-blink"></span>
-          <svg class="w-5 h-5 text-emerald-600 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg>
-          <span class="text-[11px] font-extrabold text-slate-800">Boost</span>
-        </button>
-
-        <button onclick="switchTab('wallet')" class="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-white border border-slate-200/90 hover:border-cyan-400 hover:shadow-xs transition-all">
-          <svg class="w-5 h-5 text-blue-600 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
-          <span class="text-[11px] font-extrabold text-slate-800">Withdraw</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- TAB 1: EARN / BOUNTY TASKS -->
-    <div id="tab-earn" class="tab-content space-y-3">
-      <div class="flex items-center justify-between">
-        <div>
-          <h3 class="font-extrabold text-slate-900 text-base">Bounty Tasks</h3>
-          <p id="tasksProgressText" class="text-xs text-slate-500 font-medium">Daily Completed: 0 / 5</p>
-        </div>
-        <button onclick="switchTab('boost')" class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-extrabold flex items-center gap-1 shadow-xs">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-live-blink"></span>
-          <span>POST +</span>
-        </button>
-      </div>
-
-      <!-- Task items list -->
-      <div id="taskListContainer" class="space-y-2"></div>
-    </div>
-
-    <!-- TAB 2: BOOST / POST SOCIAL -->
-    <div id="tab-boost" class="tab-content hidden space-y-4">
-      <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm space-y-3">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="font-extrabold text-slate-900 text-base">Boost Social Channels</h3>
-            <p class="text-xs text-slate-500">Promote Telegram, Twitter, YouTube with points or TON</p>
-          </div>
-          <span class="flex items-center gap-1 text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-live-blink"></span>
-            LIVE
-          </span>
-        </div>
-
-        <form onsubmit="handleCreateCampaign(event)" class="space-y-3 text-xs">
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">Campaign Title</label>
-            <input type="text" placeholder="e.g. Join Official Announcements Channel" required class="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-cyan-500 font-medium" />
-          </div>
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">Channel / Profile Link</label>
-            <input type="url" placeholder="https://t.me/YourChannel" required class="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-cyan-500 font-medium font-mono" />
-          </div>
-          <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-extrabold text-xs shadow-md">
-            Launch Campaign (5,000 PTS)
-          </button>
-        </form>
-      </div>
-    </div>
-
-    <!-- TAB 3: 7D CHECK-IN -->
-    <div id="tab-checkIn" class="tab-content hidden space-y-4">
-      <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm space-y-4">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="font-extrabold text-slate-900 text-base">7-Day Streak Check-in</h3>
-            <p class="text-xs text-slate-500">Claim +100 PTS daily. Mandatory 7 days to unlock withdraw.</p>
-          </div>
-          <span id="streakCountBadge" class="text-xs font-black px-2.5 py-1 rounded-full bg-amber-100 text-amber-800">
-            🔥 1 Day Streak
-          </span>
-        </div>
-
-        <div id="checkInGrid" class="grid grid-cols-7 gap-1.5 pt-2"></div>
-
-        <button onclick="handleClaimCheckIn()" class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white font-black text-xs shadow-md">
-          Claim Today (+100 PTS)
-        </button>
-      </div>
-    </div>
-
-    <!-- TAB 4: WATCH ADS -->
-    <div id="tab-ads" class="tab-content hidden space-y-4">
-      <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm space-y-3">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="font-extrabold text-slate-900 text-base">Monetag Ads Rewards</h3>
-            <p class="text-xs text-slate-500">Watch ads to earn +25 PTS and qualify for withdrawals</p>
-          </div>
-          <span class="text-xs font-black px-2.5 py-1 rounded-full bg-cyan-100 text-cyan-800">Monetag</span>
-        </div>
-
-        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
-          <div>
-            <span class="text-[11px] font-bold text-slate-500 uppercase">Today's Watched Ads</span>
-            <div id="adsWatchedCount" class="text-2xl font-black text-slate-900">0 / 10</div>
-          </div>
-          <div class="text-right">
-            <span class="text-[11px] font-bold text-slate-500 uppercase">Requirement</span>
-            <div id="adsStatusLabel" class="text-xs font-extrabold text-amber-600">10 Needed to Withdraw</div>
-          </div>
-        </div>
-
-        <button onclick="handleWatchAd()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-extrabold text-xs shadow-md flex items-center justify-center gap-2">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          <span>Watch Sponsored Ad (+25 PTS)</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- TAB 5: FRIENDS & REFERRAL -->
-    <div id="tab-frens" class="tab-content hidden space-y-4">
-      <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm space-y-4">
-        <div>
-          <h3 class="font-extrabold text-slate-900 text-base">Invite Friends & Level Up</h3>
-          <p class="text-xs text-slate-500">Earn +100 PTS per referral & unlock up to 20 tasks/day</p>
-        </div>
-
-        <div class="grid grid-cols-2 gap-2 p-3 rounded-xl bg-slate-50 border border-slate-200">
-          <div>
-            <span class="text-[10px] font-bold text-slate-500 uppercase">Total Referrals</span>
-            <div id="refCountTotal" class="text-2xl font-black text-slate-900">1</div>
-          </div>
-          <div>
-            <span class="text-[10px] font-bold text-slate-500 uppercase">Referral Bonus</span>
-            <div id="refBonusTotal" class="text-2xl font-black text-cyan-600">+100 PTS</div>
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">Your Referral Link</label>
-          <div class="flex items-center gap-1.5 p-2 rounded-xl bg-slate-50 border border-slate-200">
-            <input id="referralLinkInput" type="text" readonly value="https://t.me/ToFarmsAi_Bot?start=ref_123" class="bg-transparent text-xs text-slate-700 flex-1 font-mono outline-none truncate px-1" />
-            <button onclick="copyRefLink()" class="px-3 py-1.5 rounded-lg bg-cyan-600 text-white text-xs font-bold shrink-0">Copy</button>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-2">
-          <button onclick="shareOnTelegram()" class="py-2.5 rounded-xl bg-sky-500 text-white font-bold text-xs flex items-center justify-center gap-1.5">
-            <span>Share Telegram</span>
-          </button>
-          <button onclick="shareOnX()" class="py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs flex items-center justify-center gap-1.5">
-            <span>Share on X</span>
-          </button>
-        </div>
-
-        <button onclick="simulateFriendJoined()" class="w-full py-2.5 rounded-xl border border-cyan-200 bg-cyan-50 text-cyan-800 font-bold text-xs flex items-center justify-center gap-1.5">
-          <span>Simulate Friend Join (+100 PTS & Ping Bot)</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- TAB 6: WALLET & WITHDRAW -->
-    <div id="tab-wallet" class="tab-content hidden space-y-4">
-      <!-- Security Verification Status Card -->
-      <div id="securityCard" class="rounded-2xl p-5 border shadow-sm space-y-3.5 bg-white border-amber-200">
-        <div class="flex items-center justify-between">
-          <h4 class="font-extrabold text-slate-900 text-sm">Withdrawal Security Verification</h4>
-          <span id="securityStatusBadge" class="text-xs font-black px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">
-            ACTION NEEDED
-          </span>
-        </div>
-
-        <div class="space-y-2 text-xs">
-          <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
-            <div>
-              <div class="font-bold text-slate-800">1. Watch 10 Ads Today</div>
-              <div id="ruleAdsText" class="text-[11px] text-slate-500">Watched: 0 / 10</div>
+          <!-- Opens 7-Day Check-in Modal -->
+          <div class="action-card" onclick="openCheckinModal()">
+            <div class="action-icon">
+              <svg class="calendar-svg-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 4H5C3.89543 4 3 4.89543 3 6V8H21V6C21 4.89543 20.1046 4 19 4Z" fill="url(#calHeaderGrad)"/>
+                <rect x="3" y="4" width="18" height="16" rx="2" stroke="#0F172A" stroke-width="1.8" fill="none"/>
+                <line x1="16" y1="2" x2="16" y2="6" stroke="#0F172A" stroke-width="1.8" stroke-linecap="round"/>
+                <line x1="8" y1="2" x2="8" y2="6" stroke="#0F172A" stroke-width="1.8" stroke-linecap="round"/>
+                <line x1="3" y1="8" x2="21" y2="8" stroke="#0F172A" stroke-width="1.8"/>
+                <circle cx="8" cy="12" r="1" fill="#0284C7"/>
+                <circle cx="12" cy="12" r="1" fill="#0284C7"/>
+                <circle cx="16" cy="12" r="1" fill="#0284C7"/>
+                <circle cx="8" cy="16" r="1" fill="#0284C7"/>
+                <circle cx="12" cy="16" r="1" fill="#0284C7"/>
+                <circle cx="16" cy="16" r="1" fill="#0284C7"/>
+                <defs>
+                  <linearGradient id="calHeaderGrad" x1="3" y1="4" x2="21" y2="8" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#38BDF8"/>
+                    <stop offset="1" stop-color="#0284C7"/>
+                  </linearGradient>
+                </defs>
+              </svg>
             </div>
-            <span id="ruleAdsBadge" class="font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded">Pending</span>
-          </div>
-
-          <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
-            <div>
-              <div class="font-bold text-slate-800">2. Complete 7 Check-in Days</div>
-              <div id="ruleCheckInText" class="text-[11px] text-slate-500">Days: 1 / 7</div>
+            <div class="action-title" data-i18n="dailyCheckIn">Daily Check-in</div>
+            <div class="action-reward" id="checkin-reward-box">
+              <span class="mini-coin-slot-checkin"></span> + 100
             </div>
-            <span id="ruleCheckInBadge" class="font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded">Pending</span>
           </div>
         </div>
 
-        <p id="qualificationNotice" class="text-xs font-medium text-amber-800 leading-relaxed">
-          Withdrawal is locked until all 2 anti-bot criteria are fulfilled.
-        </p>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="level-header-wrapper">
+              <svg class="badge-3d-diamond" viewBox="0 0 64 64" fill="none">
+                <polygon points="32,4 58,24 32,60 6,24" fill="#a855f7" />
+                <polygon points="32,4 48,24 32,52 16,24" fill="#c084fc" />
+                <polygon points="32,4 32,52 6,24" fill="#9333ea" />
+                <polygon points="20,24 44,24 32,42" fill="#e9d5ff" />
+              </svg>
+              <div class="level-title" id="user-level-title">Lv.1 »</div>
+            </div>
+            <div class="stat-desc" id="user-level-desc">Invite 3 users to unlock 10 tasks/day</div>
+            <div class="progress-bar-container">
+              <span style="font-size: 11px; font-weight: bold;" id="invite-count">0/3</span>
+              <div class="invite-progress-bar-wrap">
+                <div class="invite-progress-fill" id="invite-progress-fill"></div>
+              </div>
+              <button class="invite-btn" onclick="inviteFriends()" data-i18n="inviteBtn">invite</button>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <svg class="badge-3d-clipboard" viewBox="0 0 64 64" fill="none">
+              <rect x="14" y="10" width="36" height="46" rx="6" fill="#bae6fd" />
+              <rect x="18" y="14" width="28" height="38" rx="4" fill="#f0f9ff" />
+              <rect x="22" y="6" width="20" height="8" rx="3" fill="#38bdf8" />
+              <line x1="24" y1="24" x2="40" y2="24" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" />
+              <line x1="24" y1="32" x2="40" y2="32" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" />
+              <line x1="24" y1="40" x2="34" y2="40" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" />
+            </svg>
+            <div class="daily-counter" id="daily-task-count">0/5</div>
+            <div style="font-size: 12px; font-weight: bold; color: #0f172a; margin-top: 2px;" data-i18n="dailyTaskProgress">Daily Task Progress</div>
+            <div class="stat-desc" style="margin-bottom: 0;" data-i18n="resetsDaily">Resets daily at 00:00</div>
+          </div>
+        </div>
       </div>
 
-      <!-- Withdraw Form -->
-      <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm space-y-3">
-        <h4 class="font-extrabold text-slate-900 text-base">Request TON Withdrawal</h4>
-        <form onsubmit="handleWithdrawSubmit(event)" class="space-y-3 text-xs">
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">Points to Withdraw (Min 1,000 PTS)</label>
-            <input id="withdrawPointsInput" type="number" min="1000" step="500" value="1000" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 font-extrabold text-slate-900" />
-            <span class="text-[10px] text-slate-400 mt-0.5 block">10,000 PTS = 1.00 TON</span>
-          </div>
+      <div class="bounty-container">
+        <div class="bounty-header">
+          <span class="bounty-title" data-i18n="bountyTaskTitle">Bounty Task</span>
+          <button class="post-btn" onclick="openPostTaskModal()" data-i18n="postBtn">POST +</button>
+        </div>
 
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">TON Wallet Address</label>
-            <input id="withdrawAddressInput" type="text" placeholder="UQC_uwp-fGIO5qwRgGKe0ymORn-Cd-pW_HtBVbHD..." required class="w-full px-3 py-2.5 rounded-xl border border-slate-200 font-mono text-slate-900" />
-          </div>
-
-          <button id="withdrawSubmitBtn" type="submit" disabled class="w-full py-3.5 rounded-xl font-bold text-xs bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed transition-all">
-            Locked by Security Verification
-          </button>
-        </form>
+        <div class="task-list" id="task-list">
+          <div class="no-tasks-text" data-i18n="loadingTasks">Loading bounty tasks...</div>
+        </div>
       </div>
     </div>
 
-  </main>
+    <div class="container" id="team-page" style="display: none; padding-bottom: 85px; overflow-y: auto;">
+      <div style="text-align: center; margin: 20px 0 15px 0;">
+        <h2 style="color: #0f172a; font-size: 20px; font-weight: 800;" data-i18n="teamHeader">Create team, Earn more!</h2>
+      </div>
 
-  <!-- Bottom Navigation Bar -->
-  <nav class="fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-lg border-t border-slate-200/90 py-1.5 px-2">
-    <div class="max-w-md mx-auto grid grid-cols-6 gap-1 text-center">
-      <button onclick="switchTab('earn')" id="nav-earn" class="nav-btn flex flex-col items-center py-1 text-cyan-600 font-bold">
-        <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        <span class="text-[10px]">Earn</span>
-      </button>
+      <div style="display: flex; flex-direction: column;">
+        <div class="team-card">
+          <div class="team-avatar-icon"><i class="fas fa-user"></i></div>
+          <div class="team-info">
+            <h4 data-i18n="teamLv1Title">Members you invited</h4>
+            <p data-i18n="teamLv1Desc">Lv1:Get 5% task bouns</p>
+          </div>
+        </div>
 
-      <button onclick="switchTab('boost')" id="nav-boost" class="nav-btn flex flex-col items-center py-1 text-slate-500 font-medium relative">
-        <span class="absolute top-0.5 right-2 w-1.5 h-1.5 rounded-full bg-emerald-500 animate-live-blink"></span>
-        <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg>
-        <span class="text-[10px]">Boost</span>
-      </button>
+        <div class="team-card">
+          <div class="team-avatar-icon"><i class="fas fa-user-friends"></i></div>
+          <div class="team-info">
+            <h4 data-i18n="teamLv2Title">Invited by Lv.1 members</h4>
+            <p data-i18n="teamLv2Desc">Lv.2:Get 3% task bouns</p>
+          </div>
+        </div>
 
-      <button onclick="switchTab('checkIn')" id="nav-checkIn" class="nav-btn flex flex-col items-center py-1 text-slate-500 font-medium">
-        <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        <span class="text-[10px]">Check-in</span>
-      </button>
+        <div class="team-card">
+          <div class="team-avatar-icon"><i class="fas fa-users"></i></div>
+          <div class="team-info">
+            <h4 data-i18n="teamLv3Title">Invited by Lv.2 members</h4>
+            <p data-i18n="teamLv3Desc">Lv.3:Get 1% task bouns</p>
+          </div>
+        </div>
 
-      <button onclick="switchTab('ads')" id="nav-ads" class="nav-btn flex flex-col items-center py-1 text-slate-500 font-medium">
-        <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        <span class="text-[10px]">Ads</span>
-      </button>
-
-      <button onclick="switchTab('frens')" id="nav-frens" class="nav-btn flex flex-col items-center py-1 text-slate-500 font-medium">
-        <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        <span class="text-[10px]">Frens</span>
-      </button>
-
-      <button onclick="switchTab('wallet')" id="nav-wallet" class="nav-btn flex flex-col items-center py-1 text-slate-500 font-medium">
-        <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
-        <span class="text-[10px]">Wallet</span>
-      </button>
-    </div>
-  </nav>
-
-  <!-- Modals (Policy & FAQ) -->
-  <div id="modalOverlay" class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-md w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
-      <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
-        <h3 id="modalTitle" class="font-extrabold text-slate-900 text-sm">Privacy Policy</h3>
-        <button onclick="closeModal()" class="p-1 rounded-lg text-slate-400 hover:text-slate-800">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <button class="big-invite-btn" onclick="inviteFriends()">
+          <span data-i18n="inviteMembersBtn">Invite Members</span> <i class="fas fa-user-plus" style="font-size: 15px;"></i>
         </button>
       </div>
-      <div id="modalBody" class="p-5 overflow-y-auto space-y-3 text-xs leading-relaxed text-slate-700"></div>
     </div>
   </div>
 
-  <!-- JavaScript Logic -->
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
+    <div class="nav-link active" id="nav-home" onclick="switchNav('home')">
+      <i class="fas fa-home"></i>
+      <span data-i18n="navHome">Home</span>
+    </div>
+
+    <div class="nav-link" id="nav-team" onclick="switchNav('team')">
+      <svg class="nav-icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:22px; height:20px;">
+        <circle cx="9" cy="8" r="3.5"/>
+        <path d="M4 18.5C4 15.7 6.2 13.5 9 13.5C11.8 13.5 14 15.7 14 18.5V20.5H4V18.5Z"/>
+        <circle cx="16.5" cy="9.5" r="2.5"/>
+        <path d="M14.5 15.5C15.2 15 16.1 14.8 17 14.8C18.4 14.8 19.7 15.4 20.6 16.4C20.8 16.7 20.9 17.1 20.9 17.5V19.5H14.5V15.5Z"/>
+      </svg>
+      <span data-i18n="navTeam">Team</span>
+    </div>
+  </div>
+
+  <!-- 7-DAY CHECK-IN MODAL (MATCHING CURVED 3D BLUE COIN LOGO) -->
+  <div id="checkin-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>📅 Daily Check-in</h3>
+        <button class="close-modal" onclick="closeCheckinModal()">✕</button>
+      </div>
+
+      <p style="font-size: 12px; color: #f8fafc; text-align: center; margin-bottom: 10px;">
+        Check-in daily to maintain your active streak and claim rewards!
+      </p>
+
+      <div class="checkin-grid" id="checkin-days-container"></div>
+
+      <button class="checkin-action-btn" id="btn-claim-checkin" onclick="processDailyCheckIn()">
+        Claim Today (+100 Pts)
+      </button>
+    </div>
+  </div>
+
+  <!-- WITHDRAWAL REQUIREMENT LOCKED MODAL -->
+  <div id="withdraw-req-modal" class="modal-overlay">
+    <div class="modal-box" style="text-align: center;">
+      <div style="font-size: 44px; margin-bottom: 8px;">🔒</div>
+      <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 8px;">Withdrawal Locked</h3>
+      <p style="font-size: 12px; color: #f8fafc; line-height: 1.4; margin-bottom: 14px;">
+        To maintain authenticity and fair distribution, complete these requirements to unlock withdrawal:
+      </p>
+
+      <div class="req-locked-card">
+        <div class="req-item-row">
+          <span>📺 Watch 10 Ads Today:</span>
+          <span id="req-ads-status" style="color: #fef08a;">0 / 10</span>
+        </div>
+        <div class="req-item-row">
+          <span>📅 7 Days Daily Check-in:</span>
+          <span id="req-checkin-status" style="color: #fef08a;">0 / 7 Days</span>
+        </div>
+      </div>
+
+      <button class="withdraw-submit-btn" onclick="closeWithdrawReqModal()">
+        Got It, I will Complete
+      </button>
+    </div>
+  </div>
+
+  <!-- POST TASK MODAL (WITH BLINKING GREEN LIGHT NEXT TO LIVE) -->
+  <div id="post-task-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="header-title-container">
+          <span class="live-badge">
+            <span class="live-dot"></span>
+            <span>LIVE</span>
+          </span>
+          <h3 data-i18n="postTaskHeader">Post Task ⭐</h3>
+        </div>
+        <button class="close-modal" onclick="closePostTaskModal()">✕</button>
+      </div>
+
+      <div class="form-group">
+        <label id="lbl-task-name" data-i18n="taskNameLabel">🏷️ Task name</label>
+        <input type="text" id="post-task-name" class="form-input" placeholder="Enter task name">
+      </div>
+
+      <div class="form-group">
+        <label id="lbl-task-address" data-i18n="taskUrlLabel">💳 Task address</label>
+        <textarea id="post-task-url" class="form-input" placeholder="Please input task url"></textarea>
+      </div>
+
+      <div class="form-group">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <label id="lbl-impressions" data-i18n="impressionsLabel">⣿ Impressions</label>
+          <span id="impression-val" style="font-weight: bold; font-size: 13px;">100</span>
+        </div>
+        <div class="range-slider-container">
+          <input type="range" id="impressionSlider" class="range-slider" min="100" max="10000" step="100" value="100" oninput="updateCalculations(this.value)">
+        </div>
+      </div>
+
+      <div class="buttons-container-three">
+        <button class="btn-action btn-gram" onclick="submitTask('gram')">
+          <span>Post Task</span>
+          <span class="btn-content">
+            ≈<span id="gram-count">1</span> 💎
+            <span class="strikethrough-tag" id="gram-reg-price">≈1</span>
+          </span>
+        </button>
+
+        <button class="btn-action btn-stars" onclick="submitTask('stars')">
+          <span>Post Task</span>
+          <span class="btn-content">
+            ≈<span id="star-count">300</span> ⭐
+            <span class="strikethrough-tag" id="star-reg-price">≈300</span>
+          </span>
+        </button>
+
+        <button class="btn-points-full" onclick="submitTask('points')">
+          Pay with Points (≈<span id="pts-count">10,000</span> Pts)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- WITHDRAW MODAL -->
+  <div id="withdraw-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 data-i18n="balanceHeader">Balance</h3>
+        <button class="close-modal" onclick="closeWithdrawModal()">✕</button>
+      </div>
+
+      <div class="modal-balance-view">
+        <h1 style="font-size: 30px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <span class="modal-coin-slot"></span>
+          <span id="modal-coin-val">0</span>
+        </h1>
+        <div class="modal-usd-badge">≈ <span id="modal-gram-val">0.00</span> <span class="gram-label">$GRAM</span></div>
+      </div>
+
+      <div class="withdraw-info-card" id="withdraw-target-text">
+        Withdrawal Target: 10,000 Coins
+      </div>
+
+      <button class="wallet-connect-btn" onclick="connectWallet()">
+        🔗 Connect $GRAM Wallet
+      </button>
+
+      <button class="withdraw-submit-btn" onclick="processWithdrawal()" data-i18n="withdrawBtnText">
+        Withdraw
+      </button>
+    </div>
+  </div>
+
+  <!-- COMPLETE HELP & FAQ MODAL -->
+  <div id="faq-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>❓ Help & FAQ</h3>
+        <button class="close-modal" onclick="closeFaqModal()">✕</button>
+      </div>
+
+      <div class="faq-accordion-item open">
+        <div class="faq-accordion-header" onclick="toggleFaqAccordion(this)">
+          <span>1. What is ToBOOSTAi?</span>
+          <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-accordion-content">
+          ToBOOSTAi is a Web3-powered social media boost and earning mini-app on Telegram. Users can earn points and $GRAM by completing tasks or spend them to boost their own channels and communities.
+        </div>
+      </div>
+
+      <div class="faq-accordion-item">
+        <div class="faq-accordion-header" onclick="toggleFaqAccordion(this)">
+          <span>2. How can I earn points & $GRAM?</span>
+          <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-accordion-content">
+          You can earn rewards by:
+          <br>• Completing Bounty Tasks (+200 Pts each)
+          <br>• Watching Sponsored Video Ads (+50,000 Pts)
+          <br>• Claiming Daily Check-in (+100 Pts)
+          <br>• Inviting friends with our multi-tier referral program!
+        </div>
+      </div>
+
+      <div class="faq-accordion-item">
+        <div class="faq-accordion-header" onclick="toggleFaqAccordion(this)">
+          <span>3. How can I use my points?</span>
+          <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-accordion-content">
+          Formula: 10,000 Points = 1 $GRAM. You can use your balance to publish exposure tasks for your own Telegram channels, groups, and social profiles.
+        </div>
+      </div>
+
+      <div class="faq-accordion-item">
+        <div class="faq-accordion-header" onclick="toggleFaqAccordion(this)">
+          <span>4. How to boost a channel or post tasks?</span>
+          <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-accordion-content">
+          Click the "POST +" button on the home screen. Enter your task title and link, select desired impressions on the slider, and pay using Points, $GRAM via TON Connect, or Telegram Stars!
+        </div>
+      </div>
+
+      <div class="faq-accordion-item">
+        <div class="faq-accordion-header" onclick="toggleFaqAccordion(this)">
+          <span>5. How does the daily task limit work?</span>
+          <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-accordion-content">
+          By default, every user can complete up to 5 bounty tasks per day. You can increase this limit up to 20 tasks per day by inviting friends (3 invites = 10 tasks, 6 invites = 15 tasks, 9 invites = 20 tasks).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETTINGS MODAL -->
+  <div id="settings-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 data-i18n="settingsHeader">⚙️ Settings</h3>
+        <button class="close-modal" onclick="closeSettingsModal()">✕</button>
+      </div>
+
+      <div class="settings-profile-card">
+        <div class="settings-avatar" id="settings-avatar">U</div>
+        <div class="settings-user-info">
+          <h4 id="settings-user-name">User</h4>
+          <div class="id-row">
+            <span>ID: <strong id="settings-user-id">guest_user</strong></span>
+            <button class="copy-id-btn" onclick="copyTelegramId()" data-i18n="copyBtn">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-menu-list">
+        <div class="settings-item">
+          <span class="settings-item-label">🌐 Language</span>
+          <select id="language-select">
+            <option value="en" selected>English (US)</option>
+            <option value="cn">简体中文 (Mandarin)</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+            <option value="ur">اردو (Urdu)</option>
+            <option value="es">Español (Spanish)</option>
+            <option value="pt">Português (Portuguese)</option>
+          </select>
+        </div>
+
+        <div class="settings-item" onclick="openOfficialChannel()">
+          <span class="settings-item-label">
+            <svg class="setting-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 0C5.37 0 0 5.37 0 12C0 18.63 5.37 24 12 24C18.63 24 24 18.63 24 12C24 5.37 18.63 0 12 0ZM17.89 8.05L15.93 17.29C15.78 17.95 15.39 18.11 14.84 17.8L11.84 15.59L10.39 16.98C10.23 17.14 10.1 17.27 9.79 17.27L10.01 14.21L15.58 9.18C15.82 8.96 15.52 8.84 15.2 9.05L8.32 13.38L5.36 12.46C4.72 12.26 4.71 11.82 5.5 11.51L17.07 7.05C17.61 6.85 18.08 7.18 17.89 8.05Z" fill="#38BDF8"/>
+            </svg>
+            <span>Official Channel</span>
+          </span>
+          <span>↗</span>
+        </div>
+
+        <a href="https://x.com" target="_blank" class="settings-item">
+          <span class="settings-item-label">
+            <svg class="setting-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#FFFFFF"/>
+            </svg>
+            <span data-i18n="goToX">Go to X</span>
+          </span>
+          <span>↗</span>
+        </a>
+
+        <div class="settings-item" onclick="openPrivacyPolicyModal()">
+          <span class="settings-item-label">
+            <svg class="setting-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L4 5V11C4 16.55 7.42 21.74 12 23C16.58 21.74 20 16.55 20 11V5L12 2ZM10 15.5L6.5 12L7.91 10.59L10 12.67L16.09 6.58L17.5 8L10 15.5Z" fill="#38BDF8"/>
+            </svg>
+            <span data-i18n="privacyPolicy">Privacy Policy</span>
+          </span>
+          <span>›</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPLETE 11-SECTION PRIVACY POLICY MODAL (SOLID BLACK TEXT) -->
+  <div id="privacy-policy-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 data-i18n="privacyPolicyHeader">Privacy Policy</h3>
+        <button class="close-modal" onclick="closePrivacyPolicyModal()">✕</button>
+      </div>
+      
+      <div class="privacy-text-box">
+        <p><strong>Effective Date: June 1, 2025</strong></p>
+        <p>Welcome to our services. We highly value your privacy and are committed to protecting your personal data. This privacy policy details the information we collect, how we use it, and your related rights.</p>
+        
+        <h4>1. Information We Collect</h4>
+        <h5>1.1 Personal Data</h5>
+        <p>We may collect the following types of personal data: Your Telegram user ID, username, and user avatar.</p>
+        <h5>1.2 Usage Data</h5>
+        <p>We may automatically collect: Game data (activities, achievements, scores, rankings), Device information (device type, operating system, unique identifiers, hardware settings), and Log data (IP address, browser version, visit timestamps, and diagnostic data).</p>
+        <h5>1.3 Transaction Data</h5>
+        <p>When you make a transaction, we collect and store payment details, payment account information, and transaction history.</p>
+
+        <h4>2. Cookies & Related Technologies</h4>
+        <p>Cookies allow servers to store and retrieve data. We use cookies, scripts, and web beacons to optimize your experience. Disabling cookies in your browser may prevent some features from functioning properly.</p>
+
+        <h4>3. How We Use Your Information</h4>
+        <p>• To provide and maintain services properly.<br>• To optimize our products based on user behavior.<br>• To personalize your in-app rewards and experience.<br>• To process transactions and customer support requests.<br>• To communicate game updates, events, and promotions.<br>• To ensure compliance with applicable laws and security standards.</p>
+
+        <h4>4. Data Sharing and Disclosure</h4>
+        <p>We do not sell your personal data. We may share data with service providers (payment processors, hosting, data analysis) or when required by legal regulations or business asset transfers.</p>
+
+        <h4>5. Data Security</h4>
+        <p>We implement technical and organizational measures (encryption, firewalls, tokenization) to protect your personal data from unauthorized access or destruction.</p>
+
+        <h4>6. Storage and Protection</h4>
+        <h5>6.1 Storage & Retention</h5>
+        <p>We store data using local storage, encrypted databases, and server logs. Electronic records are permanently deleted when operations cease.</p>
+        <h5>6.2 Protection & Incident Handling</h5>
+        <p>We utilize industry-leading SSL encryption, access controls, and strict employee confidentiality. In case of a security incident, immediate notifications will be released via app announcements.</p>
+
+        <h4>7. Your Rights</h4>
+        <p>Under applicable laws, you hold the right to access, rectify, delete, restrict processing, request data portability, and withdraw consent at any time.</p>
+
+        <h4>8. Children's Privacy</h4>
+        <p>Our services are strictly not directed to children under the age of 13. We do not knowingly collect personal data from minors.</p>
+
+        <h4>9. International Data Transfers</h4>
+        <p>Collected data may be transferred to and securely stored on servers located outside your country of residence under strict privacy guidelines.</p>
+
+        <h4>10. Changes to This Privacy Policy</h4>
+        <p>We may update this policy periodically. The latest version will always be posted here with an updated "Effective Date".</p>
+
+        <h4>11. Accessibility</h4>
+        <p>For bot users, this policy is accessible via the /privacy command. For mini app users, it is directly available through the Settings page.</p>
+      </div>
+
+      <button class="withdraw-submit-btn" onclick="closePrivacyPolicyModal()" data-i18n="gotItBtn">Got It</button>
+    </div>
+  </div>
+
   <script>
-    const state = {
-      balance: 1000,
-      level: 0,
-      referrals: 1,
-      tasksLimit: 5,
-      tasksCompleted: 0,
-      adsWatchedToday: 0,
-      checkInDays: 1,
-      checkInStreak: 1,
-      hasClaimedToday: false,
-      telegramId: '123456789',
-      username: 'CryptoUser'
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', () => {
+        document.body.style.height = window.visualViewport.height + 'px';
+      });
+    }
+
+    const ADMIN_GRAM_WALLET = "UQC_uwp-fGIO5qwRgGKe0ymORn-Cd-pW_HtBVbHD-NPzIVfq";
+    const OFFICIAL_BOT_USERNAME = "ToFarmsAi_Bot";
+    const OFFICIAL_CHANNEL_USERNAME = "ToBOOST_Ai";
+
+    // BOT TOKEN & REFERRAL BONUS SETTINGS
+    const BOT_TOKEN = "8477055207:AAGuqmR6f7lqQ_M3kRmr50kOQnpCaVinMCE";
+    const REFERRAL_BONUS = 100;
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCizaCuNkTOsdyeLErVsUzjTj6P0Du6zZw",
+      authDomain: "social-media-fe850.firebaseapp.com",
+      databaseURL: "https://social-media-fe850-default-rtdb.firebaseio.com",
+      projectId: "social-media-fe850",
+      storageBucket: "social-media-fe850.firebasestorage.app",
+      messagingSenderId: "264506398502",
+      appId: "1:264506398502:web:56d2722066cb55ec8353e7"
     };
 
-    // Initialize Telegram WebApp SDK
-    if (window.Telegram && window.Telegram.WebApp) {
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+
+    function toUserFriendlyTonAddress(rawAddress) {
       try {
-        window.Telegram.WebApp.ready();
-        window.Telegram.WebApp.expand();
-        const tgUser = window.Telegram.WebApp.initDataUnsafe?.user;
-        if (tgUser) {
-          state.telegramId = tgUser.id;
-          state.username = tgUser.username || tgUser.first_name || 'User';
-          document.getElementById('referralLinkInput').value = `https://t.me/ToFarmsAi_Bot?start=ref_${tgUser.id}`;
+        if (!rawAddress || !rawAddress.includes(':')) return rawAddress;
+        const parts = rawAddress.split(':');
+        const wc = parseInt(parts[0], 10);
+        const hex = parts[1];
+        if (hex.length !== 64) return rawAddress;
+
+        const bytes = [0x51, (wc & 0xFF)];
+        for (let i = 0; i < 64; i += 2) {
+          bytes.push(parseInt(hex.substr(i, 2), 16));
         }
+
+        let crc = 0;
+        for (let byte of bytes) {
+          crc ^= (byte << 8);
+          for (let i = 0; i < 8; i++) {
+            if (crc & 0x8000) {
+              crc = ((crc << 1) ^ 0x1021) & 0xFFFF;
+            } else {
+              crc = (crc << 1) & 0xFFFF;
+            }
+          }
+        }
+        bytes.push((crc >> 8) & 0xFF);
+        bytes.push(crc & 0xFF);
+
+        let binary = '';
+        for (let b of bytes) binary += String.fromCharCode(b);
+        return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_');
       } catch (e) {
-        console.log(e);
+        return rawAddress;
       }
     }
 
-    const tasks = [
-      { id: 't1', title: 'Join ToBOOSTAi Official Channel', reward: 200, link: 'https://t.me/ToBOOST_Ai', done: false },
-      { id: 't2', title: 'Subscribe to Partner Community', reward: 200, link: 'https://t.me/ToBOOST_Ai', done: false },
-      { id: 't3', title: 'Follow @ToBOOST_Ai on Twitter / X', reward: 150, link: 'https://twitter.com', done: false },
-      { id: 't4', title: 'React to Pinned Message in Group', reward: 100, link: 'https://t.me/ToBOOST_Ai', done: false },
-      { id: 't5', title: 'Check TON Ecosystem Updates', reward: 100, link: 'https://t.me/ToBOOST_Ai', done: false }
-    ];
+    function shortenTonAddress(addr) {
+      if (!addr || addr.length < 12) return addr;
+      return addr.slice(0, 4) + '...' + addr.slice(-4);
+    }
 
-    function showToast(text) {
-      const el = document.getElementById('toast');
-      el.innerText = text;
-      el.classList.remove('opacity-0', '-translate-y-2');
-      el.classList.add('opacity-100', 'translate-y-0');
-      setTimeout(() => {
-        el.classList.remove('opacity-100', 'translate-y-0');
-        el.classList.add('opacity-0', '-translate-y-2');
-      }, 3000);
+    let tonConnectUI = null;
+    let connectedWalletAddress = "";
+
+    try {
+      if (typeof TON_CONNECT_UI !== 'undefined') {
+        tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+          manifestUrl: 'https://social-com-red.vercel.app/tonconnect-manifest.json?v=2',
+          buttonRootId: null
+        });
+
+        tonConnectUI.onStatusChange((wallet) => {
+          if (wallet) {
+            connectedWalletAddress = wallet.account.address;
+            updateWalletButtonUI();
+            saveUserDataToFirebase();
+          } else {
+            connectedWalletAddress = "";
+            updateWalletButtonUI();
+          }
+        });
+      }
+    } catch (e) {
+      console.warn("$GRAM Wallet Connect warning:", e);
+    }
+
+    function updateWalletButtonUI() {
+      const btn = document.querySelector('.wallet-connect-btn');
+      if (!btn) return;
+      if (connectedWalletAddress) {
+        const friendlyAddr = toUserFriendlyTonAddress(connectedWalletAddress);
+        const shortAddr = shortenTonAddress(friendlyAddr);
+        btn.innerHTML = `✅ Connected: <strong>${shortAddr}</strong>`;
+        btn.style.background = 'rgba(34, 197, 94, 0.25)';
+        btn.style.borderColor = '#22c55e';
+      } else {
+        btn.innerHTML = getTrans('connectWalletBtn');
+        btn.style.background = 'rgba(255, 255, 255, 0.2)';
+        btn.style.borderColor = 'rgba(255, 255, 255, 0.5)';
+      }
+    }
+
+    async function connectWallet() {
+      if (!tonConnectUI) {
+        alert(getTrans('alertWalletLoading'));
+        return;
+      }
+      try {
+        if (tonConnectUI.connected) {
+          await tonConnectUI.disconnect();
+          connectedWalletAddress = "";
+          updateWalletButtonUI();
+        } else {
+          await tonConnectUI.openModal();
+        }
+      } catch (err) {
+        console.error("Wallet error:", err);
+      }
+    }
+
+    const tg = window.Telegram?.WebApp;
+    let userId = "guest_user";
+    let userName = "User";
+    let userPhotoUrl = "";
+    let isDataLoaded = false;
+
+    if (tg) {
+      tg.expand();
+      if (tg.initDataUnsafe?.user) {
+        userId = String(tg.initDataUnsafe.user.id);
+        userName = tg.initDataUnsafe.user.first_name || "User";
+        userPhotoUrl = tg.initDataUnsafe.user.photo_url || "";
+        
+        document.getElementById('user-name').innerText = `Hi, ${userName}`;
+        
+        const avatarEl = document.getElementById('user-avatar');
+        if (userPhotoUrl) {
+          avatarEl.innerHTML = `<img src="${userPhotoUrl}" alt="${userName}">`;
+        } else {
+          avatarEl.innerText = userName.charAt(0).toUpperCase();
+        }
+      }
+    }
+
+    let userCoins = 0;
+    let completedWithdrawals = 0;
+    let dailyTasksCompleted = 0;
+    let lastTaskDate = ""; 
+    let lastCheckInDate = "";
+    let userCompletedTasks = {}; 
+    let rawBountyTasks = {};
+    const taskTimers = {};
+    let userReferralCount = 0;
+    let userReferredBy = null;
+
+    let adsWatchedToday = 0;
+    let totalCheckIns = 0;
+    let lastAdWatchDate = "";
+
+    function getTodayString() {
+      return new Date().toISOString().split('T')[0];
+    }
+
+    // MASTER FUNCTION: Generates Curved 3D Coins with indented center across whole app
+    function getGramStarCoinSVG(size = 32) {
+      const template = document.getElementById('gram-star-coin-template');
+      const clone = template.content.cloneNode(true);
+      const svg = clone.querySelector('svg');
+      svg.style.width = size + 'px';
+      svg.style.height = size + 'px';
+      return svg;
+    }
+
+    function renderGoldCoins() {
+      const mainContainer = document.getElementById('main-coin-svg-container');
+      if (mainContainer) {
+        mainContainer.innerHTML = '';
+        mainContainer.appendChild(getGramStarCoinSVG(32)); // Main balance 3D curved coin
+      }
+
+      const modalCoinSlot = document.querySelector('.modal-coin-slot');
+      if (modalCoinSlot) {
+        modalCoinSlot.innerHTML = '';
+        modalCoinSlot.appendChild(getGramStarCoinSVG(28)); // Withdraw modal 3D curved coin
+      }
+
+      document.querySelectorAll('.mini-rate-coin-slot').forEach(el => {
+        el.innerHTML = '';
+        el.appendChild(getGramStarCoinSVG(12));
+      });
+      document.querySelectorAll('.mini-coin-slot-ad').forEach(el => {
+        el.innerHTML = '';
+        el.appendChild(getGramStarCoinSVG(12));
+      });
+
+      const today = getTodayString();
+      const checkinRewardEl = document.getElementById('checkin-reward-box');
+      if (checkinRewardEl) {
+        if (lastCheckInDate === today) {
+          checkinRewardEl.className = 'action-reward claimed-badge';
+          checkinRewardEl.innerText = getTrans('claimed');
+        } else {
+          checkinRewardEl.className = 'action-reward';
+          const miniSlot = document.createElement('span');
+          miniSlot.className = 'mini-coin-slot-checkin';
+          miniSlot.appendChild(getGramStarCoinSVG(12));
+          checkinRewardEl.innerHTML = '';
+          checkinRewardEl.appendChild(miniSlot);
+          checkinRewardEl.insertAdjacentHTML('beforeend', ' + 100');
+        }
+      }
+    }
+
+    // Dynamic Daily Task Limit based on Referrals (5 -> 10 -> 15 -> 20)
+    function getMaxDailyTasks(referrals) {
+      if (referrals >= 9) return 20;
+      if (referrals >= 6) return 15;
+      if (referrals >= 3) return 10;
+      return 5;
+    }
+
+    function updateReferralLevelUI(totalInvites = 0) {
+      userReferralCount = totalInvites;
+      const levelTitle = document.getElementById('user-level-title');
+      const levelDesc = document.getElementById('user-level-desc');
+      const inviteCountText = document.getElementById('invite-count');
+      const progressFill = document.getElementById('invite-progress-fill');
+
+      if (!levelTitle || !progressFill) return;
+
+      if (userReferralCount < 3) {
+        levelTitle.innerText = "Lv.1 »";
+        levelDesc.innerText = "Invite 3 users to unlock 10 tasks/day";
+        inviteCountText.innerText = `${userReferralCount}/3`;
+        const percent = Math.min(100, Math.round((userReferralCount / 3) * 100));
+        progressFill.style.width = `${percent}%`;
+      } else if (userReferralCount < 6) {
+        levelTitle.innerText = "Lv.2 »";
+        levelDesc.innerText = "Invite 3 more users to unlock 15 tasks/day";
+        const currentLvlInvites = userReferralCount - 3;
+        inviteCountText.innerText = `${currentLvlInvites}/3`;
+        const percent = Math.min(100, Math.round((currentLvlInvites / 3) * 100));
+        progressFill.style.width = `${percent}%`;
+      } else if (userReferralCount < 9) {
+        levelTitle.innerText = "Lv.3 »";
+        levelDesc.innerText = "Invite 3 more users to unlock 20 tasks/day";
+        const currentLvlInvites = userReferralCount - 6;
+        inviteCountText.innerText = `${currentLvlInvites}/3`;
+        const percent = Math.min(100, Math.round((currentLvlInvites / 3) * 100));
+        progressFill.style.width = `${percent}%`;
+      } else {
+        levelTitle.innerText = "Lv.3 (MAX) »";
+        levelDesc.innerText = "Max Level Reached! 20 Daily Tasks Unlocked";
+        inviteCountText.innerText = "MAX";
+        progressFill.style.width = "100%";
+      }
+    }
+
+    function switchNav(tabName) {
+      document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+      const homePage = document.getElementById('home-page');
+      const teamPage = document.getElementById('team-page');
+
+      if (tabName === 'home') {
+        document.getElementById('nav-home').classList.add('active');
+        homePage.style.display = 'flex';
+        teamPage.style.display = 'none';
+      } else if (tabName === 'team') {
+        document.getElementById('nav-team').classList.add('active');
+        homePage.style.display = 'none';
+        teamPage.style.display = 'block';
+      }
+    }
+
+    function getNextWithdrawTarget() {
+      return (completedWithdrawals + 1) * 10000;
     }
 
     function updateUI() {
-      document.getElementById('balanceText').innerText = state.balance.toLocaleString();
-      document.getElementById('tonEquivText').innerText = `≈ ${(state.balance / 10000).toFixed(2)} TON`;
+      const gramVal = (userCoins / 10000).toFixed(2);
+      const maxTasks = getMaxDailyTasks(userReferralCount);
       
-      let level = 0;
-      let limit = 5;
-      if (state.referrals >= 9) { level = 3; limit = 20; }
-      else if (state.referrals >= 6) { level = 2; limit = 15; }
-      else if (state.referrals >= 3) { level = 1; limit = 10; }
-      state.level = level;
-      state.tasksLimit = limit;
+      document.getElementById('main-coins').innerText = userCoins.toLocaleString();
+      document.getElementById('main-gram').innerText = gramVal;
+      document.getElementById('modal-coin-val').innerText = userCoins.toLocaleString();
+      document.getElementById('modal-gram-val').innerText = gramVal;
+      document.getElementById('daily-task-count').innerText = `${dailyTasksCompleted}/${maxTasks}`;
 
-      document.getElementById('headerLevelBadge').innerText = `LV.${level}`;
-      document.getElementById('tierBadge').innerText = `Tier Lv.${level} (${limit} tasks/day)`;
-      document.getElementById('tasksProgressText').innerText = `Daily Completed: ${state.tasksCompleted} / ${limit}`;
-      
-      document.getElementById('levelProgressLabel').innerText = `Level ${level} → Level ${level + 1}`;
-      document.getElementById('referralCountLabel').innerText = `${state.referrals}/3 Referrals`;
-      document.getElementById('levelProgressBar').style.width = `${Math.min(100, (state.referrals % 3) * 33.3 + 10)}%`;
+      const nextTarget = getNextWithdrawTarget();
+      const currentStage = completedWithdrawals + 1;
+      const targetText = getTrans('withdrawTargetText', { stage: currentStage, target: nextTarget.toLocaleString() });
+      document.getElementById('withdraw-target-text').innerText = targetText;
 
-      document.getElementById('adsWatchedCount').innerText = `${state.adsWatchedToday} / 10`;
-      document.getElementById('adsStatusLabel').innerText = state.adsWatchedToday >= 10 ? 'Verified ✓' : `${10 - state.adsWatchedToday} Needed`;
+      renderGoldCoins();
+      updateWalletButtonUI();
+      updateReferralLevelUI(userReferralCount);
+    }
 
-      const isAdsMet = state.adsWatchedToday >= 10;
-      const isCheckInMet = state.checkInDays >= 7;
-      const isFullyQualified = isAdsMet && isCheckInMet;
+    function watchMonetagAd() {
+      if (!isDataLoaded) {
+        alert(getTrans('alertSyncing'));
+        return;
+      }
+      if (typeof show_11759773 === 'function') {
+        show_11759773()
+          .then(() => {
+            const today = getTodayString();
+            userCoins += 50000;
+            
+            if (lastAdWatchDate !== today) {
+              adsWatchedToday = 1;
+              lastAdWatchDate = today;
+            } else {
+              adsWatchedToday += 1;
+            }
 
-      document.getElementById('ruleAdsText').innerText = `Watched: ${state.adsWatchedToday} / 10`;
-      document.getElementById('ruleAdsBadge').innerText = isAdsMet ? 'Verified ✓' : 'Pending';
-      document.getElementById('ruleAdsBadge').className = isAdsMet ? 'font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded' : 'font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded';
-
-      document.getElementById('ruleCheckInText').innerText = `Days: ${state.checkInDays} / 7`;
-      document.getElementById('ruleCheckInBadge').innerText = isCheckInMet ? 'Verified ✓' : 'Pending';
-      document.getElementById('ruleCheckInBadge').className = isCheckInMet ? 'font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded' : 'font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded';
-
-      const secBadge = document.getElementById('securityStatusBadge');
-      const withdrawBtn = document.getElementById('withdrawSubmitBtn');
-      const secCard = document.getElementById('securityCard');
-      const qNotice = document.getElementById('qualificationNotice');
-
-      if (isFullyQualified) {
-        secBadge.innerText = 'PASSED';
-        secBadge.className = 'text-xs font-black px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800';
-        secCard.className = 'rounded-2xl p-5 border shadow-sm space-y-3.5 bg-emerald-50/50 border-emerald-200';
-        qNotice.innerText = 'All security checks verified! You are fully qualified to withdraw TON.';
-        qNotice.className = 'text-xs font-medium text-emerald-800';
-        withdrawBtn.disabled = false;
-        withdrawBtn.innerText = 'Submit Withdrawal';
-        withdrawBtn.className = 'w-full py-3.5 rounded-xl font-bold text-xs bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-md cursor-pointer';
+            updateUI();
+            saveUserDataToFirebase();
+            alert(getTrans('alertAdSuccess'));
+          })
+          .catch((err) => {
+            console.warn("Ad closed early:", err);
+            alert(getTrans('alertAdFail'));
+          });
       } else {
-        secBadge.innerText = 'ACTION NEEDED';
-        secBadge.className = 'text-xs font-black px-2 py-0.5 rounded-full bg-amber-100 text-amber-800';
-        secCard.className = 'rounded-2xl p-5 border shadow-sm space-y-3.5 bg-white border-amber-200';
-        qNotice.innerText = 'Withdrawal is locked until all 2 anti-bot criteria are fulfilled.';
-        qNotice.className = 'text-xs font-medium text-amber-800';
-        withdrawBtn.disabled = true;
-        withdrawBtn.innerText = 'Locked by Security Verification';
-        withdrawBtn.className = 'w-full py-3.5 rounded-xl font-bold text-xs bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed';
+        alert(getTrans('alertAdLoading'));
       }
-
-      document.getElementById('streakCountBadge').innerText = `🔥 ${state.checkInStreak} Day Streak`;
-
-      renderTasks();
-      renderCheckInGrid();
     }
 
-    function renderTasks() {
-      const container = document.getElementById('taskListContainer');
-      container.innerHTML = tasks.map(t => `
-        <div class="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs flex items-center justify-between gap-3">
-          <div class="flex items-center gap-2.5 min-w-0">
-            <div class="w-9 h-9 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center shrink-0">
-              <svg class="w-4 h-4 text-cyan-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-            </div>
-            <div class="min-w-0">
-              <h4 class="font-extrabold text-slate-900 text-xs truncate">${t.title}</h4>
-              <span class="text-[10px] font-bold text-cyan-700 bg-cyan-50 px-1.5 py-0.5 rounded border border-cyan-200">+${t.reward} PTS</span>
-            </div>
-          </div>
-          <button onclick="handleDoTask('${t.id}')" ${t.done ? 'disabled' : ''} class="px-3.5 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all ${
-            t.done ? 'bg-slate-100 text-slate-400' : 'bg-cyan-600 hover:bg-cyan-500 text-white shadow-xs'
-          }">
-            ${t.done ? 'Completed' : 'Start'}
-          </button>
-        </div>
-      `).join('');
+    // 7-DAY CHECK-IN MODAL (CURVED 3D COIN MATCHING MAIN BALANCE)
+    function openCheckinModal() {
+      renderCheckinGrid();
+      document.getElementById('checkin-modal').style.display = 'flex';
     }
 
-    function renderCheckInGrid() {
-      const grid = document.getElementById('checkInGrid');
-      let html = '';
+    function closeCheckinModal() {
+      document.getElementById('checkin-modal').style.display = 'none';
+    }
+
+    function renderCheckinGrid() {
+      const container = document.getElementById('checkin-days-container');
+      container.innerHTML = '';
+      const today = getTodayString();
+      const isClaimedToday = (lastCheckInDate === today);
+      const currentDayIndex = (totalCheckIns % 7);
+
       for (let i = 1; i <= 7; i++) {
-        const isDone = i <= state.checkInDays;
-        html += `
-          <div class="flex flex-col items-center justify-center p-2 rounded-xl border ${isDone ? 'bg-cyan-50 border-cyan-300' : 'bg-slate-50 border-slate-200'}">
-            <span class="text-[9px] font-bold text-slate-500 mb-1">D${i}</span>
-            <div class="w-6 h-6 rounded-full dished-coin-outer p-0.5 flex items-center justify-center">
-              <div class="w-full h-full rounded-full dished-coin-inner flex items-center justify-center">
-                <svg class="w-3 h-3 text-amber-300 star-3d fill-amber-300" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              </div>
-            </div>
-            <span class="text-[9px] font-extrabold mt-1 ${isDone ? 'text-cyan-800' : 'text-slate-400'}">+100</span>
-          </div>
+        const card = document.createElement('div');
+        card.className = 'checkin-day-card';
+        
+        let statusText = `+${i * 100}`;
+        if (i <= currentDayIndex) {
+          card.classList.add('completed-day');
+          statusText = "✓ Claimed";
+        } else if (i === currentDayIndex + 1) {
+          card.classList.add('active-day');
+          statusText = isClaimedToday ? "✓ Claimed" : "Today";
+        }
+
+        // Curved 3D coin injected into calendar
+        const curvedCoinHTML = getGramStarCoinSVG(22).outerHTML;
+
+        card.innerHTML = `
+          <div class="day-title">Day ${i}</div>
+          <div style="margin: 3px 0; display: flex; justify-content: center;">${curvedCoinHTML}</div>
+          <div class="day-reward-pts">${statusText}</div>
         `;
+        container.appendChild(card);
       }
-      grid.innerHTML = html;
-    }
 
-    function switchTab(tabId) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-      document.getElementById('tab-' + tabId).classList.remove('hidden');
-
-      document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.classList.remove('text-cyan-600', 'font-bold');
-        btn.classList.add('text-slate-500', 'font-medium');
-      });
-      const activeNav = document.getElementById('nav-' + tabId);
-      if (activeNav) {
-        activeNav.classList.remove('text-slate-500', 'font-medium');
-        activeNav.classList.add('text-cyan-600', 'font-bold');
+      const btn = document.getElementById('btn-claim-checkin');
+      if (isClaimedToday) {
+        btn.classList.add('claimed');
+        btn.disabled = true;
+        btn.innerText = "Claimed Today ✓";
+      } else {
+        btn.classList.remove('claimed');
+        btn.disabled = false;
+        btn.innerText = `Claim Day ${currentDayIndex + 1} (+100 Pts)`;
       }
     }
 
-    function handleDoTask(id) {
-      if (state.tasksCompleted >= state.tasksLimit) {
-        showToast('Daily task limit reached! Level up to get more.');
+    function processDailyCheckIn() {
+      if (!isDataLoaded) return;
+      const today = getTodayString();
+
+      if (lastCheckInDate === today) {
+        alert(getTrans('alertCheckinClaimed'));
         return;
       }
-      const task = tasks.find(t => t.id === id);
-      if (task && !task.done) {
-        window.open(task.link, '_blank');
-        task.done = true;
-        state.tasksCompleted++;
-        state.balance += task.reward;
-        showToast(`+${task.reward} PTS earned!`);
-        updateUI();
-      }
-    }
 
-    function handleClaimCheckIn() {
-      if (state.hasClaimedToday) {
-        showToast('Already claimed today! Come back tomorrow.');
-        return;
-      }
-      state.hasClaimedToday = true;
-      state.checkInDays++;
-      state.checkInStreak++;
-      state.balance += 100;
-      showToast('🎉 +100 PTS Daily Check-In claimed!');
+      userCoins += 100;
+      totalCheckIns += 1;
+      lastCheckInDate = today;
+
       updateUI();
+      saveUserDataToFirebase();
+      renderCheckinGrid();
+      alert("🎉 Daily Bonus Claimed! (+100 Points)");
     }
 
-    function handleWatchAd() {
-      showToast('Loading sponsored video ad...');
-      setTimeout(() => {
-        state.adsWatchedToday++;
-        state.balance += 25;
-        showToast('🎉 +25 PTS credited! Ad verified.');
-        updateUI();
-      }, 1200);
+    // WITHDRAWAL VERIFICATION & HIDDEN REQUIREMENT MODAL
+    function openWithdrawModal() {
+      updateUI();
+      document.getElementById('withdraw-modal').style.display = 'flex';
     }
 
-    function copyRefLink() {
-      const input = document.getElementById('referralLinkInput');
-      navigator.clipboard.writeText(input.value);
-      showToast('Referral link copied!');
+    function closeWithdrawModal() {
+      document.getElementById('withdraw-modal').style.display = 'none';
     }
 
-    function shareOnTelegram() {
-      const url = `https://t.me/share/url?url=${encodeURIComponent(document.getElementById('referralLinkInput').value)}&text=${encodeURIComponent('Join ToBOOSTAi on Telegram! Earn crypto points and withdraw real TON!')}`;
-      window.open(url, '_blank');
+    function closeWithdrawReqModal() {
+      document.getElementById('withdraw-req-modal').style.display = 'none';
     }
 
-    function shareOnX() {
-      const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent('Earn points & boost socials on ToBOOSTAi Telegram Web3 Mini App!')}&url=${encodeURIComponent(document.getElementById('referralLinkInput').value)}`;
-      window.open(url, '_blank');
+    function processWithdrawal() {
+      if (!isDataLoaded) return;
+
+      const today = getTodayString();
+      if (lastAdWatchDate !== today) {
+        adsWatchedToday = 0;
+      }
+
+      if (adsWatchedToday < 10 || totalCheckIns < 7) {
+        document.getElementById('req-ads-status').innerText = `${adsWatchedToday} / 10`;
+        document.getElementById('req-checkin-status').innerText = `${totalCheckIns} / 7 Days`;
+        
+        closeWithdrawModal();
+        document.getElementById('withdraw-req-modal').style.display = 'flex';
+        return;
+      }
+
+      const targetCoins = getNextWithdrawTarget();
+      const stage = completedWithdrawals + 1;
+      const gramAmount = (targetCoins / 10000).toFixed(2);
+
+      if (!connectedWalletAddress) {
+        alert(getTrans('alertConnectWalletFirst'));
+        return;
+      }
+
+      if (userCoins < targetCoins) {
+        alert(getTrans('alertInsufficientWithdraw', { target: targetCoins.toLocaleString(), stage: stage }));
+      } else {
+        const reqRef = firebase.database().ref('withdraw_requests').push();
+        reqRef.set({
+          id: reqRef.key,
+          userId: userId,
+          userName: userName,
+          walletAddress: connectedWalletAddress,
+          coins: targetCoins,
+          gramAmount: gramAmount,
+          stage: stage,
+          status: "pending",
+          requestedAt: Date.now()
+        }).then(() => {
+          userCoins -= targetCoins;
+          completedWithdrawals += 1;
+          
+          updateUI();
+          saveUserDataToFirebase();
+          closeWithdrawModal();
+
+          const friendly = toUserFriendlyTonAddress(connectedWalletAddress);
+          alert(`Withdrawal #${stage} Submitted Successfully!\n\nAmount: ${gramAmount} $GRAM (${targetCoins.toLocaleString()} Coins)\nDestination: ${shortenTonAddress(friendly)}\n\nStatus: Pending (Processed within 24-48 hours).`);
+        }).catch((err) => {
+          console.error("Withdrawal error:", err);
+          alert("Failed to submit withdrawal request.");
+        });
+      }
     }
 
-    function simulateFriendJoined() {
-      state.referrals++;
-      state.balance += 100;
-      document.getElementById('refCountTotal').innerText = state.referrals;
-      document.getElementById('refBonusTotal').innerText = `+${state.referrals * 100} PTS`;
-      showToast('🎉 New friend joined! +100 PTS & pinged @ToFarmsAi_Bot');
+    // 100% RELIABLE REFERRAL COUNTING & TELEGRAM BOT NOTIFICATION
+    function sendTelegramNotification(referrerChatId, newUserName) {
+      const message = `🎉 <b>Congratulations! New Referral!</b>\n\n👤 <b>${newUserName}</b> has joined using your invite link!\n💰 You received a bonus of <b>${REFERRAL_BONUS} Points</b>!`;
+      const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
       
-      // Ping bot via Telegram API
-      fetch(`https://api.telegram.org/bot8477055207:AAGuqmR6f7lqQ_M3kRmr50kOQnpCaVinMCE/sendMessage`, {
+      fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          chat_id: state.telegramId || '123456789',
-          text: `🎉 New Referral Joined!\n\nUser ${state.username} earned +100 PTS on ToBOOSTAi.`
+          chat_id: referrerChatId,
+          text: message,
+          parse_mode: 'HTML'
         })
-      }).catch(e => console.log(e));
-
-      updateUI();
+      }).then(() => {
+        console.log("Notification sent successfully to referrer!");
+      }).catch(err => console.error("Notification Error:", err));
     }
 
-    function handleCreateCampaign(e) {
-      e.preventDefault();
-      if (state.balance < 5000) {
-        showToast('Insufficient points! You need 5,000 PTS.');
+    function processReferralReward(referrerId, newUserName) {
+      if (!referrerId || referrerId === userId) return;
+
+      const refUserRef = firebase.database().ref('users/' + referrerId);
+      refUserRef.once('value').then((snapshot) => {
+        const refData = snapshot.val();
+        if (refData) {
+          const updatedCoins = (refData.coins || 0) + REFERRAL_BONUS;
+          const updatedCount = (refData.referralCount || 0) + 1;
+
+          refUserRef.update({
+            coins: updatedCoins,
+            referralCount: updatedCount
+          }).then(() => {
+            userReferredBy = referrerId;
+            firebase.database().ref('users/' + userId).update({
+              referredBy: referrerId
+            });
+            sendTelegramNotification(referrerId, newUserName);
+          });
+        }
+      });
+    }
+
+    function getIncomingReferrerId() {
+      let param = tg?.initDataUnsafe?.start_param;
+      if (!param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        param = urlParams.get('tgWebAppStartParam') || urlParams.get('startapp') || urlParams.get('start');
+      }
+      if (param && param.startsWith('ref_')) {
+        return param.replace('ref_', '');
+      }
+      return param || null;
+    }
+
+    function inviteFriends() {
+      const inviteLink = `https://t.me/${OFFICIAL_BOT_USERNAME}?start=ref_${userId}`;
+      const shareText = `🚀 Join ToBOOSTAi - The Ultimate Web3 Social Earning App!\n\n⭐ Complete tasks, earn points, and get real $GRAM rewards.\n\n🎁 Join through my link to get a special welcome bonus! 👇`;
+      
+      const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(inviteLink)}&text=${encodeURIComponent(shareText)}`;
+      
+      if (tg && tg.openTelegramLink) {
+        tg.openTelegramLink(telegramShareUrl);
+      } else {
+        navigator.clipboard.writeText(inviteLink);
+        alert(getTrans('alertReferralCopied'));
+      }
+    }
+
+    function openOfficialChannel() {
+      const channelUrl = `https://t.me/${OFFICIAL_CHANNEL_USERNAME}`;
+      if (tg && tg.openTelegramLink) {
+        tg.openTelegramLink(channelUrl);
+      } else {
+        window.open(channelUrl, '_blank');
+      }
+    }
+
+    function calcDiscountedPrices(impressions) {
+      const regGram = impressions / 100;
+      const regStars = (impressions / 100) * 300;
+
+      const anchors = [
+        { imp: 100, gram: 1.0, stars: 300 },
+        { imp: 200, gram: 1.75, stars: 550 },
+        { imp: 300, gram: 2.50, stars: 750 },
+        { imp: 500, gram: 3.80, stars: 1150 },
+        { imp: 1000, gram: 6.50, stars: 1950 },
+        { imp: 2500, gram: 12.00, stars: 3600 },
+        { imp: 5000, gram: 16.00, stars: 4800 },
+        { imp: 10000, gram: 20.00, stars: 6000 }
+      ];
+
+      if (impressions <= 100) return { discGram: 1.0, discStars: 300, regGram, regStars };
+      if (impressions >= 10000) return { discGram: 20.0, discStars: 6000, regGram: 100, regStars: 30000 };
+
+      for (let i = 0; i < anchors.length - 1; i++) {
+        const p1 = anchors[i];
+        const p2 = anchors[i + 1];
+        if (impressions >= p1.imp && impressions <= p2.imp) {
+          const ratio = (impressions - p1.imp) / (p2.imp - p1.imp);
+          const discGram = +(p1.gram + ratio * (p2.gram - p1.gram)).toFixed(2);
+          const discStars = Math.round(p1.stars + ratio * (p2.stars - p1.stars));
+          return { discGram, discStars, regGram, regStars };
+        }
+      }
+      return { discGram: regGram, discStars: regStars, regGram, regStars };
+    }
+
+    function openPostTaskModal() {
+      updateCalculations(document.getElementById('impressionSlider').value);
+      document.getElementById('post-task-modal').style.display = 'flex';
+    }
+
+    function closePostTaskModal() {
+      document.getElementById('post-task-modal').style.display = 'none';
+    }
+
+    function updateCalculations(value) {
+      const val = parseInt(value, 10);
+      document.getElementById('impression-val').innerText = val.toLocaleString();
+      const { discGram, discStars, regGram, regStars } = calcDiscountedPrices(val);
+
+      document.getElementById('gram-count').innerText = discGram;
+      document.getElementById('gram-reg-price').innerText = `≈${regGram}`;
+      document.getElementById('star-count').innerText = discStars.toLocaleString();
+      document.getElementById('star-reg-price').innerText = `≈${regStars.toLocaleString()}`;
+
+      const discPoints = Math.round(discGram * 10000);
+      document.getElementById('pts-count').innerText = discPoints.toLocaleString();
+    }
+
+    async function submitTask(type) {
+      if (!isDataLoaded) {
+        alert(getTrans('alertSyncing'));
         return;
       }
-      state.balance -= 5000;
-      showToast('Campaign successfully launched on ToBOOSTAi!');
-      updateUI();
-      switchTab('earn');
-    }
+      const taskName = document.getElementById('post-task-name').value.trim() || "Bounty Task";
+      const taskUrl = document.getElementById('post-task-url').value.trim();
+      const impressions = parseInt(document.getElementById('impressionSlider').value, 10);
 
-    function handleWithdrawSubmit(e) {
-      e.preventDefault();
-      const pts = Number(document.getElementById('withdrawPointsInput').value);
-      if (state.balance < pts) {
-        showToast('Insufficient balance!');
+      if (!taskUrl || (!taskUrl.startsWith('http://') && !taskUrl.startsWith('https://'))) {
+        alert(getTrans('alertInvalidUrl'));
         return;
       }
-      state.balance -= pts;
-      showToast(`Withdrawal of ${pts} PTS (~${(pts/10000).toFixed(2)} TON) submitted!`);
-      updateUI();
+
+      const { discGram, discStars } = calcDiscountedPrices(impressions);
+
+      if (type === 'points') {
+        const costPoints = Math.round(discGram * 10000);
+        if (userCoins < costPoints) {
+          alert(getTrans('alertInsufficientPoints', { cost: costPoints.toLocaleString() }));
+          return;
+        }
+
+        userCoins -= costPoints;
+        updateUI();
+        saveUserDataToFirebase();
+        saveTaskToFirebase(taskName, taskUrl, impressions);
+      } else if (type === 'gram') {
+        const gramAmount = discGram;
+        if (tonConnectUI && tonConnectUI.connected) {
+          try {
+            const nanoGram = (gramAmount * 1e9).toString();
+            const transaction = {
+              validUntil: Math.floor(Date.now() / 1000) + 360,
+              messages: [{ address: ADMIN_GRAM_WALLET, amount: nanoGram }]
+            };
+            alert(getTrans('alertPaymentInitiating', { amount: gramAmount }));
+            const result = await tonConnectUI.sendTransaction(transaction);
+            if (result) {
+              alert(getTrans('alertPaymentSuccess'));
+              saveTaskToFirebase(taskName, taskUrl, impressions);
+            }
+          } catch (err) {
+            alert(getTrans('alertPaymentFailed'));
+          }
+        } else {
+          const promptMsg = getTrans('alertSendGramPrompt', { amount: gramAmount, wallet: ADMIN_GRAM_WALLET });
+          if (confirm(promptMsg)) {
+            navigator.clipboard.writeText(ADMIN_GRAM_WALLET);
+            alert(getTrans('alertAddressCopied'));
+          }
+        }
+      } else if (type === 'stars') {
+        alert(getTrans('alertStarsInvoice', { stars: discStars }));
+        saveTaskToFirebase(taskName, taskUrl, impressions);
+      }
     }
 
-    function openPolicyModal() {
-      document.getElementById('modalTitle').innerText = 'Privacy Policy';
-      document.getElementById('modalBody').innerHTML = `
-        <p><strong>Effective Date:</strong> June 1, 2025</p>
-        <p><strong>1. Introduction:</strong> ToBOOSTAi operates as a Web3 Telegram Mini App designed for social earning and channel growth.</p>
-        <p><strong>2. Information We Collect:</strong> Telegram User ID, username, public TON wallet address.</p>
-        <p><strong>3. Anti-Bot Security:</strong> Withdrawals strictly require verified 10 daily ads and 7 consecutive check-in days.</p>
-        <p><strong>4. Official Contact:</strong> For support, join our official channel @ToBOOST_Ai.</p>
-      `;
-      document.getElementById('modalOverlay').classList.remove('hidden');
-      document.getElementById('modalOverlay').classList.add('flex');
+    function saveTaskToFirebase(taskName, taskUrl, impressions) {
+      const newTaskRef = firebase.database().ref('bounty_tasks').push();
+      newTaskRef.set({
+        id: newTaskRef.key,
+        name: taskName,
+        url: taskUrl,
+        impressions: impressions,
+        reward: 200,
+        createdBy: userId,
+        creatorPhotoUrl: userPhotoUrl,
+        createdAt: Date.now()
+      }).then(() => {
+        alert(getTrans('alertTaskPosted'));
+        document.getElementById('post-task-name').value = '';
+        document.getElementById('post-task-url').value = '';
+        closePostTaskModal();
+      }).catch(() => {
+        alert(getTrans('alertTaskFailed'));
+      });
+    }
+
+    function loadBountyTasksFromFirebase() {
+      firebase.database().ref('bounty_tasks').on('value', (snapshot) => {
+        rawBountyTasks = snapshot.val() || {};
+        renderBountyTasks();
+      });
+    }
+
+    function renderBountyTasks() {
+      const taskListDiv = document.getElementById('task-list');
+      taskListDiv.innerHTML = '';
+
+      if (!rawBountyTasks || Object.keys(rawBountyTasks).length === 0) {
+        taskListDiv.innerHTML = `<div class="no-tasks-text">${getTrans('noTasks')}</div>`;
+        return;
+      }
+
+      const tasks = Object.values(rawBountyTasks).reverse();
+      const availableTasks = tasks.filter(task => !userCompletedTasks[task.id]);
+
+      if (availableTasks.length === 0) {
+        taskListDiv.innerHTML = `<div class="no-tasks-text">${getTrans('allTasksCompleted')}</div>`;
+        return;
+      }
+
+      availableTasks.forEach(task => {
+        const item = document.createElement('div');
+        item.className = 'task-item';
+        item.id = `task-card-${task.id}`;
+
+        const avatarHTML = task.creatorPhotoUrl 
+          ? `<img src="${task.creatorPhotoUrl}" alt="Avatar">`
+          : (task.name ? task.name.charAt(0).toUpperCase() : 'T');
+
+        const rewardAmount = task.reward || 200;
+        
+        // Curved 3D coin injected into bounty tasks
+        const coinSvg = getGramStarCoinSVG(19).outerHTML;
+
+        item.innerHTML = `
+          <div class="task-left">
+            <div class="task-avatar">${avatarHTML}</div>
+            <div class="task-details">
+              <h4>${task.name}</h4>
+              <span class="task-pill">${getTrans('linkTask')}</span>
+            </div>
+          </div>
+          <div>
+            <button 
+              id="btn-task-${task.id}" 
+              class="task-action-btn" 
+              data-state="start" 
+              onclick="handleTaskAction('${task.id}', '${task.url}', ${rewardAmount})">
+              ${coinSvg} <span>${rewardAmount}</span>
+            </button>
+          </div>
+        `;
+
+        taskListDiv.appendChild(item);
+      });
+    }
+
+    function handleTaskAction(taskId, taskUrl, rewardAmount) {
+      const btn = document.getElementById(`btn-task-${taskId}`);
+      if (!btn) return;
+      const currentState = btn.getAttribute('data-state') || 'start';
+
+      if (currentState === 'start') {
+        if (tg && tg.openLink) {
+          tg.openLink(taskUrl);
+        } else {
+          window.open(taskUrl, '_blank');
+        }
+
+        btn.setAttribute('data-state', 'verifying');
+        btn.classList.add('btn-verifying-pulse');
+        btn.disabled = true;
+
+        let timeLeft = 10;
+        btn.innerHTML = `<span>Checking ${timeLeft}s</span>`;
+
+        taskTimers[taskId] = setInterval(() => {
+          timeLeft--;
+          if (timeLeft > 0) {
+            btn.innerHTML = `<span>Checking ${timeLeft}s</span>`;
+          } else {
+            clearInterval(taskTimers[taskId]);
+            delete taskTimers[taskId];
+
+            btn.setAttribute('data-state', 'claim');
+            btn.classList.remove('btn-verifying-pulse');
+            btn.classList.add('btn-claim-green');
+            btn.disabled = false;
+            btn.innerHTML = `<span>Claim +${rewardAmount}</span>`;
+
+            if (tg?.HapticFeedback) {
+              tg.HapticFeedback.impactOccurred('medium');
+            }
+          }
+        }, 1000);
+
+      } else if (currentState === 'claim') {
+        claimBountyTask(taskId, rewardAmount, btn);
+      }
+    }
+
+    function claimBountyTask(taskId, rewardAmount, btnElement) {
+      if (!isDataLoaded || userCompletedTasks[taskId]) return;
+
+      const maxDaily = getMaxDailyTasks(userReferralCount);
+      if (dailyTasksCompleted >= maxDaily) {
+        alert(getTrans('alertDailyLimit', { limit: maxDaily }));
+        return;
+      }
+
+      btnElement.innerText = getTrans('verifyingText');
+      btnElement.disabled = true;
+
+      userCompletedTasks[taskId] = true; 
+      userCoins += rewardAmount;
+      dailyTasksCompleted += 1;
+      lastTaskDate = getTodayString();
+      
+      updateUI();
+      saveUserDataToFirebase();
+
+      if (tg?.HapticFeedback) {
+        tg.HapticFeedback.notificationOccurred('success');
+      }
+
+      const card = document.getElementById(`task-card-${taskId}`);
+      if (card) {
+        card.classList.add('task-fade-vanish');
+        setTimeout(() => { card.remove(); }, 400);
+      }
+
+      alert(getTrans('alertTaskCompleted', { amount: rewardAmount }));
+    }
+
+    function openSettingsModal() {
+      document.getElementById('settings-user-name').innerText = userName;
+      document.getElementById('settings-user-id').innerText = userId;
+      const avatarEl = document.getElementById('settings-avatar');
+      if (userPhotoUrl) {
+        avatarEl.innerHTML = `<img src="${userPhotoUrl}" alt="${userName}">`;
+      } else {
+        avatarEl.innerText = userName.charAt(0).toUpperCase();
+      }
+      document.getElementById('settings-modal').style.display = 'flex';
+    }
+
+    function closeSettingsModal() {
+      document.getElementById('settings-modal').style.display = 'none';
+    }
+
+    function copyTelegramId() {
+      navigator.clipboard.writeText(String(userId)).then(() => {
+        alert(getTrans('alertIdCopied', { id: userId }));
+      }).catch(() => {
+        alert("ID: " + userId);
+      });
+    }
+
+    function openPrivacyPolicyModal() {
+      document.getElementById('privacy-policy-modal').style.display = 'flex';
+    }
+
+    function closePrivacyPolicyModal() {
+      document.getElementById('privacy-policy-modal').style.display = 'none';
     }
 
     function openFaqModal() {
-      document.getElementById('modalTitle').innerText = 'Help & FAQ';
-      document.getElementById('modalBody').innerHTML = `
-        <p><strong>Q1: What is ToBOOSTAi?</strong><br>A Web3 platform on Telegram to earn crypto points and boost channels.</p>
-        <p><strong>Q2: How to unlock withdrawals?</strong><br>You must watch at least 10 ads today and complete 7 check-in days.</p>
-        <p><strong>Q3: How much is 1 TON?</strong><br>10,000 PTS = 1.00 TON.</p>
-      `;
-      document.getElementById('modalOverlay').classList.remove('hidden');
-      document.getElementById('modalOverlay').classList.add('flex');
+      document.getElementById('faq-modal').style.display = 'flex';
     }
 
-    function closeModal() {
-      document.getElementById('modalOverlay').classList.add('hidden');
-      document.getElementById('modalOverlay').classList.remove('flex');
+    function closeFaqModal() {
+      document.getElementById('faq-modal').style.display = 'none';
     }
 
-    // Initial render
+    function toggleFaqAccordion(headerEl) {
+      headerEl.parentElement.classList.toggle('open');
+    }
+
+    // 6 SELECTED INTERNATIONAL LANGUAGES
+    let currentLang = 'en';
+
+    const translations = {
+      en: {
+        watchAd: "Watch Ad", dailyCheckIn: "Daily Check-in", inviteBtn: "invite", dailyTaskProgress: "Daily Task Progress", resetsDaily: "Resets daily at 00:00", bountyTaskTitle: "Bounty Task", postBtn: "POST +", loadingTasks: "Loading bounty tasks...", navHome: "Home", navTeam: "Team", postTaskHeader: "Post Task ⭐", taskNameLabel: "🏷️ Task name", placeholderTaskName: "Enter task name", taskUrlLabel: "💳 Task address", placeholderUrl: "Please input task url", impressionsLabel: "⣿ Impressions", postTaskBtnText: "Post Task", balanceHeader: "Balance", connectWalletBtn: "🔗 Connect $GRAM Wallet", withdrawBtnText: "Withdraw", settingsHeader: "⚙️ Settings", copyBtn: "Copy", goToX: "Go to X", privacyPolicy: "Privacy Policy", privacyPolicyHeader: "Privacy Policy", gotItBtn: "Got It", linkTask: "Link Task", noTasks: "No active bounty tasks available right now.", allTasksCompleted: "You have completed all available tasks!", withdrawTargetText: "Withdrawal Target #{stage}: {target} Coins", claimed: "Claimed ✓", claimBtnText: "Claim", verifyingText: "Verifying...", teamHeader: "Create team, Earn more!", teamLv1Title: "Members you invited", teamLv1Desc: "Lv1: Get 5% task bonus", teamLv2Title: "Invited by Lv.1 members", teamLv2Desc: "Lv.2: Get 3% task bonus", teamLv3Title: "Invited by Lv.2 members", teamLv3Desc: "Lv.3: Get 1% task bonus", inviteMembersBtn: "Invite Members",
+        alertSyncing: "Please wait, syncing user data...", alertAdSuccess: "Success! You watched the full ad and earned 50,000 Points!", alertAdFail: "You must watch the full ad to earn 50,000 Points!", alertAdLoading: "Ad Network loading. Please try again in 5 seconds.", alertCheckinClaimed: "You have already claimed today's daily bonus!", alertCheckinSuccess: "Daily Check-in Successful! You received 100 Points!", alertInvalidUrl: "Please enter a valid URL", alertInsufficientPoints: "Insufficient balance! You need {cost} Points to post this task.", alertPaymentInitiating: "Initiating transfer of {amount} $GRAM...", alertPaymentSuccess: "Payment successful! Your task has been posted.", alertPaymentFailed: "Transaction cancelled or failed.", alertSendGramPrompt: "Send {amount} $GRAM to:\n\n{wallet}", alertAddressCopied: "Admin Wallet address copied!", alertStarsInvoice: "Telegram Stars invoice: {stars} Stars requested.", alertTaskPosted: "Task posted successfully!", alertTaskFailed: "Failed to post task.", alertDailyLimit: "Daily limit reached! ({limit} tasks/day). Invite friends to unlock more!", alertTaskCompleted: "Task completed! +{amount} Points", alertConnectWalletFirst: "Please connect your $GRAM wallet first!", alertInsufficientWithdraw: "Insufficient balance!\nAt least {target} Points are required for withdrawal #{stage}.", alertWithdrawSuccess: "Withdrawal #{stage} requested successfully!", alertReferralCopied: "Referral link copied to clipboard!", alertIdCopied: "Telegram ID copied: {id}", alertWalletLoading: "Wallet SDK is loading."
+      },
+      cn: {
+        watchAd: "观看广告", dailyCheckIn: "每日签到", inviteBtn: "邀请", dailyTaskProgress: "每日任务进度", resetsDaily: "每日 00:00 重置", bountyTaskTitle: "赏金任务", postBtn: "发布 +", loadingTasks: "加载任务中...", navHome: "首页", navTeam: "团队", postTaskHeader: "发布任务 ⭐", taskNameLabel: "🏷️ 任务名称", placeholderTaskName: "请输入任务名称", taskUrlLabel: "💳 任务网址", placeholderUrl: "请输入任务网址", impressionsLabel: "⣿ 展示次数", postTaskBtnText: "发布任务", balanceHeader: "余额", connectWalletBtn: "🔗 链接 $GRAM 钱包", withdrawBtnText: "提现", settingsHeader: "⚙️ 设置", copyBtn: "复制", goToX: "前往 X", privacyPolicy: "隐私政策", privacyPolicyHeader: "隐私政策", gotItBtn: "我知道了", linkTask: "链接", noTasks: "目前没有可用的赏金任务。", allTasksCompleted: "您已完成所有可用任务！", withdrawTargetText: "提现目标 #{stage}: {target} 金币", claimed: "已领取 ✓", claimBtnText: "领取", verifyingText: "验证中...", teamHeader: "创建团队，赚取更多！", teamLv1Title: "您邀请的成员", teamLv1Desc: "Lv1: 获得 5% 奖励", teamLv2Title: "由 Lv.1 成员邀请", teamLv2Desc: "Lv.2: 获得 3% 奖励", teamLv3Title: "由 Lv.2 成员邀请", teamLv3Desc: "Lv.3: 获得 1% 奖励", inviteMembersBtn: "邀请成员",
+        alertSyncing: "请稍候...", alertAdSuccess: "成功！获得 50,000 积分！", alertAdFail: "请观看完整广告！", alertAdLoading: "广告加载中...", alertCheckinClaimed: "今日奖励已领取！", alertCheckinSuccess: "签到成功！+100 积分", alertInvalidUrl: "请输入有效的网址", alertInsufficientPoints: "余额不足！需要 {cost} 积分。", alertPaymentInitiating: "正在转账 {amount} $GRAM...", alertPaymentSuccess: "付款成功！任务已发布。", alertPaymentFailed: "交易已取消。", alertSendGramPrompt: "请发送 {amount} $GRAM 至：\n\n{wallet}", alertAddressCopied: "地址已复制！", alertStarsInvoice: "Stars 账单: {stars} ⭐", alertTaskPosted: "任务发布成功！", alertTaskFailed: "任务发布失败。", alertDailyLimit: "已达每日上限 ({limit} 个任务/天)！邀请好友可解锁更多！", alertTaskCompleted: "任务完成！+{amount} 积分", alertConnectWalletFirst: "请先连接您的 $GRAM 钱包！", alertInsufficientWithdraw: "余额不足以提现 #{stage}。", alertWithdrawSuccess: "提现 #{stage} 申请成功！", alertReferralCopied: "邀请链接已复制！", alertIdCopied: "Telegram ID 已复制: {id}", alertWalletLoading: "钱包加载中..."
+      },
+      hi: {
+        watchAd: "विज्ञापन देखें", dailyCheckIn: "दैनिक चेक-इन", inviteBtn: "आमंत्रित करें", dailyTaskProgress: "दैनिक कार्य प्रगति", resetsDaily: "रात 00:00 बजे रीसेट", bountyTaskTitle: "बाउंटी कार्य", postBtn: "पोस्ट +", loadingTasks: "कार्य लोड हो रहे हैं...", navHome: "होम", navTeam: "टीम", postTaskHeader: "कार्य पोस्ट करें ⭐", taskNameLabel: "🏷️ कार्य का नाम", placeholderTaskName: "कार्य का नाम दर्ज करें", taskUrlLabel: "💳 कार्य लिंक", placeholderUrl: "कृपया कार्य लिंक दर्ज करें", impressionsLabel: "⣿ इंप्रेशन", postTaskBtnText: "पोस्ट करें", balanceHeader: "बैलेंस", connectWalletBtn: "🔗 $GRAM वॉलेट जोड़ें", withdrawBtnText: "निकालें", settingsHeader: "⚙️ सेटिंग्स", copyBtn: "कॉपी", goToX: "X पर जाएं", privacyPolicy: "गोपनीयता नीति", privacyPolicyHeader: "गोपनीयता नीति", gotItBtn: "समझ गया", linkTask: "लिंक कार्य", noTasks: "कोई सक्रिय कार्य उपलब्ध नहीं है।", allTasksCompleted: "आपने सभी कार्य पूरे कर लिए हैं!", withdrawTargetText: "निकासी का लक्ष्य #{stage}: {target} सिक्के", claimed: "प्राप्त ✓", claimBtnText: "दावा करें", verifyingText: "सत्यापित हो रहा है...", teamHeader: "टीम बनाएं, अधिक कमाएं!", teamLv1Title: "आपके द्वारा आमंत्रित", teamLv1Desc: "Lv1: 5% बोनस पाएं", teamLv2Title: "Lv.1 द्वारा आमंत्रित", teamLv2Desc: "Lv.2: 3% बोनस पाएं", teamLv3Title: "Lv.2 द्वारा आमंत्रित", teamLv3Desc: "Lv.3: 1% बोनस पाएं", inviteMembersBtn: "सदस्यों को आमंत्रित करें",
+        alertSyncing: "कृपया प्रतीक्षा करें...", alertAdSuccess: "सफल! आपने 50,000 अंक अर्जित किए!", alertAdFail: "अंक अर्जित करने के लिए पूरा विज्ञापन देखें!", alertAdLoading: "विज्ञापन लोड हो रहा है...", alertCheckinClaimed: "दैनिक बोनस पहले ही दावा किया जा चुका है!", alertCheckinSuccess: "चेक-इन सफल! +100 अंक", alertInvalidUrl: "कृपया एक मान्य URL दर्ज करें", alertInsufficientPoints: "अपर्याप्त बैलेंस! आपको {cost} अंकों की आवश्यकता है।", alertPaymentInitiating: "{amount} $GRAM ट्रांसफर शुरू किया जा रहा है...", alertPaymentSuccess: "भुगतान सफल! कार्य पोस्ट किया गया।", alertPaymentFailed: "लेनदेन रद्द या विफल।", alertSendGramPrompt: "{amount} $GRAM इस पते पर भेजें:\n\n{wallet}", alertAddressCopied: "पता कॉपी किया गया!", alertStarsInvoice: "Stars चालान: {stars} ⭐", alertTaskPosted: "कार्य सफलतापूर्वक पोस्ट किया गया!", alertTaskFailed: "कार्य पोस्ट करने में विफल।", alertDailyLimit: "दैनिक सीमा समाप्त ({limit} कार्य/दिन)! अधिक अनलॉक करने के लिए मित्रों को आमंत्रित करें!", alertTaskCompleted: "कार्य पूरा हुआ! +{amount} अंक", alertConnectWalletFirst: "कृपया पहले $GRAM वॉलेट जोड़ें!", alertInsufficientWithdraw: "निकासी #{stage} के लिए अपर्याप्त बैलेंस।", alertWithdrawSuccess: "निकासी #{stage} सफलतापूर्वक अनुरोधित!", alertReferralCopied: "रेफरल लिंक कॉपी किया गया!", alertIdCopied: "ID कॉपी की गई: {id}", alertWalletLoading: "वॉलेट लोड हो रहा है..."
+      },
+      ur: {
+        watchAd: "اشتہار دیکھیں", dailyCheckIn: "روزانہ چیک ان", inviteBtn: "مدعو کریں", dailyTaskProgress: "روزانہ ٹاسک پیشرفت", resetsDaily: "ہر رات 00:00 بجے ری سیٹ ہوتا ہے", bountyTaskTitle: "باؤنٹی ٹاسک", postBtn: "پوسٹ +", loadingTasks: "ٹاسک لوڈ ہو رہے ہیں...", navHome: "ہوم", navTeam: "ٹیم", postTaskHeader: "ٹاسک پوسٹ کریں ⭐", taskNameLabel: "🏷️ ٹاسک کا نام", placeholderTaskName: "ٹاسک کا نام درج کریں", taskUrlLabel: "💳 ٹاسک کا پتہ", placeholderUrl: "ٹاسک یو آر ایل درج کریں", impressionsLabel: "⣿ امپریشنز", postTaskBtnText: "ٹاسک پوسٹ کریں", balanceHeader: "بیلنس", connectWalletBtn: "🔗 $GRAM والٹ منسلک کریں", withdrawBtnText: "نکلوائیں", settingsHeader: "⚙️ ترتیبات", copyBtn: "کاپی", goToX: "X پر جائیں", privacyPolicy: "پرائیویسی پالیسی", privacyPolicyHeader: "پرائیویسی پالیسی", gotItBtn: "سمجھ گیا", linkTask: "لنک ٹاسک", noTasks: "فی الحال کوئی ٹاسک دستیاب نہیں ہے۔", allTasksCompleted: "آپ نے تمام ٹاسکس مکمل کر لیے ہیں!", withdrawTargetText: "نکالنے کا ہدف #{stage}: {target} سکے", claimed: "موصول ہوا ✓", claimBtnText: "دعویٰ کریں", verifyingText: "تصدیق ہو رہی ہے...", teamHeader: "ٹیم بنائیں، مزید کمائیں!", teamLv1Title: "آپ کے مدعو کردہ ممبران", teamLv1Desc: "Lv1: 5% بونس حاصل کریں", teamLv2Title: "Lv.1 کے مدعو کردہ", teamLv2Desc: "Lv.2: 3% بونس حاصل کریں", teamLv3Title: "Lv.2 کے مدعو کردہ", teamLv3Desc: "Lv.3: 1% بونس حاصل کریں", inviteMembersBtn: "ممبران کو مدعو کریں",
+        alertSyncing: "براہ کرم انتظار کریں...", alertAdSuccess: "کامیابی! آپ نے 50,000 پوائنٹس حاصل کیے!", alertAdFail: "پوائنٹس کے لیے پورا اشتہار دیکھیں!", alertAdLoading: "نیٹ ورک لوڈ ہو رہا ہے...", alertCheckinClaimed: "آپ پہلے ہی کلیم کر چکے ہیں!", alertCheckinSuccess: "چیک ان کامیاب! +100 پوائنٹس", alertInvalidUrl: "درست لنک درج کریں", alertInsufficientPoints: "ناکافی بیلنس! {cost} پوائنٹس درکار ہیں۔", alertPaymentInitiating: "{amount} $GRAM کی منتقلی شروع ہو رہی ہے...", alertPaymentSuccess: "ادائیگی کامیاب! ٹاسک پوسٹ ہو گیا۔", alertPaymentFailed: "ٹرانزیکشن منسوخ ہو گئی۔", alertSendGramPrompt: "{amount} $GRAM اس ایڈریس پر بھیجیں:\n\n{wallet}", alertAddressCopied: "ایڈریس کاپی ہو گیا!", alertStarsInvoice: "سٹارز انوائس: {stars} ⭐", alertTaskPosted: "ٹاسک کامیابی سے پوسٹ ہو گیا!", alertTaskFailed: "ٹاسک پوسٹ ناکام ہو گیا۔", alertDailyLimit: "روزانہ کی حد ختم ہو گئی ({limit} ٹاسکس/دن)! مزید کھولنے کے لیے دوستوں کو مدعو کریں!", alertTaskCompleted: "ٹاسک مکمل! +{amount} پوائنٹس", alertConnectWalletFirst: "پہلے اپنا $GRAM والٹ منسلک کریں!", alertInsufficientWithdraw: "واپسی کے لیے ناکافی بیلنس!", alertWithdrawSuccess: "واپسی کی درخواست کامیاب!", alertReferralCopied: "ریفرل لنک کاپی ہو گیا!", alertIdCopied: "آئی ڈی کاپی ہو گئی: {id}", alertWalletLoading: "والٹ لوڈ ہو رہا ہے..."
+      },
+      es: {
+        watchAd: "Ver Anuncio", dailyCheckIn: "Registro Diario", inviteBtn: "invitar", dailyTaskProgress: "Progreso Diario", resetsDaily: "Se reinicia a las 00:00", bountyTaskTitle: "Tareas Bounty", postBtn: "PUBLICAR +", loadingTasks: "Cargando tareas...", navHome: "Inicio", navTeam: "Equipo", postTaskHeader: "Publicar Tarea ⭐", taskNameLabel: "🏷️ Nombre de la tarea", placeholderTaskName: "Ingrese el nombre de la tarea", taskUrlLabel: "💳 URL de la tarea", placeholderUrl: "Ingrese la URL de la tarea", impressionsLabel: "⣿ Impresiones", postTaskBtnText: "Publicar Tarea", balanceHeader: "Saldo", connectWalletBtn: "🔗 Conectar Billetera $GRAM", withdrawBtnText: "Retirar", settingsHeader: "⚙️ Configuración", copyBtn: "Copiar", goToX: "Ir a X", privacyPolicy: "Política de Privacidad", privacyPolicyHeader: "Política de Privacidad", gotItBtn: "Entendido", linkTask: "Enlace", noTasks: "No hay tareas activas disponibles.", allTasksCompleted: "¡Has completado todas las tareas disponibles!", withdrawTargetText: "Objetivo de Retiro #{stage}: {target} Monedas", claimed: "Reclamado ✓", claimBtnText: "Reclamar", verifyingText: "Verificando...", teamHeader: "¡Crea un equipo y gana más!", teamLv1Title: "Miembros invitados por ti", teamLv1Desc: "Nv1: Obtén 5% de bono", teamLv2Title: "Invitados por miembros Nv.1", teamLv2Desc: "Nv.2: Obtén 3% de bono", teamLv3Title: "Invitados por miembros Nv.2", teamLv3Desc: "Nv.3: Obtén 1% de bono", inviteMembersBtn: "Invitar Miembros",
+        alertSyncing: "Espere, sincronizando datos...", alertAdSuccess: "¡Éxito! ¡Ganaste 50,000 Puntos!", alertAdFail: "¡Debes ver el anuncio completo!", alertAdLoading: "Cargando red de anuncios...", alertCheckinClaimed: "¡Ya reclamaste el bono diario!", alertCheckinSuccess: "¡Registro diario exitoso! +100 Puntos", alertInvalidUrl: "Ingrese una URL válida", alertInsufficientPoints: "Saldo insuficiente. Necesita {cost} Puntos.", alertPaymentInitiating: "Iniciando transferencia de {amount} $GRAM...", alertPaymentSuccess: "¡Pago exitoso! Tarea publicada.", alertPaymentFailed: "Transacción cancelada.", alertSendGramPrompt: "Envía {amount} $GRAM a:\n\n{wallet}", alertAddressCopied: "¡Dirección copiada!", alertStarsInvoice: "Factura de Stars: {stars} ⭐", alertTaskPosted: "¡Tarea publicada con éxito!", alertTaskFailed: "Error al publicar la tarea.", alertDailyLimit: "¡Límite diario alcanzado ({limit} tareas/día)! ¡Invita a amigos para desbloquear más!", alertTaskCompleted: "¡Tarea completada! +{amount} Puntos", alertConnectWalletFirst: "¡Conecte su billetera $GRAM primero!", alertInsufficientWithdraw: "Saldo insuficiente para retiro #{stage}.", alertWithdrawSuccess: "¡Retiro #{stage} solicitado con éxito!", alertReferralCopied: "¡Enlace de referido copiado!", alertIdCopied: "ID de Telegram copiado: {id}", alertWalletLoading: "Cargando SDK de billetera..."
+      },
+      pt: {
+        watchAd: "Assistir Anúncio", dailyCheckIn: "Check-in Diário", inviteBtn: "convidar", dailyTaskProgress: "Progresso Diário", resetsDaily: "Reinicia diariamente às 00:00", bountyTaskTitle: "Tarefas Bounty", postBtn: "POSTAR +", loadingTasks: "Carregando tarefas...", navHome: "Início", navTeam: "Equipe", postTaskHeader: "Postar Tarefa ⭐", taskNameLabel: "🏷️ Nome da tarefa", placeholderTaskName: "Digite o nome da tarefa", taskUrlLabel: "💳 URL da tarefa", placeholderUrl: "Insira a URL da tarefa", impressionsLabel: "⣿ Impressões", postTaskBtnText: "Postar Tarefa", balanceHeader: "Saldo", connectWalletBtn: "🔗 Conectar Carteira $GRAM", withdrawBtnText: "Sacar", settingsHeader: "⚙️ Configurações", copyBtn: "Copiar", goToX: "Ir para o X", privacyPolicy: "Política de Privacidade", privacyPolicyHeader: "Política de Privacidade", gotItBtn: "Entendido", linkTask: "Link da Tarefa", noTasks: "Nenhuma tarefa ativa no momento.", allTasksCompleted: "Você concluiu todas as tarefas!", withdrawTargetText: "Meta de Saque #{stage}: {target} Moedas", claimed: "Resgatado ✓", claimBtnText: "Resgatar", verifyingText: "Verificando...", teamHeader: "Crie uma equipe, ganhe mais!", teamLv1Title: "Membros convidados", teamLv1Desc: "Nv1: Ganhe 5% de bônus", teamLv2Title: "Convidados por Nv.1", teamLv2Desc: "Nv.2: Ganhe 3% de bônus", teamLv3Title: "Convidados por Nv.2", teamLv3Desc: "Nv.3: Ganhe 1% de bônus", inviteMembersBtn: "Convidar Membros",
+        alertSyncing: "Aguarde, sincronizando...", alertAdSuccess: "Sucesso! Ganhou 50.000 pontos!", alertAdFail: "Assista ao anúncio completo!", alertAdLoading: "Carregando anúncios...", alertCheckinClaimed: "Bônus diário já resgatado!", alertCheckinSuccess: "Check-in bem-sucedido! +100 Pontos", alertInvalidUrl: "Insira uma URL válida", alertInsufficientPoints: "Saldo insuficiente! Precisa de {cost} pontos.", alertPaymentInitiating: "Iniciando transferência de {amount} $GRAM...", alertPaymentSuccess: "Pagamento bem-sucedido!", alertPaymentFailed: "Transação cancelada.", alertSendGramPrompt: "Envie {amount} $GRAM para:\n\n{wallet}", alertAddressCopied: "Endereço copiado!", alertStarsInvoice: "Fatura Stars: {stars} ⭐", alertTaskPosted: "Tarefa postada com sucesso!", alertTaskFailed: "Falha ao postar tarefa.", alertDailyLimit: "Limite diário atingido ({limit} tarefas/dia)! Convide amigos para desbloquear mais!", alertTaskCompleted: "Tarefa concluída! +{amount} Pontos", alertConnectWalletFirst: "Conecte sua carteira $GRAM primeiro!", alertInsufficientWithdraw: "Saldo insuficiente para saque #{stage}.", alertWithdrawSuccess: "Saque #{stage} solicitado com sucesso!", alertReferralCopied: "Link copiado!", alertIdCopied: "ID copiado: {id}", alertWalletLoading: "Carregando carteira..."
+      }
+    };
+
+    function getTrans(key, params = {}) {
+      let text = (translations[currentLang] && translations[currentLang][key]) || translations['en'][key] || key;
+      Object.keys(params).forEach(p => {
+        text = text.replace(new RegExp(`\\{${p}\\}`, 'g'), params[p]);
+      });
+      return text;
+    }
+
+    function applyLanguage(langCode) {
+      currentLang = langCode in translations ? langCode : 'en';
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        el.innerText = getTrans(el.getAttribute('data-i18n'));
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        el.placeholder = getTrans(el.getAttribute('data-i18n-placeholder'));
+      });
+      document.dir = (currentLang === 'ur') ? 'rtl' : 'ltr';
+      updateUI();
+      renderBountyTasks();
+    }
+
+    document.getElementById('language-select').addEventListener('change', (e) => {
+      applyLanguage(e.target.value);
+    });
+
+    function saveUserDataToFirebase() {
+      if (!isDataLoaded || !userId || userId === "guest_user") return;
+
+      if (firebase.apps.length) {
+        const today = getTodayString();
+        firebase.database().ref('users/' + userId).update({
+          coins: userCoins,
+          withdrawals: completedWithdrawals,
+          dailyTasks: dailyTasksCompleted,
+          lastTaskDate: lastTaskDate || today,
+          lastCheckIn: lastCheckInDate,
+          photoUrl: userPhotoUrl,
+          completedTasks: userCompletedTasks,
+          walletAddress: connectedWalletAddress,
+          referralCount: userReferralCount,
+          adsWatchedToday: adsWatchedToday,
+          totalCheckIns: totalCheckIns,
+          lastAdWatchDate: lastAdWatchDate || today,
+          referredBy: userReferredBy || null
+        });
+      }
+    }
+
+    function loadUserDataFromFirebase() {
+      if (firebase.apps.length && userId && userId !== "guest_user") {
+        firebase.database().ref('users/' + userId).once('value').then((snapshot) => {
+          const data = snapshot.val();
+          const today = getTodayString();
+          const incomingReferrer = getIncomingReferrerId();
+
+          if (data) {
+            userCoins = data.coins || 0;
+            completedWithdrawals = data.withdrawals || 0;
+            lastCheckInDate = data.lastCheckIn || "";
+            lastTaskDate = data.lastTaskDate || today;
+            userCompletedTasks = data.completedTasks || {};
+            connectedWalletAddress = data.walletAddress || "";
+            userReferralCount = data.referralCount || 0;
+            totalCheckIns = data.totalCheckIns || 0;
+            lastAdWatchDate = data.lastAdWatchDate || today;
+            userReferredBy = data.referredBy || null;
+
+            if (lastAdWatchDate !== today) {
+              adsWatchedToday = 0;
+              lastAdWatchDate = today;
+            } else {
+              adsWatchedToday = data.adsWatchedToday || 0;
+            }
+
+            if (lastTaskDate !== today) {
+              dailyTasksCompleted = 0;
+              lastTaskDate = today;
+              firebase.database().ref('users/' + userId).update({
+                dailyTasks: 0,
+                lastTaskDate: today,
+                adsWatchedToday: adsWatchedToday,
+                lastAdWatchDate: today
+              });
+            } else {
+              dailyTasksCompleted = data.dailyTasks || 0;
+            }
+
+            if (!userReferredBy && incomingReferrer && incomingReferrer !== userId) {
+              processReferralReward(incomingReferrer, userName);
+            }
+
+          } else {
+            // BRAND NEW USER
+            lastTaskDate = today;
+            dailyTasksCompleted = 0;
+            userCompletedTasks = {};
+            userReferralCount = 0;
+            adsWatchedToday = 0;
+            totalCheckIns = 0;
+            lastAdWatchDate = today;
+            userReferredBy = incomingReferrer && incomingReferrer !== userId ? incomingReferrer : null;
+
+            saveUserDataToFirebase();
+
+            if (incomingReferrer && incomingReferrer !== userId) {
+              processReferralReward(incomingReferrer, userName);
+            }
+          }
+
+          isDataLoaded = true;
+          updateUI();
+          renderBountyTasks();
+        }).catch((err) => {
+          console.error("Firebase error:", err);
+          isDataLoaded = true;
+          updateUI();
+        });
+      } else {
+        isDataLoaded = true;
+        updateUI();
+      }
+    }
+
+    renderGoldCoins();
     updateUI();
+    loadUserDataFromFirebase();
+    loadBountyTasksFromFirebase();
   </script>
 </body>
 </html>
